@@ -1,0 +1,179 @@
+{
+ "title": "Genetic Analysis of Advanced Glycation End Products in the DHS MIND Study",
+ "abbreviations": {
+  "DHS": "Diabetes heart study",
+  "AGE": "Advanced Glycation end product",
+  "ELISA": "Enzyme linked immunosorbant assay",
+  "T2D": "Type 2 diabetes",
+  "SNP": "Single nucleotide polymorphism",
+  "GWAS": "Genome Wide Association Study",
+  "eGFR": "Estimated glomerular filtration rate",
+  "HbA1c": "Glycosylated hemogobin",
+  "SOLAR": "Sequential Oligogenic Linkage Analysis",
+  "BMI": "Body mass index",
+  "CVD": "Cardiovascular disease",
+  "RAGE": "Receptor of advanced glycation end products"
+ },
+ "paragraphs": [
+  {
+   "section_heading": "Abstract",
+   "subsection_heading": "Abstract",
+   "body": "Advanced glycation end-products (AGEs) are a diverse group of molecules produced by the non-enzymatic addition of glucose to proteins, lipids, and nucleic acids. AGE levels have been associated with hyperglycemia and diabetic complications, especially in animal models, but less clearly in human studies. We measured total serum AGEs using an enzyme linked immunosorbant assay (ELISA) in 506 subjects from 246 families in the Diabetes Heart Study (DHS)/DHS MIND Study (n= 399 type 2 diabetes(T2D)-affected). Single nucleotide polymorphisms (SNPs) in several candidate genes, including known AGE receptors, were tested for their influence on circulating AGE levels. The genetic analysis was expanded to include an exploratory genome-wide association study (GWAS) and exome chip analysis of AGEs (≈440,000 SNPs). AGEs were found to be highly heritable (h_2  = 0.628, p=8.96×10-10). While no SNPs from candidate genes were significantly associated after Bonferroni correction, rs1035798 in the gene AGER  was the most significantly associated (p=0.007). Additionally, rs7198427, in MT1A , showed a nominally significant p-value (p=0.0099). No SNPs from the GWAS or exome studies were identified after correction for multiple comparisons; however, rs17054480 in the PALLD2 gene on chromosome 4 showed the strongest association (p=7.77×10_−7 ). Five SNPs at two loci (ISCA2/NPC2  and FBXO33 ) had p-values of less than 2.0×10_−5  and three additional SNPs (rs716326 in MACROD2 , and rs6795197 and rs6765857 in ZBTB38 ) showed a nominal association with p-values of less than 1.0×10_−5 . These findings provide a foundation for further investigation into the genetic component of circulating AGEs.",
+   "IAO_term": [
+    "textual abstract section"
+   ]
+  },
+  {
+   "section_heading": "Introduction",
+   "subsection_heading": "Introduction",
+   "body": "Advanced glycation end products (AGEs) are a diverse, heterogenous class of molecules, formed through the non-enzymatic glycation and oxidation of proteins, lipids, and nucleic acids. AGEs have been implicated in a wide range of diseases and phenotypes and are a major pathway of interest in complications of type 2 diabetes (T2D) []. AGE formation is accelerated in T2D- Affected individuals due to increased concentration of circulating glucose []. Previous investigations in diabetic cohorts have associated AGEs with cardiovascular outcomes [], diabetic nephropathy [], retinopathy [], and neuropathy []. In addition, AGEs have been shown to be associated with a number of clinical measures and behaviors including estimated glomerular filtration rate (eGFR) [], soluble vascular cell adhesion molecule 1 [van Eupen, et al. 2013], body mass index (BMI), and smoking [-].",
+   "IAO_term": [
+    "introduction section"
+   ]
+  },
+  {
+   "section_heading": "Introduction",
+   "subsection_heading": "Introduction",
+   "body": "While there are numerous association studies investigating the relationship between AGE levels and diabetic complications, there are relatively few prior studies investigating the genetics influencing AGE levels. AGEs were previously reported to be heritable [] and, in addition, single nucleotide polymorphisms (SNPs) in AGER  (RAGE; Receptor for Advanced Glycation End Products) and MT1A  (Metallothionein-1A) were observed to be associated with AGE levels [-]. However, there are additional AGE receptors that represent potential candidates for genetic analyses, including AGE-R1 (Oligosaccharyl Transferase-48), AGE-R2 (PRKCSH protein kinase C substrate 80K-H), AGE-R3/ Galectin-3, and SR-A (macrophage scavenger receptors type I and type II). We have evaluated heritability of AGEs and then conducted genetic association analyses with AGE levels in the Diabetes Heart Study (DHS)/DHS Mind Study cohort, an ongoing genetic and epidemiological analysis of families enriched for type 2 diabetes with extensive genetic data [, ].",
+   "IAO_term": [
+    "introduction section"
+   ]
+  },
+  {
+   "section_heading": "Materials and Methods",
+   "subsection_heading": "Materials and Methods",
+   "body": "The DHS is a family-based study examining risk for macrovascular and other complications in T2D. Briefly, the DHS includes siblings concordant for T2D but without advanced renal insufficiency. When possible, unaffected siblings were also recruited. T2D was clinically defined as diabetes developing after the age of 35 years and initially treated with oral agents and/or diet and exercise, in the absence of historical evidence of ketoacidosis. Diagnoses were confirmed by measurement of fasting blood glucose and glycosylated hemoglobin (HbA1c). Extensive measurements of cardiovascular disease (CVD) risk factors were obtained during baseline exams, which occurred from 1998 to 2006. Ascertainment and recruitment have been previously described in detail [, ].",
+   "IAO_term": [
+    "materials section",
+    "methods section"
+   ]
+  },
+  {
+   "section_heading": "Materials and Methods",
+   "subsection_heading": "Materials and Methods",
+   "body": "The DHS MIND is an ancillary study to the DHS that included a cognitive testing component and brain magnetic resonance imaging (MRI). The purpose was to investigate the relationships between cognitive function, brain imaging, and vascular disease in T2D. Participants from the original DHS investigation were re-examined on average 6.7 ± 1.6 years after their initial visit. Participant examinations were conducted in the General Clinical Research Center of the Wake Forest Baptist Medical Center. Study protocols were approved by the Institutional Review Board at Wake Forest School of Medicine and all study procedures were carried out in accordance with the Declaration of Helsinki. All participants provided written informed consent before participation.",
+   "IAO_term": [
+    "materials section",
+    "methods section"
+   ]
+  },
+  {
+   "section_heading": "Materials and Methods",
+   "subsection_heading": "Materials and Methods",
+   "body": "Total serum AGEs were measured using a competitive enzyme linked immunosorbant assay (ELISA) (Lifeome Biolabs; Oceanside, CA). The ELISA was run according to the manufacturer's recommendations using stored serum. The ELISA uses a monoclonal antibody that is specific to AGEs. This ELISA has a minimum detectable dose of AGEs less than 35.2 ng/ml. Intra-assay and inter-assay precision was 2.0% and 22.5%, respectively.",
+   "IAO_term": [
+    "materials section",
+    "methods section"
+   ]
+  },
+  {
+   "section_heading": "Materials and Methods",
+   "subsection_heading": "Materials and Methods",
+   "body": "Additional SNPs, predominately low-frequency and rare coding SNPs, were also captured by the Illumina HumanExome BeadChips v.1.0 (Illumina Inc., San Diego, CA) for which genotype data was available in the DHS []. For DHS exome chip data, genotype calling was completed using Genome Studio Software v1.9.4 (Illumina). Samples failing to meet a minimum acceptable call rate of 98% (n=3) were excluded from further analyses. An additional 58 samples were included as blind duplicates within the genotyping set to serve as QC samples; the concordance rate for blind duplicates was 99.9 ±0.0001% (mean± standard deviation (SD)). Exclusion criteria for SNP performance included call rate < 95% (n=972), SNPs with 5 or fewer observances (n=204,273) and Hardy-Weinberg Equilibrium (HWE) p-value <1×10_−6  (n=26); 41,961 SNPs were retained for analysis. Additional QC of exome chip data set was completed to exclude samples with poor quality genotype calls, gender errors, or unclear/unexpected sibling relationships.",
+   "IAO_term": [
+    "materials section",
+    "methods section"
+   ]
+  },
+  {
+   "section_heading": "Materials and Methods",
+   "subsection_heading": "Materials and Methods",
+   "body": "Genomic DNA was purified from whole-blood samples obtained from subjects using the PUREGENE DNA isolation kit (Gentra Systems., Minneapolis, MN). DNA was quantitated using standardized fluorometric readings on a Hoefer DyNA Quant 200 fluorometer (Hoefer Pharmacia Biotech, Inc., San Francisco, CA).",
+   "IAO_term": [
+    "materials section",
+    "methods section"
+   ]
+  },
+  {
+   "section_heading": "Materials and Methods",
+   "subsection_heading": "Materials and Methods",
+   "body": "A genome-wide association study (GWAS) was completed using the Affymetrix Genome-wide Human SNP Array 5.0 (Affymetrix, CA, USA) as reported []. Genotype calling was completed using the BRLLM-P algorithm in Genotyping Console v4.0 (Affymetrix). Samples failing to meet an intensity quality control (QC) threshold and those failing to meet a minimum acceptable call rate of 95% were excluded from further analyses (n=7). An additional 39 samples were included as blind duplicates within the genotyping set to serve as QC samples; the concordance rate for these blind duplicates was 99.0 ±0.72% (mean± SD). Exploratory analyses of genotype data were performed using PLINK v. 1.07 (http://pngu.mgh.harvard.edu/purcell/plink/) and samples with poor quality genotype calls, gender errors, or unclear/unexpected sibling relationships were excluded from further analysis. Exclusion criteria for SNP performance included call rate < 95% (n=11,085), HWE p-value < 1×10_−6  (n=332), and minor allele frequency (MAF) < 0.01 (n=57,382); 371,951 SNPs were retained for analysis.",
+   "IAO_term": [
+    "materials section",
+    "methods section"
+   ]
+  },
+  {
+   "section_heading": "Materials and Methods",
+   "subsection_heading": "Materials and Methods",
+   "body": "Heritability estimates for AGEs were assessed in 506 related individuals from 245 families that had AGE measures. The AGE measurements were natural log transformed to approximate the normality assumptions of the analysis. To determine the contribution of genetic factors to AGE levels, the data in family members were analyzed using Sequential Oligogenic Linkage Analysis Routines (SOLAR) v6.3.4 (Texas Biomedical Research Institute, San Antonio, TX, USA). SOLAR performs a variance components analysis of family data where the total phenotypic variation is partitioned into genetic and nongenetic sources of variation. This approach has been used previously in the DHS [, ]. To minimize the bias associated with shared environmental factors, the estimates of heritability (h_2 ) were based on all available family data and were controlled for covariates related to AGEs including age, gender, BMI, eGFR, T2D affected status, and smoking status (current or former). Five models were developed that incorporated an increasing number of covariates to determine the extent that genetic factors contribute to variation in AGE levels independent of other confounding variables. The first model was unadjusted. The second model was adjusted for age and gender. The third model was adjusted for age, gender, and BMI. The fourth was adjusted for age, gender, BMI, and eGFR. The fifth model was the fully adjusted model and included age, gender, BMI, eGFR, T2D-affected status, and a history of smoking. The significance of the heritability estimates was obtained by likelihood ratio tests.",
+   "IAO_term": [
+    "materials section",
+    "methods section"
+   ]
+  },
+  {
+   "section_heading": "Materials and Methods",
+   "subsection_heading": "Materials and Methods",
+   "body": "Genetic association was run using SOLAR v6.3.4 (Texas Biomedical Research Institute, San Antonio, TX) which uses variance component methods to account for family structure. AGE measures were natural log transformed prior to analysis to approximate conditional normality. Covariates used in the analysis were age, gender, BMI, T2D affected status, eGFR, and smoking history. All analyses were run using the additive model of inheritance. The Bonferroni corrected p - value for significance for the 121 candidate gene SNPs was set at 0.00041 (α=0.05/121). Similarly, the p - value for significance for the GWAS and exome chip associations was set at 1.21×10_−7  after correcting for multiple comparisons based upon the number of SNPs (413,912) investigated.",
+   "IAO_term": [
+    "materials section",
+    "methods section"
+   ]
+  },
+  {
+   "section_heading": "Results",
+   "subsection_heading": "Results",
+   "body": "Demographic characteristics of the 506 individuals included in this study are shown in . Briefly, the average age was 67 years old and just over half of the participants were female (55.3%). The individuals were on average overweight or obese with an average BMI of 31.5kg/m_2 . Approximately 79% of the individuals were affected by T2D with average diabetes duration of 16.6 years. The DHS cohort is broadly representative of T2D-affected patients in the general population: older, relatively obese, and with significant risk factors and history of CVD and kidney function decline.",
+   "IAO_term": [
+    "results section"
+   ]
+  },
+  {
+   "section_heading": "Results",
+   "subsection_heading": "Results",
+   "body": "A heritability analysis was performed on AGEs (). This analysis was run using a variety of covariates. First, with no covariates included, AGEs were not found to be heritable (h_2  =0.045 p=0.291). However, as applicable covariates were added, the heritability estimate became increasingly more significant. When age and sex were included in the analysis as covariates the h_2  increased to 0.084 (p=0.167); addition of BMI increased the heritability estimate further to 0.114 (p=0.093). After adjusting for commonly used covariates including age, sex, BMI and eGFR in model 4, heritability reached statistical significance (h_2 =0.317, p=5.75×10_−4 ). AGE levels were highly heritable in the fully adjusted model when accounting for age, gender, BMI, eGFR, T2D affected status, and current/former smoking status (h_2 =0.628, p=8.96×10_−10 ) ().",
+   "IAO_term": [
+    "results section"
+   ]
+  },
+  {
+   "section_heading": "Results",
+   "subsection_heading": "Results",
+   "body": "We performed an association analysis using 121 SNPs genotyped on the GWAS and exome chips from known AGE receptor genes including, Advanced Glycosylation End Product-Specific Receptor (AGER ), Dolichyl-Diphosphooligosaccharide-Protein Glycosyltransferase Subunit (non-catalytic) (DDOST ), Protein Kinase C substrate 80K-H (PRKCSH ), Galactoside-Binding, Soluble, 3 (LGALS3 ), and Macrophage Scavenger Receptor 1 (MSR1 ) genes. All polymorphic SNPs in the genes (± 20 kb) from the GWAS and exome chips were included in this analysis. In addition to the receptor genes, Metallothionein 1A (MT1A ) was included based upon prior literature that observed an association with AGE levels []. We did not find significant associations of any of the candidate SNPs with AGEs after adjusting for multiple comparisons (threshold p < 0.00041) (). Thirty-three SNPs had a p < 0.25 and are shown in , including 8 variants with a p < 0.05. The top SNP was rs1035798 in the AGER  gene (p=0.007). The next most significant variant was a SNP in the MT1A  gene, rs7198427 (p=0.0099). DDOST contained one SNP with a p<0.05, rs113092523. Top SNPs in other candidate genes did not reach p<0.05 (MSR1 , rs10503574, p=0.052; PRKCSH , rs17426435, p=0.054; and LGALS3 , rs11125, p=0.22).",
+   "IAO_term": [
+    "results section"
+   ]
+  },
+  {
+   "section_heading": "Results",
+   "subsection_heading": "Results",
+   "body": "No SNP reached conservative levels of statistical significance (threshold p<1.23×10_−7 ). The top results are shown in . The most significant SNPs were exonic, missense variants in the Chitinase, acidic (CHIA ) gene on chromosome 1 (rs41282492, p=4.1×10_−5 ; rs41282494, p=4.1×10_−5 ; rs41282496, p=4.1×10_−5 ) (). Three additional SNPs had p < 1.0×10_−4 ; rs10805470 (intergenic, p=4.9×10_−5 ), rs139025377 (DEAD (Asp-Glu-Ala-Asp) box polypeptide 19A [DDX19A ], p=7.4×10_−5 ), and rs147902167 (myomesin 3 [MYOM3 ], p=8.1×10_−5 ) ().  shows a Manhattan plot of the results from the exome chip analysis of AGEs.",
+   "IAO_term": [
+    "results section"
+   ]
+  },
+  {
+   "section_heading": "Results",
+   "subsection_heading": "Results",
+   "body": "There were no SNPs from the GWAS that reached statistical significance (threshold p < 1.23×10_− _7 ). The most significant SNP associated with AGE levels was rs17054480 (p=7.77×10_−7 ), an intronic SNP in the cytoskeletal associated protein (PALLD ) gene on chromosome 4 (). There were 3 SNPs with p < 1×10_−5  surrounding the Niemann-Pick disease, type C2 (NCP2 ) and iron-sulfur cluster assembly 2(ISCA2 ) genes on chromosome 14 (rs11159086, p=2.70×10_−6 ; rs4899514, p=4.18×10_−6 ; rs1029701, p=9.11×10_−6 ) (). Four additional SNPs showed nominal association with p < 1×10_−5  including rs4454866 in the F-box Protein 33 (FBXO33 ) gene (p=5.07×10_−6 ), rs716316 in the MACRO domain containing 2 (MACROD2 ) gene (p=7.53×10_−6 ), rs679597 (p=8.42×10_−6 ), and rs6765857 (p=9.32×10_−6 ) in the zinc finger and BTB domain containing 38 (ZBTB38 ) gene (). There were 52 additional SNPs that were nominally associated with a p < 1×10_−4  ().  shows a Manhattan plot of the results from the GWAS analysis of AGEs.",
+   "IAO_term": [
+    "results section"
+   ]
+  },
+  {
+   "section_heading": "Discussion",
+   "subsection_heading": "Discussion",
+   "body": "In this study we evaluated heritability and genetic association between polymorphisms in specific genes and genome wide data with AGEs in a sample with a high prevalence of diabetes. Only one other study has calculated heritability for AGE levels and that for a specific type of AGE, Nε-carboxymethyl lysine (CML) which was highly heritable (h_2  = 0.74) []. In the study, Leslie et al. observed a higher correlation of CML levels in monozygotic twins compared to dizygotic twins. Importantly, heritability of fasting glucose and HbA1c did not explain the CML heritability. The results of the current study are consistent with this; in the fully adjusted model we showed that circulating AGE levels are highly heritable (h_2  = 0.628), suggesting that there is a substantial genetic component to not just CML levels, but also total AGEs quantitated by ELISA.",
+   "IAO_term": [
+    "discussion section"
+   ]
+  },
+  {
+   "section_heading": "Discussion",
+   "subsection_heading": "Discussion",
+   "body": "Further studies need to be performed to investigate AGEs in more depth. This study investigated global AGE levels; however, AGEs are a diverse set of molecules. Directly measuring these individual molecules may lead to an increased understanding of AGE genetics. In conclusion, we found that AGEs are a highly heritable trait, but were unable to identify any specific genetic components of circulating AGE levels. We saw nominal associations between SNPs in candidate genes and AGE levels, but no SNP from either the GWAS or exome chip reached statistical significance. Additional studies with increased sample size and using a more sophisticated measure of AGEs may yield stronger results.",
+   "IAO_term": [
+    "discussion section"
+   ]
+  },
+  {
+   "section_heading": "Footnotes",
+   "subsection_heading": "Footnotes",
+   "body": "Publisher's Disclaimer: This is a PDF file of an unedited manuscript that has been accepted for publication. As a service to our customers we are providing this early version of the manuscript. The manuscript will undergo copyediting, typesetting, and review of the resulting proof before it is published in its final citable form. Please note that during the production process errors may be discovered which could affect the content, and all legal disclaimers that apply to the journal pertain.",
+   "IAO_term": [
+    "footnote section"
+   ]
+  }
+ ]
+}
