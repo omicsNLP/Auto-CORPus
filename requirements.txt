@@ -1,5 +1,4 @@
 attrs==21.2.0
-autoCORPus @ file:///home/ts329/PycharmProjects/autoCORPus
 beautifulsoup4==4.9.3
 click==8.0.1
 decorator==4.4.2
