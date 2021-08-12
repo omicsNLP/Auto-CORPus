@@ -312,7 +312,7 @@ class abbreviations:
 		return pairs
 
 
-	def __get_abbreviations(self, main_text):
+	def __get_abbreviations(self, main_text, soup, config):
 		paragraphs = main_text['paragraphs']
 		all_abbreviations = {}
 		for paragraph in paragraphs:
@@ -320,8 +320,21 @@ class abbreviations:
 			pairs = self.__extract_abbreviation(maintext)
 			all_abbreviations.update(pairs)
 
-		additional_abbreviations = all_abbreviations
-		author_provided_abbreviations = read_abbreviations_table(main_text)
+
+		abbreviations_table = soup.find(
+			config['abbreviations_table']['name'], config['abbreviations_table']['attrs'])
+		abbreviations = {}
+		for tr in abbreviations_table.find_all('tr'):
+			short_form, long_form = [td.get_text() for td in tr.find_all('td')]
+			abbreviations[short_form] = long_form
+
+		author_provided_abbreviations = abbreviations
+		additional_abbreviations = {}
+		lc_author_keys = [x.lower() for x in author_provided_abbreviations.keys()]
+		for key in all_abbreviations.keys():
+			if key.lower() not in lc_author_keys:
+				additional_abbreviations[key] = all_abbreviations[key]
+
 		all_abbreviations.update(author_provided_abbreviations)
 
 		abbrev_json = {}
@@ -330,11 +343,11 @@ class abbreviations:
 		abbrev_json['all_abbreviations'] = all_abbreviations
 		return abbrev_json
 
-	def __init__(self, main_text):
+	def __init__(self, main_text, soup, config):
 		logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 		self.log = logging.getLogger(__name__)
 
-		self.abbreviations = self.__get_abbreviations(main_text)
+		self.abbreviations = self.__get_abbreviations(main_text, soup, config)
 		pass
 
 	def to_dict(self):

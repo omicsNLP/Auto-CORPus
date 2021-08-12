@@ -193,19 +193,6 @@ class autoCORPus:
 			h1 = ''
 		result['title'] = h1
 
-		# Extract abbreviations table
-		#TODO : all of this abbreviation stuff can be moved out
-		try:
-			abbreviations_table = soup.find(
-				config['abbreviations_table']['name'], config['abbreviations_table']['attrs'])
-			abbreviations = {}
-			for tr in abbreviations_table.find_all('tr'):
-				short_form, long_form = [td.get_text() for td in tr.find_all('td')]
-				abbreviations[short_form] = long_form
-		except:
-			abbreviations = ''
-		result['abbreviations'] = abbreviations
-
 		maintext = []
 		sections = soup.find_all(config['body']['name'], config['body']['attrs'])
 		for p in sections:
@@ -275,7 +262,7 @@ class autoCORPus:
 		self.main_text = read_maintext_json(self.__extract_text(self.soup, self.config))
 		# TODO: incorporate the below line into the above
 		self.__add_IAO_ids()
-		self.abbreviations = abbreviations(self.main_text).to_dict()
+		self.abbreviations = abbreviations(self.main_text, self.soup, self.config).to_dict()
 		self.tables = table(self.soup, self.config).to_dict()
 		image_path = os.path.join(self.file_path, 'image')
 		if os.path.isdir(image_path):
