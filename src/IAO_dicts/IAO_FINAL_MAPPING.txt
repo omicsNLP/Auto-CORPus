@@ -1,0 +1,250 @@
+abbreviation and acronyms	abbreviations section
+abbreviation list	abbreviations section
+abbreviations	abbreviations section
+abbreviations and acronyms	abbreviations section
+abbreviations list	abbreviations section
+abbreviations used	abbreviations section
+abbreviations used in this paper	abbreviations section
+abstract	textual abstract section
+accession numbers	
+acknowledgement	acknowledgements section
+acknowledgements	acknowledgements section
+acknowledgment	acknowledgements section
+acknowledgments	acknowledgements section
+acknowledgments and disclaimer	acknowledgements section
+acknowledgments and funding	acknowledgements section / funding source declaration section
+addendum	supplementary material section
+additional file	supplementary material section
+additional files	supplementary material section
+additional information	supplementary material section
+additional information and declarations	supplementary material section
+additional information and declarations	supplementary material section
+additional points	supplementary material section
+analytical methods	methods section
+appendix	supplementary material section
+appendix a	supplementary material section
+appendix a.  supplementary data	supplementary material section
+appendix a. supplementary data	supplementary material section
+appendix. authors	supplementary material section
+article highlights	highlights section
+article information	
+associated data	associated data section
+author contribution (in alphabetic order)	author contributions section
+author contributions	author contributions section
+author disclosure statement	disclosure section
+author present address	author information section
+author summary	
+authors contributions	author contributions section
+authors' contribution	author contributions section
+authors' contributions	author contributions section
+authors' disclosures of potential conflicts of interest	conflict of interest section
+authors' information	author information section
+authors’ contribution	author contributions section
+authors’ contributions	author contributions section
+authors’ information	author information section
+authors’ roles	author contributions section
+authorship	author information section
+availability of data and materials	availability section
+background	introduction section
+background and summary	textual abstract section
+biographies	author information section
+central illustration	highlights section
+clinical applicability	
+comment	
+comments	
+competing financial interests	conflict of interest section
+competing interests	conflict of interest section
+compliance with ethical standards	ethical approval section
+concise methods	methods section
+concluding remarks	conclusion section
+conclusion	conclusion section
+conclusion and perspectives	conclusion section
+conclusions	conclusion section
+conclusions and expert recommendations	conclusion section
+conclusions and future directions	conclusion section / future directions section
+conflict of interest	conflict of interest section
+conflict of interest statement	conflict of interest section
+conflict of interests	conflict of interest section
+conflicts of interest	conflict of interest section
+consent for publication	
+consortia	funding source declaration section
+contributor information	author information section
+contributorship	author contributions section
+data	materials section
+data analysis	statistical analysis section
+data and methods	methods section / materials section 
+data archiving	availability section
+data availability	availability section
+data availability and accession code availability	availability section
+data availability statement	availability section
+data citations	availability section
+data description	availability section
+data records	availability section
+data sharing statement	availability section
+declaration of competing interest	conflict of interest section
+declaration of interest	conflict of interest section
+declaration of interests	conflict of interest section
+declarations	disclosure section
+definitions for abbreviations	abbreviations section
+detailed methods	methods section
+disclaimer	acknowledgements section
+disclosure	disclosure section
+disclosure of conflict of interest	conflict of interest section
+disclosure of potential conflicts of interest	conflict of interest section
+disclosure statement	disclosure section
+disclosures	disclosure section
+discussion	discussion section
+discussion and conclusions	discussion section / conclusion section
+discussions	discussion section
+duality of interest	conflict of interest section
+editor summary	textual abstract section
+electronic supplementary material	supplementary material section
+electronic supplementary materials	supplementary material section
+ethical approval	ethical approval section
+ethical requirements	ethical approval section
+ethics	ethical approval section
+ethics approval and consent to participate	ethical approval section
+ethics statement	ethical approval section
+etoc	textual abstract section
+etoc blurb	textual abstract section
+experimental	methods section
+experimental design	methods section / materials section
+experimental methods	methods section
+experimental procedures	methods section
+experimental section	methods section
+extented data	supplementary material section
+figures and tables	supplementary material section
+financial support	funding source declaration section
+footnotes	footnote section
+formats:	
+full text	
+funding	funding source declaration section
+funding and disclosure	funding source declaration section / conflict of interest section
+funding information	funding source declaration section
+funding statement	funding source declaration section
+funding summary and acknowledgments	funding source declaration section / acknowledgements section
+future directions and conclusions	conclusion section / future directions section
+glossary	abbreviations section
+grants	funding source declaration section
+graphical abstract	graphical abstract section
+highlights	highlights section
+informed consent	consent section
+introduction	introduction section
+introductory paragraph	introduction section
+key abbreviations	abbreviations section
+key messages	highlights section
+key points	highlights section
+limitations	
+list of abbreviations	abbreviations section
+literature cited	references section
+main authors by consortium and author contributions	author contributions section
+main text	introduction section
+material and method	materials section / methods section
+material and methods	materials section/ methods section
+material and methods sample collection and reagents	materials section/ methods section
+materials	materials section
+materials & methods	materials section/ methods section
+materials and method	materials section/ methods section
+materials and methods	materials section/ methods section
+method	methods section
+method validation	methods section
+methodology	methods section
+methods	methods section
+methods and design	methods section
+methods and materials	methods section / materials section
+methods and procedures	methods section
+methods and tools	methods section
+methods only references	references section
+methods summary	methods section
+methods-only references	references section
+methods/design	methods section
+non-standard abbreviations	abbreviations section
+nonstandard abbreviations	abbreviations section
+nonstandard abbreviations and acronyms	abbreviations section
+notes	notes section
+nutritional status	
+one sentence summary	highlights section
+online content	supplementary material section
+online methods	methods section
+online methods references	references section
+outlook	future directions section
+overview	introduction section
+participant and methods	methods section
+participant and methods	participants section
+participants	participants section
+participants and methods	methods section
+participants and methods	participants section / methods section
+patents	
+patient and methods	patients section / methods section
+patient consent for publication	patients section
+patient selection	participants section
+patients and methods	patients section / methods section
+perspectives	conclusion section
+power calculation	statistical analysis section
+pre-publication history	pre-publication history section
+precis	textual abstract section
+publisher’s note	notes section
+reference	references section
+reference list	references section
+references	references section
+references and notes	references section / notes section
+research design and methods	methods section
+research in context	textual abstract section
+research involving human participants	ethical approval section
+result and discussion	results section / discussion section
+results	results section
+results and discussion	results section / discussion section
+role of the funding source	funding source declaration section 
+role of the study sponsor	funding source declaration section 
+sample & methods	materials section / methods section
+selected references	references section
+share	
+significance	highlights section
+significance statement	highlights section
+simple ncbi directory	
+sources of funding	funding source declaration section
+star methods	methods section
+statement of interest	conflict of interest section
+statistical analysis	statistical analysis section
+statistical methods	statistical analysis section
+statistical methods and analysis	statistical analysis section
+statistics	statistical analysis section
+strengths and limitations	highlights section
+study design	methods section
+study design and methods	methods section 
+study funding	funding source declaration section
+study groups and methods	materials section / methods section
+study highlights	highlights section
+study limitations	
+study population	participants section
+study population and methods	participants section / methods section
+study strengths and limitations	highlights section
+subjects and methods	methods section
+subjects	participants section
+summary	conclusion section
+summary and conclusion	conclusion section
+supplemental data	supplementary material section
+supplemental information	supplementary material section
+supplemental material	supplementary material section
+supplementary data	supplementary material section
+supplementary figures and tables	supplementary material section
+supplementary files	supplementary material section
+supplementary information	supplementary material section
+supplementary material	supplementary material section
+supplementary material 1.	supplementary material section
+supplementary materials	supplementary material section
+supplementary materials figures	supplementary material section
+supplementary materials figures and tables	supplementary material section
+supplementary materials table	supplementary material section
+supplementary materials tables	supplementary material section
+supporting information	supplementary material section
+supporting information available	supplementary material section
+toc	textual abstract section
+toc image	
+toc image	graphical abstract section
+transparency document	availability section
+urls	
+version changes	
+visual abstract	graphical abstract section
+web resources	
+web site references	references section
