@@ -1,10 +1,10 @@
-git clone repo
+$ git clone https://github.com/Tom-Shorter/autoCORPus.git
 
-cd into repo
+$ cd autoCORPus
 
-python3 -m venv env
+$ python3 -m venv env
 
-source venv/bin/activate
+$ source venv/bin/activate
 
 $ pip install .
 
