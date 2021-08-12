@@ -8,6 +8,8 @@ $ source env/bin/activate
 
 $ pip install .
 
+You might get an error here `ModuleNotFoundError: No module named 'skbuild'` if you do then run $ pip install --upgrade pip first
+
 Run the below command for a single file example
 
 $ python run_app.py -c "configs/config_pmc.json" -t "output" -f "Tutorial/PMC4827154.html" 
@@ -15,3 +17,5 @@ $ python run_app.py -c "configs/config_pmc.json" -t "output" -f "Tutorial/PMC482
 run the below command for a directory of files example
 
 $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "pathTest" 
+
+
