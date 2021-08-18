@@ -14,10 +14,24 @@
         "name":"h3",
         "attrs":{"class":null}
     },
-    "body":
+    "sections":
     {
         "name":"div",
+        "attrs":{"class":"tsec"}
+    },
+    "subsections": {
+        "name":"div",
         "attrs":{"class":"sec"}
+    },
+    "paragraphs": {
+        "name": "p",
+        "regex":[
+            {
+                "attrs": "id",
+                "regex": "^P\\d+$"
+            }
+        ]
+
     },
     "table":
     {

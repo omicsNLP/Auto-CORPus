@@ -14,6 +14,7 @@ import logging
 from src.abbreviation import abbreviations
 from src.table import table
 from src.table_image import table_image
+from src.bioc_formatter import BiocFormatter
 
 def handle_path(func):
 	def inner_function(*args, **kwargs):
@@ -134,17 +135,10 @@ class autoCORPus:
 		# Remove duplicated contents from the 'result' output of extract_text()
 
 		# Identify unique section headings and the index of their first appearance
-		section_unique = []
 		idx_section = []
-		section_headings = [i['section_heading'] for i in result['paragraphs']]
-		i = 0
-		for heading in section_headings:
-			if heading not in section_unique:
-				section_unique.append(heading)
-				idx_section.append(i)
-			i += 1
+		section_headings = set([i['section_heading'] for i in result['paragraphs']])
 
-		for i in range(len(section_unique)):
+		for i in range(len(section_headings)):
 			try:
 				if idx_section[i+1]-idx_section[i] <= 1:  # if only one subsection
 					continue
@@ -165,8 +159,8 @@ class autoCORPus:
 				if result['paragraphs'][idx_subsection]['subsection_heading'] == result['paragraphs'][idx_section[i]]['subsection_heading']:
 					result['paragraphs'][idx_section[i]]['subsection_heading'] = ''
 
-		result['paragraphs'] = [
-			p for p in result['paragraphs'] if p['body'].replace('Go to:', '').strip() != '']
+		# result['paragraphs'] = [
+		# 	p for p in result['paragraphs'] if p['body'].replace('Go to:', '').strip() != '']
 		return result
 
 
@@ -194,38 +188,14 @@ class autoCORPus:
 		result['title'] = h1
 
 		maintext = []
-		sections = soup.find_all(config['body']['name'], config['body']['attrs'])
-		for p in sections:
-			paragraph = {}
-			h2_select_tag = config['heading']['name']
-			h2_select_tag += ''.join(['[{}*={}]'.format(k, config['heading']['attrs'][k])
-			                          for k in config['heading']['attrs'] if config['heading']['attrs'][k]])
-
-			h3_select_tag = config['heading2']['name']
-			h3_select_tag += ''.join(['[{}*={}]'.format(k, config['heading2']['attrs'][k])
-			                          for k in config['heading2']['attrs'] if config['heading2']['attrs'][k]])
-
-			_h2 = p.select(h2_select_tag)
-			if _h2:
-				h2 = _h2[0].get_text().strip('\n')
-
-			h3 = p.select(h3_select_tag)
-
-			if h3:
-				h3 = h3[0].get_text().strip('\n')
-			else:
-				h3 = ''
-			try:
-				paragraph['section_heading'] = h2
-			except UnboundLocalError:
-				paragraph['section_heading'] = ''
-			paragraph['subsection_heading'] = h3
-			paragraph['body'] = ' '.join([i.get_text()
-			                              for i in p.select(body_select_tag)])
-			maintext.append(paragraph)
-
-		result['paragraphs'] = maintext
-		return self.__clean_text(result)
+		sections = soup.find_all(config['sections']['name'], config['sections']['attrs'])
+		for sec in sections:
+			maintext.extend(section(config, sec).to_dict())
+		filteredText = []
+		[[filteredText.append(x) for x in maintext if x]]
+		result['paragraphs'] = filteredText
+		return result
+		# return self.__clean_text(result)
 
 	def __add_IAO_ids(self):
 		paper = {}
@@ -256,6 +226,7 @@ class autoCORPus:
 		self.main_text['paragraphs'] = paragraphs
 
 	def __init__(self, config_path, file_path, associated_data_path=None):
+		self.file_name = file_path
 		self.text, self.file_path = self.__import_file(file_path)
 		self.config=self.__read_config(config_path)
 		self.soup = self.__soupify_infile()
@@ -267,6 +238,7 @@ class autoCORPus:
 		image_path = os.path.join(self.file_path, 'image')
 		if os.path.isdir(image_path):
 			self.table_images = table_image(self.config, image_path)
+		self.to_bioc()
 		pass
 
 	def to_json(self):
@@ -283,6 +255,10 @@ class autoCORPus:
 			json.dump(self.tables,outfile,ensure_ascii=False, indent=2)
 		with open(f"{target_dir}/abbreviations/{file_name}_abbreviations.json", "w") as outfile:
 			json.dump(self.abbreviations,outfile,ensure_ascii=False, indent=2)
+
+	def to_bioc(self):
+		with open("test.testfile", "w") as outfile:
+			outfile.write(BiocFormatter(self).to_json(2))
 
 
 if __name__ == "__main__":
@@ -302,4 +278,4 @@ if __name__ == "__main__":
 	config_path = args.config
 
 
-	autoCORPus(config_path, filepath, target_dir)
+	autoCORPus(config_path, filepath, target_dir).to_file(target_dir)

@@ -1,9 +1,6 @@
 import os
 import re
-from bs4 import BeautifulSoup
-import json
 import nltk
-# import fuzz
 import networkx as nx
 from fuzzywuzzy import fuzz
 
