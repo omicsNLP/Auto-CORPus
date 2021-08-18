@@ -4,6 +4,10 @@
         "name":"h1",
         "attrs":{"class":["content-title"]}
     },
+    "keywords": {
+        "name": "span",
+        "attrs": {"class": ["kwd-text"]}
+    },
     "heading":
     {
         "name":"h2",

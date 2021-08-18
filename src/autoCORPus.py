@@ -121,6 +121,11 @@ class autoCORPus:
 
 	def __clean_text(self, result):
 		'''
+		Tom's note
+
+		This is no longer used, no need for it from what I can see but will leave it in just incase.
+
+
 		clean the main text body output of extract_text() further as follows:
 			remove duplicated texts from each section (assuming the text from html file has hierarchy up to h3, i.e. no subsubsections);
 			remove items with empty bodies
@@ -164,6 +169,17 @@ class autoCORPus:
 		return result
 
 
+	def __get_keywords(self, soup, config):
+
+		keywordSection = {
+			"section_heading": "keywords",
+			"subsection_heading": "",
+			"body": soup.find(config["keywords"]["name"], config["keywords"]["attrs"]).get_text()
+		}
+
+
+		return [keywordSection]
+
 	def __extract_text(self, soup, config):
 		"""
 		convert beautiful soup object into a python dict object with cleaned main text body
@@ -187,7 +203,9 @@ class autoCORPus:
 			h1 = ''
 		result['title'] = h1
 
-		maintext = []
+		maintext = self.__get_keywords(soup, config)
+
+		# maintext = []
 		sections = soup.find_all(config['sections']['name'], config['sections']['attrs'])
 		for sec in sections:
 			maintext.extend(section(config, sec).to_dict())
