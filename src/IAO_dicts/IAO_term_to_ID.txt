@@ -1,37 +1,37 @@
-textual abstract section	IAO_0000315
-graphical abstract section	IAO_0000315
-introduction section	IAO_0000316
-methods section	IAO_0000317
-results section	IAO_0000318
-discussion section	IAO_0000319
-references section	IAO_0000320
-author list	IAO_0000321
-institution list	IAO_0000322
-author contributions section	IAO_0000323
-acknowledgements section	IAO_0000324
-footnote section	IAO_0000325
-supplementary material section	IAO_0000326
-copyright section	IAO_0000330
-abbreviations section	IAO_0000606
-author information section	IAO_0000607
-author summary section	IAO_0000609
-availability section	IAO_0000611
-case report section	IAO_0000613
-conclusion section	IAO_0000615
-conflict of interest section	IAO_0000616
-consent section	IAO_0000618
-ethical approval section	IAO_0000620
-figures section	IAO_0000622
-funding source declaration section	IAO_0000623
-future directions section	IAO_0000625
-genome announcement section	IAO_0000627
-keywords section	IAO_0000630
-study limitations section	IAO_0000631
-materials section	IAO_0000633
-notes section	IAO_0000634
-patients section	IAO_0000635
-pre-publication history section	IAO_0000637
-related work section	IAO_0000639
-requirements section	IAO_0000641
-statistical analysis section	IAO_0000644
-tables section	IAO_0000645
+textual abstract section	IAO:0000315
+graphical abstract section	IAO:0000315
+introduction section	IAO:0000316
+methods section	IAO:0000317
+results section	IAO:0000318
+discussion section	IAO:0000319
+references section	IAO:0000320
+author list	IAO:0000321
+institution list	IAO:0000322
+author contributions section	IAO:0000323
+acknowledgements section	IAO:0000324
+footnote section	IAO:0000325
+supplementary material section	IAO:0000326
+copyright section	IAO:0000330
+abbreviations section	IAO:0000606
+author information section	IAO:0000607
+author summary section	IAO:0000609
+availability section	IAO:0000611
+case report section	IAO:0000613
+conclusion section	IAO:0000615
+conflict of interest section	IAO:0000616
+consent section	IAO:0000618
+ethical approval section	IAO:0000620
+figures section	IAO:0000622
+funding source declaration section	IAO:0000623
+future directions section	IAO:0000625
+genome announcement section	IAO:0000627
+keywords section	IAO:0000630
+study limitations section	IAO:0000631
+materials section	IAO:0000633
+notes section	IAO:0000634
+patients section	IAO:0000635
+pre-publication history section	IAO:0000637
+related work section	IAO:0000639
+requirements section	IAO:0000641
+statistical analysis section	IAO:0000644
+tables section	IAO:0000645
