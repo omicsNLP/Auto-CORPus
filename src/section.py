@@ -90,6 +90,8 @@ class section:
 						mapping_result = []
 		else:
 			h2 = ''
+			if not self.section_heading == "":
+				print(F"failed to get section type for {self.file_name} with section: {self.section_heading}")
 			mapping_result = []
 		self.section_type = mapping_result
 
@@ -117,10 +119,12 @@ class section:
 		all_subSections = soup_section.find_all(self.config['subsections']['name'], self.config['subsections']['attrs'])
 		all_paragraphs = soup_section.find_all(self.config['paragraphs']['name'])
 		all_tables = soup_section.find_all(self.config['table-tom']['name'], self.config['table-tom']['attrs'])
-		all_table_paragraphs = []
-		[all_table_paragraphs.extend(capt.find_all("p", recursive=True)) for capt in all_tables]
+		unwanted_paragraphs = []
+		[unwanted_paragraphs.extend(capt.find_all("p", recursive=True)) for capt in all_tables]
+		all_figures = soup_section.find_all(self.config["figure"]["name"], self.config['figure']['attrs'])
+		[unwanted_paragraphs.extend(capt.find_all("p", recursive=True)) for capt in all_figures]
 		filtered_paragraphs = []
-		all_paragraphs = [para for para in all_paragraphs if para not in all_table_paragraphs]
+		all_paragraphs = [para for para in all_paragraphs if para not in unwanted_paragraphs]
 		if self.config['paragraphs']['regex'] is not None:
 			for para in all_paragraphs:
 				success=True
@@ -151,8 +155,8 @@ class section:
 		for ref in all_references:
 			self.paragraphs.append(references(ref, self.config, self.section_heading).to_dict())
 
-	def __init__(self, config, soup_section):
-		# TODO: separate out subsections and paragraphs from each section
+	def __init__(self, config, soup_section, file_name):
+		self.file_name = file_name
 		self.config = config
 		self.section_heading = self.__get_section_header(soup_section)
 		self.__set_IAO()

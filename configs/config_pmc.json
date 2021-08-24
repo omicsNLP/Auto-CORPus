@@ -79,6 +79,14 @@
             "attrs": {"class": "caption"}
         }
     },
+    "figure": {
+        "name": "div",
+        "attrs": { "class": "fig"},
+        "caption": {
+            "name": "div",
+            "attrs": {"class": "caption"}
+        }
+    },
     "table":
     {
         "name":"table",

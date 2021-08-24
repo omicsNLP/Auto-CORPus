@@ -181,7 +181,7 @@ class autoCORPus:
 			maintext = []
 		sections = soup.find_all(config['sections']['name'], config['sections']['attrs'])
 		for sec in sections:
-			maintext.extend(section(config, sec).to_dict())
+			maintext.extend(section(config, sec, self.file_name).to_dict())
 		# filter out the sections which do not contain any info
 		filteredText = []
 		[filteredText.append(x) for x in maintext if x]
