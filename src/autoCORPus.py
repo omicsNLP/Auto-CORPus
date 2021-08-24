@@ -36,35 +36,6 @@ def handle_path(func):
 
 class autoCORPus:
 	'''
-	TODO: read in file path
-		TODO: error handling
-	TODO: read in target directory
-		TODO: create target directory if needed
-		TODO error handling
-	TODO: read in config
-		TODO: validate config file
-		TODO: error handling
-	TODO: extract maintext
-		TODO: extract individual paragraphs, not just sections
-		TODO: extract individual references
-		TODO: error handling
-	TODO: extract abbreviations
-		TODO: error handling
-	TODO: extract tables
-		TODO: error handling
-	TODO: output in AC format
-		TODO: error handling
-	TODO: output in BioC format
-		TODO: error handling
-
-	redo of the HTML parsing:
-
-	1) find the main body of text
-	2) find each section within the main body
-	3) discard sections we dont want
-	4) for each section identify it's section type (abstract, intro etc) + title
-	5) identify inner sections for each main section + their titles
-	6) for each inner section identify paragraphs
 	'''
 
 	@classmethod
@@ -103,8 +74,6 @@ class autoCORPus:
 	def __validate_infile(self):
 		pass
 
-
-
 	def __soupify_infile(self):
 		try:
 			soup = BeautifulSoup(self.text, 'html.parser')
@@ -113,8 +82,8 @@ class autoCORPus:
 			# what to do with in sentence reference
 			for ref in soup.find_all(attrs={'class': ['supplementary-material', 'figpopup', 'popnode', 'bibr']}):
 				ref.extract()
-			soup = process_supsub(soup)
-			soup = process_em(soup)
+			# soup = process_supsub(soup)
+			# soup = process_em(soup)
 			return soup
 		except Exception as e:
 			print(e)
@@ -174,10 +143,14 @@ class autoCORPus:
 		keywordSection = {
 			"section_heading": "keywords",
 			"subsection_heading": "",
-			"body": soup.find(config["keywords"]["name"], config["keywords"]["attrs"]).get_text()
+			"body": soup.find(config["keywords"]["name"], config["keywords"]["attrs"]).get_text(),
+			"section_type": [
+				{
+					"IAO_term": "keywords section",
+					"IAO_id": "IAO:0000630"
+				}
+			]
 		}
-
-
 		return [keywordSection]
 
 	def __extract_text(self, soup, config):
@@ -202,61 +175,49 @@ class autoCORPus:
 		except:
 			h1 = ''
 		result['title'] = h1
-
-		maintext = self.__get_keywords(soup, config)
-
-		# maintext = []
+		if soup.find(config["keywords"]["name"], config["keywords"]["attrs"]):
+			maintext = self.__get_keywords(soup, config)
+		else:
+			maintext = []
 		sections = soup.find_all(config['sections']['name'], config['sections']['attrs'])
 		for sec in sections:
 			maintext.extend(section(config, sec).to_dict())
+		# filter out the sections which do not contain any info
 		filteredText = []
-		[[filteredText.append(x) for x in maintext if x]]
-		result['paragraphs'] = filteredText
+		[filteredText.append(x) for x in maintext if x]
+		uniqueText = []
+		for text in filteredText:
+			if text not in uniqueText:
+				uniqueText.append(text)
+		pass
+
+		result['paragraphs'] = uniqueText
 		return result
 		# return self.__clean_text(result)
 
-	def __add_IAO_ids(self):
-		paper = {}
-		paragraphs = self.main_text['paragraphs']
-		for paragraph in paragraphs:
-			h2 = paragraph['section_heading']
-			IAO_term = paragraph['IAO_term']
-			paper.update({h2:IAO_term})
-
-		mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-		for paragraph in paragraphs:
-			h2 = paragraph['section_heading']
-			if h2 in mapping_dict_with_DAG.keys():
-				paragraph.update({'IAO_term':mapping_dict_with_DAG[h2]})
-
-		# map IAO terms to IAO IDs
-		IAO_term_to_no_dict = read_IAO_term_to_ID_file()
-		for paragraph in paragraphs:
-			mapping_result_ID_version = []
-			IAO_terms = paragraph['IAO_term']
-			if IAO_terms != '' and IAO_terms != []:
-				for IAO_term in IAO_terms:
-					if IAO_term in IAO_term_to_no_dict.keys():
-						mapping_result_ID_version.append(IAO_term_to_no_dict[IAO_term])
-			else:
-				mapping_result_ID_version = ''
-			paragraph.update({'IAO_ID':mapping_result_ID_version})
-		self.main_text['paragraphs'] = paragraphs
-
-	def __init__(self, config_path, file_path, associated_data_path=None):
+	def __init__(self, config_path, file_path, associated_data_path=None, outfile=None):
 		self.file_name = file_path
+		self.outfile = outfile
+		self.temp_file = file_path.split("/")[-1]
 		self.text, self.file_path = self.__import_file(file_path)
 		self.config=self.__read_config(config_path)
 		self.soup = self.__soupify_infile()
-		self.main_text = read_maintext_json(self.__extract_text(self.soup, self.config))
-		# TODO: incorporate the below line into the above
-		self.__add_IAO_ids()
-		self.abbreviations = abbreviations(self.main_text, self.soup, self.config).to_dict()
+		journal = self.soup.find("div", {"class":"fm-vol-iss-date"})
+		try:
+			self.journal = journal.find("a").get_text()
+		except:
+			self.journal = journal
+
+		self.main_text = self.__extract_text(self.soup, self.config)
+		try:
+			self.abbreviations = abbreviations(self.main_text, self.soup, self.config).to_dict()
+		except Exception as e:
+			print(e)
+			self.abbreviations = {}
 		self.tables = table(self.soup, self.config).to_dict()
 		image_path = os.path.join(self.file_path, 'image')
 		if os.path.isdir(image_path):
 			self.table_images = table_image(self.config, image_path)
-		self.to_bioc()
 		pass
 
 	def to_json(self):
@@ -274,16 +235,20 @@ class autoCORPus:
 		with open(f"{target_dir}/abbreviations/{file_name}_abbreviations.json", "w") as outfile:
 			json.dump(self.abbreviations,outfile,ensure_ascii=False, indent=2)
 
-	def to_bioc(self):
-		with open("test.testfile", "w") as outfile:
+	@handle_path
+	def to_bioc(self, target_dir):
+		with open(target_dir + "/" + self.temp_file + ".json", "w") as outfile:
 			outfile.write(BiocFormatter(self).to_json(2))
+
+	def output_references(self):
+		return ""
 
 
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-f", "--filepath", type=str,
-	                    help="filepath of of html file to be processed")
+	                    help="filepath of html file to be processed")
 	parser.add_argument("-t", "--target_dir", type=str,
 	                    help="target directory for output")
 	parser.add_argument("-c", "--config", type=str,

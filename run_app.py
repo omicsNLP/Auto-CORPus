@@ -21,8 +21,12 @@ config_dir = args.config_dir
 associated_data = args.associated_data
 
 if os.path.isdir(file_path):
-	for file in os.listdir(file_path):
-		autoCORPus(config, f"{file_path}/{file}", associated_data).to_file(target_dir)
+	with open("references.csv", "w") as outfile:
+		for file in os.listdir(file_path):
+			autoCORPus(config, f"{file_path}/{file}", associated_data).to_file(target_dir)
+			# autoCORPus(config, f"{file_path}/{file}", associated_data).to_bioc(target_dir)
+			#outfile.write(autoCORPus(config, f"{file_path}/{file}", associated_data).output_references() + "\n")
+
 else:
 	autoCORPus(config, file_path, associated_data).to_file(target_dir)
 

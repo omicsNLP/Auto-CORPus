@@ -34,7 +34,8 @@ def process_supsub(soup):
         soup: BeautifulSoup object of html
 
     """
-    for sup in soup.find_all(['sup', 'sub']):
+    # for sup in soup.find_all(['sup', 'sub']):
+    for sup in soup.find_all('sub'):
         s = sup.get_text()
         if sup.string == None:
             sup.extract()
@@ -47,6 +48,7 @@ def process_supsub(soup):
 def process_em(soup):
     """
     remove all emphasized text
+    No it doesn't, it just adds a space to it
 
     Args: 
         soup: BeautifulSoup object of html
@@ -59,7 +61,6 @@ def process_em(soup):
         else:
             em.string.replace_with('{} '.format(s))
     return soup
-
 
 def read_mapping_file():
     mapping_dict = {}
@@ -99,49 +100,6 @@ def read_IAO_term_to_ID_file():
             IAO_no = line.split('\t')[1].strip('\n')
             IAO_term_to_no_dict.update({IAO_term: IAO_no})
     return IAO_term_to_no_dict
-
-
-def read_maintext_json(json_file):
-    IAO_term_to_no_dict = read_IAO_term_to_ID_file()
-    mapping_dict = read_mapping_file()
-    paragraphs = json_file['paragraphs']
-    for paragraph in paragraphs:
-        section_heading = paragraph['section_heading']
-        tokenized_section_heading = nltk.wordpunct_tokenize(section_heading)
-        text = nltk.Text(tokenized_section_heading)
-        words = [w.lower() for w in text if w.isalpha()]
-        h2_tmp = ' '.join(word for word in words)
-
-        if h2_tmp != '':
-            if ' and ' in h2_tmp:
-                mapping_result = []
-                h2_parts = h2_tmp.split(' and ')
-                for h2_part in h2_parts:
-                    for IAO_term, heading_list in mapping_dict.items():
-                        if any([fuzz.ratio(h2_part, heading) >= 94 for heading in heading_list]):
-                            mapping_result.append(IAO_term)
-                            break
-
-            else:
-                for IAO_term, heading_list in mapping_dict.items():
-                    if any([fuzz.ratio(h2_tmp, heading) > 95 for heading in heading_list]):
-                        mapping_result = [IAO_term]
-                        break
-                    else:
-                        mapping_result = []
-        else:
-            h2 = ''
-            mapping_result = ''
-        paragraph.update({'IAO_term': mapping_result})
-    return json_file
-
-
-def read_abbreviations_table(json_file):
-    abbreviations = json_file['abbreviations']
-    if abbreviations == '':
-        return {}
-    return abbreviations
-
 
 def assgin_heading_by_DAG(paper):
     G = nx.read_graphml('src/DAG_model.graphml')

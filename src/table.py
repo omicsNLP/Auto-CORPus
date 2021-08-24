@@ -333,8 +333,10 @@ class table:
 				warnings.warn("Table {} has no data rows".format(i))
 		soup_tables = [soup_tables[i] for i in range(len(soup_tables)) if i not in pop_list]
 
-		if soup_tables==[]:
-			raise AttributeError('HTML does not contain any table')
+
+		# Tom says: why?
+		# if soup_tables==[]:
+		# 	raise AttributeError('HTML does not contain any table')
 
 		# One table
 		tables = []

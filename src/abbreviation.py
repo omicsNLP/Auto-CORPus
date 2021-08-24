@@ -324,9 +324,10 @@ class abbreviations:
 		abbreviations_table = soup.find(
 			config['abbreviations_table']['name'], config['abbreviations_table']['attrs'])
 		abbreviations = {}
-		for tr in abbreviations_table.find_all('tr'):
-			short_form, long_form = [td.get_text() for td in tr.find_all('td')]
-			abbreviations[short_form] = long_form
+		if abbreviations_table:
+			for tr in abbreviations_table.find_all('tr'):
+				short_form, long_form = [td.get_text() for td in tr.find_all('td')]
+				abbreviations[short_form] = long_form
 
 		author_provided_abbreviations = abbreviations
 		additional_abbreviations = {}
