@@ -1,3 +1,4 @@
+import logging
 import regex as re2
 from collections import defaultdict, Counter
 from src.utils import *
@@ -265,11 +266,13 @@ class abbreviations:
 					try:
 						definition = self.__get_definition(candidate, clean_sentence)
 					except (ValueError, IndexError) as e:
+						self.log.debug("{} Omitting candidate {}. Reason: {}".format(i, candidate, e.args[0]))
 						omit += 1
 					else:
 						try:
 							definition = self.__select_definition(definition, candidate)
 						except (ValueError, IndexError) as e:
+							self.log.debug("{} Omitting definition {} for candidate {}. Reason: {}".format(i, definition, candidate, e.args[0]))
 							omit += 1
 						else:
 							# Either append the current definition to the list of previous definitions ...
@@ -280,7 +283,8 @@ class abbreviations:
 								abbrev_map[candidate] = definition
 							written += 1
 			except (ValueError, IndexError) as e:
-				print("{} Error processing sentence {}: {}".format(i, sentence, e.args[0]))
+				self.log.debug("{} Error processing sentence {}: {}".format(i, sentence, e.args[0]))
+		self.log.debug("{} abbreviations detected and kept ({} omitted)".format(written, omit))
 
 		# Return most common definition for each term
 		if collect_definitions:
@@ -341,6 +345,9 @@ class abbreviations:
 		return abbrev_json
 
 	def __init__(self, main_text, soup, config):
+		logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+		self.log = logging.getLogger(__name__)
+
 		self.abbreviations = self.__get_abbreviations(main_text, soup, config)
 		pass
 
