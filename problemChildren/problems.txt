@@ -1,0 +1,9 @@
+PMC1271381 - has web resources + references with class ref-cit-blk
+PMC2668008 - Bad section headings: most fall under "Main Text", web resources as a list of paragraphs
+PMC2714974 - Bad section headings: no intro etc. but then uses FGFR2 (which is a gene) as a section heading
+PMC2900429 - uses author names as reference styles, not ref index. Uses <li id="RX"> references
+PMC3606015 - incomplete abbreviations table
+PMC3746703 - has figures and <li id="bibX"> references
+PMC4827154 - example used in the tutorial stuff
+PMC5279885 - has the clinical perspective section
+Early Progression of Diabetic Nephropathy Correlates With Methylglyoxal-Derived Advanced Glycation End Products - file name has spaces in
