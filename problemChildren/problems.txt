@@ -1,3 +1,4 @@
+General problems
 PMC1271381 - has web resources + references with class ref-cit-blk
 PMC2668008 - Bad section headings: most fall under "Main Text", web resources as a list of paragraphs
 PMC2714974 - Bad section headings: no intro etc. but then uses FGFR2 (which is a gene) as a section heading
@@ -7,3 +8,37 @@ PMC3746703 - has figures and <li id="bibX"> references
 PMC4827154 - example used in the tutorial stuff
 PMC5279885 - has the clinical perspective section
 Early Progression of Diabetic Nephropathy Correlates With Methylglyoxal-Derived Advanced Glycation End Products - file name has spaces in
+
+
+
+Headings to account for:
+PMC4573240 - Materials & method section -> section split logic doesn't understand '&', only looks for ' and '
+PMC3247076 - MATERIALS & METHODS | Author Index
+PMC5426060 - SAMPLE & METHODS
+PMC3277617 - Objective
+PMC3025695 - Comments
+PMC3587042 - COMMENT
+PMC3152230 - Author Affiliations
+PMC3244938 - URLs
+PMC4537185 - Biography
+PMC2779583 - ACKNOWLDEGEMENTS - typo
+PMC4038932 - Sample
+PMC5544392 - Accession Numbers
+PMC4129543 - Appendix I
+PMC3280918 - Note
+PMC6014560 - Article Information
+PMC4854022 - Appendix: Members of the BMDCS
+PMC3756935 - Patients & Methods
+PMC2923092 - Affiliations
+PMC3030225 - COINVESTIGATORS
+PMC2696643 - Materials & methods | Future perspective | Bibliography
+PMC4481000 - SUPPLEMENTAL METHODS
+PMC4224146 - 5. Limitations
+PMC4426827 - Strengths and Limitations
+PMC3690340 - STUDY STRENGTHS AND LIMITATIONS
+PMC2987367 - Conflict on interest
+PMC3072760 - Analysis
+PMC2883723 - RESULTS/DISCUSSION
+PMC4294952 - Additional Analyses
+PMC5963138 - Version Changes
+PMC6156797 - APPLICATIONS

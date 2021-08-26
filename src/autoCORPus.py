@@ -191,6 +191,16 @@ class autoCORPus:
 				uniqueText.append(text)
 		pass
 
+		for para in uniqueText:
+			if para['section_heading'] == "":
+				if para['section_type'] == []:
+					print(F"{self.file_name} does not have a section heading or section type")
+				else:
+					print(F"{self.file_name} has no section heading but a section type of {json.dumps(para['section_type'])}")
+			else:
+				if para['section_type'] == []:
+					print(F"{self.file_name} has a section heading of {para['section_heading']} but no section type")
+
 		result['paragraphs'] = uniqueText
 		return result
 		# return self.__clean_text(result)

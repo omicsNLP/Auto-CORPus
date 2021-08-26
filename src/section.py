@@ -90,8 +90,6 @@ class section:
 						mapping_result = []
 		else:
 			h2 = ''
-			if not self.section_heading == "":
-				print(F"failed to get section type for {self.file_name} with section: {self.section_heading}")
 			mapping_result = []
 		self.section_type = mapping_result
 
