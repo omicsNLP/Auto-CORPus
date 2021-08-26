@@ -12,7 +12,7 @@ Early Progression of Diabetic Nephropathy Correlates With Methylglyoxal-Derived 
 
 
 Headings to account for:
-PMC4573240 - Materials & method section -> section split logic doesn't understand '&', only looks for ' and '
+[FIXED] PMC4573240 - Materials & method section -> section split logic doesn't understand '&', only looks for ' and ''
 PMC3247076 - MATERIALS & METHODS | Author Index
 PMC5426060 - SAMPLE & METHODS
 PMC3277617 - Objective

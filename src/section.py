@@ -68,13 +68,15 @@ class section:
 		mapping_dict = read_mapping_file()
 		tokenized_section_heading = nltk.wordpunct_tokenize(self.section_heading)
 		text = nltk.Text(tokenized_section_heading)
-		words = [w.lower() for w in text if w.isalpha()]
+		## this .isalpha() should probably be removed as it;s stripping out &
+		#words = [w.lower() for w in text if w.isalpha()]
+		words = [w.lower() for w in text]
 		h2_tmp = ' '.join(word for word in words)
 
 		if h2_tmp != '':
-			if ' and ' in h2_tmp:
+			if any(x in h2_tmp for x in [" and ", "&", "/"]):
 				mapping_result = []
-				h2_parts = h2_tmp.split(' and ')
+				h2_parts = re.split(" and |\s?/\s?|\s?&\s?", h2_tmp)
 				for h2_part in h2_parts:
 					for IAO_term, heading_list in mapping_dict.items():
 						if any([fuzz.ratio(h2_part, heading) >= 94 for heading in heading_list]):
