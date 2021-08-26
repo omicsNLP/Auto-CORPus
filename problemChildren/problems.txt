@@ -33,7 +33,7 @@ PMC2923092 - Affiliations
 PMC3030225 - COINVESTIGATORS
 PMC2696643 - [FIXED] Materials & methods | Future perspective | Bibliography
 PMC4481000 - SUPPLEMENTAL METHODS
-[BROKE FURTHER] PMC4224146 - 5. Limitations - [BROKE FURTHER] fixing the code to recognise "&" broke the removal of 1., 2. etc
+PMC4224146 - 5. Limitations -> does not understand limitations
 PMC4426827 - Strengths and Limitations
 PMC3690340 - STUDY STRENGTHS AND LIMITATIONS
 PMC2987367 - Conflict on interest
