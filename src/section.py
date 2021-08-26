@@ -78,6 +78,8 @@ class section:
 				mapping_result = []
 				h2_parts = re.split(" and |\s?/\s?|\s?&\s?", h2_tmp)
 				for h2_part in h2_parts:
+					h2_part = re.sub("^\d*\s?[\(\.]]?\s?", "", h2_part)
+					pass
 					for IAO_term, heading_list in mapping_dict.items():
 						if any([fuzz.ratio(h2_part, heading) >= 94 for heading in heading_list]):
 							mapping_result.append(self.__add_IAO(IAO_term))
@@ -85,6 +87,7 @@ class section:
 
 			else:
 				for IAO_term, heading_list in mapping_dict.items():
+					h2_tmp = re.sub("^\d*\s?[\(\.]]?\s?", "", h2_tmp)
 					if any([fuzz.ratio(h2_tmp, heading) > 95 for heading in heading_list]):
 						mapping_result = [self.__add_IAO(IAO_term)]
 						break
