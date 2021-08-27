@@ -73,6 +73,7 @@ class section:
 		words = [w.lower() for w in text]
 		h2_tmp = ' '.join(word for word in words)
 
+	# TODO: check for best match, not the first
 		if h2_tmp != '':
 			if any(x in h2_tmp for x in [" and ", "&", "/"]):
 				mapping_result = []
@@ -81,14 +82,14 @@ class section:
 					h2_part = re.sub("^\d*\s?[\(\.]]?\s?", "", h2_part)
 					pass
 					for IAO_term, heading_list in mapping_dict.items():
-						if any([fuzz.ratio(h2_part, heading) >= 94 for heading in heading_list]):
+						if any([fuzz.ratio(h2_part, heading) >= 80 for heading in heading_list]):
 							mapping_result.append(self.__add_IAO(IAO_term))
 							break
 
 			else:
 				for IAO_term, heading_list in mapping_dict.items():
 					h2_tmp = re.sub("^\d*\s?[\(\.]]?\s?", "", h2_tmp)
-					if any([fuzz.ratio(h2_tmp, heading) > 95 for heading in heading_list]):
+					if any([fuzz.ratio(h2_tmp, heading) > 80 for heading in heading_list]):
 						mapping_result = [self.__add_IAO(IAO_term)]
 						break
 					else:
@@ -102,10 +103,10 @@ class section:
 		paper = {}
 		IAO_term = IAO_term
 		paper.update({self.section_heading:IAO_term})
-		mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-
-		if self.section_heading in mapping_dict_with_DAG.keys():
-			IAO_term = mapping_dict_with_DAG[self.section_heading]
+		# mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
+		#
+		# if self.section_heading in mapping_dict_with_DAG.keys():
+		# 	IAO_term = mapping_dict_with_DAG[self.section_heading]
 
 		# map IAO terms to IAO IDs
 		IAO_term_to_no_dict = read_IAO_term_to_ID_file()
@@ -155,6 +156,8 @@ class section:
 			for reStyle in self.config['references']["regex"]:
 				kwargs = {reStyle['attrs'] : re.compile(reStyle['regex'])}
 				all_references.extend(soup_section.find_all(reStyle["name"], **kwargs, recursive=True))
+		if all_references == []:
+			all_references = [soup_section]
 		for ref in all_references:
 			self.paragraphs.append(references(ref, self.config, self.section_heading).to_dict())
 

@@ -1,4 +1,5 @@
 attrs==21.2.0
+-e git+https://github.com/Tom-Shorter/autoCORPus.git@eed2e0bf3c655474853f98be7c2e93c410a3c8ab#egg=autoCORPus
 beautifulsoup4==4.9.3
 click==8.0.1
 decorator==4.4.2

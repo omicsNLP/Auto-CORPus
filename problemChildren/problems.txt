@@ -1,5 +1,5 @@
 General problems
-PMC1271381 - has web resources + references with class ref-cit-blk
+PMC1271381 - has web resources + references with class ref-cit-blk -> web resources section is in wrong order due to its format
 PMC2668008 - Bad section headings: most fall under "Main Text", web resources as a list of paragraphs
 PMC2714974 - Bad section headings: no intro etc. but then uses FGFR2 (which is a gene) as a section heading
 PMC2900429 - uses author names as reference styles, not ref index. Uses <li id="RX"> references
@@ -12,10 +12,10 @@ Early Progression of Diabetic Nephropathy Correlates With Methylglyoxal-Derived 
 
 
 Headings to account for:
-[FIXED] PMC4573240 - Materials & method section -> section split logic doesn't understand '&', only looks for ' and ''
+[FIXED] PMC4573240 - Materials & method section -> section split logic doesn't understand '&', only looks for ' and '
 PMC3247076 - [FIXED] MATERIALS & METHODS | Author Index
 [FIXED] PMC5426060 - SAMPLE & METHODS
-PMC3277617 - Objective
+[FIXED] PMC3277617 - Objective
 PMC3025695 - Comments
 PMC3587042 - COMMENT
 PMC3152230 - Author Affiliations
@@ -42,3 +42,8 @@ PMC3072760 - Analysis
 PMC4294952 - Additional Analyses
 PMC5963138 - Version Changes
 PMC6156797 - APPLICATIONS
+
+
+DAG structure comments:
+
+supplementary material section should probably not be returned as a response type, e.g. PMC3025695 + PMC3587042 - Comments returns as Discussion and supplementary material section

@@ -16,6 +16,6 @@ $ python run_app.py -c "configs/config_pmc.json" -t "output" -f "Tutorial/PMC482
 
 run the below command for a directory of files example
 
-$  python run_app.py -c "configs/config_pmc.json" -t "output" -f "pathTest" 
+$  python run_app.py -c "configs/config_pmc.json" -t "output" -f "Html" 
 
 

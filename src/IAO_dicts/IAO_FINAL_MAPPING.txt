@@ -136,7 +136,7 @@ introductory paragraph	introduction section
 key abbreviations	abbreviations section
 key messages	highlights section
 key points	highlights section
-limitations	
+limitations	study limitations section
 list of abbreviations	abbreviations section
 literature cited	references section
 main authors by consortium and author contributions	author contributions section
@@ -242,11 +242,10 @@ supplementary materials tables	supplementary material section
 supporting information	supplementary material section
 supporting information available	supplementary material section
 toc	textual abstract section
-toc image	
 toc image	graphical abstract section
 transparency document	availability section
-urls	
+urls	references section
 version changes	
 visual abstract	graphical abstract section
-web resources	
+web resources	references section
 web site references	references section

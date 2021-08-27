@@ -1,5 +1,6 @@
 import argparse
 import os
+from tqdm import tqdm
 
 from autoCORPus import autoCORPus
 
@@ -22,11 +23,10 @@ associated_data = args.associated_data
 
 if os.path.isdir(file_path):
 	with open("references.csv", "w") as outfile:
-		for file in os.listdir(file_path):
+		for file in tqdm(os.listdir(file_path)):
 			if file.endswith(".html"):
 				autoCORPus(config, f"{file_path}/{file}", associated_data).to_file(target_dir)
-				# autoCORPus(config, f"{file_path}/{file}", associated_data).to_bioc(target_dir)
-				#outfile.write(autoCORPus(config, f"{file_path}/{file}", associated_data).output_references() + "\n")
+				autoCORPus(config, f"{file_path}/{file}", associated_data).to_bioc(target_dir)
 
 else:
 	autoCORPus(config, file_path, associated_data).to_file(target_dir)

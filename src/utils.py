@@ -103,7 +103,9 @@ def read_IAO_term_to_ID_file():
 
 def assgin_heading_by_DAG(paper):
     G = nx.read_graphml('src/DAG_model.graphml')
+    new_mapping_dict = {}
     mapping_dict_with_DAG = {}
+    IAO_term_to_no_dict = read_IAO_term_to_ID_file()
     for i, heading in enumerate(paper.keys()):
         if paper[heading] == []:
             previous_mapped_heading_found = False
@@ -155,4 +157,19 @@ def assgin_heading_by_DAG(paper):
 
             if next_section == "End of the article":
                 mapping_dict_with_DAG.update({heading: [previous_section[-1]]})
-    return mapping_dict_with_DAG
+
+
+            for heading in mapping_dict_with_DAG.keys():
+                newSecType = []
+                for secType in mapping_dict_with_DAG[heading]:
+                    if secType in IAO_term_to_no_dict.keys():
+                        mapping_result_ID_version = IAO_term_to_no_dict[secType]
+                    else:
+                        mapping_result_ID_version = ''
+                    newSecType.append({
+                        "IAO_term": secType,
+                        "IAO_id": mapping_result_ID_version
+                    })
+
+                new_mapping_dict[heading] = newSecType
+    return new_mapping_dict

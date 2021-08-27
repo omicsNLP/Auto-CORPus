@@ -37,22 +37,6 @@ def handle_path(func):
 class autoCORPus:
 	'''
 	'''
-
-	@classmethod
-	def from_stream(cls):
-		'''
-		stream a response from requests directly into autocorpus
-		import lxml.html
-		import requests
-
-		url =  "http://www.example.com/servlet/av/ResultTemplate=AVResult.html"
-		response = requests.get(url, stream=True)
-		response.raw.decode_content = True
-		tree = lxml.html.parse(response.raw)
-		:return:
-		'''
-		pass
-
 	@handle_path
 	def __read_config(self, config_path):
 		with open(config_path, "r") as f:
@@ -79,11 +63,6 @@ class autoCORPus:
 			soup = BeautifulSoup(self.text, 'html.parser')
 			for e in soup.find_all(attrs={'style': ['display:none', 'visibility:hidden']}):
 				e.extract()
-			# what to do with in sentence reference
-			for ref in soup.find_all(attrs={'class': ['supplementary-material', 'figpopup', 'popnode', 'bibr']}):
-				ref.extract()
-			# soup = process_supsub(soup)
-			# soup = process_em(soup)
 			return soup
 		except Exception as e:
 			print(e)
@@ -166,7 +145,7 @@ class autoCORPus:
 		result = {}
 
 		# Tags of text body to be extracted are hard-coded as p (main text) and span (keywords and refs)
-		body_select_tag = 'p,span'
+		body_select_tag = 'p,span,a'
 
 		# Extract title
 		try:
@@ -191,19 +170,34 @@ class autoCORPus:
 				uniqueText.append(text)
 		pass
 
-		for para in uniqueText:
-			if para['section_heading'] == "":
-				if para['section_type'] == []:
-					print(F"{self.file_name} does not have a section heading or section type")
-				else:
-					print(F"{self.file_name} has no section heading but a section type of {json.dumps(para['section_type'])}")
-			else:
-				if para['section_type'] == []:
-					print(F"{self.file_name} has a section heading of {para['section_heading']} but no section type")
 
-		result['paragraphs'] = uniqueText
+
+		result['paragraphs'] = self.__set_unknown_section_headings(uniqueText)
+
+		# for para in result['paragraphs']:
+		# 	if para['section_heading'] == "":
+		# 		if para['section_type'] == []:
+		# 			print(F"{self.file_name} does not have a section heading or section type")
+		# 		else:
+		# 			print(F"{self.file_name} has no section heading but a section type of {json.dumps(para['section_type'])}")
+		# 	else:
+		# 		if para['section_type'] == []:
+		# 			print(F"{self.file_name} has a section heading of {para['section_heading']} but no section type")
 		return result
 		# return self.__clean_text(result)
+
+	def __set_unknown_section_headings(self, uniqueText):
+		paper = {}
+
+		for para in uniqueText:
+			paper[para['section_heading']] = [x['IAO_term'] for x in para['section_type']]
+		mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
+		for i, para in enumerate(uniqueText):
+			if para['section_heading'] in mapping_dict_with_DAG.keys():
+				if para['section_type'] == []:
+					uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
+		return uniqueText
+		pass
 
 	def __init__(self, config_path, file_path, associated_data_path=None, outfile=None):
 		self.file_name = file_path
@@ -212,12 +206,6 @@ class autoCORPus:
 		self.text, self.file_path = self.__import_file(file_path)
 		self.config=self.__read_config(config_path)
 		self.soup = self.__soupify_infile()
-		journal = self.soup.find("div", {"class":"fm-vol-iss-date"})
-		try:
-			self.journal = journal.find("a").get_text()
-		except:
-			self.journal = journal
-
 		self.main_text = self.__extract_text(self.soup, self.config)
 		try:
 			self.abbreviations = abbreviations(self.main_text, self.soup, self.config).to_dict()
@@ -247,7 +235,8 @@ class autoCORPus:
 
 	@handle_path
 	def to_bioc(self, target_dir):
-		with open(target_dir + "/" + self.temp_file + ".json", "w") as outfile:
+		file_name = self.file_path.split("/")[-1].replace(".html", "").strip()
+		with open(target_dir + "/" + file_name + ".json", "w") as outfile:
 			outfile.write(BiocFormatter(self).to_json(2))
 
 	def output_references(self):

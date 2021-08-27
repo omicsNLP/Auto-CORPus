@@ -29,7 +29,7 @@ class references():
 		refSection = {
 			"section_heading": self.section_heading,
 			"subsection_heading": "",
-			"body": reference.get_text(),
+			"body": reference.get_text().replace("Go to:", ""),
 			"section_type": [
 				{
 					"IAO_term": "references section",
