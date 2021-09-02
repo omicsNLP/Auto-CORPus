@@ -24,12 +24,9 @@ associated_data = args.associated_data
 if os.path.isdir(file_path):
 	with open("references.csv", "w") as outfile:
 		for file in tqdm(os.listdir(file_path)):
-		# for file in os.listdir(file_path):
-			# if file.endswith(".html"):
-			#print(file)
-			autoCORPus(config, f"{file_path}/{file}", associated_data).to_file(target_dir)
-			# autoCORPus(config, f"{file_path}/{file}", associated_data).to_bioc(target_dir)
+			if file.endswith(".html"):
+				autoCORPus(config, f"{file_path}/{file}", associated_data).to_file(target_dir)
+				autoCORPus(config, f"{file_path}/{file}", associated_data).to_bioc(target_dir)
 
 else:
 	autoCORPus(config, file_path, associated_data).to_file(target_dir)
-

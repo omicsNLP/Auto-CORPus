@@ -210,9 +210,8 @@ class autoCORPus:
 		try:
 			self.abbreviations = abbreviations(self.main_text, self.soup, self.config).to_dict()
 		except Exception as e:
-			print(e)
 			self.abbreviations = {}
-		self.tables = table(self.soup, self.config).to_dict()
+		self.tables = table(self.soup, self.config, self.file_name).to_dict()
 		image_path = os.path.join(self.file_path, 'image')
 		if os.path.isdir(image_path):
 			self.table_images = table_image(self.config, image_path)

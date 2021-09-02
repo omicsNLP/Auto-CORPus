@@ -92,6 +92,10 @@
         "name":"table",
         "attrs":{"class":"default_table"}
     },
+    "actual_table_caption": {
+        "name": "div",
+        "attrs": {"class": "caption"}
+    },
     "table_caption":
     {
         "name":"h3",

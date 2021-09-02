@@ -44,6 +44,25 @@ PMC5963138 - Version Changes
 PMC6156797 - APPLICATIONS
 
 
+Tables format:
+
+splitting of tables by section name seems problematic, works for PMC4747615 but not PMC4240199.
+
+
+tables problemChildren:
+
+PMC4240199 - table 3 has a header row in the middle of the table
+PMC4747615 - correctly splits out table sections using the section name property
+PMC1271381 - AC splits this into 2 tables, the first being the first 2 header rows, the second being the last header row + results
+
+
 DAG structure comments:
 
-supplementary material section should probably not be returned as a response type, e.g. PMC3025695 + PMC3587042 - Comments returns as Discussion and supplementary material section
+supplementary material section should probably not be returned as a response type if not to be included in the maintext
+ e.g. PMC3025695 + PMC3587042 - Comments returns as Discussion and supplementary material section
+
+
+General problems:
+
+linked tables don't seem to work due to the configs - need to test each one
+no code was ever implemented to read table files from a given directory

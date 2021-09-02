@@ -1,6 +1,7 @@
 import re
 from itertools import product
 import warnings
+from datetime import datetime
 
 
 
@@ -50,9 +51,11 @@ class table:
 				colspan = int(cell.attrs['colspan'])
 				# next column is offset by the colspan
 				span_offset += colspan - 1
-				value = cell.get_text()
+				value = ''.join(str(x) for x in cell.contents)
+				# value = cell.get_text()
 				# clean the cell
 				value = value.strip().replace('\u2009',' ')
+				value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
 				if value.startswith('(') and value.endswith(')'):
 					value = value[1:-1]
 				if re.match(self.pval_regex,value):
@@ -205,8 +208,8 @@ class table:
 		"""
 		idx_list = []
 		for idx,row in enumerate(t):
-			if idx not in get_headers(t):
-				if check_superrow(row):
+			if idx not in self.__get_headers(t):
+				if self.__check_superrow(row):
 					idx_list.append(idx)
 		return idx_list
 
@@ -258,7 +261,7 @@ class table:
 			return False
 		return True
 
-	def __table2json(self, table_2d, header_idx, subheader_idx, superrow_idx, table_num, caption, footer):
+	def __table2json(self, table_2d, header_idx, subheader_idx, superrow_idx, table_num, title, footer, caption):
 		"""
 		transform tables from nested lists to JSON
 
@@ -296,7 +299,8 @@ class table:
 					sections = []
 					pre_superrow = None
 					cur_table = {'identifier':str(table_num+1),
-					             'title':caption,
+					             'title':title,
+					             'caption': caption,
 					             'columns':cur_header,
 					             'section':sections,
 					             'footer':footer}
@@ -318,6 +322,124 @@ class table:
 				table['identifier'] += '.{}'.format(table_idx+1)
 		return tables
 
+	def __reformat_table_json(self, table_json):
+		bioc_format = {
+			"source": "Auto-CORPus table processing",
+			"date": f'{datetime.today().strftime("%Y%m%d")}',
+			"key": "auto-corpus-table.key",
+			"infons": "",
+			"documents":[]
+		}
+		offset = 0
+		for table in table_json['tables']:
+			tableDict = {
+				"file": self.file_name,
+				"id": F"T{table['identifier']}",
+				"infons": {},
+				"passages":[
+					{
+						"offset": 0,
+						"infons":{
+							"section_type": [
+								{"type": "table_title",
+								"IAO_name": "document title",
+								 "IAO_id": "IAO:0000305"
+								 }
+							]
+						},
+						"text": table['title'],
+						"sentences": [],
+						"annotations": [],
+						"relations": []
+					}
+				]
+			}
+			offset += len(table['title'])
+			if "caption" in table.keys():
+				tableDict['passages'].append(
+					{
+						"offset": offset,
+						"infons":{
+							"section_type":[
+								{
+									"type": "table_caption",
+									"IAO_name": "caption",
+									"IAO_id": "IAO:0000304"
+								}
+							]
+						},
+						"text": ". ".join(table["caption"]),
+						"sentences": [],
+						"annotations": [],
+						"relations": []
+					}
+				)
+				offset += len("".join(table["caption"]))
+
+			if "section" in table.keys():
+				rowID = 0
+				colID = 0
+				rsection = []
+				this_offset = offset
+				for sect in table["section"]:
+
+					resultsDict = 						{
+						"section_title_1": sect['section_name'],
+						"results_rows":[]
+					}
+					for resultrow in sect["results"]:
+						colID=0
+						rrow = []
+						for result in resultrow:
+							resultDict = {
+								"id": F"T{table['identifier']}.{rowID}.{colID}",
+								"text": result
+							}
+							colID+=1
+							offset+= len(str(result))
+							rrow.append(resultDict)
+						resultsDict["results_rows"].append(rrow)
+						rowID+=1
+					rsection.append(resultsDict)
+				tableDict['passages'].append(
+					{
+						"offset": this_offset,
+						"infons": {
+							"section_type": [
+								{
+									"type": "table",
+									"IAO_name": "table",
+									"IAO_id": "IAO:0000306"
+								}
+							]
+						},
+						"columns": table.get("columns", []),
+						"results_section": rsection
+					}
+				)
+
+			if "footer" in table.keys():
+				tableDict['passages'].append(
+					{
+						"offset": offset,
+						"infons":{
+							"section_type":[
+								{
+									"type": "table_footer",
+									"IAO_name": "caption",
+									"IAO_id": "IAO:0000304"
+								}
+							]
+						},
+						"text": ". ".join(table["footer"]),
+						"sentences": [],
+						"annotations": [],
+						"relations": []
+					}
+				)
+				offset += len("".join(table["footer"]))
+			bioc_format["documents"].append(tableDict)
+		return bioc_format
 
 	def __main(self, soup, config):
 		soup_tables = soup.find_all(config['table']['name'],config['table']['attrs'],recursive=True)
@@ -346,12 +468,18 @@ class table:
 				caption = table.find_previous(config['table_caption']['name'],config['table_caption']['attrs']).get_text()
 			except:
 				caption = ''
-				warnings.warn("Unable to find table caption")
+				# warnings.warn("Unable to find table caption")
 			try:
 				footer = [i.get_text() for i in table.parent.find_next_siblings(config['table_footer']['name'],config['table_footer']['attrs'])]
 			except:
 				footer = ''
-				warnings.warn("Unable to find table footer")
+				# warnings.warn("Unable to find table footer")
+			try:
+				actual_caption = [i.get_text() for i in table.find_previous(config['actual_table_caption']['name'], config['actual_table_caption']['attrs'])]
+			except:
+				actual_caption = ''
+				# warnings.warn("Unable to find actual table caption caption")
+
 
 			# remove empty table header
 			if table.find('td','thead-hr'):
@@ -444,7 +572,7 @@ class table:
 					except:
 						row[cell] = row[cell]
 
-			cur_table = self.__table2json(table_2d, header_idx, subheader_idx, superrow_idx, table_num, caption, footer)
+			cur_table = self.__table2json(table_2d, header_idx, subheader_idx, superrow_idx, table_num, caption, footer, actual_caption)
 			# merge headers
 			sep = '<!>'
 			for table in cur_table:
@@ -461,11 +589,15 @@ class table:
 			tables+=cur_table
 
 		table_json = {'tables':tables}
+		### insert new function here to reformat the output, I'll worry about re-writing the above code another time
+
+		table_json = self.__reformat_table_json(table_json)
 		return table_json
 
 
 
-	def __init__(self, soup, config):
+	def __init__(self, soup, config, file_name):
+		self.file_name = file_name
 		self.soup = soup
 		self.config = config
 		self.pval_regex = r'((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d+)'
