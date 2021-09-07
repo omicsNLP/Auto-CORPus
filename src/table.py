@@ -59,7 +59,7 @@ class table:
 				if value.startswith('(') and value.endswith(')'):
 					value = value[1:-1]
 				if re.match(self.pval_regex,value):
-					value = re.sub(r'(\s{0,1})[*××xX](\s{0,1})10(_{0,1})','e',value).replace('−','-')
+					value = re.sub(r'(\s{0,1})[*××xX](\s{0,1})10(_{0,1})','e',value).replace('−', '-')
 				if re.match(self.pval_scientific_regex,value):
 					value = re.sub(r'(\s{0,1})[–−-](\s{0,1})','-',value)
 					value = re.sub(r'(\s{0,1})[eE]','e',value)
@@ -327,11 +327,12 @@ class table:
 			"source": "Auto-CORPus table processing",
 			"date": f'{datetime.today().strftime("%Y%m%d")}',
 			"key": "auto-corpus-table.key",
-			"infons": "",
+			"infons": {},
 			"documents":[]
 		}
-		offset = 0
+
 		for table in table_json['tables']:
+			offset = 0
 			tableDict = {
 				"file": self.file_name,
 				"id": F"T{table['identifier']}",

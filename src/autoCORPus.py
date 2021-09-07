@@ -15,6 +15,7 @@ from src.abbreviation import abbreviations
 from src.table import table
 from src.table_image import table_image
 from src.bioc_formatter import BiocFormatter
+from bioc import loads, dump, BioCFileType
 
 def handle_path(func):
 	def inner_function(*args, **kwargs):
@@ -217,9 +218,20 @@ class autoCORPus:
 			self.table_images = table_image(self.config, image_path)
 		pass
 
+	def to_bioc_json(self):
+		return BiocFormatter(self).to_json(2)
+
+	def to_bioc_xml(self, target_dir):
+		target_dir = self.__handle_target_dir(target_dir)
+		collection = loads(BiocFormatter(self).to_json(2), BioCFileType.BIOC_JSON)
+		outfileName = self.temp_file.replace(".html", ".xml")
+		with open(target_dir + "/" + outfileName, "w") as fp:
+			dump(collection, fp, BioCFileType.BIOC_XML)
+
+
 	def to_json(self):
 		outlist =  [self.main_text, self.abbreviations, self.tables]
-		return json.dumps(outlist, ensure_ascii=False, indent=2)
+		return json.dumps(self.main_text, ensure_ascii=False)
 
 	@handle_path
 	def to_file(self, target_dir):

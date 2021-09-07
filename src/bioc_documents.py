@@ -25,7 +25,9 @@ class BiocDocument:
 		return {
 			"id": dataStore.file_name,
 			"infons": {},
-			"passages": self.build_passages(dataStore)
+			"passages": self.build_passages(dataStore),
+			"annotations": [],
+			"relations": []
 		}
 	def __init__(self, input):
 		self.document = self.build_template(input)
