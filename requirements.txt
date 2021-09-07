@@ -1,11 +1,16 @@
 attrs==21.2.0
+-e git+https://github.com/Tom-Shorter/autoCORPus.git@e7e5c4e76bfaf59d5dc5a2e219af49132147e32a#egg=autoCORPus
 beautifulsoup4==4.9.3
+bioc==1.3.7
 click==8.0.1
 decorator==4.4.2
+docutils==0.17.1
 fuzzywuzzy==0.18.0
 importlib-metadata==4.6.3
 iniconfig==1.1.1
 joblib==1.0.1
+jsonlines==2.0.0
+lxml==4.6.3
 networkx==2.5.1
 nltk==3.6.2
 numpy==1.19.5
@@ -17,6 +22,7 @@ py==1.10.0
 pyparsing==2.4.7
 pytesseract==0.3.8
 pytest==6.2.4
+python-Levenshtein==0.12.2
 regex==2021.8.3
 soupsieve==2.2.1
 toml==0.10.2
