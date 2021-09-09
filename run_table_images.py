@@ -1,9 +1,19 @@
 import argparse
+import json
 import os
 from tqdm import tqdm
 import glob
+from src.table_image import table_image
 
 from autoCORPus import autoCORPus
+
+def handle_target_dir(target_dir):
+	try:
+		dirs = target_dir.split("/")[:-1]
+		target = "/".join(dirs)
+		os.makedirs(target)
+	except:
+		return
 
 parser = argparse.ArgumentParser(prog='PROG')
 parser.add_argument('-f','--filepath',type=str, help="filepath for base HTML document")
@@ -34,15 +44,15 @@ if os.path.isdir(file_path):
 else:
 	print(F"single file {file_path}")
 
-for file in files:
-	if os.path.isdir(file_path):
-		for file in tqdm(os.listdir(file_path)):
-			# for file in os.listdir(file_path):
-			# if file.endswith(".html"):
-			#print(file)
-			autoCORPus(config, f"{file_path}/{file}", associated_data).to_file(target_dir)
-		# autoCORPus(config, f"{file_path}/{file}", associated_data).to_bioc(target_dir)
+for file in tqdm(files):
+	if file.endswith(".html"):
+		autoCORPus(config, file, associated_data).to_file(target_dir)
+	else:
+		outfile = F"{file.replace(file.split('.')[-1], 'json')}"
+		outfile = outfile.replace(outfile.split("/")[0], target_dir)
+		handle_target_dir(outfile)
+		with open(outfile, "w") as out:
+			json.dump(table_image(file).to_dict(), out, ensure_ascii=False, indent=2)
 
-else:
-	autoCORPus(config, file_path, associated_data).to_file(target_dir)
+
 

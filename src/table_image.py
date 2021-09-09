@@ -281,17 +281,12 @@ class table_image:
 
 		return table_json
 
-	def __init__(self, config, img_path):
-		img_list = os.listdir(img_path)
-		for imglist in img_list:
-			imgname = imglist.split('/')[-1]
-			pmc = imgname[0:imgname.rfind('.')]
-
-			img = cv2.imread(os.path.join(img_path, imglist))
-
-			cells, added, thresh = self.__find_cells(img)
-			table_row = self.__cell2table(cells, added, thresh)
-			self.tables = self.__text2json(table_row)
+	def __init__(self, img_path):
+		img = cv2.imread(img_path)
+		cells, added, thresh = self.__find_cells(img)
+		table_row = self.__cell2table(cells, added, thresh)
+		self.tables = self.__text2json(table_row)
+		pass
 
 	def to_dict(self):
 		return self.tables
