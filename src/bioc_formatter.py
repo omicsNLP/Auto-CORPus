@@ -19,4 +19,7 @@ class BiocFormatter:
 	def to_json(self, indentVal=None):
 		return json.dumps(self.bioc_output, indent=indentVal, ensure_ascii=False)
 
+	def to_dict(self):
+		return self.bioc_output
+
 

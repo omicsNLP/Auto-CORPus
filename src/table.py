@@ -353,7 +353,9 @@ class table:
 						"annotations": [],
 						"relations": []
 					}
-				]
+				],
+				"annotations": [],
+				"relations": []
 			}
 			offset += len(table['title'])
 			if "caption" in table.keys():
@@ -415,7 +417,10 @@ class table:
 							]
 						},
 						"columns": table.get("columns", []),
-						"results_section": rsection
+						"results_section": rsection,
+						"sentences": [],
+						"annotations": [],
+						"relations": []
 					}
 				)
 
@@ -456,17 +461,12 @@ class table:
 				warnings.warn("Table {} has no data rows".format(i))
 		soup_tables = [soup_tables[i] for i in range(len(soup_tables)) if i not in pop_list]
 
-
-		# Tom says: why?
-		# if soup_tables==[]:
-		# 	raise AttributeError('HTML does not contain any table')
-
 		# One table
 		tables = []
 		for table_num, table in enumerate(soup_tables):
 			# caption and footer
 			try:
-				caption = table.find_previous(config['table_caption']['name'],config['table_caption']['attrs']).get_text()
+				caption = table.find_previous(config['table_title']['name'],config['table_title']['attrs']).get_text()
 			except:
 				caption = ''
 				# warnings.warn("Unable to find table caption")
@@ -476,7 +476,7 @@ class table:
 				footer = ''
 				# warnings.warn("Unable to find table footer")
 			try:
-				actual_caption = [i.get_text() for i in table.find_previous(config['actual_table_caption']['name'], config['actual_table_caption']['attrs'])]
+				actual_caption = [i.get_text() for i in table.find_previous(config['table_caption']['name'], config['table_caption']['attrs'])]
 			except:
 				actual_caption = ''
 				# warnings.warn("Unable to find actual table caption caption")
@@ -590,8 +590,6 @@ class table:
 			tables+=cur_table
 
 		table_json = {'tables':tables}
-		### insert new function here to reformat the output, I'll worry about re-writing the above code another time
-
 		table_json = self.__reformat_table_json(table_json)
 		return table_json
 
@@ -599,11 +597,9 @@ class table:
 
 	def __init__(self, soup, config, file_name):
 		self.file_name = file_name
-		self.soup = soup
-		self.config = config
 		self.pval_regex = r'((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d+)'
 		self.pval_scientific_regex = r'((\d+.\d+)|(\d+))(\s{0,1})[eE](\s{0,1})([–−-])(\s{0,1})(\d+)'
-		self.tables = self.__main(self.soup, self.config)
+		self.tables = self.__main(soup, config)
 		pass
 
 	def to_dict(self):

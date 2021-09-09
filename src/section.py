@@ -122,7 +122,7 @@ class section:
 	def __get_section(self, soup_section):
 		all_subSections = soup_section.find_all(self.config['subsections']['name'], self.config['subsections']['attrs'])
 		all_paragraphs = soup_section.find_all(self.config['paragraphs']['name'])
-		all_tables = soup_section.find_all(self.config['table-tom']['name'], self.config['table-tom']['attrs'])
+		all_tables = soup_section.find_all(self.config['table-container']['name'], self.config['table-container']['attrs'])
 		unwanted_paragraphs = []
 		[unwanted_paragraphs.extend(capt.find_all("p", recursive=True)) for capt in all_tables]
 		all_figures = soup_section.find_all(self.config["figure"]["name"], self.config['figure']['attrs'])
@@ -161,8 +161,7 @@ class section:
 		for ref in all_references:
 			self.paragraphs.append(references(ref, self.config, self.section_heading).to_dict())
 
-	def __init__(self, config, soup_section, file_name):
-		self.file_name = file_name
+	def __init__(self, config, soup_section):
 		self.config = config
 		self.section_heading = self.__get_section_header(soup_section)
 		self.__set_IAO()

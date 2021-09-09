@@ -4,6 +4,22 @@
         "name":"h1",
         "attrs":{"class":"c-article-title"}
     },
+    "keywords": {
+        "name": "span",
+        "attrs": {"class": ["kwd-text"]}
+    },
+    "references": {
+        "sections": {
+        },
+        "defined":[
+            {
+                "name": ["li"],
+                "attrs": {"class": ["c-article-references__item "]}
+            }
+        ],
+        "regex": [
+        ]
+    },
     "heading":
     {
         "name":"h2",
@@ -17,17 +33,30 @@
     "body":
     {
         "name":"p",
-        "attrs":{"class":null}
+        "attrs":{}
+    },
+    "figure": {
+        "name": "div",
+        "attrs": {"class":  "c-article-section__figure"}
+    },
+    "table-container":
+    {
+        "name":"table",
+        "attrs":{"class":"c-article-table-container"}
     },
     "table":
     {
-        "name":"figure",
-        "attrs":{"class":null}
+        "name":"table",
+        "attrs":{}
     },
-    "table_caption":
+    "table_caption": {
+        "name": "figcaption",
+        "attrs": {"class": "c-article-table__figcaption"}
+    },
+    "table_title":
     {
-        "name":"div",
-        "attrs":{"class":"table-wrap-title"}
+        "name":"h1",
+        "attrs":{"class":"c-article-table-title"}
     },
     "table_footer":
     {
@@ -63,5 +92,19 @@
     {
         "name":"table",
         "attrs":{"class":"glossary"}
+    },
+    "sections":
+    {
+        "name":"div",
+        "attrs":{"class":"c-article-section"}
+    },
+    "subsections": {
+        "name":"div",
+        "attrs":{"class":"c-article-section__content"}
+    },
+    "paragraphs": {
+        "name": "p",
+        "attrs": {},
+        "regex": []
     }
 }

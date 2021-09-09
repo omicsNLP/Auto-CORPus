@@ -1,7 +1,7 @@
 import logging
 import regex as re2
 from collections import defaultdict, Counter
-from src.utils import *
+from datetime import datetime
 
 
 
@@ -237,7 +237,7 @@ class abbreviations:
 
 
 
-	def __extract_abbreviation_definition_pairs(self, file_path=None,
+	def __extract_abbreviation_definition_pairs(self,
 	                                            doc_text=None,
 	                                            most_common_definition=False,
 	                                            first_definition=False,
@@ -247,12 +247,8 @@ class abbreviations:
 		counter_abbrev_map = dict()
 		omit = 0
 		written = 0
-		if file_path:
-			sentence_iterator = enumerate(yield_lines_from_file(file_path))
-		elif doc_text:
-			sentence_iterator = enumerate(self.__yield_lines_from_doc(doc_text))
-		else:
-			return abbrev_map
+		sentence_iterator = enumerate(self.__yield_lines_from_doc(doc_text))
+
 
 		collect_definitions = False
 		if most_common_definition or first_definition or all_definition:
@@ -311,6 +307,75 @@ class abbreviations:
 
 		return pairs
 
+	def __listToDict(self, lst):
+		op = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
+		return op
+
+	def __abbre_table_to_dict(self, t):
+		abbre_list=[]
+		rows = t.findAll("tr")
+		for i in rows:
+			elements = i.findAll(['td', 'th'])
+			vals = [j.get_text() for j in elements]
+			if len(vals)>1:
+				abbre_list+=vals
+		abbre_dict=self.__listToDict(abbre_list)
+		return abbre_dict
+
+	def __abbre_list_to_dict(self, t):
+		abbre_list=[]
+		SF = t.findAll("dt")
+		SF_list = [SF_word.get_text() for SF_word in SF]
+		LF = t.findAll("dd")
+		LF_list = [LF_word.get_text() for LF_word in LF]
+		abbre_dict=dict(zip(SF_list, LF_list))
+		return abbre_dict
+
+	def __get_abbre_plain_text(self, soup_og):
+		abbre_text=soup_og.get_text()
+		abbre_list=abbre_text.split(';')
+		list_lenth=len(abbre_list)
+		return abbre_list,list_lenth
+
+	def __get_abbre_dict_given_by_author(self, soup_og):
+
+		header = soup_og.find_all('h2',recursive=True)
+		abbre_dict={}
+		for number, element in enumerate(header):
+			if re2.search('abbreviation',element.get_text(),re2.IGNORECASE):
+				nearest_down_tag = element.next_element
+				while nearest_down_tag:
+					tag_name = nearest_down_tag.name
+
+					# when abbre is table
+					if tag_name == 'table':
+						abbre_dict=self.__abbre_table_to_dict(nearest_down_tag)
+						break
+
+					# when abbre is list
+					elif tag_name=='dl':
+						abbre_dict=self.__abbre_list_to_dict(nearest_down_tag)
+						break
+
+					# when abbre is plain text
+					elif tag_name=='p':
+						abbre_list,list_lenth = self.__get_abbre_plain_text(nearest_down_tag)
+						if list_lenth<=2:
+							nearest_down_tag = nearest_down_tag.next_element
+							continue
+						else:
+							for abbre_pair in abbre_list:
+								if len(abbre_pair.split(':'))==2:abbre_dict.update({abbre_pair.split(':')[0]:abbre_pair.split(':')[1]})
+								elif len(abbre_pair.split(','))==2:abbre_dict.update({abbre_pair.split(',')[0]:abbre_pair.split(',')[1]})
+								elif len(abbre_pair.split(' '))==2:abbre_dict.update({abbre_pair.split(' ')[0]:abbre_pair.split(' ')[1]})
+							break
+
+					# search until next h2
+					elif tag_name=='h2':
+						break
+					else:
+						nearest_down_tag = nearest_down_tag.next_element
+		return abbre_dict
 
 	def __get_abbreviations(self, main_text, soup, config):
 		paragraphs = main_text['paragraphs']
@@ -321,15 +386,16 @@ class abbreviations:
 			all_abbreviations.update(pairs)
 
 
-		abbreviations_table = soup.find(
-			config['abbreviations_table']['name'], config['abbreviations_table']['attrs'])
-		abbreviations = {}
-		if abbreviations_table:
-			for tr in abbreviations_table.find_all('tr'):
-				short_form, long_form = [td.get_text() for td in tr.find_all('td')]
-				abbreviations[short_form] = long_form
+		# abbreviations_table = soup.find(
+		# 	config['abbreviations_table']['name'], config['abbreviations_table']['attrs'])
+		# abbreviations = {}
+		# if abbreviations_table:
+		# 	for tr in abbreviations_table.find_all('tr'):
+		# 		short_form, long_form = [td.get_text() for td in tr.find_all('td')]
+		# 		abbreviations[short_form] = long_form
 
-		author_provided_abbreviations = abbreviations
+		#author_provided_abbreviations = abbreviations
+		author_provided_abbreviations = self.__get_abbre_dict_given_by_author(soup)
 		additional_abbreviations = {}
 		lc_author_keys = [x.lower() for x in author_provided_abbreviations.keys()]
 		for key in all_abbreviations.keys():
@@ -344,11 +410,86 @@ class abbreviations:
 		abbrev_json['all_abbreviations'] = all_abbreviations
 		return abbrev_json
 
-	def __init__(self, main_text, soup, config):
+	def __biocify_abbreviations(self, abbreviations, file_path):
+		offset = 0
+		template = {
+			"source": "Auto-CORPus abbreviations processing",
+			"date": f'{datetime.today().strftime("%Y%m%d")}',
+			"key": "auto-corpus-abbreviations.key",
+			"infons": {},
+			"documents":[]
+		}
+		if len(abbreviations["author_provided_abbreviations"]) > 0:
+			authorDict = {
+					"file": file_path,
+					"id": "author_provided_abbreviations",
+					"infons": {},
+					"passages": [],
+					"annotations": [],
+					"relations": []
+				}
+			for abbr, full in abbreviations["author_provided_abbreviations"].items():
+				authorDict["passages"].append({
+						"offset": offset,
+						"infons": {},
+						"text": F"{abbr}|{full}",
+						"sentences": [],
+						"annotations": [],
+						"relations": []
+					}
+				)
+				offset += len(F"{abbr} = {full}")
+			template["documents"].append(authorDict)
+		if len(abbreviations["additional_abbreviations"]) > 0:
+			additionalDict = {
+				"file": file_path,
+				"id": "additional_abbreviations",
+				"infons": {},
+				"passages": [],
+				"annotations": [],
+				"relations": []
+			}
+			for abbr, full in abbreviations["additional_abbreviations"].items():
+				additionalDict["passages"].append({
+					"offset": offset,
+					"infons": {},
+					"text": F"{abbr}|{full}",
+					"sentences": [],
+					"annotations": [],
+					"relations": []
+					}
+				)
+				offset += len(F"{abbr} = {full}")
+			template["documents"].append(additionalDict)
+		if len(abbreviations["all_abbreviations"]) > 0:
+			allDict = {
+				"file": file_path,
+				"id": "all_abbreviations",
+				"infons": {},
+				"passages": [],
+				"annotations": [],
+				"relations": []
+			}
+			for abbr, full in abbreviations["all_abbreviations"].items():
+				allDict["passages"].append({
+						"offset": offset,
+						"infons": {},
+						"text": F"{abbr}|{full}",
+						"sentences": [],
+						"annotations": [],
+						"relations": []
+					}
+				)
+				offset += len(F"{abbr} = {full}")
+			template["documents"].append(allDict)
+
+		return template
+
+	def __init__(self, main_text, soup, config, file_path):
 		logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 		self.log = logging.getLogger(__name__)
 
-		self.abbreviations = self.__get_abbreviations(main_text, soup, config)
+		self.abbreviations = self.__biocify_abbreviations(self.__get_abbreviations(main_text, soup, config), file_path)
 		pass
 
 	def to_dict(self):

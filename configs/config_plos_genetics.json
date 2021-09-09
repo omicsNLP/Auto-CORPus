@@ -2,7 +2,7 @@
     "title":
     {
         "name":"h1",
-        "attrs":{"class":["content-title"]}
+        "attrs":{"id":"artTitle"}
     },
     "keywords": {
         "name": "span",
@@ -10,34 +10,14 @@
     },
     "references": {
         "sections": {
-            "title": {
-                "name": "span",
-                "attrs": {"class":  "ref-title"}
-            },
-            "journal": {
-                "name": "span",
-                "attrs": {"class":  "ref-journal"}
-            },
-            "volume": {
-                "name": "span",
-                "attrs": {"class":  "ref-vol"}
-            }
         },
         "defined":[
-            {
-                "name": ["div"],
-                "attrs": {"class": ["ref-cit-blk"]}
-            },
-            {
-                "name": "li",
-                "attrs": {}
-            }
         ],
         "regex": [
             {
-                "name": "p",
+                "name": "li",
                 "attrs": "id",
-                "regex": "^(__){0,2}p\\d+$"
+                "regex": "^ref\\d+$"
             }
         ]
     },
@@ -45,38 +25,34 @@
     "heading":
     {
         "name":"h2",
-        "attrs":{"class":"head"}
+        "attrs":{}
     },
     "heading2":
     {
         "name":"h3",
-        "attrs":{"class":null}
+        "attrs":{}
     },
     "sections":
     {
         "name":"div",
-        "attrs":{"class":"tsec"}
+        "attrs":{"class":"toc-section"}
     },
     "subsections": {
         "name":"div",
-        "attrs":{"class":"sec"}
+        "attrs":{"class":"section"}
     },
     "paragraphs": {
         "name": "p",
         "regex":[
-            {
-                "attrs": "id",
-                "regex": "^_*[pP]\\d+$"
-            }
         ]
 
     },
     "table-container": {
         "name": "div",
-        "attrs": {"class":  "table-wrap"},
+        "attrs": {"class":  "figure"},
         "caption": {
             "name": "div",
-            "attrs": {"class": "caption"}
+            "attrs": {"class": "figcaption"}
         }
     },
     "figure": {
