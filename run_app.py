@@ -95,6 +95,7 @@ def read_file_structure(file_path):
 					structure = fill_structure(structure, base_file.split("/")[-1], 'main_text', fpath)
 					structure = fill_structure(structure, base_file.split("/")[-1], 'main_text_out', target_dir + "/".join(fpath.split("/")[:-1]))
 					structure = fill_structure(structure, base_file.split("/")[-1], 'abbreviations_out', target_dir + "/".join(fpath.split("/")[:-1]))
+					structure = fill_structure(structure, base_file.split("/")[-1], 'tables_out', target_dir + "/".join(fpath.split("/")[:-1]))
 				elif ftype == "linked_tables":
 					base_file = re.sub("_table_\d+\.html", "", fpath)
 					structure = fill_structure(structure, base_file.split("/")[-1], 'linked_tables', fpath)
@@ -154,12 +155,11 @@ for key in pbar:
 			outfp.write(AC.abbreviations_to_bioc_json())
 
 	# AC does not support the conversion of tables or abbreviations to the XML format
-	if len(structure[key]["linked_tables"]) + len(structure[key]["table_images"]) > 0:
-		table_out_dir = structure[key]["tables_out"] if not structure[key]["tables_out"] == "" else structure[key]["main_text_out"]
-		if not os.path.exists(table_out_dir):
-			os.makedirs(table_out_dir)
-		with open(table_out_dir + "/" + key + "_tables.json", "w") as outfp:
-			outfp.write(AC.tables_to_bioc_json())
+	table_out_dir = structure[key]["tables_out"] if not structure[key]["tables_out"] == "" else structure[key]["main_text_out"]
+	if not os.path.exists(table_out_dir):
+		os.makedirs(table_out_dir)
+	with open(table_out_dir + "/" + key + "_tables.json", "w") as outfp:
+		outfp.write(AC.tables_to_bioc_json())
 
 	pass
 
