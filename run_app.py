@@ -12,6 +12,7 @@ parser.add_argument('-f','--filepath',type=str, help="filepath for document/dire
 parser.add_argument('-t','--target_dir',type=str, help="target directory") #default autoCORPusOutput
 parser.add_argument('-a','--associated_data',type=str, help="directory of associated data")
 parser.add_argument('-o','--output_format',type=str, help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations")
+parser.add_argument('-s','--start_output_at',type=str, help="name of directory within the input file path where the output should mirror the directory structure from, inclusive")
 
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-c", "--config", type=str, help="filepath for configuration JSON file")
@@ -25,9 +26,10 @@ config = args.config
 config_dir = args.config_dir
 associated_data = args.associated_data
 output_format = args.output_format if args.output_format else "JSON"
+mirror_from = args.start_output_at if args.start_output_at else ""
 
-if not os.path.exists(target_dir):
-	os.makedirs(target_dir)
+if not mirror_from in file_path:
+	exit("-s value must be a directory found within the specified input file path")
 
 def get_file_type(file_path):
 	'''
@@ -62,12 +64,11 @@ def fill_structure(structure, key, ftype, fpath):
 	if key not in structure:
 		structure[key] = {
 			"main_text": "",
-			"main_text_out": "",
+			"out_dir": "",
 			"linked_tables": [],
 			"table_images": [],
-			"tables_out": ""
 		}
-	if ftype == "main_text" or ftype == "main_text_out" or ftype == "abbreviations_out" or ftype == "tables_out":
+	if ftype == "main_text" or ftype == "out_dir":
 		structure[key][ftype] = fpath
 	else:
 		structure[key][ftype].append(fpath)
@@ -92,18 +93,16 @@ def read_file_structure(file_path):
 					continue
 				elif ftype == "main_text":
 					base_file = re.sub("\.html", "", fpath)
-					structure = fill_structure(structure, base_file.split("/")[-1], 'main_text', fpath)
-					structure = fill_structure(structure, base_file.split("/")[-1], 'main_text_out', target_dir + "/".join(fpath.split("/")[:-1]))
-					structure = fill_structure(structure, base_file.split("/")[-1], 'abbreviations_out', target_dir + "/".join(fpath.split("/")[:-1]))
-					structure = fill_structure(structure, base_file.split("/")[-1], 'tables_out', target_dir + "/".join(fpath.split("/")[:-1]))
+					structure = fill_structure(structure, base_file, 'main_text', fpath)
+					structure = fill_structure(structure, base_file, 'out_dir', "/".join(fpath.split("/")[:-1]))
 				elif ftype == "linked_tables":
 					base_file = re.sub("_table_\d+\.html", "", fpath)
-					structure = fill_structure(structure, base_file.split("/")[-1], 'linked_tables', fpath)
-					structure = fill_structure(structure, base_file.split("/")[-1], 'tables_out', target_dir + "/".join(fpath.split("/")[:-1]))
+					structure = fill_structure(structure, base_file, 'linked_tables', fpath)
+					structure = fill_structure(structure, base_file, 'out_dir', "/".join(fpath.split("/")[:-1]))
 				elif ftype == "table_images":
 					base_file=re.sub("_table_\d+\..*", "", fpath)
-					structure = fill_structure(structure, base_file.split("/")[-1], 'table_images', fpath)
-					structure = fill_structure(structure, base_file.split("/")[-1], 'tables_out', target_dir + "/".join(fpath.split("/")[:-1]))
+					structure = fill_structure(structure, base_file, 'table_images', fpath)
+					structure = fill_structure(structure, base_file, 'out_dir', "/".join(fpath.split("/")[:-1]))
 				elif not ftype:
 					print(F"cannot determine file type for {fpath}, AC will not process this file")
 			return(structure)
@@ -118,10 +117,10 @@ def read_file_structure(file_path):
 			template = {
 				base_file: {
 					"main_text": "",
-					"main_text_out": target_dir + "/".join(file_path.split("/")[:-1]),
+					"main_text_out": "/".join(file_path.split("/")[:-1]),
 					"linked_tables": [],
 					"table_images": [],
-					"tables_out": target_dir + "/".join(file_path.split("/")[:-1])
+					"tables_out": "/".join(file_path.split("/")[:-1])
 				}
 			}
 			template[base_file][get_file_type(file_path)] = file_path if get_file_type(file_path) == "main_text" else [file_path]
@@ -142,24 +141,36 @@ for key in pbar:
 	)
 	AC = autoCORPus(config, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
 
+	out_dir = structure[key]["out_dir"]
+	new_out_dir = []
+	if not mirror_from == "":
+		outPath = out_dir.split("/")
+		found = False
+		for dir in outPath:
+			if dir == mirror_from:
+				found = True
+			if found:
+				new_out_dir.append(dir)
+	out_dir = target_dir + "/".join(new_out_dir)
+
+
+
+	if not os.path.exists(out_dir):
+		os.makedirs(out_dir)
 	if structure[key]["main_text"]:
-		if not os.path.exists(structure[key]["main_text_out"]):
-			os.makedirs(structure[key]["main_text_out"])
 		if output_format == "JSON":
-			with open(structure[key]["main_text_out"] + "/" + key + "_main_text.json", "w") as outfp:
+			with open(out_dir + "/" + key.split("/")[-1] + "_main_text.json", "w") as outfp:
 				outfp.write(AC.main_text_to_bioc_json())
 		else:
-			with open(structure[key]["main_text_out"] + "/" + key + "_main_text.xml", "w") as outfp:
+			with open(out_dir + "/" + key.split("/")[-1] + "_main_text.xml", "w") as outfp:
 				outfp.write(AC.main_text_to_bioc_xml())
-		with open(structure[key]["main_text_out"] + "/" + key + "_abbreviations.json", "w") as outfp:
+		with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w") as outfp:
 			outfp.write(AC.abbreviations_to_bioc_json())
 
 	# AC does not support the conversion of tables or abbreviations to the XML format
-	table_out_dir = structure[key]["tables_out"] if not structure[key]["tables_out"] == "" else structure[key]["main_text_out"]
-	if not os.path.exists(table_out_dir):
-		os.makedirs(table_out_dir)
-	with open(table_out_dir + "/" + key + "_tables.json", "w") as outfp:
-		outfp.write(AC.tables_to_bioc_json())
+	if AC.has_tables:
+		with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w") as outfp:
+			outfp.write(AC.tables_to_bioc_json())
 
 	pass
 

@@ -206,6 +206,7 @@ class autoCORPus:
 		self.main_text = {}
 		self.tables={}
 		self.abbreviations = {}
+		self.has_tables = False
 
 		# handle main_text
 		if main_text:
@@ -215,7 +216,6 @@ class autoCORPus:
 				self.abbreviations = abbreviations(self.main_text, soup, config, main_text).to_dict()
 			except Exception as e:
 				print(e)
-
 		if linked_tables:
 			for table_file in linked_tables:
 				soup = self.__handle_html(table_file, config)
@@ -230,6 +230,8 @@ class autoCORPus:
 			# 		self.tables = table_image(config, image_file).to_dict()
 			# 	else:
 			# 		self.tables["documents"].update(table_image(config, image_file)).to_dict()['documents']
+		if not self.tables['documents'] == []:
+			self.has_tables = True
 		pass
 
 	def to_bioc(self):
