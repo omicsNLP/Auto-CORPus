@@ -1,4 +1,4 @@
-$ git clone https://github.com/Tom-Shorter/autoCORPus.git
+$ git clone git@github.com:Tom-Shorter/autoCORPus.git
 
 $ cd autoCORPus
 
