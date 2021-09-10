@@ -176,7 +176,7 @@ class table_image:
 			# append to the above line
 	
 			for (j, (x, y, w, h)) in enumerate(row):
-				print(row)
+				# print(row)
 				# # if cells in the first column have all white pixels below, marked as section name
 				# # x<w ensures it is in the first column
 				# if j == 0 and x<w and eroded[x, y+2*h] > 0:

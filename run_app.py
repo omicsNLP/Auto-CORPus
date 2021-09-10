@@ -48,7 +48,7 @@ def get_file_type(file_path):
 		# this should be tidied up to only include the image types which are supported by AC instead of any image files
 		return("table_images")
 	else:
-		print(F"no clue {file_path}")
+		print(F"unable to identify file type for {file_path}, file will not be processed")
 
 def fill_structure(structure, key, ftype, fpath):
 	'''
