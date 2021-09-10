@@ -189,7 +189,6 @@ class autoCORPus:
 		else:
 			self.tables["documents"].extend(table(soup, config, file_path).to_dict()["documents"])
 		return soup
-		pass
 
 	def __init__(self, config_path, main_text = None, linked_tables = None, table_images = None, associated_data_path=None):
 		'''
@@ -216,23 +215,17 @@ class autoCORPus:
 				self.abbreviations = abbreviations(self.main_text, soup, config, main_text).to_dict()
 			except Exception as e:
 				print(e)
+			if not self.tables["documents"] == []:
+				self.has_tables = True
 		if linked_tables:
 			for table_file in linked_tables:
 				soup = self.__handle_html(table_file, config)
-
-		# handle table_images
-		# this all needs to be reworked with the updated table_images code, once that has been fixed and then updated
-		# to be OOP, produce BioC output and the addition of .to_dict()
+			if not self.tables["documents"] == []:
+				self.has_tables = True
 		if table_images:
-			pass
-			# for image_file in table_images:
-			# 	if self.tables == {}:
-			# 		self.tables = table_image(config, image_file).to_dict()
-			# 	else:
-			# 		self.tables["documents"].update(table_image(config, image_file)).to_dict()['documents']
-		if not self.tables['documents'] == []:
-			self.has_tables = True
-		pass
+			self.tables = table_image(table_images).to_dict()
+			if not self.tables["documents"] == []:
+				self.has_tables = True
 
 	def to_bioc(self):
 		return BiocFormatter(self).to_dict()

@@ -28,7 +28,7 @@ associated_data = args.associated_data
 output_format = args.output_format if args.output_format else "JSON"
 mirror_from = args.start_output_at if args.start_output_at else ""
 
-if not mirror_from in file_path:
+if not mirror_from in file_path and not mirror_from == "":
 	exit("-s value must be a directory found within the specified input file path")
 
 def get_file_type(file_path):
@@ -48,7 +48,7 @@ def get_file_type(file_path):
 		# this should be tidied up to only include the image types which are supported by AC instead of any image files
 		return("table_images")
 	else:
-		print(F"no clue {file_path}")
+		print(F"unable to identify file type for {file_path}, file will not be processed")
 
 def fill_structure(structure, key, ftype, fpath):
 	'''
@@ -134,7 +134,7 @@ pbar = tqdm(structure.keys())
 for key in pbar:
 	pbar.set_postfix(
 		{
-			"file": key,
+			"file": key + "*",
 			"linked_tables": len(structure[key]['linked_tables']),
 			"table_images": len(structure[key]['table_images'])
 		}
@@ -151,7 +151,8 @@ for key in pbar:
 				found = True
 			if found:
 				new_out_dir.append(dir)
-	out_dir = target_dir + "/".join(new_out_dir)
+		out_dir = "/".join(new_out_dir)
+	out_dir = target_dir + "/" + out_dir
 
 
 
@@ -159,10 +160,10 @@ for key in pbar:
 		os.makedirs(out_dir)
 	if structure[key]["main_text"]:
 		if output_format == "JSON":
-			with open(out_dir + "/" + key.split("/")[-1] + "_main_text.json", "w") as outfp:
+			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w") as outfp:
 				outfp.write(AC.main_text_to_bioc_json())
 		else:
-			with open(out_dir + "/" + key.split("/")[-1] + "_main_text.xml", "w") as outfp:
+			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w") as outfp:
 				outfp.write(AC.main_text_to_bioc_xml())
 		with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w") as outfp:
 			outfp.write(AC.abbreviations_to_bioc_json())
