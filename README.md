@@ -8,7 +8,10 @@ $ source env/bin/activate
 
 $ pip install .
 
-You might get an error here `ModuleNotFoundError: No module named 'skbuild'` if you do then run $ pip install --upgrade pip first and then re run $ pip install .
+You might get an error here `ModuleNotFoundError: No module named 'skbuild'` if you do then run 
+$ pip install --upgrade pip 
+first and then re run 
+$ pip install .
 
 Run the below command for a single file example
 
