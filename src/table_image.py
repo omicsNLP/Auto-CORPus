@@ -1,14 +1,19 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import cv2
 import pytesseract
 from operator import itemgetter
 import json
 import os
-
+import time
+import re
+from datetime import datetime
 
 
 class table_image:
 
-	def __img2text(self, img, x, y, w, h):
+	def img2text(self, img, x, y, w, h):
 		'''
 		Function: translate image into texts
 		Input: original image, and location of text boxes
@@ -16,6 +21,7 @@ class table_image:
 		'''
 
 		ROI = img[y - 3:(y + h + 6), x - 3:(x + w + 6)]
+		# pytesseract.pytesseract.tesseract_cmd = 'D:/Tesseract/tesseract.exe'
 		# change the 'lang' here for different traineddata
 		text = pytesseract.image_to_string(ROI, lang='eng', config='--psm 6 --oem 3').strip()
 		new_text = text.replace("\n", " ")
@@ -23,7 +29,7 @@ class table_image:
 
 
 
-	def __rm_lines(self,img):
+	def rm_lines(self, img):
 		'''
 		Function: remove all the horizontal and vertical lines in image and binary it
 		Input: original image
@@ -60,7 +66,7 @@ class table_image:
 
 
 
-	def __find_cells(self, img):
+	def find_cells(self, img):
 		'''
 		Function: find cells in table images and sort them from top-left to bottom-right
 		Input: original image
@@ -73,7 +79,7 @@ class table_image:
 		imgarea = size[0] * size[1]
 
 		# gray = cv2.cvtColor(added, cv2.COLOR_BGR2GRAY)
-		gray = self.__rm_lines(img)
+		gray = self.rm_lines(img)
 		ret, thresh = cv2.threshold(gray, 190, 255, cv2.THRESH_BINARY)
 		# thresh2 = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,10,0)
 		# comment the next line to save binary tables
@@ -83,15 +89,18 @@ class table_image:
 		scale = 150  # the larger, the rectangles smaller
 		# the second parameter of kernel and morphology iterations /
 		# need to be fine-tuned according to the image size
-		kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (cols // scale, rows // scale + 1))
-		eroded = cv2.morphologyEx(thresh, cv2.MORPH_GRADIENT, kernel, iterations=3)
-		eroded = cv2.bitwise_not(eroded)
+		kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (cols // scale, rows // scale + 2))
+		# Another method for erosion
+		# eroded = cv2.morphologyEx(thresh, cv2.MORPH_GRADIENT, kernel, iterations=3)
+		# eroded = cv2.bitwise_not(eroded)
+		eroded = cv2.erode(thresh, kernel, iterations=3)
 		# comment the next line to save images after morphology processing
-		# cv2.imwrite("eroded.jpg", eroded)
+		# cv2.imwrite(target_dir + '/' + "{}_eroded.jpg".format(pmc), eroded)
 
-		# first remove a few pixels and then add white borders before finding contours
-		eroded = eroded[10:(rows - 10), 10:(cols - 10)]
+		# Add white borders before finding contours
+		# eroded = eroded[10:(rows - 10), 10:(cols - 10)]
 		eroded = cv2.copyMakeBorder(eroded, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255])
+		thresh = cv2.copyMakeBorder(thresh, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255])
 		contours, hierarchy = cv2.findContours(eroded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 		# 'cells' save the location and sort
@@ -99,7 +108,7 @@ class table_image:
 		for c in contours:
 			x, y, w, h = cv2.boundingRect(c)
 			# case 1：eliminate rectangles that are too thin (might be lines)
-			if w > h * 30 or h > w * 30:
+			if w > h * 20 or h > w * 20:
 				continue
 			# case 2：remove a box similar to the whole image
 			if (w > size[1] * 0.8) and (h > size[0] * 0.8):
@@ -108,7 +117,7 @@ class table_image:
 			# case 3: eliminate small boxes that could be noises
 			area = cv2.contourArea(c)
 			# method 1: constant area. Does not work on images that are too large or too small
-			if area < 200:
+			if area < 250:
 				continue
 			# method 2: proportional area
 			# if area > 0:
@@ -117,14 +126,14 @@ class table_image:
 
 			cells.append((x, y, w, h))
 
-		# 可能上下只差1 pixel,但左右顺序就错了
+		# To avoid location errors in one line
 		cells = sorted(cells, key=itemgetter(1, 0))
 
 		return cells, added, thresh
 
 
 
-	def __cell2table(self, cells, added, thresh):
+	def cell2table(self, cells, added, thresh, target_dir, pmc):
 		'''
 		Function: save table texts in several rows
 		Input: ordered table cells, and processed image
@@ -154,21 +163,20 @@ class table_image:
 				# save a new line
 				row = []
 
+		'''
+		# The block (have not fully developed) is used to recognize section names in the left-most column
+		
 		for row in table_row:
-			##new_row = []
+			new_row = []
 			row.sort(key=lambda x: x[0])
-
-			'''
-			next two commented blocks recognize section names in the left-most column
-			'''
-
+			
 			# start = row[0]
 			# # row(i)[0][x]+[w] < row(i+1)[0][x] means the below cell is blank
 			# if prev[0] + prev[2] < start[0]:
 			# append to the above line
-
+	
 			for (j, (x, y, w, h)) in enumerate(row):
-
+				print(row)
 				# # if cells in the first column have all white pixels below, marked as section name
 				# # x<w ensures it is in the first column
 				# if j == 0 and x<w and eroded[x, y+2*h] > 0:
@@ -177,25 +185,28 @@ class table_image:
 				#     new_table.append(new_row)
 				#     new_row=[]
 				#     continue
-
-				row[j] = self.__img2text(thresh, x, y, w, h)
-				## text = img2text(thresh, x, y, w, h)
-				## new_row.append(text)
-
-				# # comment to write OCR results directly in the image
+	
+				new_row.append(img2text(thresh, x, y, w, h))
+	
+				# comment to write OCR results directly in the image
 				# font = cv2.FONT_HERSHEY_SIMPLEX
 				# cv2.putText(added, text, (x, y - 10), font, 1, color, 1);
+	
+			table_row.append(new_row)
+		'''
 
-				## table_row.append(new_row)
+		for row in table_row:
+			row.sort(key=lambda x: x[0])
+			for (i, (x, y, w, h)) in enumerate(row):
+				row[i] = self.img2text(thresh, x, y, w, h)
 
-		# show the cell detection result image
 		# cv2.imwrite(target_dir + '/' + "{}_result.jpg".format(pmc), added)
 
 		return table_row
 
 
 
-	def __text2json(self, table_row):
+	def text2json(self, table_row):
 		'''
 		Function: save table into a formatted json file
 		Input: table text saved line by line
@@ -227,7 +238,8 @@ class table_image:
 					footer = superline
 
 		# remove titles and footers
-		table_row = table_row[cnt1: len(table_row) - 1 - cnt2]
+		# table_row = table_row[cnt1: len(table_row) - 1 - cnt2]
+		table_row = table_row[cnt1: len(table_row) - cnt2]
 
 		table = {}
 		sections = []
@@ -276,17 +288,149 @@ class table_image:
 				pre_header = cur_header
 				pre_superrow = cur_superrow
 
-		table_json = {'tables': table}
-		# print(table_json)
+		# table_json = {'tables': table}
 
-		return table_json
+		return table
 
-	def __init__(self, img_path):
-		img = cv2.imread(img_path)
-		cells, added, thresh = self.__find_cells(img)
-		table_row = self.__cell2table(cells, added, thresh)
-		self.tables = self.__text2json(table_row)
-		pass
+	def __reformat_table_json(self, table):
+
+		offset = 0
+		tableDict = {
+			"file": self.file_name,
+			"id": self.tableIdentifier,
+			"infons": {},
+			"passages":[
+				{
+					"offset": 0,
+					"infons":{
+						"section_type": [
+							{"type": "table_title",
+							 "IAO_name": "document title",
+							 "IAO_id": "IAO:0000305"
+							 }
+						]
+					},
+					"text": table['title'],
+					"sentences": [],
+					"annotations": [],
+					"relations": []
+				}
+			],
+			"annotations": [],
+			"relations": []
+		}
+		offset += len(table['title'])
+		if "caption" in table.keys():
+			tableDict['passages'].append(
+				{
+					"offset": offset,
+					"infons":{
+						"section_type":[
+							{
+								"type": "table_caption",
+								"IAO_name": "caption",
+								"IAO_id": "IAO:0000304"
+							}
+						]
+					},
+					"text": ". ".join(table["caption"]),
+					"sentences": [],
+					"annotations": [],
+					"relations": []
+				}
+			)
+			offset += len("".join(table["caption"]))
+
+		if "section" in table.keys():
+			rowID = 0
+			colID = 0
+			rsection = []
+			this_offset = offset
+			for sect in table["section"]:
+
+				resultsDict = 						{
+					"section_title_1": sect['section_name'],
+					"results_rows":[]
+				}
+				for resultrow in sect["results"]:
+					colID=0
+					rrow = []
+					for result in resultrow:
+						resultDict = {
+							"id": F"T{table['identifier']}.{rowID}.{colID}",
+							"text": result
+						}
+						colID+=1
+						offset+= len(str(result))
+						rrow.append(resultDict)
+					resultsDict["results_rows"].append(rrow)
+					rowID+=1
+				rsection.append(resultsDict)
+			tableDict['passages'].append(
+				{
+					"offset": this_offset,
+					"infons": {
+						"section_type": [
+							{
+								"type": "table",
+								"IAO_name": "table",
+								"IAO_id": "IAO:0000306"
+							}
+						]
+					},
+					"columns": table.get("columns", []),
+					"results_section": rsection,
+					"sentences": [],
+					"annotations": [],
+					"relations": []
+				}
+			)
+
+		if "footer" in table.keys():
+			tableDict['passages'].append(
+				{
+					"offset": offset,
+					"infons":{
+						"section_type":[
+							{
+								"type": "table_footer",
+								"IAO_name": "caption",
+								"IAO_id": "IAO:0000304"
+							}
+						]
+					},
+					"text": ". ".join(table["footer"]),
+					"sentences": [],
+					"annotations": [],
+					"relations": []
+				}
+			)
+			offset += len("".join(table["footer"]))
+		return tableDict
+
+	def __init__(self, table_images):
+		self.table_raw = []
+		self.tables = {
+			"source": "Auto-CORPus table processing",
+			"date": f'{datetime.today().strftime("%Y%m%d")}',
+			"key": "auto-corpus-table.key",
+			"infons": {},
+			"documents":[]
+		}
+		for image_path in table_images:
+			imgname = image_path.split('/')[-1]
+			self.tableIdentifier = "T"+imgname.split("_")[-1].split(".")[0]
+			self.file_name = imgname
+			pmc = imgname[0:imgname.rfind('.')]
+
+			img = cv2.imread(image_path)
+
+			cells, added, thresh = self.find_cells(img)
+			table_row = self.cell2table(cells, added, thresh, "imagesOut", pmc)
+			self.tables['documents'].append(self.__reformat_table_json(self.text2json(table_row)))
+
 
 	def to_dict(self):
-		return self.tables
+		return(self.tables)
+
+
