@@ -12,7 +12,7 @@ parser.add_argument('-f','--filepath',type=str, help="filepath for document/dire
 parser.add_argument('-t','--target_dir',type=str, help="target directory") #default autoCORPusOutput
 parser.add_argument('-a','--associated_data',type=str, help="directory of associated data")
 parser.add_argument('-o','--output_format',type=str, help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations")
-parser.add_argument('-s','--start_output_at',type=str, help="name of directory within the input file path where the output should mirror the directory structure from, inclusive")
+parser.add_argument('-m','--mirror-from',type=str, help="name of directory within the input file path where the output should mirror the directory structure from, inclusive")
 
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-c", "--config", type=str, help="filepath for configuration JSON file")
@@ -29,7 +29,7 @@ output_format = args.output_format if args.output_format else "JSON"
 mirror_from = args.start_output_at if args.start_output_at else ""
 
 if not mirror_from in file_path and not mirror_from == "":
-	exit("-s value must be a directory found within the specified input file path")
+	exit("-m value must be a directory found within the specified input file path")
 
 def get_file_type(file_path):
 	'''

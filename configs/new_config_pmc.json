@@ -1,0 +1,140 @@
+{
+    "self-contained-sections": false,
+    "title":
+    {
+        "name":"h1",
+        "attrs":{"class":["content-title"]}
+    },
+    "keywords": {
+        "name": "span",
+        "attrs": {"class": ["kwd-text"]}
+    },
+    "references": {
+        "sections": {
+            "title": {
+                "name": "span",
+                "attrs": {"class":  "ref-title"}
+            },
+            "journal": {
+                "name": "span",
+                "attrs": {"class":  "ref-journal"}
+            },
+            "volume": {
+                "name": "span",
+                "attrs": {"class":  "ref-vol"}
+            }
+        },
+        "defined":[
+            {
+                "name": ["div"],
+                "attrs": {"class": ["ref-cit-blk"]}
+            },
+            {
+                "name": "li",
+                "attrs": {}
+            }
+        ],
+        "regex": [
+            {
+                "name": "p",
+                "attrs": "id",
+                "regex": "^(__){0,2}p\\d+$"
+            }
+        ]
+    },
+
+    "heading":
+    {
+        "name":"h2",
+        "attrs":{"class":"head"}
+    },
+    "heading2":
+    {
+        "name":"h3",
+        "attrs":{"class":null}
+    },
+    "sections":
+    {
+        "name":"div",
+        "attrs":{"class":"tsec"}
+    },
+    "subsections": {
+        "name":"div",
+        "attrs":{"class":"sec"}
+    },
+    "paragraphs": {
+        "name": "p",
+        "regex":[
+            {
+                "attrs": "id",
+                "regex": "^_*[pP]\\d+$"
+            }
+        ]
+
+    },
+    "table-container": {
+        "name": "div",
+        "attrs": {"class":  "table-wrap"},
+        "caption": {
+            "name": "div",
+            "attrs": {"class": "caption"}
+        }
+    },
+    "figure": {
+        "name": "div",
+        "attrs": { "class": "fig"},
+        "caption": {
+            "name": "div",
+            "attrs": {"class": "caption"}
+        }
+    },
+    "table":
+    {
+        "name":"table",
+        "attrs":{"class":"default_table"}
+    },
+    "table_caption": {
+        "name": "div",
+        "attrs": {"class": "caption"}
+    },
+    "table_title":
+    {
+        "name":"h3",
+        "attrs":{"class":null}
+    },
+    "table_footer":
+    {
+        "name":"div",
+        "attrs":{"class":"tblwrap-foot"}
+    },
+    "table_header":
+    {
+        "name":"thead",
+        "attrs":{"class":null}
+    },
+    "table_row":
+    {
+        "name":"tr",
+        "attrs":{"class":null}
+    },
+    "table_header_element":
+    {
+        "name":"th",
+        "attrs":{"class":null}
+    },
+    "table_body":
+    {
+        "name":"tbody",
+        "attrs":{"class":null}
+    },
+    "table_body_element":
+    {
+        "name":"td",
+        "attrs":{"class":null}
+    },
+    "abbreviations_table":
+    {
+        "name":"table",
+        "attrs":{"class":"glossary"}
+    }
+}
