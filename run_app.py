@@ -12,7 +12,7 @@ parser.add_argument('-f','--filepath',type=str, help="filepath for document/dire
 parser.add_argument('-t','--target_dir',type=str, help="target directory") #default autoCORPusOutput
 parser.add_argument('-a','--associated_data',type=str, help="directory of associated data")
 parser.add_argument('-o','--output_format',type=str, help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations")
-parser.add_argument('-m','--mirror-from',type=str, help="name of directory within the input file path where the output should mirror the directory structure from, inclusive")
+parser.add_argument('-m','--mirror_from',type=str, help="name of directory within the input file path where the output should mirror the directory structure from, inclusive")
 
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-c", "--config", type=str, help="filepath for configuration JSON file")
@@ -26,7 +26,7 @@ config = args.config
 config_dir = args.config_dir
 associated_data = args.associated_data
 output_format = args.output_format if args.output_format else "JSON"
-mirror_from = args.start_output_at if args.start_output_at else ""
+mirror_from = args.mirror_from if args.mirror_from else ""
 
 if not mirror_from in file_path and not mirror_from == "":
 	exit("-m value must be a directory found within the specified input file path")
@@ -85,7 +85,7 @@ def read_file_structure(file_path):
 	structure = {}
 	if os.path.exists(file_path):
 		if os.path.isdir(file_path):
-			all_fpaths = glob.iglob(file_path + '**/**', recursive=True)
+			all_fpaths = glob.iglob(file_path + '/**', recursive=True)
 			# turn the 3d file structure into a flat 2d list of file paths
 			for fpath in all_fpaths:
 				ftype = get_file_type(fpath)
@@ -142,9 +142,9 @@ for key in pbar:
 	AC = autoCORPus(config, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
 
 	if "out_dir" in structure[key].keys():
-            out_dir = structure[key]["out_dir"]
-        else:
-            out_dir = ""
+		out_dir = structure[key]["out_dir"]
+	else:
+		out_dir = ""
 	new_out_dir = []
 	if not mirror_from == "":
 		outPath = out_dir.split("/")
