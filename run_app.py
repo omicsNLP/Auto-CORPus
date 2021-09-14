@@ -141,7 +141,10 @@ for key in pbar:
 	)
 	AC = autoCORPus(config, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
 
-	out_dir = structure[key]["out_dir"]
+	if "out_dir" in structure[key].keys():
+            out_dir = structure[key]["out_dir"]
+        else:
+            out_dir = ""
 	new_out_dir = []
 	if not mirror_from == "":
 		outPath = out_dir.split("/")
@@ -160,17 +163,17 @@ for key in pbar:
 		os.makedirs(out_dir)
 	if structure[key]["main_text"]:
 		if output_format == "JSON":
-			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w") as outfp:
+			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
 				outfp.write(AC.main_text_to_bioc_json())
 		else:
-			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w") as outfp:
+			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w", encoding='utf-8') as outfp:
 				outfp.write(AC.main_text_to_bioc_xml())
-		with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w") as outfp:
+		with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w", encoding='utf-8') as outfp:
 			outfp.write(AC.abbreviations_to_bioc_json())
 
 	# AC does not support the conversion of tables or abbreviations to the XML format
 	if AC.has_tables:
-		with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w") as outfp:
+		with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w", encoding='utf-8') as outfp:
 			outfp.write(AC.tables_to_bioc_json())
 
 	pass
