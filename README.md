@@ -23,7 +23,7 @@ output:
 
     PMC1_bioc.json
     PMC1_abbreviations.json
-    PMC1_tables.json (contains table 1 & 2 only)
+    PMC1_tables.json (contains table 1 & 2 and any tables described within the main text)
     /subdir
         PMC1_tables.json (contains tables 3 & 4 only)
         
