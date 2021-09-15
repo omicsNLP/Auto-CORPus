@@ -51,8 +51,8 @@ class table:
 				colspan = int(cell.attrs['colspan'])
 				# next column is offset by the colspan
 				span_offset += colspan - 1
-				value = ''.join(str(x) for x in cell.contents)
-				# value = cell.get_text()
+				#value = ''.join(str(x) for x in cell.get_text())
+				value = cell.get_text()
 				# clean the cell
 				value = value.strip().replace('\u2009',' ')
 				value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
