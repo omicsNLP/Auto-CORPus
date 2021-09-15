@@ -1,0 +1,174 @@
+{
+    "title": {
+        "data": {},
+        "locations": [
+            {
+                "name":"h1",
+                "attrs":{"class":["content-title"]}
+            }
+        ]
+    },
+    "keywords": {
+        "data": {},
+        "locations": [
+            {
+                "name": "span",
+                "attrs": {"class": ["kwd-text"]}
+            }
+        ]
+    },
+    "references": {
+        "data": {
+            "title": [
+                {
+                    "name": "span",
+                    "attrs": {"class":  "ref-title"}
+                }
+            ],
+            "journal": [
+                {
+                    "name": "span",
+                    "attrs": {"class":  "ref-journal"}
+                }
+            ],
+            "volume": [
+                {
+                    "name": "span",
+                    "attrs": {"class":  "ref-vol"}
+                }
+            ]
+        },
+        "locations":[
+            {
+                "name": "div",
+                "attrs": {"class": ["ref-cit-blk"]}
+            },
+            {
+                "name": "li"
+            },
+            {
+                "name": "p",
+                "attrs": {"id": "^(__){0,2}p\\d+$"}
+            }
+        ]
+    },
+    "sections": {
+        "data": {
+            "headers": {
+                "name": "h2",
+                "attrs": {
+                    "class": "head"
+                }
+            }
+        },
+        "locations": [
+            {
+                "name": "div",
+                "attrs": {
+                    "class": "tsec"
+                }
+            }
+        ]
+    },
+    "sub-sections": {
+        "data": {
+            "headers": [
+                {
+                    "name": "^h[3-6]$"
+                }
+            ]
+        },
+        "locations": [
+            {
+                "name":"div",
+                "attrs":{"class":"sec"}
+            }
+        ]
+    },
+    "paragraphs": {
+        "data": {},
+        "locations": [
+            {
+                "name": "p",
+                "attrs": {"id": "^_*[pP]\\d+$"}
+            }
+        ]
+    },
+    "tables": {
+        "data": {
+            "caption": [
+                {
+                    "name": "div",
+                    "attrs": {"class": "caption"}
+                }
+            ],
+            "table-content": [
+                {
+                    "name": "table"
+                }
+            ],
+            "title": [
+                {
+                    "name":"h3"
+                }
+            ],
+            "footer": [
+                {
+                    "name":"div",
+                    "attrs":{"class":"tblwrap-foot"}
+                }
+            ],
+            "header-row": [
+                {
+                    "name":"thead"
+                }
+            ],
+            "header-element": [
+                {
+                    "name":"th"
+                }
+            ],
+            "body-row": [
+                {
+                    "name": "tbody"
+                }
+            ],
+            "body-element": [
+                {
+                    "name":"td"
+                }
+            ]
+        },
+        "locations": [
+            {
+                "name": "div",
+                "attrs": {"class":  "table-wrap"}
+            }
+        ]
+    },
+    "figures": {
+        "data": {
+            "caption": [
+                {
+                    "name": "div",
+                    "attrs": {"class": "caption"}
+                }
+            ]
+        },
+        "locations": [
+            {
+                "name": "div",
+                "attrs": { "class": "fig"}
+            }
+        ]
+    },
+    "abbreviations-table": {
+        "data": {},
+        "locations": [
+            {
+                "name":"table",
+                "attrs":{"class":"glossary"}
+            }
+        ]
+    }
+}
