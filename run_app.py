@@ -5,7 +5,7 @@ from tqdm import tqdm
 import re
 import imghdr
 
-from autoCORPus import autoCORPus
+from src.autoCORPus import autoCORPus
 
 parser = argparse.ArgumentParser(prog='PROG')
 parser.add_argument('-f','--filepath',type=str, help="filepath for document/directory to run AC on")
@@ -141,12 +141,11 @@ for key in pbar:
 	)
 	AC = autoCORPus(config, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
 
-	if "out_dir" in structure[key].keys():
-		out_dir = structure[key]["out_dir"]
-	else:
-		out_dir = ""
+	out_dir = ""
 	new_out_dir = []
 	if not mirror_from == "":
+		if "out_dir" in structure[key].keys():
+			out_dir = structure[key]["out_dir"]
 		outPath = out_dir.split("/")
 		found = False
 		for dir in outPath:
@@ -162,6 +161,7 @@ for key in pbar:
 	if not os.path.exists(out_dir):
 		os.makedirs(out_dir)
 	if structure[key]["main_text"]:
+		key = key.replace('\\','/')
 		if output_format == "JSON":
 			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
 				outfp.write(AC.main_text_to_bioc_json())
