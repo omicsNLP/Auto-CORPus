@@ -117,10 +117,9 @@ def read_file_structure(file_path):
 			template = {
 				base_file: {
 					"main_text": "",
-					"main_text_out": "/".join(file_path.split("/")[:-1]),
+					"out_dir": "/".join(file_path.split("/")[:-1]),
 					"linked_tables": [],
-					"table_images": [],
-					"tables_out": "/".join(file_path.split("/")[:-1])
+					"table_images": []
 				}
 			}
 			template[base_file][get_file_type(file_path)] = file_path if get_file_type(file_path) == "main_text" else [file_path]
