@@ -11,8 +11,8 @@ class BioCPassage:
 			"body": title,
 			"section_type": [
 				{
-					"IAO_term": "document title",
-					"IAO_id": "IAO:0000305"
+					"iao_name": "document title",
+					"iao_id": "IAO:0000305"
 				}
 			]
 

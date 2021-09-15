@@ -32,8 +32,8 @@ class references():
 			"body": reference.get_text().replace("Go to:", ""),
 			"section_type": [
 				{
-					"IAO_term": "references section",
-					"IAO_id": "IAO:0000320"
+					"iao_name": "references section",
+					"iao_id": "IAO:0000320"
 				}
 			]
 		}

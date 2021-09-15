@@ -115,8 +115,8 @@ class section:
 		else:
 			mapping_result_ID_version = ''
 		return {
-			"IAO_term": IAO_term,
-			"IAO_id": mapping_result_ID_version
+			"iao_name": IAO_term,
+			"iao_id": mapping_result_ID_version
 		}
 
 	def __get_section(self, soup_section):
@@ -169,7 +169,7 @@ class section:
 		self.paragraphs = []
 		if self.section_heading == "Abbreviations":
 			self.__get_abbreviations(soup_section)
-		elif {"IAO_term":"references section", "IAO_id":"IAO:0000320"} in self.section_type:
+		elif {"iao_name":"references section", "iao_id":"IAO:0000320"} in self.section_type:
 			self.__get_references(soup_section)
 			pass
 		else:

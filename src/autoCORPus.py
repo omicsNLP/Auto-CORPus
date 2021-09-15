@@ -118,8 +118,8 @@ class autoCORPus:
 			"body": soup.find(config["keywords"]["name"], config["keywords"]["attrs"]).get_text(),
 			"section_type": [
 				{
-					"IAO_term": "keywords section",
-					"IAO_id": "IAO:0000630"
+					"iao_name": "keywords section",
+					"iao_id": "IAO:0000630"
 				}
 			]
 		}
@@ -169,7 +169,7 @@ class autoCORPus:
 	def __set_unknown_section_headings(self, uniqueText):
 		paper = {}
 		for para in uniqueText:
-			paper[para['section_heading']] = [x['IAO_term'] for x in para['section_type']]
+			paper[para['section_heading']] = [x['iao_name'] for x in para['section_type']]
 		mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
 		for i, para in enumerate(uniqueText):
 			if para['section_heading'] in mapping_dict_with_DAG.keys():
