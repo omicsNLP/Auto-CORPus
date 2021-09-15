@@ -405,79 +405,78 @@ class abbreviations:
 		all_abbreviations.update(author_provided_abbreviations)
 
 		abbrev_json = {}
-		abbrev_json['author_provided_abbreviations'] = author_provided_abbreviations
-		abbrev_json['additional_abbreviations'] = additional_abbreviations
+		abbrev_json['abbreviations_section'] = author_provided_abbreviations
+		abbrev_json['fulltext_algorithm'] = additional_abbreviations
 		abbrev_json['all_abbreviations'] = all_abbreviations
 		return abbrev_json
 
 	def __biocify_abbreviations(self, abbreviations, file_path):
 		offset = 0
 		template = {
-			"source": "Auto-CORPus abbreviations processing",
+			"source": "Auto-CORPus (abbreviations)",
+			"inputfile": file_path,
 			"date": f'{datetime.today().strftime("%Y%m%d")}',
-			"key": "auto-corpus-abbreviations.key",
-			"infons": {},
+			"key": "autocorpus_abbreviations.key",
+			# "infons": {},
+
 			"documents":[]
 		}
-		if len(abbreviations["author_provided_abbreviations"]) > 0:
+		if len(abbreviations["abbreviations_section"]) > 0:
 			authorDict = {
-					"file": file_path,
-					"id": "author_provided_abbreviations",
-					"infons": {},
+					"id": "abbreviations_section",
+					# "infons": {},
 					"passages": [],
-					"annotations": [],
-					"relations": []
+					# "annotations": [],
+					# "relations": []
 				}
-			for abbr, full in abbreviations["author_provided_abbreviations"].items():
+			for abbr, full in abbreviations["abbreviations_section"].items():
 				authorDict["passages"].append({
-						"offset": offset,
-						"infons": {},
-						"text": F"{abbr}|{full}",
-						"sentences": [],
-						"annotations": [],
-						"relations": []
+						# "infons": {},
+						"text_short": abbr,
+						"text_long": full,
+						# "sentences": [],
+						# "annotations": [],
+						# "relations": []
 					}
 				)
 				offset += len(F"{abbr} = {full}")
 			template["documents"].append(authorDict)
-		if len(abbreviations["additional_abbreviations"]) > 0:
+		if len(abbreviations["fulltext_algorithm"]) > 0:
 			additionalDict = {
-				"file": file_path,
-				"id": "additional_abbreviations",
-				"infons": {},
+				"id": "fulltext_algorithm",
+				# "infons": {},
 				"passages": [],
-				"annotations": [],
-				"relations": []
+				# "annotations": [],
+				# "relations": []
 			}
-			for abbr, full in abbreviations["additional_abbreviations"].items():
+			for abbr, full in abbreviations["fulltext_algorithm"].items():
 				additionalDict["passages"].append({
-					"offset": offset,
-					"infons": {},
-					"text": F"{abbr}|{full}",
-					"sentences": [],
-					"annotations": [],
-					"relations": []
+					# "infons": {},
+					"text_short": abbr,
+					"text_long": full,
+					# "sentences": [],
+					# "annotations": [],
+					# "relations": []
 					}
 				)
 				offset += len(F"{abbr} = {full}")
 			template["documents"].append(additionalDict)
 		if len(abbreviations["all_abbreviations"]) > 0:
 			allDict = {
-				"file": file_path,
 				"id": "all_abbreviations",
-				"infons": {},
+				# "infons": {},
 				"passages": [],
-				"annotations": [],
-				"relations": []
+				# "annotations": [],
+				# "relations": []
 			}
 			for abbr, full in abbreviations["all_abbreviations"].items():
 				allDict["passages"].append({
-						"offset": offset,
-						"infons": {},
-						"text": F"{abbr}|{full}",
-						"sentences": [],
-						"annotations": [],
-						"relations": []
+						# "infons": {},
+						"text_short": abbr,
+						"text_long": full,
+						# "sentences": [],
+						# "annotations": [],
+						# "relations": []
 					}
 				)
 				offset += len(F"{abbr} = {full}")

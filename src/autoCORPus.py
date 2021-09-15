@@ -211,10 +211,10 @@ class autoCORPus:
 		if main_text:
 			soup = self.__handle_html(main_text, config)
 			self.main_text = self.__extract_text(soup, config)
-			try:
-				self.abbreviations = abbreviations(self.main_text, soup, config, main_text).to_dict()
-			except Exception as e:
-				print(e)
+			# try:
+			self.abbreviations = abbreviations(self.main_text, soup, config, main_text).to_dict()
+			# except Exception as e:
+			# 	print(e)
 			if not self.tables["documents"] == []:
 				self.has_tables = True
 		if linked_tables:
