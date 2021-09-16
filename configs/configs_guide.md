@@ -35,12 +35,13 @@ of HTML tags and attributes which AC can utilise to find ocurrences of the secti
 ```
 
 
-The `data` sub-section serves different roles in different sections. The general idea is that the
-`data` sub-section allows you to provide HTML tags and attributes for areas of interest within
-the defined section. This could be the title of a table or the heading of a paragraph. Some of these `data` elements are
-required whereas others are optional. The required elements play a key role in allowing AC to accurately parse the source HTML
-whereas the optional elements allow the user to add further information into certain sections. The required `data` elements
-for each section can be found in the [random file which I'll make].
+The `data` sub-section allows you to provide HTML tags and attributes for areas of interest within
+the defined section. This could be the title of a table or the heading of a paragraph. Some of these `data` elements
+allow AC to accurately parse the source HTML whereas the allow the user to parse further information from certain sections. 
+This creates a "soft" required and an optional set of `data` elements for each section, further details about this can 
+be found in data_elements.md 
+
+
 
 ```
 {
@@ -76,11 +77,11 @@ this section from others. See below example
             }
 ```
 
-The above example tells AC to look for all `<div>` tags which a class of "ref-cit-blk". "ref-cit-blk" is denoted as a JSON list,
-this is optional and can be denoted as a single string instead but if a section would be uniquely identified by the use of two classes in combination then both classes 
-could be entered into the list, there is a logical AND operator applied to these values. 
+The above example tells AC to look for all `<div>` tags with a class of "ref-cit-blk". "ref-cit-blk" is denoted as a JSON list,
+this is optional and can be denoted as a single string instead but if a section would be uniquely identified by the use of two classes in combination, then both classes 
+could be entered into the list. There is a logical AND operator applied to these values. 
 
-You cannot state that a section is defined by the absence of a certain class.
+You cannot state that a section is defined by the absence of a certain attribute.
 
 Taking this further the value of the `tag` entry as well as all values within the `attrs` entry are processed as regex.
 AC will automatically enclose any `tag` and `value` entries with the regex start (`^`) and end (`$`) anchors, this is to ensure there are no
