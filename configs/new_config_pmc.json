@@ -1,18 +1,18 @@
 {
     "title": {
         "data": {},
-        "locations": [
+        "defined-by": [
             {
-                "name":"h1",
+                "tag":"h1",
                 "attrs":{"class":["content-title"]}
             }
         ]
     },
     "keywords": {
         "data": {},
-        "locations": [
+        "defined-by": [
             {
-                "name": "span",
+                "tag": "span",
                 "attrs": {"class": ["kwd-text"]}
             }
         ]
@@ -21,33 +21,33 @@
         "data": {
             "title": [
                 {
-                    "name": "span",
+                    "tag": "span",
                     "attrs": {"class":  "ref-title"}
                 }
             ],
             "journal": [
                 {
-                    "name": "span",
+                    "tag": "span",
                     "attrs": {"class":  "ref-journal"}
                 }
             ],
             "volume": [
                 {
-                    "name": "span",
+                    "tag": "span",
                     "attrs": {"class":  "ref-vol"}
                 }
             ]
         },
-        "locations":[
+        "defined-by":[
             {
-                "name": "div",
+                "tag": "div",
                 "attrs": {"class": ["ref-cit-blk"]}
             },
             {
-                "name": "li"
+                "tag": "li"
             },
             {
-                "name": "p",
+                "tag": "p",
                 "attrs": {"id": "(__){0,2}p\\d+"}
             }
         ]
@@ -55,15 +55,15 @@
     "sections": {
         "data": {
             "headers": {
-                "name": "h2",
+                "tag": "h2",
                 "attrs": {
                     "class": "head"
                 }
             }
         },
-        "locations": [
+        "defined-by": [
             {
-                "name": "div",
+                "tag": "div",
                 "attrs": {
                     "class": "tsec"
                 }
@@ -74,22 +74,22 @@
         "data": {
             "headers": [
                 {
-                    "name": "h[3-6]"
+                    "tag": "h[3-6]"
                 }
             ]
         },
-        "locations": [
+        "defined-by": [
             {
-                "name":"div",
+                "tag":"div",
                 "attrs":{"class":"sec"}
             }
         ]
     },
     "paragraphs": {
         "data": {},
-        "locations": [
+        "defined-by": [
             {
-                "name": "p",
+                "tag": "p",
                 "attrs": {"id": "_*[pP]\\d+"}
             }
         ]
@@ -98,50 +98,50 @@
         "data": {
             "caption": [
                 {
-                    "name": "div",
+                    "tag": "div",
                     "attrs": {"class": "caption"}
                 }
             ],
             "table-content": [
                 {
-                    "name": "table"
+                    "tag": "table"
                 }
             ],
             "title": [
                 {
-                    "name":"h3"
+                    "tag":"h3"
                 }
             ],
             "footer": [
                 {
-                    "name":"div",
+                    "tag":"div",
                     "attrs":{"class":"tblwrap-foot"}
                 }
             ],
             "header-row": [
                 {
-                    "name":"thead"
+                    "tag":"thead"
                 }
             ],
             "header-element": [
                 {
-                    "name":"th"
+                    "tag":"th"
                 }
             ],
             "body-row": [
                 {
-                    "name": "tbody"
+                    "tag": "tbody"
                 }
             ],
             "body-element": [
                 {
-                    "name":"td"
+                    "tag":"td"
                 }
             ]
         },
-        "locations": [
+        "defined-by": [
             {
-                "name": "div",
+                "tag": "div",
                 "attrs": {"class":  "table-wrap"}
             }
         ]
@@ -150,23 +150,23 @@
         "data": {
             "caption": [
                 {
-                    "name": "div",
+                    "tag": "div",
                     "attrs": {"class": "caption"}
                 }
             ]
         },
-        "locations": [
+        "defined-by": [
             {
-                "name": "div",
+                "tag": "div",
                 "attrs": { "class": "fig"}
             }
         ]
     },
     "abbreviations-table": {
         "data": {},
-        "locations": [
+        "defined-by": [
             {
-                "name":"table",
+                "tag":"table",
                 "attrs":{"class":"glossary"}
             }
         ]
