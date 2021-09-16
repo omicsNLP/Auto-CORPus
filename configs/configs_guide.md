@@ -37,7 +37,10 @@ of HTML tags and attributes which AC can utilise to find ocurrences of the secti
 
 The `data` sub-section serves different roles in different sections. The general idea is that the
 `data` sub-section allows you to provide HTML tags and attributes for areas of interest within
-the defined section. This could be the title of a table or the heading of a paragraph.
+the defined section. This could be the title of a table or the heading of a paragraph. Some of these `data` elements are
+required whereas others are optional. The required elements play a key role in allowing AC to accurately parse the source HTML
+whereas the optional elements allow the user to add further information into certain sections. The required `data` elements
+for each section can be found in the [random file which I'll make].
 
 ```
 {
