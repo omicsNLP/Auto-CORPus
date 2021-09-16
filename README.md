@@ -14,7 +14,7 @@ input:
 
     PMC1.html
     PMC1_table_1.html
-    PMC1_table_2.PNG
+    PMC1_table_2.png
     /subdir
         PMC1_table_3.HTML
         PMC1_table_4.png
@@ -60,9 +60,7 @@ Available arguments:
 
 -f (input file path) - file or directory to run autoCORPus on.
 
--o (output type) - either JSON or XML
-
--m (mirror from) - must be used with the file path argument, value is a directory which must appear within the file path structure, the output file structure will mirror the input file structure but begin from the provided directory (inclusively). e.g. filepath of /home/user/Desktop/Html, output directory of output and -m of Desktop results in an output directory of output/Desktop/Html, omitting -m would result in an output of output/home/user/Desktop/Html
+-o (output type) - either JSON or XML (defaults to JSON)
 
 -c (config) - which config file to use
 
