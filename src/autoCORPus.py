@@ -182,15 +182,15 @@ class autoCORPus:
 		handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables)
 		:return: soup object
 		'''
-		self.file_name = file_path.split("/")[-1]
+
 		soup = self.__soupify_infile(file_path)
 		if self.tables == {}:
-			self.tables = table(soup, config, file_path).to_dict()
+			self.tables = table(soup, config, file_path, self.base_dir).to_dict()
 		else:
-			self.tables["documents"].extend(table(soup, config, file_path).to_dict()["documents"])
+			self.tables["documents"].extend(table(soup, config, file_path, self.base_dir).to_dict()["documents"])
 		return soup
 
-	def __init__(self, config_path, main_text = None, linked_tables = None, table_images = None, associated_data_path=None):
+	def __init__(self, config_path, base_dir = None, main_text = None, linked_tables = None, table_images = None, associated_data_path=None):
 		'''
 
 		:param config_path: path to the config file to be used
@@ -201,6 +201,7 @@ class autoCORPus:
 		'''
 		# handle common
 		config = self.__read_config(config_path)
+		self.base_dir = base_dir
 		self.file_path = main_text
 		self.main_text = {}
 		self.tables={}
@@ -208,24 +209,21 @@ class autoCORPus:
 		self.has_tables = False
 
 		# handle main_text
-		if main_text:
-			soup = self.__handle_html(main_text, config)
+		if self.file_path:
+			self.file_name = self.file_path.replace(self.base_dir + "/", "")
+			soup = self.__handle_html(self.file_path, config)
 			self.main_text = self.__extract_text(soup, config)
 			try:
-				self.abbreviations = abbreviations(self.main_text, soup, config, main_text).to_dict()
+				self.abbreviations = abbreviations(self.main_text, soup, config, self.file_name).to_dict()
 			except Exception as e:
 				print(e)
-			if not self.tables["documents"] == []:
-				self.has_tables = True
 		if linked_tables:
 			for table_file in linked_tables:
 				soup = self.__handle_html(table_file, config)
-			if not self.tables["documents"] == []:
-				self.has_tables = True
 		if table_images:
-			self.tables = table_image(table_images).to_dict()
-			if not self.tables["documents"] == []:
-				self.has_tables = True
+			self.tables = table_image(table_images, self.base_dir).to_dict()
+		if "documents" in self.tables and not self.tables["documents"] == []:
+			self.has_tables = True
 
 	def to_bioc(self):
 		return BiocFormatter(self).to_dict()

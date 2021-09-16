@@ -293,7 +293,6 @@ class table_image:
 		return table
 
 	def __reformat_table_json(self, table):
-
 		offset = 0
 		tableDict = {
 			"file": self.file_name,
@@ -408,7 +407,7 @@ class table_image:
 			offset += len("".join(table["footer"]))
 		return tableDict
 
-	def __init__(self, table_images):
+	def __init__(self, table_images, base_dir):
 		self.table_raw = []
 		self.tables = {
 			"source": "Auto-CORPus table processing",
@@ -420,7 +419,7 @@ class table_image:
 		for image_path in table_images:
 			imgname = image_path.split('/')[-1]
 			self.tableIdentifier = "T"+imgname.split("_")[-1].split(".")[0]
-			self.file_name = imgname
+			self.file_name = imgname.replace(base_dir + "/", "")
 			pmc = imgname[0:imgname.rfind('.')]
 
 			img = cv2.imread(image_path)
