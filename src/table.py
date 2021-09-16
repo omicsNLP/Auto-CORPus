@@ -595,8 +595,8 @@ class table:
 
 
 
-	def __init__(self, soup, config, file_name):
-		self.file_name = file_name
+	def __init__(self, soup, config, file_name, base_dir):
+		self.file_name = file_name.replace(base_dir + "/", "")
 		self.tableIdentifier=None
 		if re.search("_table_\d+\.html", file_name):
 			self.tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
