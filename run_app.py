@@ -115,7 +115,7 @@ def read_file_structure(file_path, target_dir):
 			template = {
 				base_file: {
 					"main_text": "",
-					"out_dir": os.path.join(target_dir, file_path.replace(file_path, "")),
+					"out_dir": target_dir,
 					"linked_tables": [],
 					"table_images": []
 				}
@@ -136,8 +136,11 @@ for key in pbar:
 			"table_images": len(structure[key]['table_images'])
 		}
 	)
-
-	AC = autoCORPus(config, base_dir=file_path, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
+	if os.path.isdir(file_path):
+		base_dir = file_path
+	else:
+		base_dir = "/".join(file_path.split("/")[:-1])
+	AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
 
 	out_dir = structure[key]['out_dir']
 
