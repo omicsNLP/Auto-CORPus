@@ -6,7 +6,7 @@ There are no required sections within the config file, if you do not define a se
 AC will also not try to process any sections defined within the configs which are not within our template config file, 
 so we recommend you always start from the template config file or a working config file and modify from there.
 
-There are required entries within any defined sections, each section must contain a `defined-by` sub-section but the `data` sub-section is optional. Omitting the data section may
+There are required entries within defined sections, each section must contain a `defined-by` sub-section but the `data` sub-section is optional. Omitting the `data` sub-section may
 result in that section not being processed properly.
 
 ```
