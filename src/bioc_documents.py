@@ -23,7 +23,7 @@ class BiocDocument:
 
 	def build_template(self, dataStore):
 		return {
-			"inputfile": dataStore.file_path,
+			"inputfile": dataStore.file_name,
 			"infons": {},
 			"passages": self.build_passages(dataStore),
 			"annotations": [],

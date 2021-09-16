@@ -12,7 +12,6 @@ parser.add_argument('-f','--filepath',type=str, help="filepath for document/dire
 parser.add_argument('-t','--target_dir',type=str, help="target directory") #default autoCORPusOutput
 parser.add_argument('-a','--associated_data',type=str, help="directory of associated data")
 parser.add_argument('-o','--output_format',type=str, help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations")
-parser.add_argument('-m','--mirror_from',type=str, help="name of directory within the input file path where the output should mirror the directory structure from, inclusive")
 
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-c", "--config", type=str, help="filepath for configuration JSON file")
@@ -26,10 +25,6 @@ config = args.config
 config_dir = args.config_dir
 associated_data = args.associated_data
 output_format = args.output_format if args.output_format else "JSON"
-mirror_from = args.mirror_from if args.mirror_from else ""
-
-if not mirror_from in file_path and not mirror_from == "":
-	exit("-m value must be a directory found within the specified input file path")
 
 def get_file_type(file_path):
 	'''
@@ -75,7 +70,7 @@ def fill_structure(structure, key, ftype, fpath):
 	return structure
 	pass
 
-def read_file_structure(file_path):
+def read_file_structure(file_path, target_dir):
 	'''
 	takes in any file structure (flat or nested) and groups files, returns a dict of files which are all related and
 	the paths to each related file
@@ -88,23 +83,26 @@ def read_file_structure(file_path):
 			all_fpaths = glob.iglob(file_path + '/**', recursive=True)
 			# turn the 3d file structure into a flat 2d list of file paths
 			for fpath in all_fpaths:
+				out_dir = os.path.join(target_dir, "/".join(fpath.replace(F"{file_path}/", "").split("/")[:-1]))
 				ftype = get_file_type(fpath)
 				if ftype == "directory":
 					continue
 				elif ftype == "main_text":
 					base_file = re.sub("\.html", "", fpath)
 					structure = fill_structure(structure, base_file, 'main_text', fpath)
-					structure = fill_structure(structure, base_file, 'out_dir', "/".join(fpath.split("/")[:-1]))
+					structure = fill_structure(structure, base_file, 'out_dir', out_dir)
 				elif ftype == "linked_tables":
 					base_file = re.sub("_table_\d+\.html", "", fpath)
 					structure = fill_structure(structure, base_file, 'linked_tables', fpath)
-					structure = fill_structure(structure, base_file, 'out_dir', "/".join(fpath.split("/")[:-1]))
+					structure = fill_structure(structure, base_file, 'out_dir', out_dir)
 				elif ftype == "table_images":
 					base_file=re.sub("_table_\d+\..*", "", fpath)
 					structure = fill_structure(structure, base_file, 'table_images', fpath)
-					structure = fill_structure(structure, base_file, 'out_dir', "/".join(fpath.split("/")[:-1]))
+					structure = fill_structure(structure, base_file, 'out_dir', out_dir)
 				elif not ftype:
 					print(F"cannot determine file type for {fpath}, AC will not process this file")
+				if base_file in structure:
+					structure = fill_structure(structure, base_file, 'out_dir', out_dir)
 			return(structure)
 		else:
 			ftype = get_file_type(file_path)
@@ -117,7 +115,7 @@ def read_file_structure(file_path):
 			template = {
 				base_file: {
 					"main_text": "",
-					"out_dir": "/".join(file_path.split("/")[:-1]),
+					"out_dir": os.path.join(target_dir, file_path.replace(file_path, "")),
 					"linked_tables": [],
 					"table_images": []
 				}
@@ -128,7 +126,7 @@ def read_file_structure(file_path):
 		print(F"{file_path} does not exist")
 	pass
 
-structure = read_file_structure(file_path)
+structure = read_file_structure(file_path, target_dir)
 pbar = tqdm(structure.keys())
 for key in pbar:
 	pbar.set_postfix(
@@ -138,24 +136,10 @@ for key in pbar:
 			"table_images": len(structure[key]['table_images'])
 		}
 	)
-	AC = autoCORPus(config, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
 
-	out_dir = ""
-	new_out_dir = []
-	if not mirror_from == "":
-		if "out_dir" in structure[key].keys():
-			out_dir = structure[key]["out_dir"]
-		outPath = out_dir.split("/")
-		found = False
-		for dir in outPath:
-			if dir == mirror_from:
-				found = True
-			if found:
-				new_out_dir.append(dir)
-		out_dir = "/".join(new_out_dir)
-	out_dir = target_dir + "/" + out_dir
+	AC = autoCORPus(config, base_dir=file_path, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
 
-
+	out_dir = structure[key]['out_dir']
 
 	if not os.path.exists(out_dir):
 		os.makedirs(out_dir)
