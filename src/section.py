@@ -41,6 +41,8 @@ class section:
 
 	def __navigate_children(self, soup_section, all_sub_sections, filtered_paragraphs):
 		if soup_section in filtered_paragraphs:
+			if soup_section.previous_sibling and soup_section.previous_sibling.name in ("h3", "h4", "h5"):
+				self.subheader = soup_section.previous_sibling.get_text()
 			self.__add_paragraph(soup_section.get_text())
 			return
 		elif soup_section in all_sub_sections:
