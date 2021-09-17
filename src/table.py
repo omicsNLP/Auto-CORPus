@@ -324,27 +324,28 @@ class table:
 
 	def __reformat_table_json(self, table_json):
 		bioc_format = {
-			"source": "Auto-CORPus table processing",
+			"source": "Auto-CORPus (tables)",
 			"date": f'{datetime.today().strftime("%Y%m%d")}',
-			"key": "auto-corpus-table.key",
+			"key": "autocorpus_tables.key",
 			"infons": {},
 			"documents":[]
 		}
 
 		for table in table_json['tables']:
+			identifier = self.tableIdentifier.replace('.', '_') if self.tableIdentifier else table['identifier'].replace('.', '_')
 			offset = 0
 			tableDict = {
-				"file": self.file_name,
-				"id": F"T{self.tableIdentifier if self.tableIdentifier else table['identifier']}",
+				"inputfile": self.file_name,
+				"id": F"T{identifier}",
 				"infons": {},
 				"passages":[
 					{
 						"offset": 0,
 						"infons":{
 							"section_type": [
-								{"type": "table_title",
-								"IAO_name": "document title",
-								 "IAO_id": "IAO:0000305"
+								{"section_label": "table_title",
+								"iao_name": "document title",
+								 "iao_id": "IAO:0000305"
 								 }
 							]
 						},
@@ -358,16 +359,16 @@ class table:
 				"relations": []
 			}
 			offset += len(table['title'])
-			if "caption" in table.keys():
+			if "caption" in table.keys() and not table['caption'] == "":
 				tableDict['passages'].append(
 					{
 						"offset": offset,
 						"infons":{
 							"section_type":[
 								{
-									"type": "table_caption",
-									"IAO_name": "caption",
-									"IAO_id": "IAO:0000304"
+									"section_label": "table_caption",
+									"iao_name": "caption",
+									"iao_id": "IAO:0000304"
 								}
 							]
 						},
@@ -380,60 +381,68 @@ class table:
 				offset += len("".join(table["caption"]))
 
 			if "section" in table.keys():
-				rowID = 0
-				colID = 0
+				rowID = 2
 				rsection = []
 				this_offset = offset
 				for sect in table["section"]:
 
 					resultsDict = 						{
 						"section_title_1": sect['section_name'],
-						"results_rows":[]
+						"data_rows":[]
 					}
 					for resultrow in sect["results"]:
-						colID=0
+						colID=1
 						rrow = []
 						for result in resultrow:
 							resultDict = {
-								"id": F"T{table['identifier']}.{rowID}.{colID}",
-								"text": result
+								"cell_id": F"T{identifier}.{rowID}.{colID}",
+								"cell_text": result
 							}
 							colID+=1
 							offset+= len(str(result))
 							rrow.append(resultDict)
-						resultsDict["results_rows"].append(rrow)
+						resultsDict["data_rows"].append(rrow)
 						rowID+=1
 					rsection.append(resultsDict)
+
+				columns = []
+				for i, column in enumerate(table.get("columns", [])):
+					columns.append(
+						{
+							"cell_id": F"T{identifier}.1.{i+1}",
+							"cell_text": column
+						}
+					)
 				tableDict['passages'].append(
 					{
 						"offset": this_offset,
 						"infons": {
 							"section_type": [
 								{
-									"type": "table",
-									"IAO_name": "table",
-									"IAO_id": "IAO:0000306"
+									"section_label": "table_content",
+									"iao_name": "table",
+									"iao_id": "IAO:0000306"
 								}
 							]
 						},
-						"columns": table.get("columns", []),
-						"results_section": rsection,
+						"column_headings": columns,
+						"data_section": rsection,
 						"sentences": [],
 						"annotations": [],
 						"relations": []
 					}
 				)
 
-			if "footer" in table.keys():
+			if "footer" in table.keys() and not table['footer'] == "":
 				tableDict['passages'].append(
 					{
 						"offset": offset,
 						"infons":{
 							"section_type":[
 								{
-									"type": "table_footer",
-									"IAO_name": "caption",
-									"IAO_id": "IAO:0000304"
+									"section_label": "table_footer",
+									"iao_name": "caption",
+									"iao_id": "IAO:0000304"
 								}
 							]
 						},
