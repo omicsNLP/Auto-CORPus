@@ -355,7 +355,7 @@ class table_image:
 					rrow = []
 					for result in resultrow:
 						resultDict = {
-							"cell_id": F"T{table['identifier']}.{rowID}.{colID}",
+							"cell_id": F"{self.tableIdentifier}.{rowID}.{colID}",
 							"cell_text": result
 						}
 						colID+=1
@@ -369,7 +369,7 @@ class table_image:
 			for i, column in enumerate(table.get("columns", [])):
 				columns.append(
 					{
-						"cell_id": F"T{table['identifier']}.1.{i+1}",
+						"cell_id": F"{self.tableIdentifier}.1.{i+1}",
 						"cell_text": column
 					}
 				)
@@ -426,7 +426,7 @@ class table_image:
 		}
 		for image_path in table_images:
 			imgname = image_path.split('/')[-1]
-			self.tableIdentifier = "T"+imgname.split("_")[-1].split(".")[0]
+			self.tableIdentifier = imgname.split("_")[-1].split(".")[0]
 			self.file_name = imgname.replace(base_dir + "/", "")
 			pmc = imgname[0:imgname.rfind('.')]
 

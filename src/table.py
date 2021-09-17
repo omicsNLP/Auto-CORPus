@@ -336,7 +336,7 @@ class table:
 			offset = 0
 			tableDict = {
 				"inputfile": self.file_name,
-				"id": F"T{identifier}",
+				"id": F"{identifier}",
 				"infons": {},
 				"passages":[
 					{
@@ -395,7 +395,7 @@ class table:
 						rrow = []
 						for result in resultrow:
 							resultDict = {
-								"cell_id": F"T{identifier}.{rowID}.{colID}",
+								"cell_id": F"{identifier}.{rowID}.{colID}",
 								"cell_text": result
 							}
 							colID+=1
@@ -409,7 +409,7 @@ class table:
 				for i, column in enumerate(table.get("columns", [])):
 					columns.append(
 						{
-							"cell_id": F"T{identifier}.1.{i+1}",
+							"cell_id": F"{identifier}.1.{i+1}",
 							"cell_text": column
 						}
 					)
