@@ -79,12 +79,14 @@ def read_file_structure(file_path, target_dir):
 	'''
 	structure = {}
 	if os.path.exists(file_path):
-		omit_dir = "/".join(file_path.split("/")[:-1])
+		omit_dir = "/".join(file_path.split("/"))
 		if os.path.isdir(file_path):
 			all_fpaths = glob.iglob(file_path + '/**', recursive=True)
 			# turn the 3d file structure into a flat 2d list of file paths
 			for fpath in all_fpaths:
-				out_dir = os.path.join(target_dir, "/".join(fpath.replace(F"{omit_dir}/", "").split("/")[:-1]))
+				tmp_out = fpath.replace(omit_dir, "")
+				tmp_out = "/".join(tmp_out.split("/")[:-1])
+				out_dir = target_dir + tmp_out
 				ftype = get_file_type(fpath)
 				if ftype == "directory":
 					continue
