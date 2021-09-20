@@ -164,6 +164,7 @@ class section:
 			self.paragraphs.append(references(ref, self.config, self.section_heading).to_dict())
 
 	def __init__(self, config, soup_section):
+
 		self.config = config
 		self.section_heading = self.__get_section_header(soup_section)
 		self.__set_IAO()
@@ -173,16 +174,8 @@ class section:
 			self.__get_abbreviations(soup_section)
 		elif {"iao_name":"references section", "iao_id":"IAO:0000320"} in self.section_type:
 			self.__get_references(soup_section)
-			pass
 		else:
 			self.__get_section(soup_section)
 
-
-
-		# TODO: add logic for if there are no sections within the text, also change logic to look at section children
-		#  one by one instead of look for sub sections to ensure correct order is retained if a section has a
-		#  paragraph then a subsection
-		pass
-
 	def to_dict(self):
-		return self.paragraphs
+		return self.paragraphs if self.paragraphs else []
