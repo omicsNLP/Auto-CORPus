@@ -343,7 +343,7 @@ class table:
 						"offset": 0,
 						"infons":{
 							"section_type": [
-								{"section_label": "table_title",
+								{"section_name": "table_title",
 								"iao_name": "document title",
 								 "iao_id": "IAO:0000305"
 								 }
@@ -366,7 +366,7 @@ class table:
 						"infons":{
 							"section_type":[
 								{
-									"section_label": "table_caption",
+									"section_name": "table_caption",
 									"iao_name": "caption",
 									"iao_id": "IAO:0000304"
 								}
@@ -419,7 +419,7 @@ class table:
 						"infons": {
 							"section_type": [
 								{
-									"section_label": "table_content",
+									"section_name": "table_content",
 									"iao_name": "table",
 									"iao_id": "IAO:0000306"
 								}
@@ -440,7 +440,7 @@ class table:
 						"infons":{
 							"section_type":[
 								{
-									"section_label": "table_footer",
+									"section_name": "table_footer",
 									"iao_name": "caption",
 									"iao_id": "IAO:0000304"
 								}

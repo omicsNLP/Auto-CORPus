@@ -51,8 +51,8 @@
         "name": "div",
         "attrs": {"class":  "figure"},
         "caption": {
-            "name": "div",
-            "attrs": {"class": "figcaption"}
+            "name": "p",
+            "attrs": ""
         }
     },
     "figure": {
@@ -69,18 +69,18 @@
         "attrs":{"class":"default_table"}
     },
     "table_caption": {
-        "name": "div",
-        "attrs": {"class": "caption"}
+        "name": "p",
+        "attrs": ""
     },
     "table_title":
     {
-        "name":"h3",
-        "attrs":{"class":null}
+        "name":"div",
+        "attrs": {"class": "figcaption"}
     },
     "table_footer":
     {
-        "name":"div",
-        "attrs":{"class":"tblwrap-foot"}
+        "name":"p",
+        "attrs":{"class":"caption_object"}
     },
     "table_header":
     {
