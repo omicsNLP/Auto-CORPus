@@ -158,8 +158,10 @@ class autoCORPus:
 		filteredText = []
 		[filteredText.append(x) for x in maintext if x]
 		uniqueText = []
+		seen_text = []
 		for text in filteredText:
-			if text not in uniqueText:
+			if text['body'] not in seen_text:
+				seen_text.append(text['body'])
 				uniqueText.append(text)
 
 		result['paragraphs'] = self.__set_unknown_section_headings(uniqueText)
