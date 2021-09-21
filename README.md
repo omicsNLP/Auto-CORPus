@@ -29,6 +29,7 @@ output:
     /subdir
         PMC1_tables.json (contains tables 3 & 4 only)
         
+clone the repo, e.g.:
 
 $ git clone git@github.com:Tom-Shorter/autoCORPus.git
 
@@ -65,4 +66,7 @@ Available arguments:
 -o (output type) - either JSON or XML (defaults to JSON)
 
 -c (config) - which config file to use
+
+-s (trained dataset) - trained dataset to use for pytesseract OCR. value should be given in a format
+    recognised by pytesseract with a "+" between each datafile, such as "eng+sym"
 
