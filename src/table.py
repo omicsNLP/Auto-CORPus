@@ -52,7 +52,8 @@ class table:
 				# next column is offset by the colspan
 				span_offset += colspan - 1
 				#value = ''.join(str(x) for x in cell.get_text())
-				value = cell.get_text()
+				test = cell.contents
+				value = cell.get_text(separator=" ")
 				# clean the cell
 				value = value.strip().replace('\u2009',' ')
 				value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
@@ -85,7 +86,7 @@ class table:
 			True/False
 
 		"""
-		if len(set([i for i in row if (str(i)!='')&(str(i)!='\n')&(str(i)!='None')]))==1:
+		if len(set([i for i in row if (str(i)!='')&(str(i)!='\n')&(str(i)!='None')&(bool(re.match("[a-zA-Z]", str(i))))]))==1:
 			return True
 		else:
 			return False
