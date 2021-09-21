@@ -50,6 +50,13 @@
     "table-container": {
         "name": "div",
         "attrs": {"class":  "figure"},
+        "regex": [
+            {
+                "name": "div",
+                "attrs": "data-doi",
+                "regex": ".t\\d*"
+            }
+        ],
         "caption": {
             "name": "p",
             "attrs": ""
