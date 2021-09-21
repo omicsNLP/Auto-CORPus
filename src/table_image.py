@@ -23,7 +23,7 @@ class table_image:
 		ROI = img[y - 3:(y + h + 6), x - 3:(x + w + 6)]
 		# pytesseract.pytesseract.tesseract_cmd = 'D:/Tesseract/tesseract.exe'
 		# change the 'lang' here for different traineddata
-		text = pytesseract.image_to_string(ROI, lang='eng', config='--psm 6 --oem 3').strip()
+		text = pytesseract.image_to_string(ROI, lang=self.trainedData, config='--psm 6 --oem 3').strip()
 		new_text = text.replace("\n", " ")
 		return new_text
 
@@ -293,7 +293,11 @@ class table_image:
 		return table
 
 	def __reformat_table_json(self, table):
+		if table == {}:
+			return {}
 		offset = 0
+		if not "title" in table:
+			print("no title")
 		tableDict = {
 			"inputfile": self.file_name,
 			"id": self.tableIdentifier,
@@ -415,7 +419,8 @@ class table_image:
 			offset += len("".join(table["footer"]))
 		return tableDict
 
-	def __init__(self, table_images, base_dir):
+	def __init__(self, table_images, base_dir, trainedData="eng"):
+		self.trainedData = trainedData
 		self.table_raw = []
 		self.tables = {
 			"source": "Auto-CORPus (tables)",

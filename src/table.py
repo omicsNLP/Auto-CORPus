@@ -86,7 +86,8 @@ class table:
 			True/False
 
 		"""
-		if len(set([i for i in row if (str(i)!='')&(str(i)!='\n')&(str(i)!='None')&(bool(re.match("[a-zA-Z]", str(i))))]))==1:
+		cleaned_row = [i for i in row if (str(i)!='')&(str(i)!='\n')&(str(i)!='None')]
+		if len(cleaned_row) == 1 and bool(re.match("[a-zA-Z]", cleaned_row[0])):
 			return True
 		else:
 			return False
@@ -471,6 +472,32 @@ class table:
 				warnings.warn("Table {} has no data rows".format(i))
 		soup_tables = [soup_tables[i] for i in range(len(soup_tables)) if i not in pop_list]
 
+		reAttrs = config['table-container']['attrs']
+		if "regex" in config['table-container']:
+			for restyle in config['table-container']['regex']:
+				reAttrs[restyle['attrs']] = re.compile(restyle["regex"])
+		self.empty_tables = []
+		empty_tables = soup.find_all(config['table-container']['name'], reAttrs)
+		for etable in empty_tables:
+			if etable.find("table"):
+				pass
+				# has a table element, not a link
+			else:
+				etDict = {}
+				try:
+					etDict['title'] = etable.find(config["table_title"]['name'], config["table_title"]['attrs']).get_text()
+				except:
+					etDict['title'] = ""
+				try:
+					etDict['caption'] = etable.find(config["table_caption"]['name'], config["table_caption"]['attrs']).get_text()
+				except:
+					pass
+				try:
+					etDict['footer'] = etable.find(config["table_footer"]['name'], config["table_footer"]['attrs']).get_text()
+				except:
+					pass
+				self.empty_tables.append(etDict)
+
 		# One table
 		tables = []
 		for table_num, table in enumerate(soup_tables):
@@ -616,4 +643,4 @@ class table:
 		pass
 
 	def to_dict(self):
-		return self.tables
+		return self.tables, self.empty_tables

@@ -187,12 +187,112 @@ class autoCORPus:
 
 		soup = self.__soupify_infile(file_path)
 		if self.tables == {}:
-			self.tables = table(soup, config, file_path, self.base_dir).to_dict()
+			self.tables, self.empty_tables = table(soup, config, file_path, self.base_dir).to_dict()
 		else:
-			self.tables["documents"].extend(table(soup, config, file_path, self.base_dir).to_dict()["documents"])
+			tmp_tables, tmp_empty = table(soup, config, file_path, self.base_dir).to_dict()
+			self.tables["documents"].extend(tmp_tables["documents"])
+			self.empty_tables.extend(tmp_empty)
 		return soup
 
-	def __init__(self, config_path, base_dir = None, main_text = None, linked_tables = None, table_images = None, associated_data_path=None):
+	def __merge_table_data(self):
+		if self.empty_tables == []:
+			return
+		if "documents" in self.tables:
+			if self.tables['documents'] == []:
+				return
+			else:
+				seenIDs = {}
+				for i, table in enumerate(self.tables['documents']):
+					if "id" in table:
+						seenIDs[str(i)] = F"Table {table['id']}."
+				for table in self.empty_tables:
+					for seenID in seenIDs.keys():
+						if table['title'].startswith(seenIDs[seenID]):
+							if "title" in table:
+								setNew = False
+								for passage in self.tables['documents'][int(seenID)]['passages']:
+									if passage['infons']['section_type'][0]['section_name'] == "table_title":
+										passage['text'] = table['title']
+										setNew = True
+								if not setNew:
+									self.tables['documents'][int(seenID)]['passages'].append(
+										{
+											"offset": 0,
+											"infons":{
+												"section_type":[
+													{
+														"section_name": "table_title",
+														"iao_name": "document title",
+														"iao_id": "IAO:0000305"
+													}
+												]
+											},
+											"text": table['title'],
+											"sentences": [],
+											"annotations": [],
+											"relations": []
+										}
+									)
+								pass
+							if "caption" in table:
+								setNew = False
+								for passage in self.tables['documents'][int(seenID)]['passages']:
+									if passage['infons']['section_type'][0]['section_name'] == "table_caption":
+										passage['text'] = table['caption']
+										setNew = True
+								if not setNew:
+									self.tables['documents'][int(seenID)]['passages'].append(
+										{
+											"offset": 0,
+											"infons":{
+												"section_type":[
+													{
+														"section_name": "table_caption",
+														"iao_name": "caption",
+														"iao_id": "IAO:0000304"
+													}
+												]
+											},
+											"text": table['caption'],
+											"sentences": [],
+											"annotations": [],
+											"relations": []
+										}
+									)
+								pass
+							if "footer" in table:
+								setNew = False
+								for passage in self.tables['documents'][int(seenID)]['passages']:
+									if passage['infons']['section_type'][0]['section_name'] == "table_footer":
+										passage['text'] = table['footer']
+										setNew = True
+								if not setNew:
+									self.tables['documents'][int(seenID)]['passages'].append(
+										{
+											"offset": 0,
+											"infons":{
+												"section_type":[
+													{
+														"section_name": "table_footer",
+														"iao_name": "caption",
+														"iao_id": "IAO:0000304"
+													}
+												]
+											},
+											"text": table['footer'],
+											"sentences": [],
+											"annotations": [],
+											"relations": []
+										}
+									)
+
+									pass
+								pass
+		else:
+			return
+
+
+	def __init__(self, config_path, base_dir = None, main_text = None, linked_tables = None, table_images = None, associated_data_path=None, trainedData=None):
 		'''
 
 		:param config_path: path to the config file to be used
@@ -223,7 +323,8 @@ class autoCORPus:
 			for table_file in linked_tables:
 				soup = self.__handle_html(table_file, config)
 		if table_images:
-			self.tables = table_image(table_images, self.base_dir).to_dict()
+			self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()
+		self.__merge_table_data()
 		if "documents" in self.tables and not self.tables["documents"] == []:
 			self.has_tables = True
 
