@@ -12,6 +12,8 @@ parser.add_argument('-f','--filepath',type=str, help="filepath for document/dire
 parser.add_argument('-t','--target_dir',type=str, help="target directory") #default autoCORPusOutput
 parser.add_argument('-a','--associated_data',type=str, help="directory of associated data")
 parser.add_argument('-o','--output_format',type=str, help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations")
+parser.add_argument('-s','--trained_data_set',type=str, help="trained dataset to use with pytesseract, must be in the form pytesseract expects for the lang argument, default eng")
+
 
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-c", "--config", type=str, help="filepath for configuration JSON file")
@@ -25,6 +27,7 @@ config = args.config
 config_dir = args.config_dir
 associated_data = args.associated_data
 output_format = args.output_format if args.output_format else "JSON"
+trained_data = args.trained_data_set if args.output_format else "eng"
 
 def get_file_type(file_path):
 	'''
@@ -144,7 +147,7 @@ for key in pbar:
 	else:
 		base_dir = "/".join(file_path.split("/")[:-1])
 
-	AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'])
+	AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'], trainedData=trained_data)
 
 	out_dir = structure[key]['out_dir']
 
