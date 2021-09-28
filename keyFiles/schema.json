@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "key": {
+      "type": "string"
+    },
+    "infons": {
+      "type": "object"
+    },
+    "documents": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "inputfile": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "infons": {
+              "type": "object"
+            },
+            "passages": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "infons": {
+                      "type": "object",
+                      "properties": {
+                        "section_type": {
+                          "type": "array",
+                          "items": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "section_name": {
+                                  "type": "string"
+                                },
+                                "iao_name": {
+                                  "type": "string"
+                                },
+                                "iao_id": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "section_name",
+                                "iao_name",
+                                "iao_id"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "section_type"
+                      ]
+                    },
+                    "column_headings": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "cell_id": {
+                              "type": "string"
+                            },
+                            "cell_text": {
+                              "type": ["integer","string"]
+                            }
+                          },
+                          "required": [
+                            "cell_id",
+                            "cell_text"
+                          ]
+                        }
+                      ]
+                    },
+                    "data_section": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "patternProperties": {
+                            "section_title_\\d+": {
+                              "type": "string"
+                            }
+                          },
+                          "properties": {
+                            "data_rows": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "array",
+                                  "items": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "cell_id": {
+                                          "type": "string"
+                                        },
+                                        "cell_text": {
+                                          "type": ["integer","string"]
+                                        }
+                                      },
+                                      "required": [
+                                        "cell_id",
+                                        "cell_text"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": []
+                        }
+                      ]
+                    },
+                    "sentences": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "annotations": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "relations": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "offset",
+                    "infons",
+                    "sentences",
+                    "annotations",
+                    "relations"
+                  ]
+                }
+              ]
+            },
+            "annotations": {
+              "type": "array",
+              "items": {}
+            },
+            "relations": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": [
+            "inputfile",
+            "id",
+            "infons",
+            "passages",
+            "annotations",
+            "relations"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "source",
+    "date",
+    "key",
+    "infons",
+    "documents"
+  ]
+}
