@@ -285,9 +285,6 @@ class autoCORPus:
 											"relations": []
 										}
 									)
-
-									pass
-								pass
 		else:
 			return
 
