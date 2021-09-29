@@ -57,6 +57,7 @@ class table:
 				# clean the cell
 				value = value.strip().replace('\u2009',' ')
 				value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
+				value = re.sub("\\n", "", value)
 				if value.startswith('(') and value.endswith(')'):
 					value = value[1:-1]
 				if re.match(self.pval_regex,value):
@@ -332,9 +333,16 @@ class table:
 			"infons": {},
 			"documents":[]
 		}
-
 		for table in table_json['tables']:
-			identifier = self.tableIdentifier.replace('.', '_') if self.tableIdentifier else table['identifier'].replace('.', '_')
+			if "." in table['identifier'] and self.tableIdentifier:
+				tableIdentifier = self.tableIdentifier + "_"+table['identifier'].split(".")[-1]
+			else:
+				if self.tableIdentifier:
+
+					tableIdentifier = self.tableIdentifier
+				else:
+					tableIdentifier = table['identifier'].replace('.', '_')
+			identifier = tableIdentifier
 			offset = 0
 			tableDict = {
 				"inputfile": self.file_name,
@@ -612,7 +620,7 @@ class table:
 
 			cur_table = self.__table2json(table_2d, header_idx, subheader_idx, superrow_idx, table_num, caption, footer, actual_caption)
 			# merge headers
-			sep = '<!>'
+			sep = '|'
 			for table in cur_table:
 				headers = table['columns']
 				new_header = []

@@ -147,7 +147,7 @@ for key in pbar:
 	else:
 		base_dir = "/".join(file_path.split("/")[:-1])
 
-	AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'], linked_tables=structure[key]['linked_tables'], table_images=structure[key]['table_images'], trainedData=trained_data)
+	AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'], linked_tables=sorted(structure[key]['linked_tables']), table_images=sorted(structure[key]['table_images']), trainedData=trained_data)
 
 	out_dir = structure[key]['out_dir']
 

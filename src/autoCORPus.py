@@ -189,7 +189,28 @@ class autoCORPus:
 		if self.tables == {}:
 			self.tables, self.empty_tables = table(soup, config, file_path, self.base_dir).to_dict()
 		else:
+			seenIDs = set()
+			for tab in self.tables['documents']:
+				if "." in tab['id']:
+					seenIDs.add(tab['id'].split(".")[0])
+				else:
+					seenIDs.add(tab['id'])
 			tmp_tables, tmp_empty = table(soup, config, file_path, self.base_dir).to_dict()
+			additive = 0
+			for tabl in tmp_tables['documents']:
+				if "." in tabl['id']:
+					tabl_id = tabl['id'].split(".")[0]
+					tabl_pos = ".".join(tabl['id'].split(".")[1:])
+				else:
+					tabl_id = tabl['id']
+					tabl_pos = None
+				if tabl_id in seenIDs:
+					tabl_id = str(len(seenIDs) + 1)
+					if tabl_pos:
+						tabl['id'] = F"{tabl_id}.{tabl_pos}"
+					else:
+						tabl['id'] = tabl_id
+				seenIDs.add(tabl_id)
 			self.tables["documents"].extend(tmp_tables["documents"])
 			self.empty_tables.extend(tmp_empty)
 		return soup
@@ -287,7 +308,6 @@ class autoCORPus:
 									)
 		else:
 			return
-
 
 	def __init__(self, config_path, base_dir = None, main_text = None, linked_tables = None, table_images = None, associated_data_path=None, trainedData=None):
 		'''
