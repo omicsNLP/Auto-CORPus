@@ -86,8 +86,8 @@ class table:
 			True/False
 
 		"""
-		cleaned_row = [i for i in row if (str(i)!='')&(str(i)!='\n')&(str(i)!='None')]
-		if len(cleaned_row) == 1 and bool(re.match("[a-zA-Z]", cleaned_row[0])):
+		cleaned_row = set([i for i in row if (str(i)!='')&(str(i)!='\n')&(str(i)!='None')])
+		if len(cleaned_row) == 1 and bool(re.match("[a-zA-Z]", list(cleaned_row)[0])):
 			return True
 		else:
 			return False
