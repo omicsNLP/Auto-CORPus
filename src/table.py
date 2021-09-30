@@ -59,9 +59,12 @@ class table:
 					if isinstance(item, bs4.element.NavigableString):
 						value += item + " "
 					if isinstance(item, bs4.element.Tag):
-						value += "<" + item.name + ">"
-						value += item.get_text()
-						value += "</" + item.name + ">"
+						if item.name is "sup" or item.name is "sub":
+							value += "<" + item.name + ">"
+							value += item.get_text()
+							value += "</" + item.name + ">"
+						else:
+							value += item.get_text()
 				# clean the cell
 				value = value.strip().replace('\u2009',' ')
 				value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
