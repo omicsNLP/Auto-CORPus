@@ -3,6 +3,7 @@ from itertools import product
 import warnings
 from datetime import datetime
 
+import bs4
 
 
 class table:
@@ -52,8 +53,15 @@ class table:
 				# next column is offset by the colspan
 				span_offset += colspan - 1
 				#value = ''.join(str(x) for x in cell.get_text())
-				test = cell.contents
-				value = cell.get_text(separator=" ")
+				cCont = cell.contents
+				value = ""
+				for item in cCont:
+					if isinstance(item, bs4.element.NavigableString):
+						value += item + " "
+					if isinstance(item, bs4.element.Tag):
+						value += "<" + item.name + ">"
+						value += item.get_text()
+						value += "</" + item.name + ">"
 				# clean the cell
 				value = value.strip().replace('\u2009',' ')
 				value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
