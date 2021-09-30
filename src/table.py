@@ -359,14 +359,9 @@ class table:
 								 }
 							]
 						},
-						"text": table['title'],
-						"sentences": [],
-						"annotations": [],
-						"relations": []
+						"text": table['title']
 					}
-				],
-				"annotations": [],
-				"relations": []
+				]
 			}
 			offset += len(table['title'])
 			if "caption" in table.keys() and not table['caption'] == "":
@@ -382,10 +377,7 @@ class table:
 								}
 							]
 						},
-						"text": ". ".join(table["caption"]),
-						"sentences": [],
-						"annotations": [],
-						"relations": []
+						"text": ". ".join(table["caption"])
 					}
 				)
 				offset += len("".join(table["caption"]))
@@ -436,10 +428,7 @@ class table:
 							]
 						},
 						"column_headings": columns,
-						"data_section": rsection,
-						"sentences": [],
-						"annotations": [],
-						"relations": []
+						"data_section": rsection
 					}
 				)
 
@@ -456,10 +445,7 @@ class table:
 								}
 							]
 						},
-						"text": ". ".join(table["footer"]),
-						"sentences": [],
-						"annotations": [],
-						"relations": []
+						"text": ". ".join(table["footer"])
 					}
 				)
 				offset += len("".join(table["footer"]))
@@ -477,7 +463,6 @@ class table:
 					pop_list.append(i)
 			if table.find_all('tbody')==[]:
 				pop_list.append(i)
-				warnings.warn("Table {} has no data rows".format(i))
 		soup_tables = [soup_tables[i] for i in range(len(soup_tables)) if i not in pop_list]
 
 		reAttrs = config['table-container']['attrs']

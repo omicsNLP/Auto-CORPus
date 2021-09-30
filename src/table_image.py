@@ -313,14 +313,9 @@ class table_image:
 							 }
 						]
 					},
-					"text": table['title'],
-					"sentences": [],
-					"annotations": [],
-					"relations": []
+					"text": table['title']
 				}
-			],
-			"annotations": [],
-			"relations": []
+			]
 		}
 		offset += len(table['title'])
 		if "caption" in table.keys()  and not table['caption'] == "":
@@ -336,13 +331,10 @@ class table_image:
 							}
 						]
 					},
-					"text": ". ".join(table["caption"]),
-					"sentences": [],
-					"annotations": [],
-					"relations": []
+					"text": table["caption"]
 				}
 			)
-			offset += len("".join(table["caption"]))
+			offset += len(table["caption"])
 
 		if "section" in table.keys():
 			rowID = 2
@@ -370,7 +362,7 @@ class table_image:
 				rsection.append(resultsDict)
 
 				columns = []
-			for i, column in enumerate(table.get("columns", [])):
+			for i, column in enumerate(table.get("column_headings", [])):
 				columns.append(
 					{
 						"cell_id": F"{self.tableIdentifier}.1.{i+1}",
@@ -389,11 +381,8 @@ class table_image:
 							}
 						]
 					},
-					"columns": columns,
-					"results_section": rsection,
-					"sentences": [],
-					"annotations": [],
-					"relations": []
+					"column_headings": columns,
+					"results_section": rsection
 				}
 			)
 
@@ -410,13 +399,10 @@ class table_image:
 							}
 						]
 					},
-					"text": ". ".join(table["footer"]),
-					"sentences": [],
-					"annotations": [],
-					"relations": []
+					"text": table["footer"]
 				}
 			)
-			offset += len("".join(table["footer"]))
+			offset += len(table["footer"])
 		return tableDict
 
 	def __init__(self, table_images, base_dir, trainedData="eng"):

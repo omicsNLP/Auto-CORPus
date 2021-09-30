@@ -4,7 +4,7 @@ AutoCORPus recognises 3 tyes of file which are:
 
 - Full text HTML documents covering the entire aticle
 - HTML files which describe a single table
-- Images of tables.
+- Images of tables. (WIP, still in Alpha, see Alpha section below)
 
 If passing a single file via the file path then that file will be processed in the most suitable 
 manner, if a directory is passed then autoCORPus will first group files within directories based on common elements in 
@@ -67,6 +67,26 @@ Available arguments:
 
 -c (config) - which config file to use
 
+
+<h2>Alpha section</h2>
+
+We are looking to implement table image processing into auto-CORPus, we have included an alpha version of this 
+functionality within this repo which can be tested simply by providing table image files in either .png or .jpeg/jpg 
+formats. We are working on improving the accuracy of both the table layout and character recognition aspects and will
+update this repo with any advancements made.
+
+The table image recognition and processing code is self-contained so updates to this will feature not influence the 
+outputs from the HTML processing which AC is built upon.
+
+We have made trained datasets available for use with this feature, but we will continue to train these datasets to 
+increase their accuracy, and it is very likely that the trained datasets we offer will be updated frequently during
+active development periods.
+
+We welcome constructive feedback about all of AC but would be especially keen to hear about ways of improving the table
+image processing.
+
+additional arguments:
+
 -s (trained dataset) - trained dataset to use for pytesseract OCR. value should be given in a format
-    recognised by pytesseract with a "+" between each datafile, such as "eng+sym"
+    recognised by pytesseract with a "+" between each datafile, such as "eng+all"
 

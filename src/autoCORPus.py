@@ -248,10 +248,7 @@ class autoCORPus:
 													}
 												]
 											},
-											"text": table['title'],
-											"sentences": [],
-											"annotations": [],
-											"relations": []
+											"text": table['title']
 										}
 									)
 								pass
@@ -274,10 +271,7 @@ class autoCORPus:
 													}
 												]
 											},
-											"text": table['caption'],
-											"sentences": [],
-											"annotations": [],
-											"relations": []
+											"text": table['caption']
 										}
 									)
 								pass
@@ -300,10 +294,7 @@ class autoCORPus:
 													}
 												]
 											},
-											"text": table['footer'],
-											"sentences": [],
-											"annotations": [],
-											"relations": []
+											"text": table['footer']
 										}
 									)
 		else:
