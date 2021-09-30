@@ -31,7 +31,7 @@ output:
         
 clone the repo, e.g.:
 
-$ git clone git@github.com:Tom-Shorter/autoCORPus.git
+$ git clone git@github.com:omicsNLP/Auto-CORPus.git
 
 $ cd autoCORPus
 
