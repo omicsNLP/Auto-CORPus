@@ -1,8 +1,8 @@
-Requires python 3.6+
+*Requires python 3.6+*
 
-AutoCORPus recognises 3 tyes of file which are:
+**AutoCORPus recognises 3 tyes of file which are:**
 
-- Full text HTML documents covering the entire aticle
+- Full text HTML documents covering the entire article
 - HTML files which describe a single table
 - Images of tables. (WIP, still in Alpha, see Alpha section below)
 
@@ -12,7 +12,7 @@ their file name and process all related files at once. Related files in separate
 the same time. Files processed at the same time will be output into the same files, an example input and output directory
 can be seen below:
 
-input:
+**Input:**
 
     PMC1.html
     PMC1_table_1.html
@@ -21,7 +21,7 @@ input:
         PMC1_table_3.HTML
         PMC1_table_4.png
 
-output:
+**Output:**
 
     PMC1_bioc.json
     PMC1_abbreviations.json
@@ -29,9 +29,11 @@ output:
     /subdir
         PMC1_tables.json (contains tables 3 & 4 only)
         
-clone the repo, e.g.:
+**Getting started:**
 
-$ git clone git@github.com:omicsNLP/Auto-CORPus.git
+Clone the repo, e.g.:
+
+$ git clone git@github.com:omicsNLP/Auto-CORPus.git or (using HTTPS) git clone https://github.com/Tom-Shorter/autoCORPus.git
 
 $ cd autoCORPus
 
@@ -45,9 +47,9 @@ You might get an error here `ModuleNotFoundError: No module named 'skbuild'` if 
 
 $ pip install --upgrade pip 
 
-or you might need to install the Microsoft Build Tools for Visual Studio 
+Or you might need to install the Microsoft Build Tools for Visual Studio 
 (see https://www.scivision.dev/python-windows-visual-c-14-required for minimal installation requirements so that python-Levenshtein package can be installed)
-first and then re run 
+first and then re-run 
 
 $ pip install .
 
@@ -55,38 +57,38 @@ Run the below command for a single file example
 
 $ python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
 
-run the below command for a directory of files example
+Run the below command for a directory of files example
 
 $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
 
 Available arguments:
 
--f (input file path) - file or directory to run autoCORPus on.
+`-f` (input file path) - file or directory to run autoCORPus on.
 
--o (output type) - either JSON or XML (defaults to JSON)
+`-o` (output type) - either JSON or XML (defaults to JSON)
 
--c (config) - which config file to use
+`-c` (config) - which config file to use
 
 
 <h2>Alpha section</h2>
 
 We are looking to implement table image processing into auto-CORPus, we have included an alpha version of this 
 functionality within this repo which can be tested simply by providing table image files in either .png or .jpeg/jpg 
-formats. We are working on improving the accuracy of both the table layout and character recognition aspects and will
+formats. We are working on improving the accuracy of both the table layout and character recognition aspects, and we will
 update this repo with any advancements made.
 
-The table image recognition and processing code is self-contained so updates to this will feature not influence the 
-outputs from the HTML processing which AC is built upon.
+The table image recognition and processing code is self-contained, so updates to this feature will not influence the 
+outputs from the HTML processing AC is built upon.
 
 We have made trained datasets available for use with this feature, but we will continue to train these datasets to 
 increase their accuracy, and it is very likely that the trained datasets we offer will be updated frequently during
 active development periods.
 
-We welcome constructive feedback about all of AC but would be especially keen to hear about ways of improving the table
+We welcome constructive feedback about all facets of AC, but we would be especially keen to hear about ways of improving the table
 image processing.
 
-additional arguments:
+**Additional arguments:**
 
--s (trained dataset) - trained dataset to use for pytesseract OCR. value should be given in a format
+`-s` (trained dataset) - trained dataset to use for pytesseract OCR. Value should be given in a format
     recognised by pytesseract with a "+" between each datafile, such as "eng+all"
 
