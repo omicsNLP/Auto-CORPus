@@ -61,7 +61,7 @@ Run the below command for a directory of files example
 
 $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
 
-Available arguments:
+**Available arguments:**
 
 `-f` (input file path) - file or directory to run autoCORPus on.
 
