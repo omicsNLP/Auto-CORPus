@@ -1,6 +1,6 @@
 *Requires python 3.6+*
 
-**AutoCORPus recognises 3 tyes of file which are:**
+**AutoCORPus recognises 3 types of file which are:**
 
 - Full text HTML documents covering the entire article
 - HTML files which describe a single table
