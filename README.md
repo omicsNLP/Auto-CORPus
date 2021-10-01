@@ -49,7 +49,7 @@ $ pip install --upgrade pip
 
 Or you might need to install the Microsoft Build Tools for Visual Studio 
 (see https://www.scivision.dev/python-windows-visual-c-14-required for minimal installation requirements so that python-Levenshtein package can be installed)
-first and then re-run 
+first and then re-run
 
 $ pip install .
 
@@ -65,9 +65,9 @@ $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/direct
 
 `-f` (input file path) - file or directory to run autoCORPus on.
 
-`-o` (output type) - either JSON or XML (defaults to JSON)
+`-o` (output type) - either JSON or XML (defaults to JSON).
 
-`-c` (config) - which config file to use
+`-c` (config) - which config file to use.
 
 
 <h2>Alpha section</h2>
@@ -90,5 +90,5 @@ image processing.
 **Additional arguments:**
 
 `-s` (trained dataset) - trained dataset to use for pytesseract OCR. Value should be given in a format
-    recognised by pytesseract with a "+" between each datafile, such as "eng+all"
+    recognised by pytesseract with a "+" between each datafile, such as "eng+all".
 
