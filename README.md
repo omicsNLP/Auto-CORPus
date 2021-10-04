@@ -4,6 +4,8 @@
 
 Automated pipeline for Consistent Outputs from Research Publications (Auto-CORPus) is a tool for the standardisation and conversion of publication HTML and table image files to three convenient machine-interpretable outputs to support biomedical text analytics. Firstly, Auto-CORPus can be configured to convert HTML from various publication sources to BioC. Secondly, Auto-CORPus transforms publication tables to a JSON format to store, exchange and annotate table data between text analytics systems. Finally, Auto-CORPus extracts abbreviations declared within publication text and provides an abbreviations JSON output that relates an abbreviation with the full definition.
 
+The BioC specification does not include a data structure for representing publication table data, so we present a JSON format for sharing table content and metadata, the [JSON schema](keyFiles/schema.json) for which can be found within the [keyfiles](keyFiles) directory.
+
 **Auto-CORPus recognises 3 types of file which are:**
 
 - Full text HTML documents covering the entire article
