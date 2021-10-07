@@ -80,11 +80,11 @@ $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/direct
 
 `-f` (input file path) - file or directory to run autoCORPus on.
 
-`-t` (output type) - either JSON or XML (defaults to JSON).
+`-t` (output file path) - file path where autoCorpus should output files.
 
 `-c` (config) - which config file to use.
 
-`-o`(output format) - output format, either JSON or XML
+`-o`(output format) - either JSON or XML (defaults to JSON)
 
 
 <h2><a name="alpha">Alpha section</a></h2>
