@@ -41,7 +41,7 @@ section within the source HTML.
 The `data` sub-section allows you to provide HTML tags and attributes for areas of interest within
 the defined section. This could be the title of a table or the heading of a section. Some of these `data` elements
 allow AC to accurately parse the source HTML whereas others allow the user to parse further information from certain sections. 
-Further details about the data elements can be found in data_elements.md 
+Further details about the data elements can be found in [data_elements.md](data_elements.md) 
 
 
 
