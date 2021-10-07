@@ -17,7 +17,7 @@ For each section in a publication, the config declares `data` and `defined-by` e
 }
 ```
 
-The `defined-by` entity provides a list of HTML tags and attributes which Auto-CORPus can utilise to find ocurrences of the 
+The `defined-by` entity provides a list of HTML tags and attributes which Auto-CORPus can utilise to find occurrences of the 
 section within the source HTML. Each section must contain a `defined-by` entity.
 
 ```
@@ -70,7 +70,7 @@ this section from others.
             }
 ```
 
-The above example tells Auto-CORPus to look for all `<div>` tags with a class of "ref-cit-blk". "ref-cit-blk" is denoted as a JSON list.  The use of a list allows other classes to be defined, that when used in combination, uniquly identify a section.  Hence, the logical AND operator is applied to these values. 
+The above example tells Auto-CORPus to look for all `<div>` tags with a class of "ref-cit-blk". "ref-cit-blk" is denoted as a JSON list.  The use of a list allows other classes to be defined, that when used in combination, uniquely identify a section.  Hence, the logical AND operator is applied to these values. 
 
 Regular expressions can be used within the `tag` entry value and `attrs` entry values.
 Auto-CORPus will automatically enclose any `tag` and `value` entries with the regex start (`^`) and end (`$`) anchors, this is to ensure there are no
