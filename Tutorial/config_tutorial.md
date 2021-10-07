@@ -1,6 +1,6 @@
 **How to create/edit a config file**
 
-We will use config_pmc.json as the example config for this guide.
+*The [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json) file is used as the example in this tutorial.*
 
 There are no required sections within the config file, if you do not define a section then Auto-CORPus will not try to process it.
 Auto-CORPus will also not try to process any sections defined within the configs which are not within our template config file, 
