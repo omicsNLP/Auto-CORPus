@@ -30,10 +30,10 @@ Auto-CORPus will first group files based on common elements in their file name {
 
     PMC1.html
     PMC1_table_1.html
-    PMC1_table_2.png
+    PMC1_table_2.html
     /subdir
-        PMC1_table_3.HTML
-        PMC1_table_4.png
+        PMC1_table_3.html
+        PMC1_table_4.html
 
 **Output:**
 
