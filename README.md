@@ -10,7 +10,8 @@ We present a JSON format for sharing table content and metadata that is based on
 
 - Full text HTML documents covering the entire article
 - HTML files which describe a single table
-- Current work in progress is extneding this to include images of tables. See the [Alpha Testing](#alpha) section below
+
+Current work in progress is extending this to include images of tables. See the [Alpha Testing](#alpha) section below.
 
 Auto-CORPus does not provide functionality to retrieve input files directly from the publisher. Input file retrieval must be completed by the user in a way which the publisher permits.
 
