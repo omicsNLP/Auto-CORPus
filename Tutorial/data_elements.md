@@ -1,17 +1,18 @@
-The data sub-sections within the config file sections allows AC to parse details out of the sections, such as the section
-header, table title or footer. Some of the defined data sub-section elements are required to allow AC to parse a paper
-correctly,
+**Data element types**
 
-Sections which do not make use of the `data` entry:
+The `data` entities within the config file sections allows Auto-CORPus to parse details out of the sections, such as the section
+header, table title or footer. Some of the defined `data` entity elements are required to allow Auto-CORPus to parse source HTML files
+correctly.
+
+Sections which do not make use of the `data` entity:
 
 - Title
 - Keywords
 - paragraphs
 - abbreviations-table
 
-All other sections make use of the `data` sub-section, below is a list of the sections and the data subsections which
-are needed to be filled in to allow AC to work correctly.
-- References
+All other sections make use of the `data` entity. The following sections and corresponding `data` entities are required by Auto-CORPus:
+
 - Sections
   - headers
 - Sub-sections
@@ -27,12 +28,12 @@ are needed to be filled in to allow AC to work correctly.
 - Figures
   - caption
 
-The `references` section does not require any entries within the data sub-section to function correctly but does allow
+In addition, the References section does not require any entries within the `data` entity to function correctly, but does allow
 the use of:
-- title
-- journal
-- volume
+  - title
+  - journal
+  - volume
 
-Some publishing groups will wrap parts of the reference text within tags to identify the above information, the inclusion
-of these data entries will add the parsed info to the output as a seperate key:value pair.
+Some HTML source files include markup within the reference text to identify the above information. The inclusion
+of these `data` entries in the config will enable Auto-CORPus to identify and process this information and include it in the output file.
 
