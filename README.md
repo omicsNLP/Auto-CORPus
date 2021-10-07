@@ -50,7 +50,7 @@ Clone the repo, e.g.:
 
 $ git clone git@github.com:omicsNLP/Auto-CORPus.git or (using HTTPS) git clone https://github.com/Tom-Shorter/autoCORPus.git
 
-$ cd autoCORPus
+$ cd Auto-CORPus
 
 $ python3 -m venv env or (for Windows users) py -[v] -m venv env (where v is the version of Python used)
 
