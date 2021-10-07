@@ -1,7 +1,7 @@
 **Data element types**
 
 The `data` entities within the config file sections allows Auto-CORPus to parse details out of the sections, such as the section
-header, table title or footer. Some of the defined `data` entity elements are required to allow Auto-CORPus to parse source HTML files
+header, table title or footer. Some `data` entity elements are required to allow Auto-CORPus to parse source HTML files
 correctly.
 
 Sections which do not make use of the `data` entity:
