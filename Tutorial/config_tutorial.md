@@ -36,8 +36,7 @@ section within the source HTML. Each section must contain a `defined-by` entity.
 
 The `data` entity allows HTML tags and attributes for areas of interest within
 the defined section to be defined. This could be the title of a table or the heading of a section. Some of these `data` elements
-allow Auto-CORPus to accurately parse the source HTML whereas others allow the user to parse further information from certain sections. 
-The `data` entity is optional and further details about the `data` elements can be found in [data_elements.md](data_elements.md).
+are required to allow Auto-CORPus to accurately parse the source HTML whereas others are optional to allow the user to parse extra information from certain sections if provided by a HTML source. Further details about the `data` elements can be found in [data_elements.md](data_elements.md).
 ```
 {
     "section":{
