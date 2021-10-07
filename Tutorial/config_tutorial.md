@@ -73,7 +73,7 @@ The above example tells Auto-CORPus to look for all `<div>` tags with a class of
 
 Regular expressions can be used within the `tag` entry value and `attrs` entry values.
 Auto-CORPus will automatically enclose any `tag` and `value` entries with the regex start (`^`) and end (`$`) anchors, this is to ensure there are no
-erroneous matches. In config_pmc.json, entities are defined using the below `attrs`:
+erroneous matches. In [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json), entities are defined using the below `attrs`:
 
 ```
 "attrs": {"class": "sec"}
