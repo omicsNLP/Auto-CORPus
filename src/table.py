@@ -2,7 +2,7 @@ import re
 from itertools import product
 import warnings
 from datetime import datetime
-
+from src.utils import *
 import bs4
 
 
@@ -59,7 +59,7 @@ class table:
 					if isinstance(item, bs4.element.NavigableString):
 						value += item + " "
 					if isinstance(item, bs4.element.Tag):
-						if item.name is "sup" or item.name is "sub":
+						if item.name == "sup" or item.name == "sub":
 							value += "<" + item.name + ">"
 							value += item.get_text()
 							value += "</" + item.name + ">"
@@ -197,13 +197,12 @@ class table:
 			KeyError: Raises an exception.
 		"""
 		idx_list = []
-		for idx,row in enumerate(t.find_all(config['table_row']['name'],config['table_row']['attrs'])):
-			if row.find_all(config['table_header_element']['name'],config['table_header_element']['attrs']):
+		for idx,row in enumerate(get_data_element_node(config['tables']['data']['table-row'], t)):
+			if get_data_element_node(config['tables']['data']['header-element'], row):
 				idx_list.append(idx)
 			elif 'class' in row.attrs:
 				if 'thead' in row.attrs['class']:
 					idx_list.append(idx)
-
 		# if no table headers found
 		if idx_list==[]:
 			idx_list=[0]
@@ -464,73 +463,45 @@ class table:
 		return bioc_format
 
 	def __main(self, soup, config):
-		soup_tables = soup.find_all(config['table']['name'],config['table']['attrs'],recursive=True)
+		soup_tables = handle_tables(config['tables'], soup)
 
 		# remove empty table and other table classes
 		pop_list = []
-		for i,table in enumerate(soup_tables):
-			if 'class' in table.attrs:
-				if 'table-group' in table.attrs['class']:
-					pop_list.append(i)
-			if table.find_all('tbody')==[]:
-				pop_list.append(i)
-		soup_tables = [soup_tables[i] for i in range(len(soup_tables)) if i not in pop_list]
+		empty_tables = []
 
-		reAttrs = config['table-container']['attrs']
-		if "regex" in config['table-container']:
-			for restyle in config['table-container']['regex']:
-				reAttrs[restyle['attrs']] = re.compile(restyle["regex"])
+		for i,table in enumerate(soup_tables):
+			if 'class' in table['node'].attrs:
+				if 'table-group' in table['node'].attrs['class']:
+					pop_list.append(i)
+			if table['node'].find_all('tbody')==[]:
+				pop_list.append(i)
+				empty_tables.append(table)
+		soup_tables = [soup_tables[i] for i in range(len(soup_tables)) if i not in pop_list]
 		self.empty_tables = []
-		empty_tables = soup.find_all(config['table-container']['name'], reAttrs)
 		for etable in empty_tables:
-			if etable.find("table"):
+			if etable['node'].find("table"):
 				pass
-				# has a table element, not a link
+				# has a table element, not empty
 			else:
-				etDict = {}
-				try:
-					etDict['title'] = etable.find(config["table_title"]['name'], config["table_title"]['attrs']).get_text()
-				except:
-					etDict['title'] = ""
-				try:
-					etDict['caption'] = etable.find(config["table_caption"]['name'], config["table_caption"]['attrs']).get_text()
-				except:
-					pass
-				try:
-					etDict['footer'] = etable.find(config["table_footer"]['name'], config["table_footer"]['attrs']).get_text()
-				except:
-					pass
+				etDict = {
+					"title": " ".join(etable['title']),
+					"caption": " ".join(etable['caption']),
+					"footer": " ".join(etable['footer'])
+				}
 				self.empty_tables.append(etDict)
 
 		# One table
 		tables = []
 		for table_num, table in enumerate(soup_tables):
-			# caption and footer
-			try:
-				caption = table.find_previous(config['table_title']['name'],config['table_title']['attrs']).get_text()
-			except:
-				caption = ''
-				# warnings.warn("Unable to find table caption")
-			try:
-				footer = [i.get_text() for i in table.parent.find_next_siblings(config['table_footer']['name'],config['table_footer']['attrs'])]
-			except:
-				footer = ''
-				# warnings.warn("Unable to find table footer")
-			try:
-				actual_caption = [i.get_text() for i in table.find_previous(config['table_caption']['name'], config['table_caption']['attrs'])]
-			except:
-				actual_caption = ''
-				# warnings.warn("Unable to find actual table caption caption")
-
 
 			# remove empty table header
-			if table.find('td','thead-hr'):
-				table.find('td','thead-hr').parent.extract()
+			if table['node'].find('td','thead-hr'):
+				table['node'].find('td','thead-hr').parent.extract()
 
-			header_idx = self.__get_headers(table,config)
+			header_idx = self.__get_headers(table['node'],config)
 
 			# span table to single-cells
-			table_2d = self.__table_to_2d(table,config)
+			table_2d = self.__table_to_2d(table['node'], config)
 
 			# find superrows
 			superrow_idx = []
@@ -614,7 +585,7 @@ class table:
 					except:
 						row[cell] = row[cell]
 
-			cur_table = self.__table2json(table_2d, header_idx, subheader_idx, superrow_idx, table_num, caption, footer, actual_caption)
+			cur_table = self.__table2json(table_2d, header_idx, subheader_idx, superrow_idx, table_num, table['title'], table['footer'], table['caption'])
 			# merge headers
 			sep = '|'
 			for table in cur_table:

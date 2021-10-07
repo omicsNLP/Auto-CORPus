@@ -1,122 +1,130 @@
 {
-    "title":
-    {
-        "name":"h1",
-        "attrs":{"id":"artTitle"}
+    "title": {
+        "data": {},
+        "defined-by": [
+            {
+                "tag":"h1",
+                "attrs":{"id":"artTitle"}
+            }
+        ]
     },
     "keywords": {
-        "name": "span",
-        "attrs": {"class": ["kwd-text"]}
+        "data": {},
+        "defined-by": []
     },
     "references": {
-        "sections": {
-        },
-        "defined":[
-        ],
-        "regex": [
+        "data": {},
+        "defined-by":[
             {
-                "name": "li",
-                "attrs": "id",
-                "regex": "^ref\\d+$"
+                "tag": "li",
+                "attrs": {"id": "^ref\\d+$"}
             }
         ]
     },
-
-    "heading":
-    {
-        "name":"h2",
-        "attrs":{}
+    "sections": {
+        "data": {
+            "headers": [
+                {
+                    "tag": "h2"
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag":"div",
+                "attrs":{"class":"toc-section"}
+            }
+        ]
     },
-    "heading2":
-    {
-        "name":"h3",
-        "attrs":{}
-    },
-    "sections":
-    {
-        "name":"div",
-        "attrs":{"class":"toc-section"}
-    },
-    "subsections": {
-        "name":"div",
-        "attrs":{"class":"section"}
+    "sub-sections": {
+        "data": {
+            "headers": [
+                {
+                    "tag": "h[3-6]"
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag":"div",
+                "attrs":{"class":"section"}
+            }
+        ]
     },
     "paragraphs": {
-        "name": "p",
-        "regex":[
-        ]
-
-    },
-    "table-container": {
-        "name": "div",
-        "attrs": {"class":  "figure"},
-        "regex": [
+        "data": {},
+        "defined-by": [
             {
-                "name": "div",
-                "attrs": "data-doi",
-                "regex": ".t\\d*"
+                "tag": "p"
             }
-        ],
-        "caption": {
-            "name": "p",
-            "attrs": ""
-        }
+        ]
     },
-    "figure": {
-        "name": "div",
-        "attrs": { "class": "fig"},
-        "caption": {
-            "name": "div",
-            "attrs": {"class": "caption"}
-        }
+    "tables": {
+        "data": {
+            "caption": [
+                {
+                    "tag": "p"
+                }
+            ],
+            "table-content": [],
+            "title": [
+                {
+                    "tag":"div",
+                    "attrs": {"class": "figcaption"}
+                }
+            ],
+            "footer": [
+                {
+                    "tag":"p",
+                    "attrs":{"class":"caption_object"}
+                }
+            ],
+            "table-row": [
+                {
+                    "tag":"tr"
+                }
+            ],
+            "header-row": [
+                {
+                    "tag":"thead"
+                }
+            ],
+            "header-element": [
+                {
+                    "tag":"th"
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag": "div",
+                "attrs": {
+                    "class":  "figure",
+                    "data-doi":  ".*\\.t\\d*"
+                }
+            }
+        ]
     },
-    "table":
-    {
-        "name":"table",
-        "attrs":{"class":"default_table"}
+    "figures": {
+        "data": {
+            "caption": [
+                {
+                    "tag": "p"
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag": "div",
+                "attrs": {
+                    "class": "figure",
+                    "data-doi":  ".*\\.g\\d*"
+                }
+            }
+        ]
     },
-    "table_caption": {
-        "name": "p",
-        "attrs": ""
-    },
-    "table_title":
-    {
-        "name":"div",
-        "attrs": {"class": "figcaption"}
-    },
-    "table_footer":
-    {
-        "name":"p",
-        "attrs":{"class":"caption_object"}
-    },
-    "table_header":
-    {
-        "name":"thead",
-        "attrs":{"class":null}
-    },
-    "table_row":
-    {
-        "name":"tr",
-        "attrs":{"class":null}
-    },
-    "table_header_element":
-    {
-        "name":"th",
-        "attrs":{"class":null}
-    },
-    "table_body":
-    {
-        "name":"tbody",
-        "attrs":{"class":null}
-    },
-    "table_body_element":
-    {
-        "name":"td",
-        "attrs":{"class":null}
-    },
-    "abbreviations_table":
-    {
-        "name":"table",
-        "attrs":{"class":"glossary"}
+    "abbreviations-table": {
+        "data": {},
+        "defined-by": []
     }
 }

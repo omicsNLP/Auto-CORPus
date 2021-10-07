@@ -1,0 +1,101 @@
+{
+    "title":
+    {
+        "name":"h1",
+        "attrs":{}
+    },
+    "keywords": {
+        "name": "span",
+        "attrs": {"class": ["kwd-text"]}
+    },
+    "references": {
+        "sections": {
+        },
+        "defined":[
+            {
+                "name": ["p"],
+                "attrs": {"class": ["ReferencesCopy1"]}
+            }
+        ],
+        "regex": [
+        ]
+    },
+    "heading":
+    {
+        "name":"h2",
+        "attrs":{}
+    },
+    "heading2":
+    {
+        "name":"h3",
+        "attrs":{}
+    },
+    "body":
+    {
+        "name":"p",
+        "attrs":{}
+    },
+    "figure": {
+        "name": "div",
+        "attrs": {"class":  "FigureDesc"}
+    },
+    "table-container":
+    {
+        "name": "div",
+        "attrs": {"class":  "FigureDesc"}
+    },
+    "table":
+    {
+        "name":"table",
+        "attrs":{}
+    },
+    "table_title":
+    {
+        "name":"p",
+        "attrs":{}
+    },
+    "table_header":
+    {
+        "name":"thead",
+        "attrs":{"class":null}
+    },
+    "table_row":
+    {
+        "name":"tr",
+        "attrs":{"class":null}
+    },
+    "table_header_element":
+    {
+        "name":"th",
+        "attrs":{"class":null}
+    },
+    "table_body":
+    {
+        "name":"tbody",
+        "attrs":{"class":null}
+    },
+    "table_body_element":
+    {
+        "name":"td",
+        "attrs":{"class":null}
+    },
+    "abbreviations_table":
+    {
+        "name":"table",
+        "attrs":{"class":"glossary"}
+    },
+    "sections":
+    {
+        "name":"div",
+        "attrs":{"class":"JournalFullText"}
+    },
+    "subsections": {
+        "name":"div",
+        "attrs":{"class":"c-article-section__content"}
+    },
+    "paragraphs": {
+        "name": "p",
+        "attrs": {},
+        "regex": []
+    }
+}

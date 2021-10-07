@@ -112,18 +112,39 @@ class autoCORPus:
 
 	def __get_keywords(self, soup, config):
 
-		keywordSection = {
-			"section_heading": "keywords",
-			"subsection_heading": "",
-			"body": soup.find(config["keywords"]["name"], config["keywords"]["attrs"]).get_text(),
-			"section_type": [
-				{
-					"iao_name": "keywords section",
-					"iao_id": "IAO:0000630"
+		if "keywords" in config:
+			responses = handle_not_tables(config['keywords'], soup)
+			responses = " ".join([x['node'].get_text() for x in responses])
+			if not responses == "":
+				keywordSection = {
+					"section_heading": "keywords",
+					"subsection_heading": "",
+					"body": responses,
+					"section_type": [
+						{
+							"iao_name": "keywords section",
+							"iao_id": "IAO:0000630"
+						}
+					]
 				}
-			]
-		}
-		return [keywordSection]
+				return [keywordSection]
+			return False
+
+	def __get_title(self, soup, config):
+		if "title" in config:
+			titles = handle_not_tables(config['title'], soup)
+			if len(titles) == 0:
+				return ""
+			else:
+				return titles[0]['node'].get_text()
+		else:
+			return ""
+
+	def __get_sections(self, soup, config):
+		if "sections" in config:
+			sections = handle_not_tables(config["sections"], soup)
+			return sections
+		return []
 
 	def __extract_text(self, soup, config):
 		"""
@@ -141,17 +162,15 @@ class autoCORPus:
 		body_select_tag = 'p,span,a'
 
 		# Extract title
-		try:
-			h1 = soup.find(config['title']['name'],
-			               config['title']['attrs']).get_text().strip('\n')
-		except:
-			h1 = ''
-		result['title'] = h1
-		if soup.find(config["keywords"]["name"], config["keywords"]["attrs"]):
-			maintext = self.__get_keywords(soup, config)
-		else:
-			maintext = []
-		sections = soup.find_all(config['sections']['name'], config['sections']['attrs'])
+		# try:
+		# 	h1 = soup.find(config['title']['name'],
+		# 	               config['title']['attrs']).get_text().strip('\n')
+		# except:
+		# 	h1 = ''
+		result['title'] = self.__get_title(soup, config)
+		maintext = self.__get_keywords(soup, config) if self.__get_keywords(soup, config) else []
+		sections = self.__get_sections(soup, config)
+		# sections = [x['node'] for x in sections]
 		for sec in sections:
 			maintext.extend(section(config, sec).to_dict())
 		# filter out the sections which do not contain any info
@@ -186,33 +205,34 @@ class autoCORPus:
 		'''
 
 		soup = self.__soupify_infile(file_path)
-		if self.tables == {}:
-			self.tables, self.empty_tables = table(soup, config, file_path, self.base_dir).to_dict()
-		else:
-			seenIDs = set()
-			for tab in self.tables['documents']:
-				if "." in tab['id']:
-					seenIDs.add(tab['id'].split(".")[0])
-				else:
-					seenIDs.add(tab['id'])
-			tmp_tables, tmp_empty = table(soup, config, file_path, self.base_dir).to_dict()
-			additive = 0
-			for tabl in tmp_tables['documents']:
-				if "." in tabl['id']:
-					tabl_id = tabl['id'].split(".")[0]
-					tabl_pos = ".".join(tabl['id'].split(".")[1:])
-				else:
-					tabl_id = tabl['id']
-					tabl_pos = None
-				if tabl_id in seenIDs:
-					tabl_id = str(len(seenIDs) + 1)
-					if tabl_pos:
-						tabl['id'] = F"{tabl_id}.{tabl_pos}"
+		if "tables" in config:
+			if self.tables == {}:
+				self.tables, self.empty_tables = table(soup, config, file_path, self.base_dir).to_dict()
+			else:
+				seenIDs = set()
+				for tab in self.tables['documents']:
+					if "." in tab['id']:
+						seenIDs.add(tab['id'].split(".")[0])
 					else:
-						tabl['id'] = tabl_id
-				seenIDs.add(tabl_id)
-			self.tables["documents"].extend(tmp_tables["documents"])
-			self.empty_tables.extend(tmp_empty)
+						seenIDs.add(tab['id'])
+				tmp_tables, tmp_empty = table(soup, config, file_path, self.base_dir).to_dict()
+				additive = 0
+				for tabl in tmp_tables['documents']:
+					if "." in tabl['id']:
+						tabl_id = tabl['id'].split(".")[0]
+						tabl_pos = ".".join(tabl['id'].split(".")[1:])
+					else:
+						tabl_id = tabl['id']
+						tabl_pos = None
+					if tabl_id in seenIDs:
+						tabl_id = str(len(seenIDs) + 1)
+						if tabl_pos:
+							tabl['id'] = F"{tabl_id}.{tabl_pos}"
+						else:
+							tabl['id'] = tabl_id
+					seenIDs.add(tabl_id)
+				self.tables["documents"].extend(tmp_tables["documents"])
+				self.empty_tables.extend(tmp_empty)
 		return soup
 
 	def __merge_table_data(self):
@@ -229,7 +249,7 @@ class autoCORPus:
 				for table in self.empty_tables:
 					for seenID in seenIDs.keys():
 						if table['title'].startswith(seenIDs[seenID]):
-							if "title" in table:
+							if "title" in table and not table['title'] == "":
 								setNew = False
 								for passage in self.tables['documents'][int(seenID)]['passages']:
 									if passage['infons']['section_type'][0]['section_name'] == "table_title":
@@ -252,7 +272,7 @@ class autoCORPus:
 										}
 									)
 								pass
-							if "caption" in table:
+							if "caption" in table and not table['caption'] == "":
 								setNew = False
 								for passage in self.tables['documents'][int(seenID)]['passages']:
 									if passage['infons']['section_type'][0]['section_name'] == "table_caption":
@@ -275,7 +295,7 @@ class autoCORPus:
 										}
 									)
 								pass
-							if "footer" in table:
+							if "footer" in table and not table['footer'] == "":
 								setNew = False
 								for passage in self.tables['documents'][int(seenID)]['passages']:
 									if passage['infons']['section_type'][0]['section_name'] == "table_footer":
@@ -314,6 +334,7 @@ class autoCORPus:
 		self.base_dir = base_dir
 		self.file_path = main_text
 		self.main_text = {}
+		self.empty_tables={}
 		self.tables={}
 		self.abbreviations = {}
 		self.has_tables = False

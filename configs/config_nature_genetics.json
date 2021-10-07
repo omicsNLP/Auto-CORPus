@@ -1,110 +1,127 @@
 {
-    "title":
-    {
-        "name":"h1",
-        "attrs":{"class":"c-article-title"}
-    },
-    "keywords": {
-        "name": "span",
-        "attrs": {"class": ["kwd-text"]}
-    },
-    "references": {
-        "sections": {
-        },
-        "defined":[
+    "title": {
+        "data": {},
+        "defined-by": [
             {
-                "name": ["li"],
-                "attrs": {"class": ["c-article-references__item "]}
+                "tag":"h1",
+                "attrs":{"class":"c-article-title"}
             }
-        ],
-        "regex": [
         ]
     },
-    "heading":
-    {
-        "name":"h2",
-        "attrs":{"class":"c-article-section__title"}
+    "keywords": {
+        "data": {},
+        "defined-by": []
     },
-    "heading2":
-    {
-        "name":"h3",
-        "attrs":{"class":"c-article__sub-heading"}
+    "references": {
+        "data": {},
+        "defined-by":[
+            {
+                "tag": "li",
+                "attrs": {"class": "c-article-references__item"}
+            }
+        ]
     },
-    "body":
-    {
-        "name":"p",
-        "attrs":{}
+    "sections": {
+        "data": {
+            "headers": [
+                {
+                    "tag": "h2",
+                    "attrs":{"class":"c-article-section__title"}
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag":"div",
+                "attrs":{"class":"c-article-section"}
+            }
+        ]
     },
-    "figure": {
-        "name": "div",
-        "attrs": {"class":  "c-article-section__figure"}
-    },
-    "table-container":
-    {
-        "name":"table",
-        "attrs":{"class":"c-article-table-container"}
-    },
-    "table":
-    {
-        "name":"table",
-        "attrs":{}
-    },
-    "table_caption": {
-        "name": "figcaption",
-        "attrs": {"class": "c-article-table__figcaption"}
-    },
-    "table_title":
-    {
-        "name":"h1",
-        "attrs":{"class":"c-article-table-title"}
-    },
-    "table_footer":
-    {
-        "name":"div",
-        "attrs":{"class":"tblwrap-foot"}
-    },
-    "table_header":
-    {
-        "name":"thead",
-        "attrs":{"class":null}
-    },
-    "table_row":
-    {
-        "name":"tr",
-        "attrs":{"class":null}
-    },
-    "table_header_element":
-    {
-        "name":"th",
-        "attrs":{"class":null}
-    },
-    "table_body":
-    {
-        "name":"tbody",
-        "attrs":{"class":null}
-    },
-    "table_body_element":
-    {
-        "name":"td",
-        "attrs":{"class":null}
-    },
-    "abbreviations_table":
-    {
-        "name":"table",
-        "attrs":{"class":"glossary"}
-    },
-    "sections":
-    {
-        "name":"div",
-        "attrs":{"class":"c-article-section"}
-    },
-    "subsections": {
-        "name":"div",
-        "attrs":{"class":"c-article-section__content"}
+    "sub-sections": {
+        "data": {
+            "headers": [
+                {
+                    "tag": "h3",
+                    "attrs":{"class":"c-article__sub-heading"}
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag": "div",
+                "attrs":{"class":"c-article-section__content"}
+            }
+        ]
     },
     "paragraphs": {
-        "name": "p",
-        "attrs": {},
-        "regex": []
+        "data": {},
+        "defined-by": [
+            {
+                "tag": "p"
+            }
+        ]
+    },
+    "tables": {
+        "data": {
+            "caption": [],
+            "table-content": [
+                {
+                    "tag":"table"
+                }
+            ],
+            "title": [
+                {
+                    "tag": "h1",
+                    "attrs":{"class":"c-article-table-title"}
+                }
+            ],
+            "footer": [
+                {
+                    "tag": "div",
+                    "attrs":{"class":"c-article-table-footer"}
+                }
+            ],
+            "table-row": [
+                {
+                    "tag": "tr"
+                }
+            ],
+            "header-row": [
+                {
+                    "tag": "thead"
+                }
+            ],
+            "header-element": [
+                {
+                    "tag": "th"
+                }
+
+            ]
+        },
+        "defined-by": [
+            {
+                "tag": "div",
+                "attrs": {"data-component": "article-container"}
+            }
+        ]
+    },
+    "figures": {
+        "data": {
+            "title": [
+                {
+                    "tag": "p"
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag": "div",
+                "attrs": {"class":  "c-article-section__figure"}
+            }
+        ]
+    },
+    "abbreviations-table": {
+        "data": {},
+        "defined-by": []
     }
 }

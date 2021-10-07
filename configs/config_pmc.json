@@ -1,139 +1,171 @@
 {
-    "title":
-    {
-        "name":"h1",
-        "attrs":{"class":["content-title"]}
-    },
-    "keywords": {
-        "name": "span",
-        "attrs": {"class": ["kwd-text"]}
-    },
     "references": {
-        "sections": {
-            "title": {
-                "name": "span",
-                "attrs": {"class":  "ref-title"}
-            },
-            "journal": {
-                "name": "span",
-                "attrs": {"class":  "ref-journal"}
-            },
-            "volume": {
-                "name": "span",
-                "attrs": {"class":  "ref-vol"}
-            }
+        "data": {
+            "title": [
+                {
+                    "tag": "span",
+                    "attrs": {"class":  "ref-title"}
+                }
+            ],
+            "journal": [
+                {
+                    "tag": "span",
+                    "attrs": {"class":  "ref-journal"}
+                }
+            ],
+            "volume": [
+                {
+                    "tag": "span",
+                    "attrs": {"class":  "ref-vol"}
+                }
+            ]
         },
-        "defined":[
+        "defined-by":[
             {
-                "name": ["div"],
+                "tag": "div",
                 "attrs": {"class": ["ref-cit-blk"]}
             },
             {
-                "name": "li",
-                "attrs": {}
-            }
-        ],
-        "regex": [
+                "tag": "li"
+            },
             {
-                "name": "p",
-                "attrs": "id",
-                "regex": "^(__){0,2}p\\d+$"
+                "tag": "p",
+                "attrs": {"id": "(__){0,2}p\\d+"}
             }
         ]
     },
-
-    "heading":
-    {
-        "name":"h2",
-        "attrs":{"class":"head"}
+    "title": {
+        "data": {},
+        "defined-by": [
+            {
+                "tag":"h1",
+                "attrs":{"class":"content-title"}
+            }
+        ]
     },
-    "heading2":
-    {
-        "name":"h3",
-        "attrs":{"class":null}
+    "keywords": {
+        "data": {},
+        "defined-by": [
+            {
+                "tag": "span",
+                "attrs": {"class": ["kwd-text"]}
+            }
+        ]
     },
-    "sections":
-    {
-        "name":"div",
-        "attrs":{"class":"tsec"}
+    "abbreviations-table": {
+        "data": {},
+        "defined-by": [
+            {
+                "tag":"table",
+                "attrs":{"class":"glossary"}
+            }
+        ]
     },
-    "subsections": {
-        "name":"div",
-        "attrs":{"class":"sec"}
+    "sections": {
+        "data": {
+            "headers": [
+                {
+                    "tag": "h2",
+                    "attrs": {
+                        "class": "head"
+                    }
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag": "div",
+                "attrs": {
+                    "class": "tsec"
+                }
+            }
+        ]
+    },
+    "sub-sections": {
+        "data": {
+            "headers": [
+                {
+                    "tag": "h[3-6]"
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag":"div",
+                "attrs":{"class":"sec"}
+            }
+        ]
     },
     "paragraphs": {
-        "name": "p",
-        "regex":[
+        "data": {},
+        "defined-by": [
             {
-                "attrs": "id",
-                "regex": "^(_*[pP]\\d+)|(Par\\d+)$"
+                "tag": "p",
+                "attrs": {"id": "_*[pP]\\d+"}
             }
         ]
-
     },
-    "table-container": {
-        "name": "div",
-        "attrs": {"class":  "table-wrap"},
-        "caption": {
-            "name": "div",
-            "attrs": {"class": "caption"}
-        }
+    "tables": {
+        "data": {
+            "caption": [
+                {
+                    "tag": "div",
+                    "attrs": {"class": "caption"}
+                }
+            ],
+            "table-content": [
+                {
+                    "tag": "table"
+                }
+            ],
+            "title": [
+                {
+                    "tag":"h3"
+                }
+            ],
+            "footer": [
+                {
+                    "tag":"div",
+                    "attrs":{"class":"tblwrap-foot"}
+                }
+            ],
+            "table-row": [
+                {
+                    "tag":"tr"
+                }
+            ],
+            "header-row": [
+                {
+                    "tag":"thead"
+                }
+            ],
+            "header-element": [
+                {
+                    "tag":"th"
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag": "div",
+                "attrs": {"class":  "table-wrap"}
+            }
+        ]
     },
-    "figure": {
-        "name": "div",
-        "attrs": { "class": "fig"},
-        "caption": {
-            "name": "div",
-            "attrs": {"class": "caption"}
-        }
-    },
-    "table":
-    {
-        "name":"table",
-        "attrs":{"class":"default_table"}
-    },
-    "table_caption": {
-        "name": "div",
-        "attrs": {"class": "caption"}
-    },
-    "table_title":
-    {
-        "name":"h3",
-        "attrs":{"class":null}
-    },
-    "table_footer":
-    {
-        "name":"div",
-        "attrs":{"class":"tblwrap-foot"}
-    },
-    "table_header":
-    {
-        "name":"thead",
-        "attrs":{"class":null}
-    },
-    "table_row":
-    {
-        "name":"tr",
-        "attrs":{"class":null}
-    },
-    "table_header_element":
-    {
-        "name":"th",
-        "attrs":{"class":null}
-    },
-    "table_body":
-    {
-        "name":"tbody",
-        "attrs":{"class":null}
-    },
-    "table_body_element":
-    {
-        "name":"td",
-        "attrs":{"class":null}
-    },
-    "abbreviations_table":
-    {
-        "name":"table",
-        "attrs":{"class":"glossary"}
+    "figures": {
+        "data": {
+            "caption": [
+                {
+                    "tag": "div",
+                    "attrs": {"class": "caption"}
+                }
+            ]
+        },
+        "defined-by": [
+            {
+                "tag": "div",
+                "attrs": { "class": "fig"}
+            }
+        ]
     }
 }

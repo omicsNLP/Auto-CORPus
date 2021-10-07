@@ -25,7 +25,6 @@ def get_files(base_dir, pattern=r'(.*).html'):
             file_list += get_files(abs_path)
     return file_list
 
-
 def process_supsub(soup):
     """
     add underscore (_) before all superscript or subscript text
@@ -90,7 +89,6 @@ def read_mapping_file():
                         mapping_dict.update({IAO_term: [heading]})
     return mapping_dict
 
-
 def read_IAO_term_to_ID_file():
     IAO_term_to_no_dict = {}
     with open('src/IAO_dicts/IAO_term_to_ID.txt', 'r') as f:
@@ -101,6 +99,163 @@ def read_IAO_term_to_ID_file():
             IAO_term_to_no_dict.update({IAO_term: IAO_no})
     return IAO_term_to_no_dict
 
+def config_anchors(value):
+    if not value.startswith("^"):
+        value = F"^{value}"
+    if not value.endswith("$"):
+        value = F"{value}$"
+    return value
+
+def config_attr_block(block):
+    ret = {}
+    for key in block:
+        if isinstance(block[key], list):
+            ret[key] = [re.compile(config_anchors(x)) for x in block[key]]
+        elif isinstance(block[key], str) :
+            ret[key] = re.compile(config_anchors(block[key]))
+    return ret
+
+def config_attrs(attrs):
+    ret = []
+    if isinstance(attrs, list):
+        for attr in attrs:
+            ret.extend(config_attr_block(attr))
+    elif isinstance(attrs, dict):
+        ret = config_attr_block(attrs)
+    else:
+        quit(F"{attrs} must be a dict or a list of dicts")
+    return ret
+
+def config_tags(tags):
+    ret = []
+    if isinstance(tags, list):
+        for tag in tags:
+            if isinstance(tag, str):
+                ret.append(re.compile(config_anchors(tag)))
+            else:
+                quit(F"{tags} must be a string or list of strings")
+    elif isinstance(tags, str):
+        ret.append(re.compile(config_anchors(tags)))
+    else:
+        quit(F"{tags} must be a string or list of strings")
+    return ret
+
+def parse_configs(definition):
+    bsAttrs = {
+        "name": [],
+        "attrs": []
+    }
+    if "tag" in definition:
+        bsAttrs['name'] = config_tags(definition['tag'])
+    if "attrs" in definition:
+        bsAttrs['attrs'] = config_attrs(definition['attrs'])
+    return bsAttrs
+
+def handle_defined_by(config, soup):
+    '''
+
+	:param config: config file section used to parse
+	:param soup: soup section to parse
+	:return:
+	list of objects, each object being a matching node. Object of the form:
+		{
+			node: bs4Object,
+			data:{
+					key: [values]
+				}
+		}
+	node is a bs4 object of a single result derived from bs4.find_all()
+	data is an object where the results from the config "data" sections is housed. The key is the name of the data
+	section and the values are all matches found within any of the main matches which match the current data section
+	definition. The values is the response you get from get_text() on any found nodes, not the nodes themselves.
+	'''
+    if "defined-by" not in config:
+        quit(F"{config} does not contain the required 'defined-by' key.")
+    matches = []
+    seen_text = []
+    for definition in config['defined-by']:
+        bsAttrs = parse_configs(definition)
+        newMatches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
+        for match in newMatches:
+            if match.get_text() in seen_text:
+                continue
+            else:
+                seen_text.append(match.get_text())
+                matches.append(match)
+    return matches
+
+def handle_not_tables(config, soup):
+    responses = []
+    matches = handle_defined_by(config, soup)
+    if "data" in config:
+        for match in matches:
+            responseAddition = {
+                "node": match
+            }
+            for ele in config['data']:
+                seen_text = set()
+                for definition in config['data'][ele]:
+                    bsAttrs = parse_configs(definition)
+                    newMatches = match.find_all(bsAttrs['name'], bsAttrs['attrs'])
+                    if newMatches:
+                        responseAddition[ele] = []
+                    for newMatch in newMatches:
+                        if newMatch.get_text() in seen_text:
+                            continue
+                        else:
+                            responseAddition[ele].append(newMatch.get_text())
+            responses.append(responseAddition)
+    else:
+        for match in matches:
+            responseAddition = {
+                "node": match
+            }
+            responses.append(responseAddition)
+    return responses
+
+def get_data_element_node(config, soup):
+    config = {
+        "defined-by": config
+    }
+    return handle_defined_by(config, soup)
+
+def handle_tables(config, soup):
+    responses = []
+    matches = handle_defined_by(config, soup)
+    textData = [
+        "caption",
+        "title",
+        "footer"
+    ]
+    if "data" in config:
+        for match in matches:
+            responseAddition = {
+                "node": match,
+                "title": "",
+                "footer": "",
+                "caption": ""
+            }
+            for ele in config['data']:
+                if ele in textData:
+                    seen_text = set()
+                    for definition in config['data'][ele]:
+                        bsAttrs = parse_configs(definition)
+                        newMatches = match.find_all(bsAttrs['name'], bsAttrs['attrs'])
+                        if newMatches:
+                            responseAddition[ele] = []
+                        for newMatch in newMatches:
+                            if newMatch.get_text() in seen_text:
+                                continue
+                            else:
+                                responseAddition[ele].append(newMatch.get_text())
+            responses.append(responseAddition)
+    else:
+        for match in matches:
+            responseAddition = {
+                "node": match
+            }
+            responses.append(responseAddition)
+    return responses
 def assgin_heading_by_DAG(paper):
     G = nx.read_graphml('src/DAG_model.graphml')
     new_mapping_dict = {}
