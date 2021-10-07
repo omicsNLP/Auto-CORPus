@@ -84,7 +84,7 @@ $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/direct
 
 `-c` (config) - which config file to use.
 
-`-o'(output format) - output format, either JSON or XML
+`-o`(output format) - output format, either JSON or XML
 
 
 <h2><a name="alpha">Alpha section</a></h2>
