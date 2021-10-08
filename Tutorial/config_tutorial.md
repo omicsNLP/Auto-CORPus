@@ -72,8 +72,8 @@ this section from others.
 The above example tells Auto-CORPus to look for all `<div>` tags with a class of "ref-cit-blk". "ref-cit-blk" is denoted as a JSON list.  The use of a list allows other classes to be defined, that when used in combination, uniquely identify a section.  Hence, the logical AND operator is applied to these values. 
 
 Regular expressions can be used within the `tag` entry value and `attrs` entry values.
-Auto-CORPus will automatically enclose any `tag` and `value` entries with the regex start (`^`) and end (`$`) anchors, this is to ensure there are no
-erroneous matches. In [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json), entities are defined using the below `attrs`:
+Auto-CORPus will automatically enclose any `tag` and `attrs` entries with the regex start (`^`) and end (`$`) anchors, this is to ensure there are no
+erroneous matches. In [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json), article sections are defined using the below `attrs`:
 
 ```
 "attrs": {"class": "sec"}
