@@ -6,6 +6,10 @@ The Automated pipeline for Consistent Outputs from Research Publications (Auto-C
 
 We present a JSON format for sharing table content and metadata that is based on the BioC format. The [JSON schema](keyFiles/schema.json) for the tables JSON can be found within the [keyfiles](keyFiles) directory.
 
+**Config files**
+
+Auto-CORPus is able to parse HTML from different publishing groups, which utilise different HTML structures and naming conventions, this is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied three config files for [PubMed Central](configs/config_pmc.json), [Plos Genetics](configs/config_plos_genetics) and [Nature Genetics](configs/config_nat_genetics) as example configs as well as a config template in the configs directory and documentation on how to create your own config files within the [Tutorial directory](Tutorial).
+
 **Auto-CORPus recognises 2 types of input file which are:**
 
 - Full text HTML documents covering the entire article
