@@ -8,7 +8,7 @@ We present a JSON format for sharing table content and metadata that is based on
 
 **Config files**
 
-Auto-CORPus is able to parse HTML from different publishing groups, which utilise different HTML structures and naming conventions, this is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied three config files for [PubMed Central](configs/config_pmc.json), [Plos Genetics](configs/config_plos_genetics.json) and [Nature Genetics](configs/config_nature_genetics.json) as example configs as well as a config template in the [configs](configs) directory and documentation on how to create your own config files within the [Tutorial directory](Tutorial).
+Auto-CORPus is able to parse HTML from different publishers, which utilise different HTML structures and naming conventions. This is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied a config template along with example config files for [PubMed Central](configs/config_pmc.json), [Plos Genetics](configs/config_plos_genetics.json) and [Nature Genetics](configs/config_nature_genetics.json) in the [configs](configs) directory. Documentation on how to create and modify config files is available within the [Tutorial](Tutorial) directory.
 
 **Auto-CORPus recognises 2 types of input file which are:**
 
