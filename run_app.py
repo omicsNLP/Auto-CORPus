@@ -4,6 +4,7 @@ import glob
 from tqdm import tqdm
 import re
 import imghdr
+from datetime import date, datetime
 
 from src.autoCORPus import autoCORPus
 
@@ -134,40 +135,65 @@ def read_file_structure(file_path, target_dir):
 
 structure = read_file_structure(file_path, target_dir)
 pbar = tqdm(structure.keys())
-for key in pbar:
-	pbar.set_postfix(
-		{
-			"file": key + "*",
-			"linked_tables": len(structure[key]['linked_tables']),
-			"table_images": len(structure[key]['table_images'])
-		}
-	)
-	if os.path.isdir(file_path):
-		base_dir = file_path
-	else:
-		base_dir = "/".join(file_path.split("/")[:-1])
+cdate = datetime.now()
 
-	AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'], linked_tables=sorted(structure[key]['linked_tables']), table_images=sorted(structure[key]['table_images']), trainedData=trained_data)
+config = args.config
+config_dir = args.config_dir
+associated_data = args.associated_data
+output_format = args.output_format if args.output_format else "JSON"
+trained_data = args.trained_data_set if args.output_format else "eng"
 
-	out_dir = structure[key]['out_dir']
-
-	if not os.path.exists(out_dir):
-		os.makedirs(out_dir)
-	if structure[key]["main_text"]:
-		key = key.replace('\\','/')
-		if output_format == "JSON":
-			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
-				outfp.write(AC.main_text_to_bioc_json())
+logFileName = F"autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+with open(logFileName, "w") as log_file:
+	log_file.write(F"Auto-CORPus log file from {cdate.hour}:{cdate.minute} on {cdate.day}/{cdate.month}/{cdate.year}\n")
+	log_file.write(F"Input directory provided: {file_path}\n")
+	log_file.write(F"Output directory provided: {target_dir}\n")
+	log_file.write(F"Config provided: {config}\n")
+	log_file.write(F"Output format: {output_format}\n")
+	success = []
+	errors = []
+	for key in pbar:
+		pbar.set_postfix(
+			{
+				"file": key + "*",
+				"linked_tables": len(structure[key]['linked_tables']),
+				"table_images": len(structure[key]['table_images'])
+			}
+		)
+		if os.path.isdir(file_path):
+			base_dir = file_path
 		else:
-			with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w", encoding='utf-8') as outfp:
-				outfp.write(AC.main_text_to_bioc_xml())
-		with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w", encoding='utf-8') as outfp:
-			outfp.write(AC.abbreviations_to_bioc_json())
+			base_dir = "/".join(file_path.split("/")[:-1])
+		try:
+			AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'], linked_tables=sorted(structure[key]['linked_tables']), table_images=sorted(structure[key]['table_images']), trainedData=trained_data)
 
-	# AC does not support the conversion of tables or abbreviations to the XML format
-	if AC.has_tables:
-		with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w", encoding='utf-8') as outfp:
-			outfp.write(AC.tables_to_bioc_json())
+			out_dir = structure[key]['out_dir']
 
-	pass
+			if not os.path.exists(out_dir):
+				os.makedirs(out_dir)
+			if structure[key]["main_text"]:
+				key = key.replace('\\','/')
+				if output_format == "JSON":
+					with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
+						outfp.write(AC.main_text_to_bioc_json())
+				else:
+					with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w", encoding='utf-8') as outfp:
+						outfp.write(AC.main_text_to_bioc_xml())
+				with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w", encoding='utf-8') as outfp:
+					outfp.write(AC.abbreviations_to_bioc_json())
+
+			# AC does not support the conversion of tables or abbreviations to the XML format
+			if AC.has_tables:
+				with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w", encoding='utf-8') as outfp:
+					outfp.write(AC.tables_to_bioc_json())
+			success.append(F"{key} was processed successfully.")
+		except Exception as e:
+			errors.append(F"{key} failed due to {e}.")
+
+	log_file.write(F"{len(success)} files processed.\n")
+	log_file.write(F"{len(errors)} files not processed due to errors.\n\n\n")
+	log_file.write("\n".join(success) + "\n")
+	log_file.write("\n".join(errors) + "\n")
+
+
 
