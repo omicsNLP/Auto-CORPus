@@ -46,7 +46,11 @@ Auto-CORPus will first group files based on common elements in their file name {
     PMC1_tables.json (contains table 1 & 2 and any tables described within the main text)
     /subdir
         PMC1_tables.json (contains tables 3 & 4 only)
-        
+   
+There will also be a log file produced in the base auto-CORPus directory providing details of the day/time AC was ran,
+the arguments used and information about which files were successfully/unsuccessfully processed with a relevant error message.
+
+
 **Getting started:**
 
 Clone the repo, e.g.:
@@ -88,6 +92,14 @@ $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/direct
 `-c` (config) - which config file to use
 
 `-o`(output format) - either JSON or XML (defaults to JSON)
+
+
+**Known Issues**
+
+- AC can fail when running on Windows with an error message such as `'charmap' codec can't decode byte 0x81 in position 
+40289: character maps to <undefined>'`, the same issue is not found on Linux or Mac machines. We will be looking to resolve this problem ASAP
+but there is a workaround, using Microsoft Edge change the dropdown from "complete" to "HTML" when saving the webpage.
+
 
 
 <h3><a name="alpha">Alpha testing</a></h3>
