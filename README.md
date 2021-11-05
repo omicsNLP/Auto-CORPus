@@ -8,7 +8,7 @@ We present a JSON format for sharing table content and metadata that is based on
 
 **Config files**
 
-Auto-CORPus is able to parse HTML from different publishers, which utilise different HTML structures and naming conventions. This is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied a config template along with example config files for [PubMed Central](configs/config_pmc.json), [Plos Genetics](configs/config_plos_genetics.json) and [Nature Genetics](configs/config_nature_genetics.json) in the [configs](configs) directory. Documentation on how to create and modify config files is available within the [Tutorial](Tutorial) directory. Users of Auto-CORPus can submit their own config files for different sources via the <a href="https://github.com/omicsNLP/Auto-CORPus/issues">issues</a> tab.
+Auto-CORPus is able to parse HTML from different publishers, which utilise different HTML structures and naming conventions. This is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied a config template along with example config files for [PubMed Central](configs/config_pmc.json), [Plos Genetics](configs/config_plos_genetics.json) and [Nature Genetics](configs/config_nature_genetics.json) in the [configs](configs) directory. Documentation on how to create and modify config files is available within the [Tutorial](Tutorial) directory. Users of Auto-CORPus can submit their own config files for different sources via the [issues](https://github.com/omicsNLP/Auto-CORPus/issues") tab.
 
 **Auto-CORPus recognises 2 types of input file which are:**
 
@@ -47,7 +47,7 @@ Auto-CORPus will first group files based on common elements in their file name {
     /subdir
         PMC1_tables.json (contains tables 3 & 4 only)
    
-There will also be a log file produced in the base auto-CORPus directory providing details of the day/time AC was ran,
+There will also be a log file produced in the output directory providing details of the day/time AC was ran,
 the arguments used and information about which files were successfully/unsuccessfully processed with a relevant error message.
 
 
@@ -98,8 +98,7 @@ $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/direct
 
 - AC can fail when running on Windows with an error message such as `'charmap' codec can't decode byte 0x81 in position 
 40289: character maps to <undefined>'`, the same issue is not found on Linux or Mac machines. We will be looking to resolve this problem ASAP
-but there is a workaround, using Microsoft Edge change the dropdown from "complete" to "HTML" when saving the webpage.
-
+but there is a workaround by using the internet browser change the dropdown from "complete" to "HTML" when saving the webpage solves this issue in most instances.
 
 
 <h3><a name="alpha">Alpha testing</a></h3>
