@@ -47,7 +47,7 @@ Auto-CORPus will first group files based on common elements in their file name {
     /subdir
         PMC1_tables.json (contains tables 3 & 4 only)
    
-There will also be a log file produced in the output directory providing details of the day/time AC was ran,
+A log file is produced in the output directory providing details of the day/time Auto-CORPus was run,
 the arguments used and information about which files were successfully/unsuccessfully processed with a relevant error message.
 
 
