@@ -96,9 +96,8 @@ $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/direct
 
 **Known Issues**
 
-- AC can fail when running on Windows with an error message such as `'charmap' codec can't decode byte 0x81 in position 
-40289: character maps to <undefined>'`, the same issue is not found on Linux or Mac machines. We will be looking to resolve this problem ASAP
-but there is a workaround by using the internet browser change the dropdown from "complete" to "HTML" when saving the webpage solves this issue in most instances.
+Auto-CORPus can fail when running on Windows with an error message such as `'charmap' codec can't decode byte 0x81 in position 
+40289: character maps to <undefined>'`. The same issue is not found on Linux or Mac machines. We are looking to resolve this problem, but in the meantime, there is a workaround: by using the internet browser change the dropdown from "complete" to "HTML" when saving the webpage solves this issue in most instances.
 
 
 <h3><a name="alpha">Alpha testing</a></h3>
