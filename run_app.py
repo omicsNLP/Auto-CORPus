@@ -143,7 +143,7 @@ associated_data = args.associated_data
 output_format = args.output_format if args.output_format else "JSON"
 trained_data = args.trained_data_set if args.output_format else "eng"
 
-logFileName = F"autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+logFileName = F"{target_dir}/autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
 with open(logFileName, "w") as log_file:
 	log_file.write(F"Auto-CORPus log file from {cdate.hour}:{cdate.minute} on {cdate.day}/{cdate.month}/{cdate.year}\n")
 	log_file.write(F"Input directory provided: {file_path}\n")
