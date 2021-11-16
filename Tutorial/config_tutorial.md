@@ -1,6 +1,6 @@
 **How to create/edit a config file**
 
-For instrctions on how to submit your own configs or make changes to existing config files please see [submit/update](#submit)
+For instructions on how to submit your own configs or make changes to existing config files please see [submit/update](#submit)
 
 *The [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json) file is used as the example in this tutorial.*
 
@@ -112,5 +112,6 @@ To submit a new config file or edit an existing one please follow the below inst
 2) Make any changes/new configs within your fork
    1) If editing a pre-existing config file then please leave the original authors details as is and then add yourself as an editor
    2) The comments sections have been added for you to provide any additional information you want, such as affiliations to institutions/projects as well as any major changes made
+   3) You do not need to supply your name or email within a config file, we just want to ensure credit is given to those who deserve it
 3) Create a pull request
 4) We will approve the pull request once the config has been tested
