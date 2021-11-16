@@ -18,12 +18,12 @@ class BiocDocument:
 			if passage['section_heading'] not in seen_headings:
 				offset += len(passage['section_heading'])
 				seen_headings.append(passage['section_heading'])
-			# TODO: include section_title + subsection in offset
 		return passages
 
 	def build_template(self, dataStore):
 		return {
-			"inputfile": dataStore.file_name,
+			"id": dataStore.file_name.split(".")[0],
+			"inputfile": dataStore.file_path,
 			"infons": {},
 			"passages": self.build_passages(dataStore),
 			"annotations": [],
