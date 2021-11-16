@@ -322,8 +322,8 @@ def assgin_heading_by_DAG(paper):
                     else:
                         mapping_result_ID_version = ''
                     newSecType.append({
-                        "IAO_term": secType,
-                        "IAO_id": mapping_result_ID_version
+                        "iao_name": secType,
+                        "iao_id": mapping_result_ID_version
                     })
 
                 new_mapping_dict[heading] = newSecType
