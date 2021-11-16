@@ -385,11 +385,11 @@ class abbreviations:
 		for key in all_abbreviations:
 			if key in abbrev_json:
 				if all_abbreviations[key] in abbrev_json[key].keys():
-					abbrev_json[key][all_abbreviations[key]].append("fulltext extraction")
+					abbrev_json[key][all_abbreviations[key]].append("fulltext")
 				else:
-					abbrev_json[key][all_abbreviations[key]] = ["fulltext extraction"]
+					abbrev_json[key][all_abbreviations[key]] = ["fulltext"]
 			else:
-				abbrev_json[key] = {all_abbreviations[key]: ["fulltext extraction"]}
+				abbrev_json[key] = {all_abbreviations[key]: ["fulltext"]}
 
 		# abbrev_json['abbreviations_section'] = author_provided_abbreviations
 		# abbrev_json['fulltext_algorithm'] = all_abbreviations

@@ -355,7 +355,7 @@ class table:
 			identifier = tableIdentifier
 			offset = 0
 			tableDict = {
-				"inputfile": self.file_name,
+				"inputfile": self.base_dir  + "/" + self.file_name,
 				"id": F"{identifier}",
 				"infons": {},
 				"passages":[
@@ -610,6 +610,7 @@ class table:
 	def __init__(self, soup, config, file_name, base_dir):
 		self.file_name = file_name.replace(base_dir + "/", "")
 		self.tableIdentifier=None
+		self.base_dir = base_dir
 		if re.search("_table_\d+\.html", file_name):
 			self.tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
 		self.pval_regex = r'((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d+)'
