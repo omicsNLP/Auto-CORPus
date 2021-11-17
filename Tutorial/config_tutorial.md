@@ -106,12 +106,12 @@ headers at the same time.
 
 <h3><a name="submit">Submitting/editing config files</a></h3>
 
-To submit a new config file or edit an existing one please follow the below instructions:
+To submit a new config file or edit an existing one, please follow these instructions:
 
-1) Fork the repo
-2) Make any changes/new configs within your fork
-   1) If editing a pre-existing config file then please leave the original authors details as is and then add yourself as an editor
-   2) The comments sections have been added for you to provide any additional information you want, such as affiliations to institutions/projects as well as any major changes made
-   3) You do not need to supply your name or email within a config file, we just want to ensure credit is given to those who deserve it
+1) Fork the repo.
+2) Make any changes and/or new configs within your fork.
+   1) If creating a new config file, add yourself as the author within the 'contributions' section of the JSON file.  If editing a pre-existing config file, include yourself as an editor within the 'contributions' section.
+   2) The comments section can be used to provide any additional relevant information about you and/or the edits made.
+   3) Please provide an example source HTML URL that can be used to test the config file.
 3) Create a pull request
 4) We will approve the pull request once the config has been tested
