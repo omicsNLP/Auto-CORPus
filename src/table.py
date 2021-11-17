@@ -355,19 +355,16 @@ class table:
 			identifier = tableIdentifier
 			offset = 0
 			tableDict = {
-				"inputfile": self.file_name,
+				"inputfile": self.base_dir  + "/" + self.file_name,
 				"id": F"{identifier}",
 				"infons": {},
 				"passages":[
 					{
 						"offset": 0,
 						"infons":{
-							"section_type": [
-								{"section_name": "table_title",
-								"iao_name": "document title",
-								 "iao_id": "IAO:0000305"
-								 }
-							]
+								"section_title_1": "table_title",
+								"iao_name_1": "document title",
+								 "iao_id_1": "IAO:0000305"
 						},
 						"text": table['title']
 					}
@@ -379,13 +376,9 @@ class table:
 					{
 						"offset": offset,
 						"infons":{
-							"section_type":[
-								{
-									"section_name": "table_caption",
-									"iao_name": "caption",
-									"iao_id": "IAO:0000304"
-								}
-							]
+							"section_title_1": "table_caption",
+							"iao_name_1": "caption",
+							"iao_id_1": "IAO:0000304"
 						},
 						"text": ". ".join(table["caption"])
 					}
@@ -399,7 +392,7 @@ class table:
 				for sect in table["section"]:
 
 					resultsDict = 						{
-						"section_title_1": sect['section_name'],
+						"table_section_title_1": sect['section_name'],
 						"data_rows":[]
 					}
 					for resultrow in sect["results"]:
@@ -429,13 +422,9 @@ class table:
 					{
 						"offset": this_offset,
 						"infons": {
-							"section_type": [
-								{
-									"section_name": "table_content",
-									"iao_name": "table",
-									"iao_id": "IAO:0000306"
-								}
-							]
+							"section_title_1": "table_content",
+							"iao_name_1": "table",
+							"iao_id_1": "IAO:0000306"
 						},
 						"column_headings": columns,
 						"data_section": rsection
@@ -447,13 +436,9 @@ class table:
 					{
 						"offset": offset,
 						"infons":{
-							"section_type":[
-								{
-									"section_name": "table_footer",
-									"iao_name": "caption",
-									"iao_id": "IAO:0000304"
-								}
-							]
+							"section_title_1": "table_footer",
+							"iao_name_1": "caption",
+							"iao_id_1": "IAO:0000304"
 						},
 						"text": ". ".join(table["footer"])
 					}
@@ -610,6 +595,7 @@ class table:
 	def __init__(self, soup, config, file_name, base_dir):
 		self.file_name = file_name.replace(base_dir + "/", "")
 		self.tableIdentifier=None
+		self.base_dir = base_dir
 		if re.search("_table_\d+\.html", file_name):
 			self.tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
 		self.pval_regex = r'((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d+)'

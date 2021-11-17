@@ -1,5 +1,7 @@
 **How to create/edit a config file**
 
+For instructions on how to submit your own configs or make changes to existing config files please see [submit/update](#submit)
+
 *The [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json) file is used as the example in this tutorial.*
 
 There are no required sections within the config file, if you do not define a section then Auto-CORPus will not try to process it.
@@ -100,3 +102,16 @@ the HTML is generated from each source without having to define exact matches fo
 
 The second example identifies all `header` elements ranging from `<h3>` to `<h6>`. Auto-CORPus will process all matching
 headers at the same time.
+
+
+<h3><a name="submit">Submitting/editing config files</a></h3>
+
+To submit a new config file or edit an existing one, please follow these instructions:
+
+1) Fork the repo.
+2) Make any changes and/or new configs within your fork.
+   1) If creating a new config file, add yourself as the author within the `contributions` section of the JSON file.  If editing a pre-existing config file, include yourself as an editor within the `contributions` section.
+   2) The comments section can be used to provide any additional relevant information about you and/or the edits made.
+   3) Please provide an example source HTML URL that can be used to test the config file.
+3) Create a pull request
+4) We will approve the pull request once the config has been tested

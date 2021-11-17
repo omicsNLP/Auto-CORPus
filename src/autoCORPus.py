@@ -42,7 +42,8 @@ class autoCORPus:
 	def __read_config(self, config_path):
 		with open(config_path, "r") as f:
 			## TODO: validate config file here if possible
-			return json.load(f)
+			content = json.load(f)
+			return content["config"]
 
 	@handle_path
 	def __import_file(self, file_path):
@@ -345,7 +346,7 @@ class autoCORPus:
 			soup = self.__handle_html(self.file_path, config)
 			self.main_text = self.__extract_text(soup, config)
 			try:
-				self.abbreviations = abbreviations(self.main_text, soup, config, self.file_name).to_dict()
+				self.abbreviations = abbreviations(self.main_text, soup, config, self.file_name, self.base_dir).to_dict()
 			except Exception as e:
 				print(e)
 		if linked_tables:

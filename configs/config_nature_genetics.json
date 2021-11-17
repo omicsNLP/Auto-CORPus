@@ -1,127 +1,145 @@
 {
+  "config": {
     "title": {
-        "data": {},
-        "defined-by": [
-            {
-                "tag":"h1",
-                "attrs":{"class":"c-article-title"}
-            }
-        ]
+      "data": {},
+      "defined-by": [
+        {
+          "tag":"h1",
+          "attrs":{"class":"c-article-title"}
+        }
+      ]
     },
     "keywords": {
-        "data": {},
-        "defined-by": []
+      "data": {},
+      "defined-by": []
     },
     "references": {
-        "data": {},
-        "defined-by":[
-            {
-                "tag": "li",
-                "attrs": {"class": "c-article-references__item"}
-            }
-        ]
+      "data": {},
+      "defined-by":[
+        {
+          "tag": "li",
+          "attrs": {"class": "c-article-references__item"}
+        }
+      ]
     },
     "sections": {
-        "data": {
-            "headers": [
-                {
-                    "tag": "h2",
-                    "attrs":{"class":"c-article-section__title"}
-                }
-            ]
-        },
-        "defined-by": [
-            {
-                "tag":"div",
-                "attrs":{"class":"c-article-section"}
-            }
+      "data": {
+        "headers": [
+          {
+            "tag": "h2",
+            "attrs":{"class":"c-article-section__title"}
+          }
         ]
+      },
+      "defined-by": [
+        {
+          "tag":"div",
+          "attrs":{"class":"c-article-section"}
+        }
+      ]
     },
     "sub-sections": {
-        "data": {
-            "headers": [
-                {
-                    "tag": "h3",
-                    "attrs":{"class":"c-article__sub-heading"}
-                }
-            ]
-        },
-        "defined-by": [
-            {
-                "tag": "div",
-                "attrs":{"class":"c-article-section__content"}
-            }
+      "data": {
+        "headers": [
+          {
+            "tag": "h3",
+            "attrs":{"class":"c-article__sub-heading"}
+          }
         ]
+      },
+      "defined-by": [
+        {
+          "tag": "div",
+          "attrs":{"class":"c-article-section__content"}
+        }
+      ]
     },
     "paragraphs": {
-        "data": {},
-        "defined-by": [
-            {
-                "tag": "p"
-            }
-        ]
+      "data": {},
+      "defined-by": [
+        {
+          "tag": "p"
+        }
+      ]
     },
     "tables": {
-        "data": {
-            "caption": [],
-            "table-content": [
-                {
-                    "tag":"table"
-                }
-            ],
-            "title": [
-                {
-                    "tag": "h1",
-                    "attrs":{"class":"c-article-table-title"}
-                }
-            ],
-            "footer": [
-                {
-                    "tag": "div",
-                    "attrs":{"class":"c-article-table-footer"}
-                }
-            ],
-            "table-row": [
-                {
-                    "tag": "tr"
-                }
-            ],
-            "header-row": [
-                {
-                    "tag": "thead"
-                }
-            ],
-            "header-element": [
-                {
-                    "tag": "th"
-                }
+      "data": {
+        "caption": [],
+        "table-content": [
+          {
+            "tag":"table"
+          }
+        ],
+        "title": [
+          {
+            "tag": "h1",
+            "attrs":{"class":"c-article-table-title"}
+          }
+        ],
+        "footer": [
+          {
+            "tag": "div",
+            "attrs":{"class":"c-article-table-footer"}
+          }
+        ],
+        "table-row": [
+          {
+            "tag": "tr"
+          }
+        ],
+        "header-row": [
+          {
+            "tag": "thead"
+          }
+        ],
+        "header-element": [
+          {
+            "tag": "th"
+          }
 
-            ]
-        },
-        "defined-by": [
-            {
-                "tag": "div",
-                "attrs": {"data-component": "article-container"}
-            }
         ]
+      },
+      "defined-by": [
+        {
+          "tag": "div",
+          "attrs": {"data-component": "article-container"}
+        }
+      ]
     },
     "figures": {
-        "data": {
-            "title": [
-                {
-                    "tag": "p"
-                }
-            ]
-        },
-        "defined-by": [
-            {
-                "tag": "div",
-                "attrs": {"class":  "c-article-section__figure"}
-            }
+      "data": {
+        "title": [
+          {
+            "tag": "p"
+          }
         ]
+      },
+      "defined-by": [
+        {
+          "tag": "div",
+          "attrs": {"class":  "c-article-section__figure"}
+        }
+      ]
     },
     "abbreviations-table": {
-        "data": {},
-        "defined-by": []
+      "data": {},
+      "defined-by": []
     }
+  },
+  "contributions": {
+    "author": {
+      "name": "Tom Shorter",
+      "contact_email": "ts339@le.ac.uk",
+      "comments": "Provided with Auto-CORPus for processing Nature Genetics HTML files"
+    },
+    "editors": [
+      {
+        "name": "",
+        "contact_email": "",
+        "date_edited": "",
+        "comments": ""
+      }
+    ]
+  },
+  "example_source_HTML_URL": "https://www.nature.com/articles/ng.269"
 }

@@ -142,8 +142,10 @@ config_dir = args.config_dir
 associated_data = args.associated_data
 output_format = args.output_format if args.output_format else "JSON"
 trained_data = args.trained_data_set if args.output_format else "eng"
-
+if not os.path.exists(target_dir):
+	os.makedirs(target_dir)
 logFileName = F"{target_dir}/autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+
 with open(logFileName, "w") as log_file:
 	log_file.write(F"Auto-CORPus log file from {cdate.hour}:{cdate.minute} on {cdate.day}/{cdate.month}/{cdate.year}\n")
 	log_file.write(F"Input directory provided: {file_path}\n")
@@ -168,9 +170,6 @@ with open(logFileName, "w") as log_file:
 			AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'], linked_tables=sorted(structure[key]['linked_tables']), table_images=sorted(structure[key]['table_images']), trainedData=trained_data)
 
 			out_dir = structure[key]['out_dir']
-
-			if not os.path.exists(out_dir):
-				os.makedirs(out_dir)
 			if structure[key]["main_text"]:
 				key = key.replace('\\','/')
 				if output_format == "JSON":

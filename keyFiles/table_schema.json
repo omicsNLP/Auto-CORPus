@@ -41,34 +41,17 @@
                     "infons": {
                       "type": "object",
                       "properties": {
-                        "section_type": {
-                          "type": "array",
-                          "items": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "section_name": {
-                                  "type": "string"
-                                },
-                                "iao_name": {
-                                  "type": "string"
-                                },
-                                "iao_id": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "section_name",
-                                "iao_name",
-                                "iao_id"
-                              ]
-                            }
-                          ]
+                        "section_title_\\d+": {
+                          "type": "string"
+                        },
+                        "iao_name_\\d+": {
+                          "type": "string"
+                        },
+                        "iao_id_\\d+": {
+                          "type": "string"
                         }
                       },
-                      "required": [
-                        "section_type"
-                      ]
+                      "required": []
                     },
                     "column_headings": {
                       "type": "array",
@@ -95,12 +78,10 @@
                       "items": [
                         {
                           "type": "object",
-                          "patternProperties": {
-                            "section_title_\\d+": {
-                              "type": "string"
-                            }
-                          },
                           "properties": {
+                            "table_section_title_\\d+": {
+                              "type": "string"
+                            },
                             "data_rows": {
                               "type": "array",
                               "items": [
@@ -127,49 +108,29 @@
                               ]
                             }
                           },
-                          "required": []
+                          "required": [
+                            "data_rows"
+                          ]
                         }
                       ]
                     },
-                    "sentences": {
-                      "type": "array",
-                      "items": {}
-                    },
-                    "annotations": {
-                      "type": "array",
-                      "items": {}
-                    },
-                    "relations": {
-                      "type": "array",
-                      "items": {}
+                    "text": {
+                      "type": "string"
                     }
                   },
                   "required": [
                     "offset",
-                    "infons",
-                    "sentences",
-                    "annotations",
-                    "relations"
+                    "infons"
                   ]
                 }
               ]
-            },
-            "annotations": {
-              "type": "array",
-              "items": {}
-            },
-            "relations": {
-              "type": "array",
-              "items": {}
             }
           },
           "required": [
             "inputfile",
             "id",
             "infons",
-            "passages",
-            "annotations",
-            "relations"
+            "passages"
           ]
         }
       ]

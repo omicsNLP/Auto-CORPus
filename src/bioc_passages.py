@@ -20,12 +20,10 @@ class BioCPassage:
 		return cls(title_passage, offset)
 
 	def __build_passage(self, passage, offset):
-		defaultkeys = ["section_heading", "subsection_heading", "body"]
+		defaultkeys = ["section_heading", "subsection_heading", "body", "section_type"]
 		passage_dict= {
 			"offset": offset,
-			"infons": {
-				"section_type": passage["section_type"]
-			},
+			"infons": {},
 			"text": passage['body'],
 			"sentences": [],
 			"annotations": [],
@@ -40,6 +38,11 @@ class BioCPassage:
 			passage_dict['infons']['section_title_1'] = passage['section_heading']
 		if passage['subsection_heading'] != "":
 			passage_dict['infons']['section_title_2'] = passage["subsection_heading"]
+		counter = 1
+		for section_type in passage["section_type"]:
+			passage_dict['infons'][F"iao_name_{counter}"] = section_type['iao_name']
+			passage_dict['infons'][F"iao_id_{counter}"] = section_type['iao_id']
+			counter +=1
 
 		return passage_dict
 
