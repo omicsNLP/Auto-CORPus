@@ -51,11 +51,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "section_title_\\d+",
-                        "iao_name_\\d+",
-                        "iao_id_\\d+"
-                      ]
+                      "required": []
                     },
                     "column_headings": {
                       "type": "array",
@@ -113,7 +109,6 @@
                             }
                           },
                           "required": [
-                            "table_section_title_\\d+",
                             "data_rows"
                           ]
                         }
@@ -125,10 +120,7 @@
                   },
                   "required": [
                     "offset",
-                    "infons",
-                    "column_headings",
-                    "data_section",
-                    "text"
+                    "infons"
                   ]
                 }
               ]
