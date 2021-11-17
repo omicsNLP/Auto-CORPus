@@ -67,7 +67,7 @@
                               "type": "string"
                             },
                             "cell_text": {
-                              "type": "string"
+                              "type": ["integer","string"]
                             }
                           },
                           "required": [
@@ -99,7 +99,7 @@
                                           "type": "string"
                                         },
                                         "cell_text": {
-                                          "type": "string"
+                                          "type": ["integer","string"]
                                         }
                                       },
                                       "required": [
