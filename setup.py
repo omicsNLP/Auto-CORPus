@@ -8,7 +8,7 @@ with open('requirements.txt') as f:
 
 setup(
 	name="autoCORPus",
-	version='0.0.1',
+	version='1.0.0',
 	description="autoCORPus",
 	py_modules=["autoCORPus"],
 	package_dir={'': 'src'},
