@@ -2,7 +2,9 @@ import os
 import re
 import nltk
 import networkx as nx
+import bs4
 from fuzzywuzzy import fuzz
+import unicodedata
 
 
 def get_files(base_dir, pattern=r'(.*).html'):
@@ -219,6 +221,22 @@ def get_data_element_node(config, soup):
     }
     return handle_defined_by(config, soup)
 
+def navigate_contents(item):
+    value = ""
+    xa=u'\xa0'
+    if isinstance(item, bs4.element.NavigableString):
+        value += unicodedata.normalize("NFKD", item)
+    if isinstance(item, bs4.element.Tag):
+        if item.name == "sup" or item.name == "sub":
+            value += "<" + item.name + ">"
+            for childItem in item.contents:
+                value += navigate_contents(childItem)
+            value += "</" + item.name + ">"
+        else:
+            for childItem in item.contents:
+                value += navigate_contents(childItem)
+    return value
+
 def handle_tables(config, soup):
     responses = []
     matches = handle_defined_by(config, soup)
@@ -247,7 +265,14 @@ def handle_tables(config, soup):
                             if newMatch.get_text() in seen_text:
                                 continue
                             else:
-                                responseAddition[ele].append(newMatch.get_text())
+                                value = ""
+                                for item in newMatch.contents:
+                                    value += navigate_contents(item)
+                                    # clean the cell
+                                value = value.strip().replace('\u2009',' ')
+                                value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
+                                value = re.sub("\\n", "", value)
+                                responseAddition[ele].append(value)
             responses.append(responseAddition)
     else:
         for match in matches:

@@ -56,17 +56,19 @@ class table:
 				cCont = cell.contents
 				value = ""
 				for item in cCont:
-					if isinstance(item, bs4.element.NavigableString):
-						value += item + " "
-					if isinstance(item, bs4.element.Tag):
-						if item.name == "sup" or item.name == "sub":
-							value += "<" + item.name + ">"
-							value += item.get_text()
-							value += "</" + item.name + ">"
-						else:
-							value += item.get_text()
+					value += navigate_contents(item)
+					# if isinstance(item, bs4.element.NavigableString):
+					# 	value += item + " "
+					# if isinstance(item, bs4.element.Tag):
+					# 	if item.name == "sup" or item.name == "sub":
+					# 		value += "<" + item.name + ">"
+					# 		value += item.get_text()
+					# 		value += "</" + item.name + ">"
+					# 	else:
+					# 		value += item.get_text()
 				# clean the cell
-				value = value.strip().replace('\u2009',' ')
+				value = value.strip().replace('\u2009',' ').replace("&#x000a0;", " ")
+				value = re.sub("\s", " ", value)
 				value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
 				value = re.sub("\\n", "", value)
 				if value.startswith('(') and value.endswith(')'):
