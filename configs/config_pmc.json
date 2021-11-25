@@ -102,7 +102,7 @@
       "defined-by": [
         {
           "tag": "p",
-          "attrs": {"id": "_*[pP]\\d+"}
+          "attrs": {"id": "_*[pP|Par]*\\d+"}
         }
       ]
     },
