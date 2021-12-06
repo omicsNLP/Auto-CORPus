@@ -417,7 +417,7 @@ class abbreviations:
 				"text_short": short
 			}
 			for long in abbreviations[short].keys():
-				shortTemplate[F"text_long_{counter}"] = long
+				shortTemplate[F"text_long_{counter}"] = long.replace("\n", " ")
 				shortTemplate[F"extraction_algorithm_{counter}"] = ", ".join(abbreviations[short][long])
 				counter +=1
 			passages.append(shortTemplate)
