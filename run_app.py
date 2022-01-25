@@ -92,7 +92,6 @@ def read_file_structure(file_path, target_dir):
 				tmp_out = "/".join(tmp_out.split("/")[:-1])
 				out_dir = target_dir + tmp_out
 				ftype = get_file_type(fpath)
-				base_file = None
 				if ftype == "directory":
 					continue
 				elif ftype == "main_text":
