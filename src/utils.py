@@ -1,10 +1,9 @@
 import os
 import re
-import nltk
-import networkx as nx
-import bs4
-from fuzzywuzzy import fuzz
 import unicodedata
+
+import bs4
+import networkx as nx
 
 
 def get_files(base_dir, pattern=r'(.*).html'):
@@ -27,6 +26,7 @@ def get_files(base_dir, pattern=r'(.*).html'):
             file_list += get_files(abs_path)
     return file_list
 
+
 def process_supsub(soup):
     """
     add underscore (_) before all superscript or subscript text
@@ -46,6 +46,7 @@ def process_supsub(soup):
             sup.string.replace_with('_{} '.format(s))
     return soup
 
+
 def process_em(soup):
     """
     remove all emphasized text
@@ -62,6 +63,7 @@ def process_em(soup):
         else:
             em.string.replace_with('{} '.format(s))
     return soup
+
 
 def read_mapping_file():
     mapping_dict = {}
@@ -91,6 +93,7 @@ def read_mapping_file():
                         mapping_dict.update({IAO_term: [heading]})
     return mapping_dict
 
+
 def read_IAO_term_to_ID_file():
     IAO_term_to_no_dict = {}
     with open('src/IAO_dicts/IAO_term_to_ID.txt', 'r') as f:
@@ -101,6 +104,7 @@ def read_IAO_term_to_ID_file():
             IAO_term_to_no_dict.update({IAO_term: IAO_no})
     return IAO_term_to_no_dict
 
+
 def config_anchors(value):
     if not value.startswith("^"):
         value = F"^{value}"
@@ -108,14 +112,16 @@ def config_anchors(value):
         value = F"{value}$"
     return value
 
+
 def config_attr_block(block):
     ret = {}
     for key in block:
         if isinstance(block[key], list):
             ret[key] = [re.compile(config_anchors(x)) for x in block[key]]
-        elif isinstance(block[key], str) :
+        elif isinstance(block[key], str):
             ret[key] = re.compile(config_anchors(block[key]))
     return ret
+
 
 def config_attrs(attrs):
     ret = []
@@ -127,6 +133,7 @@ def config_attrs(attrs):
     else:
         quit(F"{attrs} must be a dict or a list of dicts")
     return ret
+
 
 def config_tags(tags):
     ret = []
@@ -142,6 +149,7 @@ def config_tags(tags):
         quit(F"{tags} must be a string or list of strings")
     return ret
 
+
 def parse_configs(definition):
     bsAttrs = {
         "name": [],
@@ -152,6 +160,7 @@ def parse_configs(definition):
     if "attrs" in definition:
         bsAttrs['attrs'] = config_attrs(definition['attrs'])
     return bsAttrs
+
 
 def handle_defined_by(config, soup):
     '''
@@ -186,6 +195,7 @@ def handle_defined_by(config, soup):
                 matches.append(match)
     return matches
 
+
 def handle_not_tables(config, soup):
     responses = []
     matches = handle_defined_by(config, soup)
@@ -215,15 +225,17 @@ def handle_not_tables(config, soup):
             responses.append(responseAddition)
     return responses
 
+
 def get_data_element_node(config, soup):
     config = {
         "defined-by": config
     }
     return handle_defined_by(config, soup)
 
+
 def navigate_contents(item):
     value = ""
-    xa=u'\xa0'
+    xa = u'\xa0'
     if isinstance(item, bs4.element.NavigableString):
         value += unicodedata.normalize("NFKD", item)
     if isinstance(item, bs4.element.Tag):
@@ -236,6 +248,7 @@ def navigate_contents(item):
             for childItem in item.contents:
                 value += navigate_contents(childItem)
     return value
+
 
 def handle_tables(config, soup):
     responses = []
@@ -269,7 +282,7 @@ def handle_tables(config, soup):
                                 for item in newMatch.contents:
                                     value += navigate_contents(item)
                                     # clean the cell
-                                value = value.strip().replace('\u2009',' ')
+                                value = value.strip().replace('\u2009', ' ')
                                 value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
                                 value = re.sub("\\n", "", value)
                                 responseAddition[ele].append(value)
@@ -281,6 +294,8 @@ def handle_tables(config, soup):
             }
             responses.append(responseAddition)
     return responses
+
+
 def assgin_heading_by_DAG(paper):
     G = nx.read_graphml('src/DAG_model.graphml')
     new_mapping_dict = {}
@@ -337,7 +352,6 @@ def assgin_heading_by_DAG(paper):
 
             if next_section == "End of the article":
                 mapping_dict_with_DAG.update({heading: [previous_section[-1]]})
-
 
             for heading in mapping_dict_with_DAG.keys():
                 newSecType = []
