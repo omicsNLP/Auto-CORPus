@@ -6,42 +6,43 @@ from pathlib import Path
 import regex as re2
 
 
-class abbreviations:
+class Abbreviations:
 
-    def __yield_lines_from_doc(self, doc_text):
+    @staticmethod
+    def __yield_lines_from_doc(doc_text):
         for line in doc_text.split("."):
             yield line.strip()
 
-    def __conditions(self, candidate):
+    @staticmethod
+    def __conditions(candidate):
         """
         Based on Schwartz&Hearst
 
         2 <= len(str) <= 10
         len(tokens) <= 2
-        re.search(r'\p{L}', str)
+        re.search(r'p{L}', str)
         str[0].isalnum()
 
         and extra:
-        if it matches (\p{L}\.?\s?){2,}
+        if it matches (p{L}.?s?){2,}
         it is a good candidate.
-
-        :param candidate: candidate abbreviation
-        :return: True if this is a good candidate
+        Args:
+            candidate: candidate abbreviation
+        Returns:
+             True if this is a good candidate
         """
-        LF_in_parentheses = False
         viable = True
         if re2.match(r'(\p{L}\.?\s?){2,}', candidate.lstrip()):
             viable = True
         if len(candidate) < 2 or len(candidate) > 10:
             viable = False
-        if len(candidate.split()) > 2:
+        elif len(candidate.split()) > 2:
             viable = False
-            LF_in_parentheses = True  # customize funcition find LF in parentheses
-        if candidate.islower():  # customize funcition discard all lower case candidate
+        elif candidate.islower():  # customize function discard all lower case candidate
             viable = False
-        if not re2.search(r'\p{L}', candidate):  # \p{L} = All Unicode letter
+        elif not re2.search(r'\p{L}', candidate):  # \p{L} = All Unicode letter
             viable = False
-        if not candidate[0].isalnum():
+        elif not candidate[0].isalnum():
             viable = False
 
         return viable
@@ -62,10 +63,12 @@ class abbreviations:
 
             close_index = -1
             while 1:
-                # Look for open parenthesis. Need leading whitespace to avoid matching mathematical and chemical formulae
+                # Look for open parenthesis. Need leading whitespace to avoid matching mathematical and chemical
+                # formulae
                 open_index = sentence.find(' (', close_index + 1)
 
-                if open_index == -1: break
+                if open_index == -1:
+                    break
 
                 # Advance beyond whitespace
                 open_index += 1
@@ -104,22 +107,25 @@ class abbreviations:
                 # print (candidate)
 
                 if self.__conditions(candidate):
-                    new_candidate = Candidate(candidate)
+                    new_candidate = Candidate()
                     new_candidate.set_position(start, stop)
                     yield new_candidate
 
     # elif LF_in_parentheses:
 
-    def __get_definition(self, candidate, sentence):
+    @staticmethod
+    def __get_definition(candidate, sentence):
         """
         Takes a candidate and a sentence and returns the definition candidate.
 
         The definition candidate is the set of tokens (in front of the candidate)
         that starts with a token starting with the first character of the candidate
 
-        :param candidate: candidate abbreviation
-        :param sentence: current sentence (single line from input file)
-        :return: candidate definition for this abbreviation
+        Args:
+            candidate: candidate abbreviation
+            sentence: current sentence (single line from input file)
+        Returns:
+             candidate definition for this abbreviation
         """
         # Take the tokens in front of the candidate
         tokens = re2.split(r'[\s\-]+', sentence[:candidate.start - 2].lower())
@@ -160,16 +166,16 @@ class abbreviations:
             # Remove whitespace
             start = start + len(candidate) - len(candidate.lstrip())
             stop = stop - len(candidate) + len(candidate.rstrip())
-            candidate = sentence[start:stop]
 
-            new_candidate = Candidate(candidate)
+            new_candidate = Candidate()
             new_candidate.set_position(start, stop)
             return new_candidate
 
         else:
             raise ValueError('There are less keys in the tokens in front of candidate than there are in the candidate')
 
-    def __select_definition(self, definition, abbrev):
+    @staticmethod
+    def __select_definition(definition, abbrev):
         """
         Takes a definition candidate and an abbreviation candidate
         and returns True if the chars in the abbreviation occur in the definition
@@ -219,7 +225,7 @@ class abbreviations:
                 else:
                     l_index -= 1
 
-        new_candidate = Candidate(definition[l_index:len(definition)])
+        new_candidate = Candidate()
         new_candidate.set_position(definition.start, definition.stop)
         definition = new_candidate
 
@@ -301,7 +307,8 @@ class abbreviations:
 
         return pairs
 
-    def __listToDict(self, lst):
+    @staticmethod
+    def __list_to_dict(lst):
         op = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
         return op
 
@@ -313,19 +320,20 @@ class abbreviations:
             vals = [j.get_text() for j in elements]
             if len(vals) > 1:
                 abbre_list += vals
-        abbre_dict = self.__listToDict(abbre_list)
+        abbre_dict = self.__list_to_dict(abbre_list)
         return abbre_dict
 
-    def __abbre_list_to_dict(self, t):
-        abbre_list = []
-        SF = t.findAll("dt")
-        SF_list = [SF_word.get_text() for SF_word in SF]
-        LF = t.findAll("dd")
-        LF_list = [LF_word.get_text() for LF_word in LF]
-        abbre_dict = dict(zip(SF_list, LF_list))
+    @staticmethod
+    def __abbre_list_to_dict(t):
+        sf = t.findAll("dt")
+        sf_list = [SF_word.get_text() for SF_word in sf]
+        lf = t.findAll("dd")
+        lf_list = [LF_word.get_text() for LF_word in lf]
+        abbre_dict = dict(zip(sf_list, lf_list))
         return abbre_dict
 
-    def __get_abbre_plain_text(self, soup_og):
+    @staticmethod
+    def __get_abbre_plain_text(soup_og):
         abbre_text = soup_og.get_text()
         abbre_list = abbre_text.split(';')
         list_lenth = len(abbre_list)
@@ -340,8 +348,8 @@ class abbreviations:
                 while nearest_down_tag:
                     tag_name = nearest_down_tag.name
 
-                    # when abbre is table
-                    if tag_name == 'table':
+                    # when abbre is Table
+                    if tag_name == 'Table':
                         abbre_dict = self.__abbre_table_to_dict(nearest_down_tag)
                         break
 
@@ -373,7 +381,7 @@ class abbreviations:
                         nearest_down_tag = nearest_down_tag.next_element
         return abbre_dict
 
-    def __get_abbreviations(self, main_text, soup, config):
+    def __get_abbreviations(self, main_text, soup):
         paragraphs = main_text['paragraphs']
         all_abbreviations = {}
         for paragraph in paragraphs:
@@ -386,7 +394,7 @@ class abbreviations:
 
         for key in author_provided_abbreviations.keys():
             abbrev_json[key] = {author_provided_abbreviations[key]: ["abbreviations section"]}
-        for key in all_abbreviations:
+        for key in all_abbreviations.keys():
             if key in abbrev_json:
                 if all_abbreviations[key] in abbrev_json[key].keys():
                     abbrev_json[key][all_abbreviations[key]].append("fulltext")
@@ -399,11 +407,10 @@ class abbreviations:
         # abbrev_json['fulltext_algorithm'] = all_abbreviations
         return abbrev_json
 
-    def __biocify_abbreviations(self, abbreviations, file_path):
-        offset = 0
+    @staticmethod
+    def __biocify_abbreviations(abbreviations, file_path):
         template = {
             "source": "Auto-CORPus (abbreviations)",
-            # "inputfile": file_path,
             "date": f'{datetime.today().strftime("%Y%m%d")}',
             "key": "autocorpus_abbreviations.key",
             "documents": [
@@ -417,29 +424,27 @@ class abbreviations:
         passages = template["documents"][0]["passages"]
         for short in abbreviations.keys():
             counter = 1
-            shortTemplate = {
+            short_template = {
                 "text_short": short
             }
             for long in abbreviations[short].keys():
-                shortTemplate[F"text_long_{counter}"] = long.replace("\n", " ")
-                shortTemplate[F"extraction_algorithm_{counter}"] = ", ".join(abbreviations[short][long])
+                short_template[F"text_long_{counter}"] = long.replace("\n", " ")
+                short_template[F"extraction_algorithm_{counter}"] = ", ".join(abbreviations[short][long])
                 counter += 1
-            passages.append(shortTemplate)
+            passages.append(short_template)
         return template
 
-    def __init__(self, main_text, soup, config, file_path):
+    def __init__(self, main_text, soup, file_path):
         logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
         self.log = logging.getLogger(__name__)
-
-        self.abbreviations = self.__biocify_abbreviations(self.__get_abbreviations(main_text, soup, config), file_path)
-        pass
+        self.abbreviations = self.__biocify_abbreviations(self.__get_abbreviations(main_text, soup), file_path)
 
     def to_dict(self):
         return self.abbreviations
 
 
 class Candidate(str):
-    def __init__(self, value):
+    def __init__(self):
         super().__init__()
         self.start = 0
         self.stop = 0
