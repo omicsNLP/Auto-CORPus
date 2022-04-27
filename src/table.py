@@ -291,13 +291,13 @@ class TableParser:
         self.soup_tables = handle_tables(self.config['tables'], soup)
 
         # remove empty Table and other Table classes
-        pop_list, empty_tables = self.__get_empty_tables()
+        pop_list, temp_empty_tables = self.__get_empty_tables()
 
         soup_tables = [self.soup_tables[i] for i in range(len(self.soup_tables)) if i not in pop_list]
-
-        for etable in empty_tables:
-            if etable['node'].find("Table"):
-                pass
+        empty_tables = []
+        for etable in temp_empty_tables:
+            if "node" in etable.keys() and etable["node"].find("Table"):
+                empty_tables.append(etable)
             # has a Table element, not empty
             else:
                 et_dict = {
@@ -306,7 +306,7 @@ class TableParser:
                     "footer": " ".join(etable['footer'])
                 }
                 empty_tables.append(et_dict)
-
+        del temp_empty_tables
         table_docs: list = [self.__parse_table(i + 1, soup_tables[i]) for i in range(len(soup_tables))]
         # Flatten structure to a single list for output
         table_docs = [x for y in table_docs for x in y]
