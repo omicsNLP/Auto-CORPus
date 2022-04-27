@@ -510,7 +510,11 @@ class Table:
             # If final row, add the last section to the table.
             elif row_idx + 1 == final_row:
                 row = Table.__create_row_cells(row, split_table_identifier, row_idx - superrows_created)
+                # Rare case of single data row tables will require a new data section here.
+                if not cur_data_section:
+                    cur_data_section = cur_table.add_data_section([row], Infons.TYPE_DATA_SECTION, cur_superrow)
                 cur_data_section.data_rows.append(row)
+
                 if footer:
                     prev_table.add_passage(Infons.TYPE_FOOTER, TablePassage, footer)
 
