@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import sys
 
 # noinspection PyProtectedMember
@@ -12,7 +13,7 @@ from src.bioc_formatter import BiocFormatter
 from src.section import Section
 from src.table import TableParser
 from src.tableimage import TableImage
-from src.utils import *
+from src.utils import handle_not_tables, assign_heading_by_dag
 
 
 def handle_path(func: callable) -> callable:
@@ -57,7 +58,7 @@ class AutoCorpus:
     def __soupify_infile(fpath: str) -> BeautifulSoup:
         try:
             with open(fpath, "r", encoding="utf-8") as fp:
-                soup = bs4.BeautifulSoup(fp.read(), 'html.parser')
+                soup = BeautifulSoup(fp.read(), 'html.parser')
                 # remove hidden elements
                 for elem in soup.find_all(attrs={'style': ['display:none', 'visibility:hidden']}):
                     elem.extract()
@@ -145,7 +146,7 @@ class AutoCorpus:
             return ""
 
     @staticmethod
-    def __get_sections(soup: bs4.BeautifulSoup, config: dict) -> list:
+    def __get_sections(soup: BeautifulSoup, config: dict) -> list:
         if "sections" in config:
             sections = handle_not_tables(config["sections"], soup)
             return sections

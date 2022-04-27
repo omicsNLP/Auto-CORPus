@@ -1,4 +1,5 @@
 import json
+import re
 from datetime import datetime
 from itertools import product
 from pathlib import Path
@@ -6,8 +7,7 @@ from typing import List, Optional
 
 from bs4 import BeautifulSoup
 
-from src.utils import *
-from utils import is_mixed_data_type, is_text
+from src.utils import is_mixed_data_type, is_text, is_number, handle_tables, get_data_element_node, navigate_contents
 
 
 class TableParser:
