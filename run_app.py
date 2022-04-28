@@ -93,8 +93,6 @@ def read_file_structure(file_path, target_dir):
                     regex_string = r"_table_\d+\.html"
                 elif ftype == "table_images":
                     regex_string = r"_table_\d+\..*"
-                elif not ftype:
-                    print(F"cannot determine file type for {fpath}, AC will not process this file")
                 if ftype:
                     base_file = re.sub(regex_string, "", fpath)
                     structure = fill_structure(structure, base_file, ftype, fpath)
