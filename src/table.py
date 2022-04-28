@@ -270,8 +270,12 @@ class TableParser:
             table['node'].find('td', 'thead-hr').parent.extract()
 
         # remove any images nested in the table
-        if table['node'].find('img'):
-            table['node'].find('img').extract()
+        imgs = table['node'].find_all("img")
+        for img in imgs:
+            cell_contents = img.find_parent('td').contents
+            for content in cell_contents:
+                content.extract()
+        del imgs
 
         # ensure table contains content to extract
         if self.is_empty_table(table['node']):
