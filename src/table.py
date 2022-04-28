@@ -208,6 +208,14 @@ class TableParser:
                         superrow_list.append(row_idx)
         return superrow_list
 
+    @staticmethod
+    def is_empty_table(table_soup: BeautifulSoup) -> bool:
+        cells = table_soup.find_all("td")
+        for cell in cells:
+            if cell.text:
+                return False
+        return True
+
     def __get_subheaders(self, table_2d: list) -> None:
         value_idx = [i for i in range(len(table_2d)) if i not in self.__header_idx + self.__superrow_idx]
         col_type = []
@@ -260,6 +268,14 @@ class TableParser:
         # remove empty Table header
         if table['node'].find('td', 'thead-hr'):
             table['node'].find('td', 'thead-hr').parent.extract()
+
+        # remove any images nested in the table
+        if table['node'].find('img'):
+            table['node'].find('img').extract()
+
+        # ensure table contains content to extract
+        if self.is_empty_table(table['node']):
+            return []
 
         self.__header_idx = self.__get_headers(table['node'])
 
