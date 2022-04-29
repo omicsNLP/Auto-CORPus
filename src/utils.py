@@ -4,7 +4,6 @@ import unicodedata
 
 import bs4
 import networkx as nx
-from networkx import NetworkXNoPath
 
 
 def get_files(base_dir, pattern=r"(.*).html"):
@@ -339,7 +338,7 @@ def assign_heading_by_dag(paper):
                         i2 += 1
 
             if previous_section != "Start of the article" and next_section != "End of the article":
-                try:
+                if nx.has_path(g, paper[previous_heading][-1], paper[next_heading][0]):
                     paths = nx.all_shortest_paths(
                         g, paper[previous_heading][-1], paper[next_heading][0], weight='cost')
                     for path in paths:
@@ -347,7 +346,7 @@ def assign_heading_by_dag(paper):
                             mapping_dict_with_dag.update({heading: [path[0]]})
                         if len(path) > 2:
                             mapping_dict_with_dag.update({heading: path[1:-1]})
-                except ValueError or NetworkXNoPath:
+                else:
                     new_target = paper[list(paper.keys())[i + i2 + 1]][0]
                     paths = nx.all_shortest_paths(
                         g, paper[previous_heading][-1], new_target, weight='cost')
