@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from itertools import product
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from bs4 import BeautifulSoup
 
@@ -264,7 +264,7 @@ class TableParser:
                     tmp = [j]
             self.__subheader_idx.append(tmp)
 
-    def __parse_table(self, table_idx: int, table: dict) -> list:
+    def __pre_process_table(self, table: dict) -> (Union[dict, None], str, str, str):
         # remove empty Table header
         if table['node'].find('td', 'thead-hr'):
             table['node'].find('td', 'thead-hr').parent.extract()
@@ -272,17 +272,36 @@ class TableParser:
         # remove any images nested in the table
         imgs = table['node'].find_all("img")
         for img in imgs:
-            cell_contents = img.find_parent('td')
             # img could be within a cell or within a caption/footer etc.
-            if cell_contents:
-                for content in cell_contents.contents:
-                    content.extract()
-            else:
-                img.extract()
+            img.extract()
         del imgs
 
         # ensure table contains content to extract
         if self.is_empty_table(table['node']):
+            return None
+
+        # strip out the text from title, caption and footer elements
+        title = table['title'][0] if table['title'] else ""
+        caption = table['caption'][0] if table['caption'] else ""
+        footer = table['footer'][0] if table['footer'] else ""
+
+        # Ignore tables with only a single cell of data and no accompanying elements.
+        # e.g. PMC5569545
+        if not title and not caption and not footer:
+            content_count = 0
+            for td in table['node'].find_all('td'):
+                if td.contents:
+                    content_count += 1
+            if content_count < 2:
+                return None
+
+        return table, title, caption, footer
+
+    def __parse_table(self, table_idx: int, table: dict) -> list:
+        # pre-process to remove undesirable or invalid elements.
+        table, title, caption, footer = self.__pre_process_table(table)
+
+        if not table:
             return []
 
         self.__header_idx = self.__get_headers(table['node'])
@@ -293,15 +312,8 @@ class TableParser:
         # find superrows
         self.__superrow_idx = self.__get_superrows()
 
-        # identify section names in index column
-        # self.__get_section_names()
-
         # Identify subheaders
         self.__get_subheaders(self.__table_2d)
-
-        title = table['title'][0] if table['title'] else ""
-        caption = table['caption'][0] if table['caption'] else ""
-        footer = table['footer'][0] if table['footer'] else ""
 
         tables = Table.build_table(table_idx, self.__table_2d, self.__header_idx,
                                    self.__subheader_idx, self.__superrow_idx, title, caption,
