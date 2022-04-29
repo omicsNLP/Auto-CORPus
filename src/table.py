@@ -272,9 +272,13 @@ class TableParser:
         # remove any images nested in the table
         imgs = table['node'].find_all("img")
         for img in imgs:
-            cell_contents = img.find_parent('td').contents
-            for content in cell_contents:
-                content.extract()
+            cell_contents = img.find_parent('td')
+            # img could be within a cell or within a caption/footer etc.
+            if cell_contents:
+                for content in cell_contents.contents:
+                    content.extract()
+            else:
+                img.extract()
         del imgs
 
         # ensure table contains content to extract
