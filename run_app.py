@@ -183,7 +183,7 @@ def main():
                             table_images=sorted(structure[key]['table_images']), trained_data=trained_data)
 
             out_dir = structure[key]['out_dir']
-            if structure[key]["main_text"]:
+            if structure[key]["main_text"] and ac.main_text:
                 key = key.replace('\\', '/')
                 if output_format == "JSON":
                     with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:

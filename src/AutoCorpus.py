@@ -2,8 +2,9 @@ import argparse
 import json
 import os
 import sys
-
 # noinspection PyProtectedMember
+from typing import Union
+
 from bioc import loads, dumps, BioCFileType
 # noinspection PyUnresolvedReferences
 from bs4 import Comment, BeautifulSoup
@@ -195,13 +196,15 @@ class AutoCorpus:
                     unique_text[i]['section_type'] = mapping_dict_with_dag[para['section_heading']]
         return unique_text
 
-    def __handle_html(self, file_path: str, config: dict) -> BeautifulSoup:
+    def __handle_html(self, file_path: str, config: dict) -> Union[BeautifulSoup, None]:
         """
         handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables)
-        :return: soup object
+        :return: soup object or None
         """
 
         soup = self.__soupify_infile(file_path)
+        if not soup:
+            return None
         if "tables" in config:
             if self.tables == {}:
                 self.tables, self.empty_tables = TableParser(config).get_tables(soup, file_path)
@@ -339,11 +342,12 @@ class AutoCorpus:
         # handle main_text
         if self.file_path:
             soup = self.__handle_html(self.file_path, config)
-            self.main_text = self.__extract_text(soup, config)
-            try:
-                self.abbreviations = Abbreviations(self.main_text, soup, self.file_path).to_dict()
-            except Exception as e:
-                print(e)
+            if soup:
+                self.main_text = self.__extract_text(soup, config)
+                try:
+                    self.abbreviations = Abbreviations(self.main_text, soup, self.file_path).to_dict()
+                except Exception as e:
+                    print(e)
         if table_images:
             self.tables = TableImage(table_images, self.base_dir, trained_data=trained_data).to_dict()
         self.__merge_table_data()
