@@ -212,7 +212,8 @@ class TableParser:
     def is_empty_table(table_soup: BeautifulSoup) -> bool:
         cells = table_soup.find_all("td")
         for cell in cells:
-            if cell.text:
+            # new lines can sometimes be found alone once images are removed.
+            if cell.text.replace("\n", ""):
                 return False
         return True
 
@@ -276,6 +277,7 @@ class TableParser:
             img.extract()
         del imgs
 
+        # remove any links which typically accompany images to open them in a separate window.
         links = table['node'].find_all("a")
         for link in links:
             link.extract()
@@ -300,7 +302,7 @@ class TableParser:
             if content_count < 2:
                 return None, None, None, None
 
-        return table, title, caption, footer
+        return table['node'], title, caption, footer
 
     def __parse_table(self, table_idx: int, table: dict) -> list:
         # pre-process to remove undesirable or invalid elements.
@@ -309,10 +311,10 @@ class TableParser:
         if not table:
             return []
 
-        self.__header_idx = self.__get_headers(table['node'])
+        self.__header_idx = self.__get_headers(table)
 
         # span Table to single-cells
-        self.__table_to_2d(table['node'])
+        self.__table_to_2d(table)
 
         # find superrows
         self.__superrow_idx = self.__get_superrows()
@@ -539,6 +541,9 @@ class Table:
                     cur_table.add_passage(Infons.TYPE_TITLE, TablePassage, title)
                 if caption:
                     cur_table.add_passage(Infons.TYPE_CAPTION, TablePassage, caption)
+                # rare case of tables with an image as the header row
+                if not cur_header:
+                    cur_header = Table.__create_headers(["" for x in range(len(row))], split_table_identifier + 1)
                 cur_table.add_table_content_passage(cur_header)
                 tables.append(cur_table)
                 prev_table = cur_table
