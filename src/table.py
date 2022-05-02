@@ -276,9 +276,14 @@ class TableParser:
             img.extract()
         del imgs
 
+        links = table['node'].find_all("a")
+        for link in links:
+            link.extract()
+        del links
+
         # ensure table contains content to extract
         if self.is_empty_table(table['node']):
-            return None
+            return None, None, None, None
 
         # strip out the text from title, caption and footer elements
         title = table['title'][0] if table['title'] else ""
@@ -293,7 +298,7 @@ class TableParser:
                 if td.contents:
                     content_count += 1
             if content_count < 2:
-                return None
+                return None, None, None, None
 
         return table, title, caption, footer
 
