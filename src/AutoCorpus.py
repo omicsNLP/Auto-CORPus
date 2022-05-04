@@ -58,7 +58,7 @@ class AutoCorpus:
     @staticmethod
     def __soupify_infile(fpath: str) -> BeautifulSoup:
         try:
-            with open(fpath, "r", encoding="utf-8") as fp:
+            with open(fpath, "r", encoding="utf-8", errors="replace") as fp:
                 soup = BeautifulSoup(fp.read(), 'html.parser')
                 # remove hidden elements
                 for elem in soup.find_all(attrs={'style': ['display:none', 'visibility:hidden']}):
