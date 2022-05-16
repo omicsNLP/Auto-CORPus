@@ -227,7 +227,7 @@ class TableParser:
             mix_cnt = 0
             for cell in cur_col:
                 cell = str(cell).lower()
-                if cell in ['none', '', '-', ]:
+                if cell in ['none', '', '-']:
                     continue
                 elif is_number(cell):
                     num_cnt += 1
@@ -262,7 +262,9 @@ class TableParser:
                     tmp.append(j)
                 else:
                     self.__subheader_idx.append(tmp)
-                    tmp = [j]
+                    tmp = [self.__header_idx[0], j]
+                    if [self.__header_idx[0]] in self.__subheader_idx:
+                        self.__subheader_idx.remove([self.__header_idx[0]])
             self.__subheader_idx.append(tmp)
 
     def __pre_process_table(self, table: dict) -> (Union[dict, None], str, str, str):
