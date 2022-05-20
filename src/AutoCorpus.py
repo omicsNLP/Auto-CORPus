@@ -64,8 +64,9 @@ class AutoCorpus:
                 for elem in soup.find_all(attrs={'style': ['display:none', 'visibility:hidden']}):
                     elem.extract()
                 # remove HTML comments
-                for elem in soup.body(text=lambda x: isinstance(x, Comment)):
-                    elem.extract()
+                if soup.find('body'):
+                    for elem in soup.body(text=lambda x: isinstance(x, Comment)):
+                        elem.extract()
                 return soup
         except Exception as e:
             print(e)
