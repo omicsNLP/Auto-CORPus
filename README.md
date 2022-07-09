@@ -96,7 +96,6 @@ $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/direct
 `-o`(output format) - either JSON or XML (defaults to JSON)
 
 
-
 <h3><a name="alpha">Alpha testing</a></h3>
 
 We are developing an Auto-CORPus plugin to process images of tables and we include an alpha version of this 
