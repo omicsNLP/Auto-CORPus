@@ -320,10 +320,11 @@ class TableParser:
 
         # find superrows
         self.__superrow_idx = self.__get_superrows()
-
+        # check table isn't malformed
+        if len(self.__table_2d) < 2:
+            return []
         # Identify subheaders
         self.__get_subheaders(self.__table_2d)
-
         tables = Table.build_table(table_idx, self.__table_2d, self.__header_idx,
                                    self.__subheader_idx, self.__superrow_idx, title, caption,
                                    footer,
