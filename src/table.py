@@ -395,7 +395,7 @@ class Table:
     def __init__(self, identifier: str, file_path: str, passages: list = None) -> None:
         if passages is None:
             passages = []
-        self.inputFile: str = file_path
+        self.inputfile: str = file_path
         self.id = identifier
         self.__table_2d: List[list] = []
         self.infons: Optional[Infons, dict] = {}
