@@ -31,16 +31,18 @@ class FileDifferences(unittest.TestCase):
                 new_json = json.load(new_file_content)
                 try:
                     del old_json["date"]
-                    if "inputFile" in old_json["documents"][0].keys():
-                        del old_json["documents"][0]["inputFile"]
-                    else:
-                        del old_json["documents"][0]["inputfile"]
+                    for i in range(len(old_json["documents"])):
+                        if "inputFile" in old_json["documents"][i].keys():
+                            del old_json["documents"][i]["inputFile"]
+                        else:
+                            del old_json["documents"][i]["inputfile"]
                 except KeyError as ke:
                     print(F"The old version of {old_file} is missing the following key: {ke}\n\n")
                     continue
                 try:
                     del new_json["date"]
-                    del new_json["documents"][0]["inputfile"]
+                    for i in range(len(old_json["documents"])):
+                        del new_json["documents"][i]["inputfile"]
                 except KeyError as ke:
                     print(F"The new version of {old_file} is missing the following key: {ke}\n\n")
                     continue
