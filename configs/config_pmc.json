@@ -130,9 +130,7 @@
         },
         {
           "tag": "p",
-          "attrs": {
-            "class": "p"
-          }
+          "xpath": "//div[@class='sec']//p"
         }
       ]
     },
