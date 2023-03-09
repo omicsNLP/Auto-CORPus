@@ -4,6 +4,7 @@ import unicodedata
 
 import bs4
 import networkx as nx
+from lxml import etree
 
 
 def get_files(base_dir, pattern=r"(.*).html"):
@@ -154,12 +155,16 @@ def config_tags(tags):
 def parse_configs(definition):
     bs_attrs = {
         "name": [],
-        "attrs": []
+        "attrs": [],
+        "xpath": []
     }
-    if "tag" in definition:
-        bs_attrs['name'] = config_tags(definition['tag'])
-    if "attrs" in definition:
-        bs_attrs['attrs'] = config_attrs(definition['attrs'])
+    if "xpath" in definition:
+        bs_attrs["xpath"] = definition["xpath"]
+    else:
+        if "tag" in definition:
+            bs_attrs['name'] = config_tags(definition['tag'])
+        if "attrs" in definition:
+            bs_attrs['attrs'] = config_attrs(definition['attrs'])
     return bs_attrs
 
 
@@ -189,12 +194,21 @@ def handle_defined_by(config, soup):
     seen_text = []
     for definition in config['defined-by']:
         bs_attrs = parse_configs(definition)
-        new_matches = soup.find_all(bs_attrs['name'], bs_attrs['attrs'])
+        new_matches = []
+        if bs_attrs["name"] or bs_attrs["attrs"]:
+            new_matches = soup.find_all(bs_attrs['name'], bs_attrs['attrs'])
+        if "xpath" in bs_attrs:
+            if type(bs_attrs["xpath"]) == list:
+                for path in bs_attrs["xpath"]:
+                    new_matches.extend(etree.fromstring(str(soup)).xpath(path))
+            else:
+                new_matches.extend(etree.fromstring(str(soup)).xpath(bs_attrs["xpath"]))
         for match in new_matches:
-            if match.get_text() in seen_text:
+            matched_text = match.get_text() if hasattr(match, "get_text") else match.text
+            if matched_text in seen_text:
                 continue
             else:
-                seen_text.append(match.get_text())
+                seen_text.append(matched_text)
                 matches.append(match)
     return matches
 
