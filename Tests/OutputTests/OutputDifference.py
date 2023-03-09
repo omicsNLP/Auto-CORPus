@@ -52,6 +52,8 @@ class FileDifferences(unittest.TestCase):
                     self.assertEqual(old_keys, new_keys)
                     self.assertDictEqual(old_json, new_json)
                 except AssertionError as ae:
+                    # Manually look into these cases for now,
+                    # as they can be simply explained by a reference retraction.
                     files_affected.append(F"{old_file}")
         if files_affected:
             raise AssertionError(F"{len(files_affected)} files have different contents:\n" + "\n".join(files_affected))

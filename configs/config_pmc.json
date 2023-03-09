@@ -5,33 +5,45 @@
         "title": [
           {
             "tag": "span",
-            "attrs": {"class":  "ref-title"}
+            "attrs": {
+              "class": "ref-title"
+            }
           }
         ],
         "journal": [
           {
             "tag": "span",
-            "attrs": {"class":  "ref-journal"}
+            "attrs": {
+              "class": "ref-journal"
+            }
           }
         ],
         "volume": [
           {
             "tag": "span",
-            "attrs": {"class":  "ref-vol"}
+            "attrs": {
+              "class": "ref-vol"
+            }
           }
         ]
       },
-      "defined-by":[
+      "defined-by": [
         {
           "tag": "div",
-          "attrs": {"class": ["ref-cit-blk"]}
+          "attrs": {
+            "class": [
+              "ref-cit-blk"
+            ]
+          }
         },
         {
           "tag": "li"
         },
         {
           "tag": "p",
-          "attrs": {"id": "(__){0,2}p\\d+"}
+          "attrs": {
+            "id": "(__){0,2}p\\d+"
+          }
         }
       ]
     },
@@ -39,8 +51,10 @@
       "data": {},
       "defined-by": [
         {
-          "tag":"h1",
-          "attrs":{"class":"content-title"}
+          "tag": "h1",
+          "attrs": {
+            "class": "content-title"
+          }
         }
       ]
     },
@@ -49,7 +63,11 @@
       "defined-by": [
         {
           "tag": "span",
-          "attrs": {"class": ["kwd-text"]}
+          "attrs": {
+            "class": [
+              "kwd-text"
+            ]
+          }
         }
       ]
     },
@@ -57,8 +75,10 @@
       "data": {},
       "defined-by": [
         {
-          "tag":"table",
-          "attrs":{"class":"glossary"}
+          "tag": "table",
+          "attrs": {
+            "class": "glossary"
+          }
         }
       ]
     },
@@ -92,8 +112,10 @@
       },
       "defined-by": [
         {
-          "tag":"div",
-          "attrs":{"class":"sec"}
+          "tag": "div",
+          "attrs": {
+            "class": "sec"
+          }
         }
       ]
     },
@@ -105,6 +127,12 @@
           "attrs": {
             "id": "_*[pP\\-|pP|Par]*\\d+"
           }
+        },
+        {
+          "tag": "p",
+          "attrs": {
+            "class": "p"
+          }
         }
       ]
     },
@@ -113,7 +141,9 @@
         "caption": [
           {
             "tag": "div",
-            "attrs": {"class": "caption"}
+            "attrs": {
+              "class": "caption"
+            }
           }
         ],
         "table-content": [
@@ -123,35 +153,39 @@
         ],
         "title": [
           {
-            "tag":"h3"
+            "tag": "h3"
           }
         ],
         "footer": [
           {
-            "tag":"div",
-            "attrs":{"class":"tblwrap-foot"}
+            "tag": "div",
+            "attrs": {
+              "class": "tblwrap-foot"
+            }
           }
         ],
         "table-row": [
           {
-            "tag":"tr"
+            "tag": "tr"
           }
         ],
         "header-row": [
           {
-            "tag":"thead"
+            "tag": "thead"
           }
         ],
         "header-element": [
           {
-            "tag":"th"
+            "tag": "th"
           }
         ]
       },
       "defined-by": [
         {
           "tag": "div",
-          "attrs": {"class":  "table-wrap"}
+          "attrs": {
+            "class": "table-wrap"
+          }
         }
       ]
     },
@@ -160,14 +194,18 @@
         "caption": [
           {
             "tag": "div",
-            "attrs": {"class": "caption"}
+            "attrs": {
+              "class": "caption"
+            }
           }
         ]
       },
       "defined-by": [
         {
           "tag": "div",
-          "attrs": { "class": "fig"}
+          "attrs": {
+            "class": "fig"
+          }
         }
       ]
     }
