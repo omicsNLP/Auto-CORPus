@@ -4,6 +4,7 @@ import imghdr
 import os
 import re
 from datetime import datetime
+from os.path import exists
 
 from tqdm import tqdm
 
@@ -76,7 +77,7 @@ def read_file_structure(file_path, target_dir):
     if os.path.exists(file_path):
         omit_dir = "/".join(file_path.split("/"))
         if os.path.isdir(file_path):
-            all_fpaths = glob.iglob(file_path + '/**', recursive=True)
+            all_fpaths = sorted([x for x in glob.iglob(file_path + '/**', recursive=True)])
             # turn the 3d file structure into a flat 2d list of file paths
             for fpath in all_fpaths:
                 tmp_out = fpath.replace(omit_dir, "")
@@ -140,6 +141,8 @@ def main():
 
     args = parser.parse_args()
     file_path = args.filepath
+    if not exists(file_path):
+        exit(F"Input file path does not exist: {file_path}")
     target_dir = args.target_dir if args.target_dir else "autoCORPus_output"
 
     structure = read_file_structure(file_path, target_dir)
@@ -164,7 +167,7 @@ def main():
         errors = []
         for key in pbar:
             # For debugging
-            # if "PMC5612337" not in key:
+            # if "PMC3690971" not in key:
             #     continue
             #
             pbar.set_postfix(
