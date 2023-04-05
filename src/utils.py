@@ -4,6 +4,7 @@ import unicodedata
 
 import bs4
 import networkx as nx
+from lxml import etree
 
 
 def get_files(base_dir, pattern=r'(.*).html'):
@@ -186,8 +187,16 @@ def handle_defined_by(config, soup):
     seen_text = []
     for definition in config['defined-by']:
         bsAttrs = parse_configs(definition)
-        newMatches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
-        for match in newMatches:
+        new_matches = []
+        if bsAttrs["name"] or bsAttrs["attrs"]:
+            new_matches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
+        if "xpath" in bsAttrs:
+            if type(bsAttrs["xpath"]) == list:
+                for path in bsAttrs["xpath"]:
+                    new_matches.extend(etree.fromstring(str(soup)).xpath(path))
+            else:
+                new_matches.extend(etree.fromstring(str(soup)).xpath(bsAttrs["xpath"]))
+        for match in new_matches:
             if match.get_text() in seen_text:
                 continue
             else:
