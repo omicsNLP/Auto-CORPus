@@ -154,12 +154,15 @@ def config_tags(tags):
 def parse_configs(definition):
     bsAttrs = {
         "name": [],
-        "attrs": []
+        "attrs": [],
+        "xpath": []
     }
     if "tag" in definition:
         bsAttrs['name'] = config_tags(definition['tag'])
     if "attrs" in definition:
         bsAttrs['attrs'] = config_attrs(definition['attrs'])
+    if "xpath" in definition:
+        bsAttrs['xpath'] = definition['xpath']
     return bsAttrs
 
 
@@ -193,14 +196,23 @@ def handle_defined_by(config, soup):
         if "xpath" in bsAttrs:
             if type(bsAttrs["xpath"]) == list:
                 for path in bsAttrs["xpath"]:
-                    new_matches.extend(etree.fromstring(str(soup)).xpath(path))
+                    xpath_matches = etree.fromstring(str(soup)).xpath(path)
+                    if xpath_matches:
+                        for new_match in xpath_matches:
+                            new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"), "html.parser")
+                            new_matches.extend(new_match)
             else:
-                new_matches.extend(etree.fromstring(str(soup)).xpath(bsAttrs["xpath"]))
+                xpath_matches = etree.fromstring(str(soup)).xpath(bsAttrs["xpath"])
+                if xpath_matches:
+                    for new_match in xpath_matches:
+                        new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"), "html.parser")
+                        new_matches.extend(new_match)
         for match in new_matches:
-            if match.get_text() in seen_text:
+            matched_text = match.get_text() if hasattr(match, "get_text") else match.text
+            if matched_text in seen_text:
                 continue
             else:
-                seen_text.append(match.get_text())
+                seen_text.append(matched_text)
                 matches.append(match)
     return matches
 

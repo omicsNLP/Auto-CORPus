@@ -106,7 +106,7 @@
         },
         {
           "tag": "p",
-          "xpath": "//div[@class='sec']//p"
+          "xpath": "//div[contains(@class,'sec')]//p"
         }
       ]
     },
