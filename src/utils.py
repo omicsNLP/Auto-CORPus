@@ -200,13 +200,15 @@ def handle_defined_by(config, soup):
                     if xpath_matches:
                         for new_match in xpath_matches:
                             new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"), "html.parser")
-                            new_matches.extend(new_match)
+                            if new_match.text.strip():
+                                new_matches.extend(new_match)
             else:
                 xpath_matches = etree.fromstring(str(soup)).xpath(bsAttrs["xpath"])
                 if xpath_matches:
                     for new_match in xpath_matches:
                         new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"), "html.parser")
-                        new_matches.extend(new_match)
+                        if new_match.text.strip():
+                            new_matches.extend(new_match)
         for match in new_matches:
             matched_text = match.get_text() if hasattr(match, "get_text") else match.text
             if matched_text in seen_text:
