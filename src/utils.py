@@ -4,6 +4,7 @@ import unicodedata
 
 import bs4
 import networkx as nx
+from bs4 import NavigableString
 from lxml import etree
 
 
@@ -153,58 +154,67 @@ def config_tags(tags):
 
 
 def parse_configs(definition):
-    bs_attrs = {
+    bsAttrs = {
         "name": [],
         "attrs": [],
         "xpath": []
     }
+    if "tag" in definition:
+        bsAttrs['name'] = config_tags(definition['tag'])
+    if "attrs" in definition:
+        bsAttrs['attrs'] = config_attrs(definition['attrs'])
     if "xpath" in definition:
-        bs_attrs["xpath"] = definition["xpath"]
-    else:
-        if "tag" in definition:
-            bs_attrs['name'] = config_tags(definition['tag'])
-        if "attrs" in definition:
-            bs_attrs['attrs'] = config_attrs(definition['attrs'])
-    return bs_attrs
+        bsAttrs['xpath'] = definition['xpath']
+    return bsAttrs
 
 
 def handle_defined_by(config, soup):
-    """
-    node is a bs4 object of a single result derived from bs4.find_all()
-    data is an object where the results from the config "data" sections is housed. The key is the name of the data
-    section and the values are all matches found within any of the main matches which match the current data section
-    definition. The values are the response you get from get_text() on any found nodes, not the nodes themselves.
-
-    Args:
-        config: config file section used to parse
-        soup: soup section to parse
-    Returns:
-        list of bs4 objects, each object being a matching node.
-        bs4 object template:
-        {
-            node: bs4Object,
-            data:   {
-                        key: [values]
-                    }
-        }
-    """
+    '''
+	:param config: config file section used to parse
+	:param soup: soup section to parse
+	:return:
+	list of objects, each object being a matching node. Object of the form:
+		{
+			node: bs4Object,
+			data:{
+					key: [values]
+				}
+		}
+	node is a bs4 object of a single result derived from bs4.find_all()
+	data is an object where the results from the config "data" sections is housed. The key is the name of the data
+	section and the values are all matches found within any of the main matches which match the current data section
+	definition. The values is the response you get from get_text() on any found nodes, not the nodes themselves.
+	'''
     if "defined-by" not in config:
         quit(F"{config} does not contain the required 'defined-by' key.")
     matches = []
     seen_text = []
     for definition in config['defined-by']:
-        bs_attrs = parse_configs(definition)
+        bsAttrs = parse_configs(definition)
         new_matches = []
-        if bs_attrs["name"] or bs_attrs["attrs"]:
-            new_matches = soup.find_all(bs_attrs['name'], bs_attrs['attrs'])
-        if "xpath" in bs_attrs:
-            if type(bs_attrs["xpath"]) == list:
-                for path in bs_attrs["xpath"]:
-                    new_matches.extend(etree.fromstring(str(soup)).xpath(path))
+        if bsAttrs["name"] or bsAttrs["attrs"]:
+            new_matches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
+        if "xpath" in bsAttrs:
+            if type(bsAttrs["xpath"]) == list:
+                for path in bsAttrs["xpath"]:
+                    xpath_matches = etree.fromstring(str(soup)).xpath(path)
+                    if xpath_matches:
+                        for new_match in xpath_matches:
+                            new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"),
+                                                          "html.parser")
+                            if new_match.text.strip():
+                                new_matches.extend(new_match)
             else:
-                new_matches.extend(etree.fromstring(str(soup)).xpath(bs_attrs["xpath"]))
+                xpath_matches = etree.fromstring(str(soup)).xpath(bsAttrs["xpath"])
+                if xpath_matches:
+                    for new_match in xpath_matches:
+                        new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"),
+                                                      "html.parser")
+                        if new_match.text.strip():
+                            new_matches.extend(new_match)
         for match in new_matches:
-            matched_text = match.get_text() if hasattr(match, "get_text") else match.text
+            if type(match) != NavigableString:
+                matched_text = match.get_text()
             if matched_text in seen_text:
                 continue
             else:
@@ -321,6 +331,14 @@ def assign_heading_by_dag(paper):
     next_section = ""
     previous_heading = ""
     next_heading = ""
+
+    has_keywords = False
+    for heading in paper.keys():
+        if "keywords" in paper.keys():
+            has_keywords = True
+            del paper[heading]
+            break
+
     for i, heading in enumerate(paper.keys()):
         if not paper[heading]:
             previous_mapped_heading_found = False
@@ -386,6 +404,12 @@ def assign_heading_by_dag(paper):
                     })
 
                 new_mapping_dict[new_heading] = new_sec_type
+    if has_keywords:
+        if "textual abstract section" not in new_mapping_dict.keys():
+            new_mapping_dict["textual abstract section"] = {
+                "iao_name": "textual abstract section",
+                "iao_id": "IAO:0000315"
+            }
     return new_mapping_dict
 
 

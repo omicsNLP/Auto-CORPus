@@ -207,6 +207,9 @@ def main():
         log_file.write(F"{len(errors)} files not processed due to errors.\n\n\n")
         log_file.write("\n".join(success) + "\n")
         log_file.write("\n".join(errors) + "\n")
+        if errors:
+            print(
+                "Auto-CORPus has completed processing with some errors. Please inspect the log file for further details.")
 
 
 if __name__ == '__main__':
