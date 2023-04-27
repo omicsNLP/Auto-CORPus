@@ -4,6 +4,7 @@ import unicodedata
 
 import bs4
 import networkx as nx
+from bs4 import NavigableString
 from lxml import etree
 
 
@@ -11,10 +12,10 @@ def get_files(base_dir, pattern=r'(.*).html'):
     """
     recursively retrieve all PMC.html files from the directory
 
-    Args: 
+    Args:
         base_dir: base directory
 
-    Return: 
+    Return:
         file_list: a list of filepath
     """
     file_list = []
@@ -32,7 +33,7 @@ def process_supsub(soup):
     """
     add underscore (_) before all superscript or subscript text
 
-    Args: 
+    Args:
         soup: BeautifulSoup object of html
 
     """
@@ -53,7 +54,7 @@ def process_em(soup):
     remove all emphasized text
     No it doesn't, it just adds a space to it
 
-    Args: 
+    Args:
         soup: BeautifulSoup object of html
 
     """
@@ -210,7 +211,8 @@ def handle_defined_by(config, soup):
                         if new_match.text.strip():
                             new_matches.extend(new_match)
         for match in new_matches:
-            matched_text = match.get_text() if hasattr(match, "get_text") else match.text
+            if type(match) != NavigableString:
+                matched_text = match.get_text()
             if matched_text in seen_text:
                 continue
             else:
@@ -324,6 +326,12 @@ def assgin_heading_by_DAG(paper):
     new_mapping_dict = {}
     mapping_dict_with_DAG = {}
     IAO_term_to_no_dict = read_IAO_term_to_ID_file()
+    has_keywords = False
+    for heading in paper.keys():
+        if "keywords" in paper.keys():
+            has_keywords = True
+            del paper[heading]
+            break
     for i, heading in enumerate(paper.keys()):
         if paper[heading] == []:
             previous_mapped_heading_found = False
@@ -389,4 +397,10 @@ def assgin_heading_by_DAG(paper):
                     })
 
                 new_mapping_dict[heading] = newSecType
+    if has_keywords:
+        if "textual abstract section" not in new_mapping_dict.keys():
+            new_mapping_dict["textual abstract section"] = {
+                "iao_name": "textual abstract section",
+                "iao_id": "IAO:0000315"
+            }
     return new_mapping_dict
