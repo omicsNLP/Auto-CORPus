@@ -1,6 +1,4 @@
 Web Resources    references section
-keywords    keywords section
-keywords:    keywords section
 abbreviation and acronyms    abbreviations section
 abbreviation list    abbreviations section
 abbreviations    abbreviations section
@@ -9,18 +7,18 @@ abbreviations list    abbreviations section
 abbreviations used    abbreviations section
 abbreviations used in this paper    abbreviations section
 abstract    textual abstract section
-accession numbers
+accession    numbers
 acknowledgement    acknowledgements section
-acknowledgements	acknowledgements section
-acknowledgment	acknowledgements section
-acknowledgments	acknowledgements section
-acknowledgments and disclaimer	acknowledgements section
-acknowledgments and funding	acknowledgements section / funding source declaration section
-addendum	supplementary material section
-additional file	supplementary material section
-additional files	supplementary material section
-additional information	supplementary material section
-additional information and declarations	supplementary material section
+acknowledgements    acknowledgements section
+acknowledgment    acknowledgements section
+acknowledgments    acknowledgements section
+acknowledgments and disclaimer    acknowledgements section
+acknowledgments and funding    acknowledgements section / funding source declaration section
+addendum    supplementary material section
+additional file    supplementary material section
+additional files    supplementary material section
+additional information    supplementary material section
+additional information and declarations    supplementary material section
 additional information and declarations	supplementary material section
 additional points	supplementary material section
 analytical methods	methods section

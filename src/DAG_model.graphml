@@ -47,17 +47,6 @@
   <data key="d7">2507.0</data>
   <data key="d8">-1458.0</data>
 </node>
-<node id="keywords section">
-  <data key="d0">#ffffff</data>
-  <data key="d1">#ffffff</data>
-  <data key="d2">1715</data>
-  <data key="d3">introduction section</data>
-  <data key="d4">#000000</data>
-  <data key="d5">15</data>
-  <data key="d6">120</data>
-  <data key="d7">2507.0</data>
-  <data key="d8">-1458.0</data>
-</node>
 <node id="results section">
   <data key="d0">#ffffff</data>
   <data key="d1">#ffffff</data>
@@ -409,22 +398,6 @@
   <data key="d14">center</data>
 </edge>
 <edge source="textual abstract section" target="introduction section">
-  <data key="d9">0.79227</data>
-  <data key="d10">3.9613500000000004</data>
-  <data key="d11">1640.0</data>
-  <data key="d12">0.043151752899999986</data>
-  <data key="d13">#ffffff</data>
-  <data key="d14">center</data>
-</edge>
-<edge source="textual abstract section" target="keywords section">
-  <data key="d9">0.79227</data>
-  <data key="d10">3.9613500000000004</data>
-  <data key="d11">1640.0</data>
-  <data key="d12">0.043151752899999984</data>
-  <data key="d13">#ffffff</data>
-  <data key="d14">center</data>
-</edge>
-<edge source="keywords section" target="introduction section">
   <data key="d9">0.79227</data>
   <data key="d10">3.9613500000000004</data>
   <data key="d11">1640.0</data>
