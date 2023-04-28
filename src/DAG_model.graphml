@@ -1,0 +1,2355 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d14" for="edge" attr.name="edge label position" attr.type="string"/>
+<key id="d13" for="edge" attr.name="edge label background color" attr.type="string"/>
+<key id="d12" for="edge" attr.name="cost" attr.type="double"/>
+<key id="d11" for="edge" attr.name="edge number" attr.type="double"/>
+<key id="d10" for="edge" attr.name="edge width" attr.type="double"/>
+<key id="d9" for="edge" attr.name="edge label" attr.type="string"/>
+<key id="d8" for="node" attr.name="Y" attr.type="double"/>
+<key id="d7" for="node" attr.name="X" attr.type="double"/>
+<key id="d6" for="node" attr.name="node width" attr.type="int"/>
+<key id="d5" for="node" attr.name="node height" attr.type="int"/>
+<key id="d4" for="node" attr.name="label text color" attr.type="string"/>
+<key id="d3" for="node" attr.name="node label" attr.type="string"/>
+<key id="d2" for="node" attr.name="node number" attr.type="int"/>
+<key id="d1" for="node" attr.name="border color" attr.type="string"/>
+<key id="d0" for="node" attr.name="fill color" attr.type="string"/>
+<graph edgedefault="directed"><node id="associated data section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1714</data>
+  <data key="d3">associated data section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">138</data>
+  <data key="d7">2740.0</data>
+  <data key="d8">-1602.0</data>
+</node>
+<node id="textual abstract section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">2145</data>
+  <data key="d3">textual abstract section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">144</data>
+  <data key="d7">2740.0</data>
+  <data key="d8">-1530.0</data>
+</node>
+<node id="introduction section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1715</data>
+  <data key="d3">introduction section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">120</data>
+  <data key="d7">2507.0</data>
+  <data key="d8">-1458.0</data>
+</node>
+<node id="keywords section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1715</data>
+  <data key="d3">introduction section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">120</data>
+  <data key="d7">2507.0</data>
+  <data key="d8">-1458.0</data>
+</node>
+<node id="results section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1767</data>
+  <data key="d3">results section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">90</data>
+  <data key="d7">2702.0</data>
+  <data key="d8">-234.0</data>
+</node>
+<node id="discussion section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1985</data>
+  <data key="d3">discussion section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">108</data>
+  <data key="d7">1220.0</data>
+  <data key="d8">-162.0</data>
+</node>
+<node id="methods section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">921</data>
+  <data key="d3">methods section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">90</data>
+  <data key="d7">3194.0</data>
+  <data key="d8">-1386.0</data>
+</node>
+<node id="supplementary material section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1444</data>
+  <data key="d3">supplementary material section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">180</data>
+  <data key="d7">2507.0</data>
+  <data key="d8">-1314.0</data>
+</node>
+<node id="acknowledgements section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1881</data>
+  <data key="d3">acknowledgements section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">144</data>
+  <data key="d7">1872.0</data>
+  <data key="d8">-1026.0</data>
+</node>
+<node id="footnote section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1280</data>
+  <data key="d3">footnote section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">96</data>
+  <data key="d7">1729.0</data>
+  <data key="d8">-738.0</data>
+</node>
+<node id="references section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">2138</data>
+  <data key="d3">references section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">108</data>
+  <data key="d7">1624.0</data>
+  <data key="d8">-1170.0</data>
+</node>
+<node id="materials section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">1120</data>
+  <data key="d3">materials section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">102</data>
+  <data key="d7">2797.0</data>
+  <data key="d8">-378.0</data>
+</node>
+<node id="highlights section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">39</data>
+  <data key="d3">highlights section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">108</data>
+  <data key="d7">171.0</data>
+  <data key="d8">-18.0</data>
+</node>
+<node id="graphical abstract section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">48</data>
+  <data key="d3">graphical abstract section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">156</data>
+  <data key="d7">4004.0</data>
+  <data key="d8">-18.0</data>
+</node>
+<node id="author information section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">16</data>
+  <data key="d3">author information section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">156</data>
+  <data key="d7">1418.0</data>
+  <data key="d8">-1242.0</data>
+</node>
+<node id="funding source declaration section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">471</data>
+  <data key="d3">funding source declaration section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">204</data>
+  <data key="d7">2208.0</data>
+  <data key="d8">-450.0</data>
+</node>
+<node id="disclosure section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">64</data>
+  <data key="d3">disclosure section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">108</data>
+  <data key="d7">2031.0</data>
+  <data key="d8">-594.0</data>
+</node>
+<node id="participants section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">71</data>
+  <data key="d3">participants section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">120</data>
+  <data key="d7">1220.0</data>
+  <data key="d8">-90.0</data>
+</node>
+<node id="conflict of interest section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">439</data>
+  <data key="d3">conflict of interest section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">168</data>
+  <data key="d7">1530.0</data>
+  <data key="d8">-522.0</data>
+</node>
+<node id="notes section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">250</data>
+  <data key="d3">notes section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">78</data>
+  <data key="d7">1464.0</data>
+  <data key="d8">-810.0</data>
+</node>
+<node id="conclusion section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">775</data>
+  <data key="d3">conclusion section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">108</data>
+  <data key="d7">3152.0</data>
+  <data key="d8">-90.0</data>
+</node>
+<node id="abbreviations section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">291</data>
+  <data key="d3">abbreviations section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">126</data>
+  <data key="d7">733.0</data>
+  <data key="d8">-18.0</data>
+</node>
+<node id="ethical approval section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">131</data>
+  <data key="d3">ethical approval section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">144</data>
+  <data key="d7">2008.0</data>
+  <data key="d8">-954.0</data>
+</node>
+<node id="author contributions section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">424</data>
+  <data key="d3">author contributions section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">168</data>
+  <data key="d7">2537.0</data>
+  <data key="d8">-666.0</data>
+</node>
+<node id="availability section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">263</data>
+  <data key="d3">availability section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">120</data>
+  <data key="d7">2367.0</data>
+  <data key="d8">-882.0</data>
+</node>
+<node id="statistical analysis section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">17</data>
+  <data key="d3">statistical analysis section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">168</data>
+  <data key="d7">3321.0</data>
+  <data key="d8">-306.0</data>
+</node>
+<node id="future directions section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">2</data>
+  <data key="d3">future directions section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">150</data>
+  <data key="d7">1844.0</data>
+  <data key="d8">-1098.0</data>
+</node>
+<node id="pre-publication history section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">11</data>
+  <data key="d3">pre-publication history section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">186</data>
+  <data key="d7">2195.0</data>
+  <data key="d8">-1098.0</data>
+</node>
+<node id="consent section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">10</data>
+  <data key="d3">consent section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">90</data>
+  <data key="d7">1399.0</data>
+  <data key="d8">-450.0</data>
+</node>
+<node id="patients section">
+  <data key="d0">#ffffff</data>
+  <data key="d1">#ffffff</data>
+  <data key="d2">7</data>
+  <data key="d3">patients section</data>
+  <data key="d4">#000000</data>
+  <data key="d5">15</data>
+  <data key="d6">96</data>
+  <data key="d7">1909.0</data>
+  <data key="d8">-810.0</data>
+</node>
+<edge source="associated data section" target="textual abstract section">
+  <data key="d9">0.96659</data>
+  <data key="d10">4.832949999999999</data>
+  <data key="d11">1649.0</data>
+  <data key="d12">0.0011162281000000034</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="associated data section" target="highlights section">
+  <data key="d9">0.01172</data>
+  <data key="d10">0.0586</data>
+  <data key="d11">20.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="associated data section" target="conclusion section">
+  <data key="d9">0.01465</data>
+  <data key="d10">0.07325</data>
+  <data key="d11">25.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="associated data section" target="materials section">
+  <data key="d9">0.00059</data>
+  <data key="d10">0.0029500000000000004</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="associated data section" target="availability section">
+  <data key="d9">0.00059</data>
+  <data key="d10">0.0029500000000000004</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="associated data section" target="introduction section">
+  <data key="d9">0.00176</data>
+  <data key="d10">0.0088</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="associated data section" target="methods section">
+  <data key="d9">0.00234</data>
+  <data key="d10">0.0117</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="associated data section" target="supplementary material section">
+  <data key="d9">0.00176</data>
+  <data key="d10">0.0088</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="introduction section">
+  <data key="d9">0.79227</data>
+  <data key="d10">3.9613500000000004</data>
+  <data key="d11">1640.0</data>
+  <data key="d12">0.043151752899999986</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="keywords section">
+  <data key="d9">0.79227</data>
+  <data key="d10">3.9613500000000004</data>
+  <data key="d11">1640.0</data>
+  <data key="d12">0.043151752899999984</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="keywords section" target="introduction section">
+  <data key="d9">0.79227</data>
+  <data key="d10">3.9613500000000004</data>
+  <data key="d11">1640.0</data>
+  <data key="d12">0.043151752899999986</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="graphical abstract section">
+  <data key="d9">0.02174</data>
+  <data key="d10">0.10869999999999999</data>
+  <data key="d11">45.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="methods section">
+  <data key="d9">0.09179</data>
+  <data key="d10">0.45894999999999997</data>
+  <data key="d11">190.0</data>
+  <data key="d12">0.8248454041</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="results section">
+  <data key="d9">0.04444</data>
+  <data key="d10">0.2222</data>
+  <data key="d11">92.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="materials section">
+  <data key="d9">0.03237</data>
+  <data key="d10">0.16185000000000002</data>
+  <data key="d11">67.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="highlights section">
+  <data key="d9">0.00386</data>
+  <data key="d10">0.0193</data>
+  <data key="d11">8.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="participants section">
+  <data key="d9">0.00338</data>
+  <data key="d10">0.016900000000000002</data>
+  <data key="d11">7.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="supplementary material section">
+  <data key="d9">0.00483</data>
+  <data key="d10">0.02415</data>
+  <data key="d11">10.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="discussion section">
+  <data key="d9">0.0029</data>
+  <data key="d10">0.014499999999999999</data>
+  <data key="d11">6.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="availability section">
+  <data key="d9">0.00048</data>
+  <data key="d10">0.0024000000000000002</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="conflict of interest section">
+  <data key="d9">0.00048</data>
+  <data key="d10">0.0024000000000000002</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="abbreviations section">
+  <data key="d9">0.00048</data>
+  <data key="d10">0.0024000000000000002</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="conclusion section">
+  <data key="d9">0.00048</data>
+  <data key="d10">0.0024000000000000002</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="textual abstract section" target="references section">
+  <data key="d9">0.00048</data>
+  <data key="d10">0.0024000000000000002</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="introduction section" target="results section">
+  <data key="d9">0.18746</data>
+  <data key="d10">0.9372999999999999</data>
+  <data key="d11">317.0</data>
+  <data key="d12">0.6602212516000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="introduction section" target="methods section">
+  <data key="d9">0.30751</data>
+  <data key="d10">1.53755</data>
+  <data key="d11">520.0</data>
+  <data key="d12">0.47954240010000004</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="introduction section" target="materials section">
+  <data key="d9">0.44293</data>
+  <data key="d10">2.21465</data>
+  <data key="d11">749.0</data>
+  <data key="d12">0.31032698489999994</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="introduction section" target="participants section">
+  <data key="d9">0.03489</data>
+  <data key="d10">0.17445</data>
+  <data key="d11">59.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="introduction section" target="availability section">
+  <data key="d9">0.00118</data>
+  <data key="d10">0.005900000000000001</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="introduction section" target="acknowledgements section">
+  <data key="d9">0.00177</data>
+  <data key="d10">0.00885</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="introduction section" target="supplementary material section">
+  <data key="d9">0.00059</data>
+  <data key="d10">0.0029500000000000004</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="introduction section" target="discussion section">
+  <data key="d9">0.02365</data>
+  <data key="d10">0.11825000000000001</data>
+  <data key="d11">40.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="results section" target="discussion section">
+  <data key="d9">0.98516</data>
+  <data key="d10">4.925800000000001</data>
+  <data key="d11">1726.0</data>
+  <data key="d12">0.00022022559999999893</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="results section" target="conclusion section">
+  <data key="d9">0.01027</data>
+  <data key="d10">0.05135</data>
+  <data key="d11">18.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="results section" target="supplementary material section">
+  <data key="d9">0.00171</data>
+  <data key="d10">0.00855</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="results section" target="materials section">
+  <data key="d9">0.00114</data>
+  <data key="d10">0.0057</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="results section" target="author contributions section">
+  <data key="d9">0.00057</data>
+  <data key="d10">0.00285</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="results section" target="methods section">
+  <data key="d9">0.00114</data>
+  <data key="d10">0.0057</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="methods section">
+  <data key="d9">0.07755</data>
+  <data key="d10">0.38775</data>
+  <data key="d11">152.0</data>
+  <data key="d12">0.8509140024999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="materials section">
+  <data key="d9">0.12755</data>
+  <data key="d10">0.63775</data>
+  <data key="d11">250.0</data>
+  <data key="d12">0.7611690024999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="supplementary material section">
+  <data key="d9">0.23929</data>
+  <data key="d10">1.19645</data>
+  <data key="d11">469.0</data>
+  <data key="d12">0.5786797041</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="conflict of interest section">
+  <data key="d9">0.00918</data>
+  <data key="d10">0.0459</data>
+  <data key="d11">18.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="conclusion section">
+  <data key="d9">0.31327</data>
+  <data key="d10">1.56635</data>
+  <data key="d11">614.0</data>
+  <data key="d12">0.4715980929000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="acknowledgements section">
+  <data key="d9">0.17296</data>
+  <data key="d10">0.8648</data>
+  <data key="d11">339.0</data>
+  <data key="d12">0.6839951616</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="author contributions section">
+  <data key="d9">0.00561</data>
+  <data key="d10">0.028050000000000002</data>
+  <data key="d11">11.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="disclosure section">
+  <data key="d9">0.0051</data>
+  <data key="d10">0.025500000000000002</data>
+  <data key="d11">10.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="funding source declaration section">
+  <data key="d9">0.02398</data>
+  <data key="d10">0.1199</data>
+  <data key="d11">47.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="footnote section">
+  <data key="d9">0.00612</data>
+  <data key="d10">0.0306</data>
+  <data key="d11">12.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="notes section">
+  <data key="d9">0.00204</data>
+  <data key="d10">0.0102</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="availability section">
+  <data key="d9">0.00459</data>
+  <data key="d10">0.02295</data>
+  <data key="d11">9.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="participants section">
+  <data key="d9">0.00153</data>
+  <data key="d10">0.00765</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="references section">
+  <data key="d9">0.00255</data>
+  <data key="d10">0.012750000000000001</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="highlights section">
+  <data key="d9">0.00204</data>
+  <data key="d10">0.0102</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="ethical approval section">
+  <data key="d9">0.00357</data>
+  <data key="d10">0.017849999999999998</data>
+  <data key="d11">7.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="discussion section" target="abbreviations section">
+  <data key="d9">0.00306</data>
+  <data key="d10">0.0153</data>
+  <data key="d11">6.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="supplementary material section">
+  <data key="d9">0.17517</data>
+  <data key="d10">0.87585</data>
+  <data key="d11">158.0</data>
+  <data key="d12">0.6803445289</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="results section">
+  <data key="d9">0.63304</data>
+  <data key="d10">3.1652000000000005</data>
+  <data key="d11">571.0</data>
+  <data key="d12">0.13465964159999996</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="disclosure section">
+  <data key="d9">0.00887</data>
+  <data key="d10">0.04435</data>
+  <data key="d11">8.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="author contributions section">
+  <data key="d9">0.00776</data>
+  <data key="d10">0.0388</data>
+  <data key="d11">7.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="statistical analysis section">
+  <data key="d9">0.00554</data>
+  <data key="d10">0.0277</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="discussion section">
+  <data key="d9">0.0898</data>
+  <data key="d10">0.449</data>
+  <data key="d11">81.0</data>
+  <data key="d12">0.8284640400000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="funding source declaration section">
+  <data key="d9">0.00222</data>
+  <data key="d10">0.0111</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="acknowledgements section">
+  <data key="d9">0.04435</data>
+  <data key="d10">0.22175</data>
+  <data key="d11">40.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="footnote section">
+  <data key="d9">0.00443</data>
+  <data key="d10">0.02215</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="conflict of interest section">
+  <data key="d9">0.00222</data>
+  <data key="d10">0.0111</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="abbreviations section">
+  <data key="d9">0.00333</data>
+  <data key="d10">0.01665</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="conclusion section">
+  <data key="d9">0.02106</data>
+  <data key="d10">0.10529999999999999</data>
+  <data key="d11">19.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="availability section">
+  <data key="d9">0.00111</data>
+  <data key="d10">0.00555</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="methods section" target="ethical approval section">
+  <data key="d9">0.00111</data>
+  <data key="d10">0.00555</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="acknowledgements section">
+  <data key="d9">0.7154</data>
+  <data key="d10">3.577</data>
+  <data key="d11">1013.0</data>
+  <data key="d12">0.08099715999999998</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="footnote section">
+  <data key="d9">0.03319</data>
+  <data key="d10">0.16595</data>
+  <data key="d11">47.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="funding source declaration section">
+  <data key="d9">0.05508</data>
+  <data key="d10">0.2754</data>
+  <data key="d11">78.0</data>
+  <data key="d12">0.8928738063999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="references section">
+  <data key="d9">0.10099</data>
+  <data key="d10">0.50495</data>
+  <data key="d11">143.0</data>
+  <data key="d12">0.8082189800999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="notes section">
+  <data key="d9">0.00777</data>
+  <data key="d10">0.03885</data>
+  <data key="d11">11.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="methods section">
+  <data key="d9">0.00071</data>
+  <data key="d10">0.00355</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="abbreviations section">
+  <data key="d9">0.00777</data>
+  <data key="d10">0.03885</data>
+  <data key="d11">11.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="author information section">
+  <data key="d9">0.00071</data>
+  <data key="d10">0.00355</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="conflict of interest section">
+  <data key="d9">0.00847</data>
+  <data key="d10">0.04235</data>
+  <data key="d11">12.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="disclosure section">
+  <data key="d9">0.00071</data>
+  <data key="d10">0.00355</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="availability section">
+  <data key="d9">0.00071</data>
+  <data key="d10">0.00355</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="ethical approval section">
+  <data key="d9">0.00282</data>
+  <data key="d10">0.0141</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="supplementary material section" target="author contributions section">
+  <data key="d9">0.06568</data>
+  <data key="d10">0.3284</data>
+  <data key="d11">93.0</data>
+  <data key="d12">0.8729538624000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="footnote section">
+  <data key="d9">0.4298</data>
+  <data key="d10">2.149</data>
+  <data key="d11">799.0</data>
+  <data key="d12">0.32512804000000006</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="references section">
+  <data key="d9">0.12587</data>
+  <data key="d10">0.6293500000000001</data>
+  <data key="d11">234.0</data>
+  <data key="d12">0.7641032568999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="author information section">
+  <data key="d9">0.00269</data>
+  <data key="d10">0.01345</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="notes section">
+  <data key="d9">0.03604</data>
+  <data key="d10">0.18020000000000003</data>
+  <data key="d11">67.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="supplementary material section">
+  <data key="d9">0.0624</data>
+  <data key="d10">0.312</data>
+  <data key="d11">116.0</data>
+  <data key="d12">0.87909376</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="abbreviations section">
+  <data key="d9">0.12641</data>
+  <data key="d10">0.63205</data>
+  <data key="d11">235.0</data>
+  <data key="d12">0.7631594881</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="funding source declaration section">
+  <data key="d9">0.09629</data>
+  <data key="d10">0.48145</data>
+  <data key="d11">179.0</data>
+  <data key="d12">0.8166917641</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="ethical approval section">
+  <data key="d9">0.01291</data>
+  <data key="d10">0.06455</data>
+  <data key="d11">24.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="disclosure section">
+  <data key="d9">0.00484</data>
+  <data key="d10">0.0242</data>
+  <data key="d11">9.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="author contributions section">
+  <data key="d9">0.08445</data>
+  <data key="d10">0.42225</data>
+  <data key="d11">157.0</data>
+  <data key="d12">0.8382318025</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="conflict of interest section">
+  <data key="d9">0.01291</data>
+  <data key="d10">0.06455</data>
+  <data key="d11">24.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="availability section">
+  <data key="d9">0.00484</data>
+  <data key="d10">0.0242</data>
+  <data key="d11">9.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="acknowledgements section" target="materials section">
+  <data key="d9">0.00054</data>
+  <data key="d10">0.0027</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="footnote section" target="references section">
+  <data key="d9">0.92375</data>
+  <data key="d10">4.6187499999999995</data>
+  <data key="d11">1163.0</data>
+  <data key="d12">0.005814062500000006</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="footnote section" target="notes section">
+  <data key="d9">0.00477</data>
+  <data key="d10">0.02385</data>
+  <data key="d11">6.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="footnote section" target="supplementary material section">
+  <data key="d9">0.05639</data>
+  <data key="d10">0.28195000000000003</data>
+  <data key="d11">71.0</data>
+  <data key="d12">0.8903998321</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="footnote section" target="author contributions section">
+  <data key="d9">0.00794</data>
+  <data key="d10">0.0397</data>
+  <data key="d11">10.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="footnote section" target="author information section">
+  <data key="d9">0.00477</data>
+  <data key="d10">0.02385</data>
+  <data key="d11">6.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="footnote section" target="conflict of interest section">
+  <data key="d9">0.00079</data>
+  <data key="d10">0.00395</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="footnote section" target="abbreviations section">
+  <data key="d9">0.00079</data>
+  <data key="d10">0.00395</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="footnote section" target="availability section">
+  <data key="d9">0.00079</data>
+  <data key="d10">0.00395</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="references section" target="associated data section">
+  <data key="d9">0.875</data>
+  <data key="d10">4.375</data>
+  <data key="d11">7.0</data>
+  <data key="d12">0.015625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="references section" target="pre-publication history section">
+  <data key="d9">0.125</data>
+  <data key="d10">0.625</data>
+  <data key="d11">1.0</data>
+  <data key="d12">0.765625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="supplementary material section">
+  <data key="d9">0.13886</data>
+  <data key="d10">0.6943</data>
+  <data key="d11">154.0</data>
+  <data key="d12">0.7415620996000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="results section">
+  <data key="d9">0.64022</data>
+  <data key="d10">3.2011000000000003</data>
+  <data key="d11">710.0</data>
+  <data key="d12">0.1294416484</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="availability section">
+  <data key="d9">0.0018</data>
+  <data key="d10">0.009</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="discussion section">
+  <data key="d9">0.09558</data>
+  <data key="d10">0.4779</data>
+  <data key="d11">106.0</data>
+  <data key="d12">0.8179755364</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="funding source declaration section">
+  <data key="d9">0.0018</data>
+  <data key="d10">0.009</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="statistical analysis section">
+  <data key="d9">0.00451</data>
+  <data key="d10">0.02255</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="conclusion section">
+  <data key="d9">0.04959</data>
+  <data key="d10">0.24795</data>
+  <data key="d11">55.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="acknowledgements section">
+  <data key="d9">0.04238</data>
+  <data key="d10">0.2119</data>
+  <data key="d11">47.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="methods section">
+  <data key="d9">0.0009</data>
+  <data key="d10">0.0045</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="participants section">
+  <data key="d9">0.0009</data>
+  <data key="d10">0.0045</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="abbreviations section">
+  <data key="d9">0.0018</data>
+  <data key="d10">0.009</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="disclosure section">
+  <data key="d9">0.0009</data>
+  <data key="d10">0.0045</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="footnote section">
+  <data key="d9">0.00541</data>
+  <data key="d10">0.027049999999999998</data>
+  <data key="d11">6.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="author contributions section">
+  <data key="d9">0.00992</data>
+  <data key="d10">0.0496</data>
+  <data key="d11">11.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="ethical approval section">
+  <data key="d9">0.00361</data>
+  <data key="d10">0.01805</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="materials section" target="conflict of interest section">
+  <data key="d9">0.0018</data>
+  <data key="d10">0.009</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="highlights section" target="textual abstract section">
+  <data key="d9">0.64103</data>
+  <data key="d10">3.2051499999999997</data>
+  <data key="d11">25.0</data>
+  <data key="d12">0.1288594609</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="highlights section" target="introduction section">
+  <data key="d9">0.17949</data>
+  <data key="d10">0.8974500000000001</data>
+  <data key="d11">7.0</data>
+  <data key="d12">0.6732366600999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="highlights section" target="notes section">
+  <data key="d9">0.02564</data>
+  <data key="d10">0.1282</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="highlights section" target="acknowledgements section">
+  <data key="d9">0.12821</data>
+  <data key="d10">0.6410499999999999</data>
+  <data key="d11">5.0</data>
+  <data key="d12">0.7600178041000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="highlights section" target="methods section">
+  <data key="d9">0.02564</data>
+  <data key="d10">0.1282</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="graphical abstract section" target="introduction section">
+  <data key="d9">0.75</data>
+  <data key="d10">3.75</data>
+  <data key="d11">36.0</data>
+  <data key="d12">0.0625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="graphical abstract section" target="methods section">
+  <data key="d9">0.125</data>
+  <data key="d10">0.625</data>
+  <data key="d11">6.0</data>
+  <data key="d12">0.765625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="graphical abstract section" target="discussion section">
+  <data key="d9">0.02083</data>
+  <data key="d10">0.10415</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="graphical abstract section" target="materials section">
+  <data key="d9">0.0625</data>
+  <data key="d10">0.3125</data>
+  <data key="d11">3.0</data>
+  <data key="d12">0.87890625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="graphical abstract section" target="textual abstract section">
+  <data key="d9">0.04167</data>
+  <data key="d10">0.20834999999999998</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author information section" target="references section">
+  <data key="d9">0.5625</data>
+  <data key="d10">2.8125</data>
+  <data key="d11">9.0</data>
+  <data key="d12">0.19140625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author information section" target="footnote section">
+  <data key="d9">0.125</data>
+  <data key="d10">0.625</data>
+  <data key="d11">2.0</data>
+  <data key="d12">0.765625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author information section" target="author contributions section">
+  <data key="d9">0.1875</data>
+  <data key="d10">0.9375</data>
+  <data key="d11">3.0</data>
+  <data key="d12">0.66015625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author information section" target="notes section">
+  <data key="d9">0.125</data>
+  <data key="d10">0.625</data>
+  <data key="d11">2.0</data>
+  <data key="d12">0.765625</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="acknowledgements section">
+  <data key="d9">0.03854</data>
+  <data key="d10">0.19269999999999998</data>
+  <data key="d11">18.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="references section">
+  <data key="d9">0.14133</data>
+  <data key="d10">0.70665</data>
+  <data key="d11">66.0</data>
+  <data key="d12">0.7373141689000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="footnote section">
+  <data key="d9">0.02141</data>
+  <data key="d10">0.10704999999999999</data>
+  <data key="d11">10.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="conflict of interest section">
+  <data key="d9">0.17131</data>
+  <data key="d10">0.8565499999999999</data>
+  <data key="d11">80.0</data>
+  <data key="d12">0.6867271161</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="notes section">
+  <data key="d9">0.03212</data>
+  <data key="d10">0.16060000000000002</data>
+  <data key="d11">15.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="supplementary material section">
+  <data key="d9">0.11135</data>
+  <data key="d10">0.5567500000000001</data>
+  <data key="d11">52.0</data>
+  <data key="d12">0.7896988224999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="disclosure section">
+  <data key="d9">0.0364</data>
+  <data key="d10">0.182</data>
+  <data key="d11">17.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="author contributions section">
+  <data key="d9">0.01071</data>
+  <data key="d10">0.05355</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="results section">
+  <data key="d9">0.00214</data>
+  <data key="d10">0.0107</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="availability section">
+  <data key="d9">0.38544</data>
+  <data key="d10">1.9272</data>
+  <data key="d11">180.0</data>
+  <data key="d12">0.3776839936</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="author information section">
+  <data key="d9">0.00642</data>
+  <data key="d10">0.032100000000000004</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="abbreviations section">
+  <data key="d9">0.00642</data>
+  <data key="d10">0.032100000000000004</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="ethical approval section">
+  <data key="d9">0.00642</data>
+  <data key="d10">0.032100000000000004</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="funding source declaration section" target="materials section">
+  <data key="d9">0.02998</data>
+  <data key="d10">0.1499</data>
+  <data key="d11">14.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="disclosure section" target="supplementary material section">
+  <data key="d9">0.26984</data>
+  <data key="d10">1.3492000000000002</data>
+  <data key="d11">17.0</data>
+  <data key="d12">0.5331336255999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="disclosure section" target="acknowledgements section">
+  <data key="d9">0.22222</data>
+  <data key="d10">1.1111</data>
+  <data key="d11">14.0</data>
+  <data key="d12">0.6049417284</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="disclosure section" target="references section">
+  <data key="d9">0.33333</data>
+  <data key="d10">1.6666500000000002</data>
+  <data key="d11">21.0</data>
+  <data key="d12">0.4444488889</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="disclosure section" target="conflict of interest section">
+  <data key="d9">0.09524</data>
+  <data key="d10">0.4762</data>
+  <data key="d11">6.0</data>
+  <data key="d12">0.8185906576</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="disclosure section" target="author contributions section">
+  <data key="d9">0.01587</data>
+  <data key="d10">0.07934999999999999</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="disclosure section" target="notes section">
+  <data key="d9">0.03175</data>
+  <data key="d10">0.15875</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="disclosure section" target="footnote section">
+  <data key="d9">0.03175</data>
+  <data key="d10">0.15875</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="participants section" target="results section">
+  <data key="d9">0.85294</data>
+  <data key="d10">4.2647</data>
+  <data key="d11">58.0</data>
+  <data key="d12">0.02162664359999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="participants section" target="discussion section">
+  <data key="d9">0.04412</data>
+  <data key="d10">0.2206</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="participants section" target="supplementary material section">
+  <data key="d9">0.04412</data>
+  <data key="d10">0.2206</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="participants section" target="materials section">
+  <data key="d9">0.05882</data>
+  <data key="d10">0.2941</data>
+  <data key="d11">4.0</data>
+  <data key="d12">0.8858197924000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="acknowledgements section">
+  <data key="d9">0.05708</data>
+  <data key="d10">0.2854</data>
+  <data key="d11">25.0</data>
+  <data key="d12">0.8890981264</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="footnote section">
+  <data key="d9">0.34247</data>
+  <data key="d10">1.71235</data>
+  <data key="d11">150.0</data>
+  <data key="d12">0.4323457008999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="supplementary material section">
+  <data key="d9">0.0274</data>
+  <data key="d10">0.137</data>
+  <data key="d11">12.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="author contributions section">
+  <data key="d9">0.11187</data>
+  <data key="d10">0.55935</data>
+  <data key="d11">49.0</data>
+  <data key="d12">0.7887748968999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="references section">
+  <data key="d9">0.34247</data>
+  <data key="d10">1.71235</data>
+  <data key="d11">150.0</data>
+  <data key="d12">0.4323457008999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="ethical approval section">
+  <data key="d9">0.04795</data>
+  <data key="d10">0.23975</data>
+  <data key="d11">21.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="funding source declaration section">
+  <data key="d9">0.01826</data>
+  <data key="d10">0.09129999999999999</data>
+  <data key="d11">8.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="notes section">
+  <data key="d9">0.04795</data>
+  <data key="d10">0.23975</data>
+  <data key="d11">21.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="consent section">
+  <data key="d9">0.00228</data>
+  <data key="d10">0.0114</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conflict of interest section" target="availability section">
+  <data key="d9">0.00228</data>
+  <data key="d10">0.0114</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="notes section" target="footnote section">
+  <data key="d9">0.21008</data>
+  <data key="d10">1.0504</data>
+  <data key="d11">50.0</data>
+  <data key="d12">0.6239736063999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="notes section" target="references section">
+  <data key="d9">0.2563</data>
+  <data key="d10">1.2814999999999999</data>
+  <data key="d11">61.0</data>
+  <data key="d12">0.5530896900000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="notes section" target="supplementary material section">
+  <data key="d9">0.08824</data>
+  <data key="d10">0.4412</data>
+  <data key="d11">21.0</data>
+  <data key="d12">0.8313062976000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="notes section" target="conflict of interest section">
+  <data key="d9">0.36555</data>
+  <data key="d10">1.82775</data>
+  <data key="d11">87.0</data>
+  <data key="d12">0.40252680249999995</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="notes section" target="ethical approval section">
+  <data key="d9">0.07983</data>
+  <data key="d10">0.39915</data>
+  <data key="d11">19.0</data>
+  <data key="d12">0.8467128289000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="supplementary material section">
+  <data key="d9">0.31558</data>
+  <data key="d10">1.5779</data>
+  <data key="d11">243.0</data>
+  <data key="d12">0.46843073640000005</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="graphical abstract section">
+  <data key="d9">0.0039</data>
+  <data key="d10">0.0195</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="introduction section">
+  <data key="d9">0.02597</data>
+  <data key="d10">0.12985</data>
+  <data key="d11">20.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="notes section">
+  <data key="d9">0.0039</data>
+  <data key="d10">0.0195</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="textual abstract section">
+  <data key="d9">0.0026</data>
+  <data key="d10">0.013</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="materials section">
+  <data key="d9">0.03247</data>
+  <data key="d10">0.16235</data>
+  <data key="d11">25.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="methods section">
+  <data key="d9">0.03377</data>
+  <data key="d10">0.16885</data>
+  <data key="d11">26.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="acknowledgements section">
+  <data key="d9">0.41299</data>
+  <data key="d10">2.06495</data>
+  <data key="d11">318.0</data>
+  <data key="d12">0.34458074010000006</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="funding source declaration section">
+  <data key="d9">0.03636</data>
+  <data key="d10">0.18180000000000002</data>
+  <data key="d11">28.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="footnote section">
+  <data key="d9">0.01948</data>
+  <data key="d10">0.0974</data>
+  <data key="d11">15.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="abbreviations section">
+  <data key="d9">0.02468</data>
+  <data key="d10">0.12340000000000001</data>
+  <data key="d11">19.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="references section">
+  <data key="d9">0.00649</data>
+  <data key="d10">0.03245</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="author contributions section">
+  <data key="d9">0.02727</data>
+  <data key="d10">0.13635</data>
+  <data key="d11">21.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="conflict of interest section">
+  <data key="d9">0.03117</data>
+  <data key="d10">0.15585</data>
+  <data key="d11">24.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="ethical approval section">
+  <data key="d9">0.00519</data>
+  <data key="d10">0.02595</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="availability section">
+  <data key="d9">0.00649</data>
+  <data key="d10">0.03245</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="disclosure section">
+  <data key="d9">0.00779</data>
+  <data key="d10">0.03895</data>
+  <data key="d11">6.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="statistical analysis section">
+  <data key="d9">0.0013</data>
+  <data key="d10">0.0065</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="conclusion section" target="highlights section">
+  <data key="d9">0.0026</data>
+  <data key="d10">0.013</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="footnote section">
+  <data key="d9">0.4433</data>
+  <data key="d10">2.2165</data>
+  <data key="d11">129.0</data>
+  <data key="d12">0.30991488999999994</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="references section">
+  <data key="d9">0.16495</data>
+  <data key="d10">0.8247500000000001</data>
+  <data key="d11">48.0</data>
+  <data key="d12">0.6973085025</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="acknowledgements section">
+  <data key="d9">0.01718</data>
+  <data key="d10">0.0859</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="funding source declaration section">
+  <data key="d9">0.08247</data>
+  <data key="d10">0.41235</data>
+  <data key="d11">24.0</data>
+  <data key="d12">0.8418613008999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="supplementary material section">
+  <data key="d9">0.05498</data>
+  <data key="d10">0.27490000000000003</data>
+  <data key="d11">16.0</data>
+  <data key="d12">0.8930628004</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="conflict of interest section">
+  <data key="d9">0.05842</data>
+  <data key="d10">0.2921</data>
+  <data key="d11">17.0</data>
+  <data key="d12">0.8865728963999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="notes section">
+  <data key="d9">0.01375</data>
+  <data key="d10">0.06875</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="disclosure section">
+  <data key="d9">0.01031</data>
+  <data key="d10">0.05155</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="author information section">
+  <data key="d9">0.00344</data>
+  <data key="d10">0.0172</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="ethical approval section">
+  <data key="d9">0.01718</data>
+  <data key="d10">0.0859</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="author contributions section">
+  <data key="d9">0.10997</data>
+  <data key="d10">0.54985</data>
+  <data key="d11">32.0</data>
+  <data key="d12">0.7921534009</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="availability section">
+  <data key="d9">0.02062</data>
+  <data key="d10">0.1031</data>
+  <data key="d11">6.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="abbreviations section" target="introduction section">
+  <data key="d9">0.00344</data>
+  <data key="d10">0.0172</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="conflict of interest section">
+  <data key="d9">0.3301</data>
+  <data key="d10">1.6505</data>
+  <data key="d11">34.0</data>
+  <data key="d12">0.44876600999999994</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="references section">
+  <data key="d9">0.06796</data>
+  <data key="d10">0.33980000000000005</data>
+  <data key="d11">7.0</data>
+  <data key="d12">0.8686985615999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="footnote section">
+  <data key="d9">0.16505</data>
+  <data key="d10">0.82525</data>
+  <data key="d11">17.0</data>
+  <data key="d12">0.6971415025</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="disclosure section">
+  <data key="d9">0.04854</data>
+  <data key="d10">0.2427</data>
+  <data key="d11">5.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="consent section">
+  <data key="d9">0.08738</data>
+  <data key="d10">0.4369</data>
+  <data key="d11">9.0</data>
+  <data key="d12">0.8328752643999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="acknowledgements section">
+  <data key="d9">0.01942</data>
+  <data key="d10">0.09709999999999999</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="author contributions section">
+  <data key="d9">0.17476</data>
+  <data key="d10">0.8738</data>
+  <data key="d11">18.0</data>
+  <data key="d12">0.6810210576</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="funding source declaration section">
+  <data key="d9">0.01942</data>
+  <data key="d10">0.09709999999999999</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="patients section">
+  <data key="d9">0.06796</data>
+  <data key="d10">0.33980000000000005</data>
+  <data key="d11">7.0</data>
+  <data key="d12">0.8686985615999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="availability section">
+  <data key="d9">0.00971</data>
+  <data key="d10">0.048549999999999996</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="ethical approval section" target="statistical analysis section">
+  <data key="d9">0.00971</data>
+  <data key="d10">0.048549999999999996</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="supplementary material section">
+  <data key="d9">0.09434</data>
+  <data key="d10">0.47169999999999995</data>
+  <data key="d11">40.0</data>
+  <data key="d12">0.8202200356</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="footnote section">
+  <data key="d9">0.02594</data>
+  <data key="d10">0.1297</data>
+  <data key="d11">11.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="funding source declaration section">
+  <data key="d9">0.22406</data>
+  <data key="d10">1.1203</data>
+  <data key="d11">95.0</data>
+  <data key="d12">0.6020828836</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="acknowledgements section">
+  <data key="d9">0.06368</data>
+  <data key="d10">0.3184</data>
+  <data key="d11">27.0</data>
+  <data key="d12">0.8766951424000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="references section">
+  <data key="d9">0.03538</data>
+  <data key="d10">0.1769</data>
+  <data key="d11">15.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="conflict of interest section">
+  <data key="d9">0.14623</data>
+  <data key="d10">0.73115</data>
+  <data key="d11">62.0</data>
+  <data key="d12">0.7289232129000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="notes section">
+  <data key="d9">0.21934</data>
+  <data key="d10">1.0967</data>
+  <data key="d11">93.0</data>
+  <data key="d12">0.6094300356000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="pre-publication history section">
+  <data key="d9">0.02358</data>
+  <data key="d10">0.1179</data>
+  <data key="d11">10.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="abbreviations section">
+  <data key="d9">0.02123</data>
+  <data key="d10">0.10615</data>
+  <data key="d11">9.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="ethical approval section">
+  <data key="d9">0.04009</data>
+  <data key="d10">0.20045000000000002</data>
+  <data key="d11">17.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="availability section">
+  <data key="d9">0.09906</data>
+  <data key="d10">0.49529999999999996</data>
+  <data key="d11">42.0</data>
+  <data key="d12">0.8116928835999999</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="author contributions section" target="disclosure section">
+  <data key="d9">0.00708</data>
+  <data key="d10">0.0354</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="supplementary material section">
+  <data key="d9">0.01158</data>
+  <data key="d10">0.0579</data>
+  <data key="d11">3.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="methods section">
+  <data key="d9">0.00772</data>
+  <data key="d10">0.0386</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="acknowledgements section">
+  <data key="d9">0.01544</data>
+  <data key="d10">0.0772</data>
+  <data key="d11">4.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="funding source declaration section">
+  <data key="d9">0.00386</data>
+  <data key="d10">0.0193</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="ethical approval section">
+  <data key="d9">0.0695</data>
+  <data key="d10">0.34750000000000003</data>
+  <data key="d11">18.0</data>
+  <data key="d12">0.86583025</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="references section">
+  <data key="d9">0.66795</data>
+  <data key="d10">3.3397500000000004</data>
+  <data key="d11">173.0</data>
+  <data key="d12">0.11025720249999997</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="conflict of interest section">
+  <data key="d9">0.13127</data>
+  <data key="d10">0.65635</data>
+  <data key="d11">34.0</data>
+  <data key="d12">0.7546918129</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="notes section">
+  <data key="d9">0.07722</data>
+  <data key="d10">0.3861</data>
+  <data key="d11">20.0</data>
+  <data key="d12">0.8515229284000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="discussion section">
+  <data key="d9">0.00386</data>
+  <data key="d10">0.0193</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="author contributions section">
+  <data key="d9">0.00772</data>
+  <data key="d10">0.0386</data>
+  <data key="d11">2.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="availability section" target="disclosure section">
+  <data key="d9">0.00386</data>
+  <data key="d10">0.0193</data>
+  <data key="d11">1.0</data>
+  <data key="d12">9999.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="statistical analysis section" target="supplementary material section">
+  <data key="d9">0.26667</data>
+  <data key="d10">1.33335</data>
+  <data key="d11">4.0</data>
+  <data key="d12">0.5377728889000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="statistical analysis section" target="results section">
+  <data key="d9">0.66667</data>
+  <data key="d10">3.33335</data>
+  <data key="d11">10.0</data>
+  <data key="d12">0.11110888890000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="statistical analysis section" target="abbreviations section">
+  <data key="d9">0.06667</data>
+  <data key="d10">0.33335</data>
+  <data key="d11">1.0</data>
+  <data key="d12">0.8711048889</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="future directions section" target="acknowledgements section">
+  <data key="d9">1.0</data>
+  <data key="d10">5.0</data>
+  <data key="d11">2.0</data>
+  <data key="d12">0.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="pre-publication history section" target="supplementary material section">
+  <data key="d9">0.4</data>
+  <data key="d10">2.0</data>
+  <data key="d11">4.0</data>
+  <data key="d12">0.36</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="pre-publication history section" target="acknowledgements section">
+  <data key="d9">0.5</data>
+  <data key="d10">2.5</data>
+  <data key="d11">5.0</data>
+  <data key="d12">0.25</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="pre-publication history section" target="references section">
+  <data key="d9">0.1</data>
+  <data key="d10">0.5</data>
+  <data key="d11">1.0</data>
+  <data key="d12">0.81</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="consent section" target="references section">
+  <data key="d9">0.55556</data>
+  <data key="d10">2.7778</data>
+  <data key="d11">5.0</data>
+  <data key="d12">0.19752691359999996</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="consent section" target="footnote section">
+  <data key="d9">0.44444</data>
+  <data key="d10">2.2222</data>
+  <data key="d11">4.0</data>
+  <data key="d12">0.3086469136000001</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+<edge source="patients section" target="conflict of interest section">
+  <data key="d9">1.0</data>
+  <data key="d10">5.0</data>
+  <data key="d11">7.0</data>
+  <data key="d12">0.0</data>
+  <data key="d13">#ffffff</data>
+  <data key="d14">center</data>
+</edge>
+</graph></graphml>
