@@ -166,10 +166,6 @@ def main():
         success = []
         errors = []
         for key in pbar:
-            # For debugging
-            # if "PMC3690971" not in key:
-            #     continue
-            #
             pbar.set_postfix(
                 {
                     "file": key + "*",
