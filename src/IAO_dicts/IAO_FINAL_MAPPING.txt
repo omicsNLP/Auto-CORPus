@@ -1,24 +1,25 @@
-Web Resources    references section
-abbreviation and acronyms    abbreviations section
-abbreviation list    abbreviations section
-abbreviations    abbreviations section
-abbreviations and acronyms    abbreviations section
-abbreviations list    abbreviations section
-abbreviations used    abbreviations section
-abbreviations used in this paper    abbreviations section
-abstract    textual abstract section
-accession    numbers
-acknowledgement    acknowledgements section
-acknowledgements    acknowledgements section
-acknowledgment    acknowledgements section
-acknowledgments    acknowledgements section
-acknowledgments and disclaimer    acknowledgements section
-acknowledgments and funding    acknowledgements section / funding source declaration section
-addendum    supplementary material section
-additional file    supplementary material section
-additional files    supplementary material section
-additional information    supplementary material section
-additional information and declarations    supplementary material section
+Web Resources	references section
+keywords	keywords section
+abbreviation and acronyms	abbreviations section
+abbreviation list	abbreviations section
+abbreviations	abbreviations section
+abbreviations and acronyms	abbreviations section
+abbreviations list	abbreviations section
+abbreviations used	abbreviations section
+abbreviations used in this paper	abbreviations section
+abstract	textual abstract section
+accession	numbers
+acknowledgement	acknowledgements section
+acknowledgements	acknowledgements section
+acknowledgment	acknowledgements section
+acknowledgments	acknowledgements section
+acknowledgments and disclaimer	acknowledgements section
+acknowledgments and funding	acknowledgements section / funding source declaration section
+addendum	supplementary material section
+additional file	supplementary material section
+additional files	supplementary material section
+additional information	supplementary material section
+additional information and declarations	supplementary material section
 additional information and declarations	supplementary material section
 additional points	supplementary material section
 analytical methods	methods section
@@ -28,7 +29,7 @@ appendix a.  supplementary data	supplementary material section
 appendix a. supplementary data	supplementary material section
 appendix. authors	supplementary material section
 article highlights	highlights section
-article information	
+article	information
 associated data	associated data section
 author contribution (in alphabetic order)	author contributions section
 author contributions	author contributions section
