@@ -326,12 +326,6 @@ def assgin_heading_by_DAG(paper):
     new_mapping_dict = {}
     mapping_dict_with_DAG = {}
     IAO_term_to_no_dict = read_IAO_term_to_ID_file()
-    has_keywords = False
-    for heading in paper.keys():
-        if "keywords" in paper.keys():
-            has_keywords = True
-            del paper[heading]
-            break
     for i, heading in enumerate(paper.keys()):
         if paper[heading] == []:
             previous_mapped_heading_found = False
@@ -397,10 +391,4 @@ def assgin_heading_by_DAG(paper):
                     })
 
                 new_mapping_dict[heading] = newSecType
-    if has_keywords:
-        if "textual abstract section" not in new_mapping_dict.keys():
-            new_mapping_dict["textual abstract section"] = {
-                "iao_name": "textual abstract section",
-                "iao_id": "IAO:0000315"
-            }
     return new_mapping_dict

@@ -1,15 +1,16 @@
-Web Resources	references section
-keywords	keywords section
-abbreviation and acronyms	abbreviations section
-abbreviation list	abbreviations section
-abbreviations	abbreviations section
-abbreviations and acronyms	abbreviations section
-abbreviations list	abbreviations section
-abbreviations used	abbreviations section
-abbreviations used in this paper	abbreviations section
-abstract	textual abstract section
-accession numbers	
-acknowledgement	acknowledgements section
+Web Resources    references section
+keywords    keywords section
+keywords:    keywords section
+abbreviation and acronyms    abbreviations section
+abbreviation list    abbreviations section
+abbreviations    abbreviations section
+abbreviations and acronyms    abbreviations section
+abbreviations list    abbreviations section
+abbreviations used    abbreviations section
+abbreviations used in this paper    abbreviations section
+abstract    textual abstract section
+accession numbers
+acknowledgement    acknowledgements section
 acknowledgements	acknowledgements section
 acknowledgment	acknowledgements section
 acknowledgments	acknowledgements section
