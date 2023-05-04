@@ -190,11 +190,12 @@ class autoCORPus:
         for para in uniqueText:
             if para['section_heading'] != 'keywords':
                 paper[para['section_heading']] = [x['iao_name'] for x in para['section_type']]
-        mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-        for i, para in enumerate(uniqueText):
-            if para['section_heading'] in mapping_dict_with_DAG.keys():
-                if para['section_type'] == []:
-                    uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
+        uniqueText = [x for x in uniqueText if x['section_heading']]
+        # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
+        # for i, para in enumerate(uniqueText):
+        #     if para['section_heading'] in mapping_dict_with_DAG.keys():
+        #         if para['section_type'] == []:
+        #             uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
         return uniqueText
 
     def __handle_html(self, file_path, config):
