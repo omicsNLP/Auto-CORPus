@@ -7,7 +7,6 @@ class BiocDocument:
 
     def build_passages(self, dataStore):
         seen_headings = []
-        contains_keywords, contains_abstract = False, False
         passages = [BioCPassage.from_title(dataStore.main_text['title'], 0).as_dict()]
         if dataStore.main_text['title'] not in seen_headings:
             offset = len(dataStore.main_text['title'])
@@ -22,19 +21,6 @@ class BiocDocument:
             if passage['section_heading'] not in seen_headings:
                 offset += len(passage['section_heading'])
                 seen_headings.append(passage['section_heading'])
-            if "keywords" == passage["section_heading"]:
-                contains_keywords = True
-            elif "Abstract" == passage["section_heading"]:
-                contains_abstract = True
-        if contains_keywords and contains_abstract:
-            keywords_index = min([i for i, x in enumerate(passages) if
-                                  "section_title_1" in x["infons"].keys() and x["infons"][
-                                      "section_title_1"] == "keywords"])
-            keywords = passages.pop(keywords_index)
-            last_abstract_index = max([i for i, x in enumerate(passages) if
-                                       "section_title_1" in x["infons"].keys() and x["infons"][
-                                           "section_title_1"] == "Abstract"])
-            passages.insert(last_abstract_index + 1, keywords)
         return passages
 
     def build_template(self, dataStore):
