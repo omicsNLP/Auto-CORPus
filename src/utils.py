@@ -194,6 +194,8 @@ def handle_defined_by(config, soup):
         new_matches = []
         if bsAttrs["name"] or bsAttrs["attrs"]:
             new_matches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
+            if new_matches:
+                new_matches = [x for x in new_matches if x.text]
         if "xpath" in bsAttrs:
             if type(bsAttrs["xpath"]) == list:
                 for path in bsAttrs["xpath"]:
