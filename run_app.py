@@ -147,6 +147,7 @@ cdate = datetime.now()
 config = args.config
 config_dir = args.config_dir
 associated_data = args.associated_data
+error_occurred = False
 output_format = args.output_format if args.output_format else "JSON"
 trained_data = args.trained_data_set if args.output_format else "eng"
 if not os.path.exists(target_dir):
@@ -181,7 +182,7 @@ with open(logFileName, "w") as log_file:
             out_dir = structure[key]['out_dir']
             if structure[key]["main_text"]:
                 key = key.replace('\\', '/')
-                if output_format == "JSON":
+                if output_format.lower() == "json":
                     with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
                         outfp.write(AC.main_text_to_bioc_json())
                 else:
@@ -197,8 +198,11 @@ with open(logFileName, "w") as log_file:
             success.append(F"{key} was processed successfully.")
         except Exception as e:
             errors.append(F"{key} failed due to {e}.")
+            error_occurred = True
 
     log_file.write(F"{len(success)} files processed.\n")
     log_file.write(F"{len(errors)} files not processed due to errors.\n\n\n")
     log_file.write("\n".join(success) + "\n")
     log_file.write("\n".join(errors) + "\n")
+    if error_occurred:
+        print("Auto-CORPus has completed processing with some errors. Please inspect the log file for further details.")

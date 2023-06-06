@@ -4,16 +4,18 @@ import unicodedata
 
 import bs4
 import networkx as nx
+from bs4 import NavigableString
+from lxml import etree
 
 
 def get_files(base_dir, pattern=r'(.*).html'):
     """
     recursively retrieve all PMC.html files from the directory
 
-    Args: 
+    Args:
         base_dir: base directory
 
-    Return: 
+    Return:
         file_list: a list of filepath
     """
     file_list = []
@@ -31,7 +33,7 @@ def process_supsub(soup):
     """
     add underscore (_) before all superscript or subscript text
 
-    Args: 
+    Args:
         soup: BeautifulSoup object of html
 
     """
@@ -52,7 +54,7 @@ def process_em(soup):
     remove all emphasized text
     No it doesn't, it just adds a space to it
 
-    Args: 
+    Args:
         soup: BeautifulSoup object of html
 
     """
@@ -153,12 +155,15 @@ def config_tags(tags):
 def parse_configs(definition):
     bsAttrs = {
         "name": [],
-        "attrs": []
+        "attrs": [],
+        "xpath": []
     }
     if "tag" in definition:
         bsAttrs['name'] = config_tags(definition['tag'])
     if "attrs" in definition:
         bsAttrs['attrs'] = config_attrs(definition['attrs'])
+    if "xpath" in definition:
+        bsAttrs['xpath'] = definition['xpath']
     return bsAttrs
 
 
@@ -186,12 +191,34 @@ def handle_defined_by(config, soup):
     seen_text = []
     for definition in config['defined-by']:
         bsAttrs = parse_configs(definition)
-        newMatches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
-        for match in newMatches:
-            if match.get_text() in seen_text:
+        new_matches = []
+        if bsAttrs["name"] or bsAttrs["attrs"]:
+            new_matches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
+            if new_matches:
+                new_matches = [x for x in new_matches if x.text]
+        if "xpath" in bsAttrs:
+            if type(bsAttrs["xpath"]) == list:
+                for path in bsAttrs["xpath"]:
+                    xpath_matches = etree.fromstring(str(soup)).xpath(path)
+                    if xpath_matches:
+                        for new_match in xpath_matches:
+                            new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"), "html.parser")
+                            if new_match.text.strip():
+                                new_matches.extend(new_match)
+            else:
+                xpath_matches = etree.fromstring(str(soup)).xpath(bsAttrs["xpath"])
+                if xpath_matches:
+                    for new_match in xpath_matches:
+                        new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"), "html.parser")
+                        if new_match.text.strip():
+                            new_matches.extend(new_match)
+        for match in new_matches:
+            if type(match) != NavigableString:
+                matched_text = match.get_text()
+            if matched_text in seen_text:
                 continue
             else:
-                seen_text.append(match.get_text())
+                seen_text.append(matched_text)
                 matches.append(match)
     return matches
 

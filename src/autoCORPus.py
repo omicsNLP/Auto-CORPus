@@ -188,12 +188,25 @@ class autoCORPus:
     def __set_unknown_section_headings(self, uniqueText):
         paper = {}
         for para in uniqueText:
-            paper[para['section_heading']] = [x['iao_name'] for x in para['section_type']]
-        mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-        for i, para in enumerate(uniqueText):
-            if para['section_heading'] in mapping_dict_with_DAG.keys():
-                if para['section_type'] == []:
-                    uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
+            if para['section_heading'] != 'keywords':
+                paper[para['section_heading']] = [x['iao_name'] for x in para['section_type']]
+
+        for text in uniqueText:
+            if not text["section_heading"]:
+                text["section_heading"] = "document part"
+                text["section_type"] = [
+                    {
+                        "iao_name": "document part",
+                        "iao_id": "IAO:0000314"
+                    }
+                ]
+
+        # uniqueText = [x for x in uniqueText if x['section_heading']]
+        # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
+        # for i, para in enumerate(uniqueText):
+        #     if para['section_heading'] in mapping_dict_with_DAG.keys():
+        #         if para['section_type'] == []:
+        #             uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
         return uniqueText
 
     def __handle_html(self, file_path, config):

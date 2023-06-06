@@ -1,3 +1,4 @@
+document part	IAO:0000314
 textual abstract section	IAO:0000315
 graphical abstract section	IAO:0000315
 introduction section	IAO:0000316

@@ -103,6 +103,10 @@
         {
           "tag": "p",
           "attrs": {"id": "_*[pP|Par]*\\d+"}
+        },
+        {
+          "tag": "p",
+          "xpath": "//div[contains(@class,'sec')]//p"
         }
       ]
     },
