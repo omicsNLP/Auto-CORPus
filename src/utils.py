@@ -6,6 +6,7 @@ import bs4
 import networkx as nx
 from bs4 import NavigableString
 from lxml import etree
+from lxml.html.soupparser import fromstring
 
 
 def get_files(base_dir, pattern=r'(.*).html'):
@@ -14,6 +15,7 @@ def get_files(base_dir, pattern=r'(.*).html'):
 
     Args:
         base_dir: base directory
+        pattern: file name filter REGEX pattern (default *.html)
 
     Return:
         file_list: a list of filepath
@@ -40,7 +42,7 @@ def process_supsub(soup):
     # for sup in soup.find_all(['sup', 'sub']):
     for sup in soup.find_all('sub'):
         s = sup.get_text()
-        if sup.string == None:
+        if sup.string is None:
             sup.extract()
         elif re.match('[_-]', s):
             sup.string.replace_with('{} '.format(s))
@@ -60,7 +62,7 @@ def process_em(soup):
     """
     for em in soup.find_all('em'):
         s = em.get_text()
-        if em.string == None:
+        if em.string is None:
             em.extract()
         else:
             em.string.replace_with('{} '.format(s))
@@ -199,17 +201,19 @@ def handle_defined_by(config, soup):
         if "xpath" in bsAttrs:
             if type(bsAttrs["xpath"]) == list:
                 for path in bsAttrs["xpath"]:
-                    xpath_matches = etree.fromstring(str(soup)).xpath(path)
+                    xpath_matches = fromstring(str(soup)).xpath(path)
                     if xpath_matches:
                         for new_match in xpath_matches:
-                            new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"), "html.parser")
+                            new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"),
+                                                          "html.parser")
                             if new_match.text.strip():
                                 new_matches.extend(new_match)
             else:
-                xpath_matches = etree.fromstring(str(soup)).xpath(bsAttrs["xpath"])
+                xpath_matches = fromstring(str(soup)).xpath(bsAttrs["xpath"])
                 if xpath_matches:
                     for new_match in xpath_matches:
-                        new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"), "html.parser")
+                        new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"),
+                                                      "html.parser")
                         if new_match.text.strip():
                             new_matches.extend(new_match)
         for match in new_matches:

@@ -578,6 +578,8 @@ class table:
             for table in cur_table:
                 headers = table['columns']
                 new_header = []
+                if not headers:
+                    continue
                 for col_idx in range(len(headers[0])):
                     new_element = ''
                     for r_idx in range(len(headers)):
