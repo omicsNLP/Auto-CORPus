@@ -169,6 +169,22 @@ def parse_configs(definition):
     return bsAttrs
 
 
+def clean_tag_content(tag, soup):
+    """
+    Remove leading and trailing whitespace & newline characters from soup tags recursively.
+    tag: BeautifulSoup tag or NavigableString
+    soup: The parent beautifulsoup object.
+    """
+    if isinstance(tag, NavigableString):
+        return tag.strip()
+    else:
+        new_tag = soup.new_tag(tag.name)
+        for child in tag.children:
+            cleaned_child = clean_tag_content(child, soup)
+            new_tag.append(cleaned_child)
+        return new_tag
+
+
 def handle_defined_by(config, soup):
     '''
 
@@ -224,6 +240,10 @@ def handle_defined_by(config, soup):
             else:
                 seen_text.append(matched_text)
                 matches.append(match)
+
+    # clean up the match texts
+    matches = [clean_tag_content(match, soup) for match in matches]
+
     return matches
 
 
