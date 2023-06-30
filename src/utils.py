@@ -4,7 +4,7 @@ import unicodedata
 
 import bs4
 import networkx as nx
-from bs4 import NavigableString
+from bs4 import NavigableString, Tag
 from lxml import etree
 from lxml.html.soupparser import fromstring
 
@@ -169,20 +169,16 @@ def parse_configs(definition):
     return bsAttrs
 
 
-def clean_tag_content(tag, soup):
+def recursively_strip_strings(tag):
     """
     Remove leading and trailing whitespace & newline characters from soup tags recursively.
     tag: BeautifulSoup tag or NavigableString
-    soup: The parent beautifulsoup object.
     """
-    if isinstance(tag, NavigableString):
-        return tag.strip()
-    else:
-        new_tag = soup.new_tag(tag.name)
-        for child in tag.children:
-            cleaned_child = clean_tag_content(child, soup)
-            new_tag.append(cleaned_child)
-        return new_tag
+    for child in tag.contents:
+        if isinstance(child, Tag):
+            recursively_strip_strings(child)
+        elif isinstance(child, str):
+            child.replace_with(child.strip())
 
 
 def handle_defined_by(config, soup):
@@ -242,15 +238,49 @@ def handle_defined_by(config, soup):
                 matches.append(match)
 
     # clean up the match texts
-    matches = [clean_tag_content(match, soup) for match in matches]
-
+    # currently unused due to unexpected removal of outputs
+    # for tag in matches:
+    #     recursively_strip_strings(tag)
     return matches
+
+
+def rearrange_segmented_elements(tag_list, seperator_tag):
+    """
+    Creates a new structure for problematic matches returned containing no complete section containers.
+    New structure will group repeated tag patterns together into sections based on the input seperator_tag string.
+    :param tag_list: list of matches (tag objects)
+	:param seperator_tag: HTML tag name (string)
+	:return: List of Tag objects (list)
+    """
+    parent_tags = []  # List to store the parent tags
+
+    current_parent = None  # Variable to store the current parent tag
+
+    for tag in tag_list:
+        if tag.name == seperator_tag:
+            # If the current tag is a seperator tag, create a new parent tag
+            current_parent = Tag(name='div')
+            current_parent.append(tag)
+            parent_tags.append(current_parent)
+        elif current_parent is not None:
+            # If the current tag is not an <h2> tag and a parent tag exists
+            current_parent.append(tag)
+
+    return parent_tags
 
 
 def handle_not_tables(config, soup):
     responses = []
     matches = handle_defined_by(config, soup)
+    # check layout of publication structure
+    # segmented layout is sibling elements throughout rather than containers for each section.
+    is_segmented_layout = False
+    type_count = len(set([x.name for x in matches]))
+    if type_count > 1:
+        is_segmented_layout = True
     if "data" in config:
+        if is_segmented_layout:
+            matches = rearrange_segmented_elements(matches, matches[0].name)
         for match in matches:
             responseAddition = {
                 "node": match
@@ -259,7 +289,8 @@ def handle_not_tables(config, soup):
                 seen_text = set()
                 for definition in config['data'][ele]:
                     bsAttrs = parse_configs(definition)
-                    newMatches = match.find_all(bsAttrs['name'], bsAttrs['attrs'])
+
+                    newMatches = match.find_all(definition["tag"], bsAttrs['attrs'])
                     if newMatches:
                         responseAddition[ele] = []
                     for newMatch in newMatches:
