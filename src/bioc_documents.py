@@ -7,11 +7,15 @@ class BiocDocument:
 
     def build_passages(self, dataStore):
         seen_headings = []
+        dataStore.main_text['title'] = dataStore.main_text['title'].strip()
         passages = [BioCPassage.from_title(dataStore.main_text['title'], 0).as_dict()]
         if dataStore.main_text['title'] not in seen_headings:
             offset = len(dataStore.main_text['title'])
             seen_headings.append(dataStore.main_text['title'])
         for passage in dataStore.main_text['paragraphs']:
+            passage["body"] = passage["body"].strip()
+            passage["section_heading"] = passage["section_heading"].strip()
+            passage["subsection_heading"] = passage["subsection_heading"].strip()
             passage_obj = BioCPassage(passage, offset)
             passages.append(passage_obj.as_dict())
             offset += len(passage['body'])
