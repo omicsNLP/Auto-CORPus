@@ -1,3 +1,5 @@
+import os.path
+
 import file_extension_analysis
 import pdf_extractor
 import word_extractor
@@ -86,7 +88,8 @@ def generate_file_report(input_directory):
         specific file types.
 
     """
-
+    if not os.path.exists(input_directory) or not os.path.isdir(input_directory):
+        return None
     file_extensions = file_extension_analysis.get_file_extensions(input_directory)
     # Check if no file extensions are found
     if not file_extensions:
@@ -109,3 +112,4 @@ def generate_file_report(input_directory):
     if spreadsheet_present:
         spreadsheet_locations = {x: file_extensions[x] for x in spreadsheet_extensions}
         __extract_spreadsheet_data(spreadsheet_locations)
+    return True

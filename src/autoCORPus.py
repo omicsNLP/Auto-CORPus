@@ -5,12 +5,15 @@ import sys
 from bioc import loads, dumps, BioCFileType
 from bs4 import BeautifulSoup
 
+import supplementary_processor
 from src.abbreviation import abbreviations
 from src.bioc_formatter import BiocFormatter
 from src.section import section
 from src.table import table
 from src.table_image import table_image
 from src.utils import *
+
+import src.supplementary_processor
 
 
 def handle_path(func):
@@ -359,6 +362,11 @@ class autoCORPus:
                 self.abbreviations = abbreviations(self.main_text, soup, config, self.file_path).to_dict()
             except Exception as e:
                 print(e)
+            # Check for supplementary files
+            supplementary_dir = self.file_path.replace(".html", "")
+            if os.path.isdir(supplementary_dir):
+                supplementary_processor.generate_file_report(supplementary_dir)
+
         if linked_tables:
             for table_file in linked_tables:
                 soup = self.__handle_html(table_file, config)
