@@ -5,8 +5,8 @@ import pdf_extractor
 import word_extractor
 import excel_extractor
 
-word_extensions = ["doc", "docx"]
-spreadsheet_extensions = ["csv", "xls", "xlsx"]
+word_extensions = [".doc", ".docx"]
+spreadsheet_extensions = [".csv", ".xls", ".xlsx"]
 
 
 def __extract_word_data(locations):
