@@ -7,6 +7,7 @@ import excel_extractor
 
 word_extensions = [".doc", ".docx"]
 spreadsheet_extensions = [".csv", ".xls", ".xlsx"]
+supplementary_types = word_extensions + spreadsheet_extensions + [".pdf"]
 
 
 def __extract_word_data(locations):
@@ -24,7 +25,15 @@ def __extract_word_data(locations):
         None
 
     """
-    word_locations = [locations[x]["locations"] for x in word_extensions]
+    word_locations = [locations[x]["locations"] for x in word_extensions if locations[x]["locations"]]
+    temp = []
+    for x in word_locations:
+        if not type(x) == list:
+            temp.append(x)
+        else:
+            for y in x:
+                temp.append(y)
+    word_locations = temp
     # Iterate over the file locations of Word documents
     for file in word_locations:
         # Process the Word document using a custom word_extractor
