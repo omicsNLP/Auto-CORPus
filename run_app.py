@@ -7,6 +7,7 @@ from datetime import datetime
 
 from tqdm import tqdm
 
+import supplementary_processor
 from src.autoCORPus import autoCORPus
 from supplementary_processor import supplementary_types
 
@@ -50,7 +51,7 @@ def get_file_type(file_path):
         # this should be tidied up to only include the image types which are supported by AC instead of any image files
         return ("table_images")
     elif [file_path.endswith(x) for x in supplementary_types]:
-        return ("supplementary_material")
+        return ("supplementary_files")
     else:
         print(F"unable to identify file type for {file_path}, file will not be processed")
 
@@ -72,7 +73,7 @@ def fill_structure(structure, key, ftype, fpath):
             "out_dir": "",
             "linked_tables": [],
             "table_images": [],
-            "supplementary_material": []
+            "supplementary_files": []
         }
     if ftype == "main_text" or ftype == "out_dir":
         structure[key][ftype] = fpath
@@ -115,9 +116,9 @@ def read_file_structure(file_path, target_dir):
                     base_file = re.sub("_table_\d+\..*", "", fpath)
                     structure = fill_structure(structure, base_file, 'table_images', fpath)
                     structure = fill_structure(structure, base_file, 'out_dir', out_dir)
-                elif ftype == "supplementary_material":
+                elif ftype == "supplementary_files":
                     base_file = re.sub("_supp_\d+\..*", "", fpath)
-                    structure = fill_structure(structure, base_file, 'supplementary_material', fpath)
+                    structure = fill_structure(structure, base_file, 'supplementary_files', fpath)
                     structure = fill_structure(structure, base_file, 'out_dir', out_dir)
                 elif not ftype:
                     print(F"cannot determine file type for {fpath}, AC will not process this file")
@@ -175,40 +176,42 @@ with open(logFileName, "w") as log_file:
             {
                 "file": key + "*",
                 "linked_tables": len(structure[key]['linked_tables']),
-                "table_images": len(structure[key]['table_images'])
+                "table_images": len(structure[key]['table_images']),
+                "supplementary_files": len(structure[key]['supplementary_files'])
             }
         )
         if os.path.isdir(file_path):
             base_dir = file_path
         else:
             base_dir = "/".join(file_path.split("/")[:-1])
-        # try:
-        AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'],
-                        linked_tables=sorted(structure[key]['linked_tables']),
-                        table_images=sorted(structure[key]['table_images']), trainedData=trained_data)
+        try:
+            AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'],
+                            linked_tables=sorted(structure[key]['linked_tables']),
+                            table_images=sorted(structure[key]['table_images']),
+                            supplementary_files=sorted(structure[key]['supplementary_files']), trainedData=trained_data)
 
-        out_dir = structure[key]['out_dir']
-        if not os.path.exists(out_dir):
-            os.mkdir(out_dir)
-        if structure[key]["main_text"]:
-            key = key.replace('\\', '/')
-            if output_format.lower() == "json":
-                with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
-                    outfp.write(AC.main_text_to_bioc_json())
-            else:
-                with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w", encoding='utf-8') as outfp:
-                    outfp.write(AC.main_text_to_bioc_xml())
-            with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w", encoding='utf-8') as outfp:
-                outfp.write(AC.abbreviations_to_bioc_json())
+            out_dir = structure[key]['out_dir']
+            if not os.path.exists(out_dir):
+                os.mkdir(out_dir)
+            if structure[key]["main_text"]:
+                key = key.replace('\\', '/')
+                if output_format.lower() == "json":
+                    with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
+                        outfp.write(AC.main_text_to_bioc_json())
+                else:
+                    with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w", encoding='utf-8') as outfp:
+                        outfp.write(AC.main_text_to_bioc_xml())
+                with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w", encoding='utf-8') as outfp:
+                    outfp.write(AC.abbreviations_to_bioc_json())
 
-        # AC does not support the conversion of tables or abbreviations to the XML format
-        if AC.has_tables:
-            with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w", encoding='utf-8') as outfp:
-                outfp.write(AC.tables_to_bioc_json())
-        success.append(F"{key} was processed successfully.")
-        # except Exception as e:
-        #     errors.append(F"{key} failed due to {e}.")
-        #     error_occurred = True
+            # AC does not support the conversion of tables or abbreviations to the XML format
+            if AC.has_tables:
+                with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w", encoding='utf-8') as outfp:
+                    outfp.write(AC.tables_to_bioc_json())
+            success.append(F"{key} was processed successfully.")
+        except Exception as e:
+            errors.append(F"{key} failed due to {e}.")
+            error_occurred = True
 
     log_file.write(F"{len(success)} files processed.\n")
     log_file.write(F"{len(errors)} files not processed due to errors.\n\n\n")

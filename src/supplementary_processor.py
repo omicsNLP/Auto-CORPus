@@ -10,7 +10,7 @@ spreadsheet_extensions = [".csv", ".xls", ".xlsx"]
 supplementary_types = word_extensions + spreadsheet_extensions + [".pdf"]
 
 
-def __extract_word_data(locations):
+def __extract_word_data(locations=None, file=None):
     """
     Extracts data from Word documents located at the given file locations.
 
@@ -25,22 +25,26 @@ def __extract_word_data(locations):
         None
 
     """
-    word_locations = [locations[x]["locations"] for x in word_extensions if locations[x]["locations"]]
-    temp = []
-    for x in word_locations:
-        if not type(x) == list:
-            temp.append(x)
-        else:
-            for y in x:
-                temp.append(y)
-    word_locations = temp
-    # Iterate over the file locations of Word documents
-    for file in word_locations:
-        # Process the Word document using a custom word_extractor
+    if locations:
+        word_locations = [locations[x]["locations"] for x in word_extensions if locations[x]["locations"]]
+        temp = []
+        for x in word_locations:
+            if not type(x) == list:
+                temp.append(x)
+            else:
+                for y in x:
+                    temp.append(y)
+        word_locations = temp
+        # Iterate over the file locations of Word documents
+        for x in word_locations:
+            # Process the Word document using a custom word_extractor
+            word_extractor.process_word_document(x)
+
+    if file:
         word_extractor.process_word_document(file)
 
 
-def __extract_pdf_data(locations):
+def __extract_pdf_data(locations=None, file=None):
     """
     Extracts data from PDF documents located at the given file locations.
 
@@ -55,14 +59,17 @@ def __extract_pdf_data(locations):
         None
 
     """
-    pdf_locations = locations[".pdf"]["locations"]
-    # Iterate over the file locations of PDF documents
-    for file in pdf_locations:
-        # Process the PDF document using a custom pdf_extractor
+    if locations:
+        pdf_locations = locations[".pdf"]["locations"]
+        # Iterate over the file locations of PDF documents
+        for x in pdf_locations:
+            # Process the PDF document using a custom pdf_extractor
+            pdf_extractor.process_pdf(x)
+    if file:
         pdf_extractor.process_pdf(file)
 
 
-def __extract_spreadsheet_data(locations):
+def __extract_spreadsheet_data(locations=None, file=None):
     """
     Extracts data from Spreadsheet documents located at the given file locations.
 
@@ -73,15 +80,44 @@ def __extract_spreadsheet_data(locations):
                 - 'total' (int): The total count of Spreadsheet documents with the extension.
                 - 'locations' (list): A list of paths to the locations of Spreadsheet documents.
 
+        file (str): A string containing a spreadsheet file path to process.
+
     Returns:
         None
 
     """
-    spreadsheet_locations = [locations[x]["locations"] for x in spreadsheet_extensions]
-    # Iterate over the file locations of Spreadsheet documents
-    for file in spreadsheet_locations:
-        # Process the PDF document using a custom excel_extractor
+    if locations:
+        spreadsheet_locations = [locations[x]["locations"] for x in spreadsheet_extensions]
+        # Iterate over the file locations of Spreadsheet documents
+        for x in spreadsheet_locations:
+            # Process the PDF document using a custom excel_extractor
+            excel_extractor.process_spreadsheet(x)
+    if file:
         excel_extractor.process_spreadsheet(file)
+
+
+def process_supplementary_files(supplementary_files):
+    """
+    Processes input list of file paths as supplementary data.
+
+    Args:
+        supplementary_files (list): List of file paths
+    """
+    for file in supplementary_files:
+        if not os.path.exists(file) or os.path.isdir(file):
+            continue
+
+        # Extract data from Word files if they are present
+        if [1 for x in word_extensions if file.endswith(x)]:
+            __extract_word_data(file=file)
+
+        # Extract data from PDF files if they are present
+        elif file.endswith("pdf"):
+            __extract_pdf_data(file=file)
+
+        # Extract data from spreadsheet files if they are present
+        elif [1 for x in spreadsheet_extensions if file.endswith(x)]:
+            __extract_spreadsheet_data(file=file)
 
 
 def generate_file_report(input_directory):

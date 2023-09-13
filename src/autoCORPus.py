@@ -335,14 +335,14 @@ class autoCORPus:
             return
 
     def __init__(self, config_path, base_dir=None, main_text=None, linked_tables=None, table_images=None,
-                 associated_data_path=None, trainedData=None):
+                 supplementary_files=None, trainedData=None):
         '''
 
         :param config_path: path to the config file to be used
         :param file_path: path to the main text of the article (HTML files only)
         :param linked_tables: list of linked table file paths to be included in this run (HTML files only)
         :param table_images: list of table image file paths to be included in this run (JPEG or PNG files only)
-        :param associated_data_path: this still needs sorting
+        :param supplementary_files: this still needs sorting
         '''
         # handle common
         config = self.__read_config(config_path)
@@ -362,10 +362,6 @@ class autoCORPus:
                 self.abbreviations = abbreviations(self.main_text, soup, config, self.file_path).to_dict()
             except Exception as e:
                 print(e)
-            # Check for supplementary files
-            supplementary_dir = self.file_path.replace(".html", "")
-            if os.path.isdir(supplementary_dir):
-                supplementary_processor.generate_file_report(supplementary_dir)
 
         if linked_tables:
             for table_file in linked_tables:
@@ -373,6 +369,9 @@ class autoCORPus:
         # Disabled image processing for now
         # if table_images:
         #     self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()
+        if supplementary_files:
+            supplementary_processor.process_supplementary_files(supplementary_files)
+
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
