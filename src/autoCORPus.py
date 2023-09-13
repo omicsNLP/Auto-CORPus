@@ -370,8 +370,9 @@ class autoCORPus:
         if linked_tables:
             for table_file in linked_tables:
                 soup = self.__handle_html(table_file, config)
-        if table_images:
-            self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()
+        # Disabled image processing for now
+        # if table_images:
+        #     self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
