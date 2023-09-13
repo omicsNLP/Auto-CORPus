@@ -223,19 +223,11 @@ def extract_tables(doc):
     # Open the .docx file
     tables = []
     # Iterate through the tables in the document
-    for t in range(len(doc.tables)):
+    for table in doc.tables:
         tables.append([])
-        table = doc.tables[t]
         # Iterate through the rows in the table
-        for r in range(len(table.rows)):
-            tables[t].append([])
-            row = table.rows[r]
-            # Iterate through the cells in the row
-            try:
-                for c in range(len(row.cells)):
-                    tables[t][r].append(row.cells[c].text)
-            except IndexError:
-                tables[t][r].append("")
+        for row in table.rows:
+            tables[-1].append([x.text for x in row.cells])
     return tables
 
 
