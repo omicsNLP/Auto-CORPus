@@ -98,8 +98,8 @@ def read_file_structure(file_path, target_dir):
             # turn the 3d file structure into a flat 2d list of file paths
             for fpath in all_fpaths:
                 tmp_out = fpath.replace(omit_dir, "")
-                tmp_out = "/".join(tmp_out.split("/")[:-1])
-                out_dir = target_dir + tmp_out
+                tmp_out = os.path.basename(os.path.dirname(tmp_out))
+                out_dir = os.path.join(target_dir, tmp_out) if tmp_out else target_dir
                 ftype = get_file_type(fpath)
                 base_file = None
                 if ftype == "directory":
