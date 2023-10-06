@@ -1,3 +1,4 @@
+import json
 import os.path
 
 import file_extension_analysis
@@ -63,10 +64,23 @@ def __extract_pdf_data(locations=None, file=None):
         pdf_locations = locations[".pdf"]["locations"]
         # Iterate over the file locations of PDF documents
         for x in pdf_locations:
+            base_dir, file_name = os.path.split(x)
             # Process the PDF document using a custom pdf_extractor
-            pdf_extractor.process_pdf(x)
+            tables, text = pdf_extractor.process_pdf(x)
+            if tables:
+                # Write the extracted tables to a JSON file
+                with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
+                    tables, text = pdf_extractor.convert_pdf_result(tables, text, x)
+                    json.dump(tables, f_out, indent=4)
     if file:
-        pdf_extractor.process_pdf(file)
+        base_dir, file_name = os.path.split(file)
+        # Process the PDF document using a custom pdf_extractor
+        tables, text = pdf_extractor.process_pdf(file)
+        if tables:
+            # Write the extracted tables to a JSON file
+            with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
+                text, tables = pdf_extractor.convert_pdf_result(tables, text, file)
+                json.dump(tables, f_out, indent=4)
 
 
 def __extract_spreadsheet_data(locations=None, file=None):
@@ -90,10 +104,27 @@ def __extract_spreadsheet_data(locations=None, file=None):
         spreadsheet_locations = [locations[x]["locations"] for x in spreadsheet_extensions]
         # Iterate over the file locations of Spreadsheet documents
         for x in spreadsheet_locations:
+            base_dir, file_name = os.path.split(x)
             # Process the PDF document using a custom excel_extractor
-            excel_extractor.process_spreadsheet(x)
+            tables = excel_extractor.process_spreadsheet(x)
+            # If tables are extracted
+            if tables:
+                # Create a JSON output file for the extracted tables
+                with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
+                    # Generate BioC format representation of the tables
+                    json_output = excel_extractor.get_tables_bioc(tables, x)
+                    json.dump(json_output, f_out, indent=4)
     if file:
-        excel_extractor.process_spreadsheet(file)
+        base_dir, file_name = os.path.split(file)
+        # Process the PDF document using a custom excel_extractor
+        tables = excel_extractor.process_spreadsheet(file)
+        # If tables are extracted
+        if tables:
+            # Create a JSON output file for the extracted tables
+            with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
+                # Generate BioC format representation of the tables
+                json_output = excel_extractor.get_tables_bioc(tables, file)
+                json.dump(json_output, f_out, indent=4)
 
 
 def process_supplementary_files(supplementary_files):
