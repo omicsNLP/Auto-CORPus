@@ -1,6 +1,8 @@
 import datetime
 import json
 import os
+import platform
+import subprocess
 from os.path import join
 import logging
 from docx import Document
@@ -230,6 +232,23 @@ def extract_tables(doc):
             tables[-1].append([x.text for x in row.cells])
     return tables
 
+def convert_older_doc_file(file):
+    operating_system = platform.system()
+    if operating_system == "Windows":
+        import win32com.client
+        try:
+            word = win32com.client.Dispatch("Word.Application")
+            doc = word.Documents.Open(file)
+            doc.SaveAs(file + ".docx", 16)
+            return True
+        except Exception as e:
+            return False
+    elif operating_system == "linux":
+        subprocess.call(['unoconv', '-d', 'document', '--format=docx', file])
+        return True
+    elif operating_system == "mac":
+        pass
+
 
 def process_word_document(file):
     """
@@ -255,7 +274,15 @@ def process_word_document(file):
             paragraphs = [(x.text, True if text_sizes and x.style.font.size and int(x.style.font.size) > min(
                 text_sizes) else False) for x in doc.paragraphs]
         except ValueError:
-            logging.info(F"File {file} could not be processed correctly. It is likely a pre-2007 word document.")
+            if not file.endswith(".docx"):
+                conversion_check = convert_older_doc_file(file)
+                if conversion_check:
+                    logging.info(F"File {file} was converted to .docx as a copy within the same directory for processing.")
+                    process_word_document(file + ".docx")
+                else:
+                    logging.info(F"File {file} could not be processed correctly. It is likely a pre-2007 word document or problematic.")
+            else:
+                logging.info(F"File {file} could not be processed correctly.")
         except Exception as ex:
             logging.info(F"File {file} raised the error:\n{ex}")
     else:
