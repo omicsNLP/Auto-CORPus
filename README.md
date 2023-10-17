@@ -12,10 +12,11 @@ If you wish to contribute or edit a config file then please follow the instructi
 
 Auto-CORPus is able to parse HTML from different publishers, which utilise different HTML structures and naming conventions. This is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied a config template along with example config files for [PubMed Central](configs/config_pmc.json), [Plos Genetics](configs/config_plos_genetics.json) and [Nature Genetics](configs/config_nature_genetics.json) in the [configs](configs) directory. Documentation on how to create and modify config files is available within the [Tutorial](Tutorial) directory. Users of Auto-CORPus can submit their own config files for different sources via the [issues](https://github.com/omicsNLP/Auto-CORPus/issues) tab.
 
-**Auto-CORPus recognises 2 types of input file which are:**
+**Auto-CORPus recognises 3 categories of input file which are:**
 
 - Full text HTML documents covering the entire article
 - HTML files which describe a single table
+- Supplementary files (PDF, Word, Spreadsheets) within a folder named e.g PMC123_supplementary
 
 Current work in progress is extending this to include images of tables. See the [Alpha Testing](#alpha) section below.
 
@@ -40,7 +41,10 @@ Auto-CORPus will first group files based on common elements in their file name {
     /subdir
         PMC1_table_3.html
         PMC1_table_4.html
-
+    /PMC1_supplementary
+        /PMC1_data_fileA.docx
+        /PMC1_data_fileB.pdf
+        /PMC1_data_fileC.xlsx
 **Output:**
 
     PMC1_bioc.json
@@ -48,6 +52,13 @@ Auto-CORPus will first group files based on common elements in their file name {
     PMC1_tables.json (contains table 1 & 2 and any tables described within the main text)
     /subdir
         PMC1_tables.json (contains tables 3 & 4 only)
+    /PMC1_supplementary
+        /PMC1_data_fileA_bioc.docx.json
+        /PMC1_data_fileB_bioc.pdf.json
+        /PMC1_data_fileC_bioc.xlsx.json
+        /PMC1_data_fileA_tables_bioc.docx.json
+        /PMC1_data_fileB_tables_bioc.pdf.json
+        /PMC1_data_fileC_tables_bioc.xlsx.json
    
 A log file is produced in the output directory providing details of the day/time Auto-CORPus was run,
 the arguments used and information about which files were successfully/unsuccessfully processed with a relevant error message.

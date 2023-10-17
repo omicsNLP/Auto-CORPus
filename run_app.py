@@ -8,7 +8,31 @@ from os.path import exists
 
 from tqdm import tqdm
 
-from src.AutoCorpus import AutoCorpus
+import supplementary_processor
+from src.autoCORPus import autoCORPus
+from supplementary_processor import supplementary_types
+
+parser = argparse.ArgumentParser(prog='PROG')
+parser.add_argument('-f', '--filepath', type=str, help="filepath for document/directory to run AC on")
+parser.add_argument('-t', '--target_dir', type=str, help="target directory")  # default autoCORPusOutput
+parser.add_argument('-a', '--associated_data', type=str, help="directory of associated data")
+parser.add_argument('-o', '--output_format', type=str,
+                    help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations")
+parser.add_argument('-s', '--trained_data_set', type=str,
+                    help="trained dataset to use with pytesseract, must be in the form pytesseract expects for the lang argument, default eng")
+
+group = parser.add_mutually_exclusive_group()
+group.add_argument("-c", "--config", type=str, help="filepath for configuration JSON file")
+group.add_argument("-d", "--config_dir", type=str, help="directory of configuration JSON files")
+
+args = parser.parse_args()
+file_path = args.filepath
+target_dir = args.target_dir if args.target_dir else "autoCORPus_output"
+config = args.config
+config_dir = args.config_dir
+associated_data = args.associated_data
+output_format = args.output_format if args.output_format else "JSON"
+trained_data = args.trained_data_set if args.output_format else "eng"
 
 
 def get_file_type(file_path):
@@ -26,7 +50,9 @@ def get_file_type(file_path):
     elif imghdr.what(file_path):
         # imghdr returns the type of image a file is (png/jpeg etc. or None if not an image)
         # this should be tidied up to only include the image types which are supported by AC instead of any image files
-        return "table_images"
+        return ("table_images")
+    elif [file_path.endswith(x) for x in supplementary_types]:
+        return ("supplementary_files")
     else:
         print(F"unable to identify file type for {file_path}, file will not be processed")
 
@@ -52,6 +78,7 @@ def fill_structure(structure, key, ftype, fpath):
             "out_dir": "",
             "linked_tables": [],
             "table_images": [],
+            "supplementary_files": []
         }
     if ftype == "main_text" or ftype == "out_dir":
         structure[key][ftype] = fpath
@@ -81,8 +108,8 @@ def read_file_structure(file_path, target_dir):
             # turn the 3d file structure into a flat 2d list of file paths
             for fpath in all_fpaths:
                 tmp_out = fpath.replace(omit_dir, "")
-                tmp_out = "/".join(tmp_out.split("/")[:-1])
-                out_dir = target_dir + tmp_out
+                tmp_out = os.path.basename(os.path.dirname(tmp_out))
+                out_dir = os.path.join(target_dir, tmp_out) if tmp_out else target_dir
                 ftype = get_file_type(fpath)
                 base_file = None
                 regex_string = r""
@@ -93,10 +120,15 @@ def read_file_structure(file_path, target_dir):
                 elif ftype == "linked_tables":
                     regex_string = r"_table_\d+\.html"
                 elif ftype == "table_images":
-                    regex_string = r"_table_\d+\..*"
-                if ftype:
-                    base_file = re.sub(regex_string, "", fpath)
-                    structure = fill_structure(structure, base_file, ftype, fpath)
+                    base_file = re.sub("_table_\d+\..*", "", fpath)
+                    structure = fill_structure(structure, base_file, 'table_images', fpath)
+                    structure = fill_structure(structure, base_file, 'out_dir', out_dir)
+                elif ftype == "supplementary_files":
+                    base_file = re.sub("_supp_\d+\..*", "", fpath)
+                    structure = fill_structure(structure, base_file, 'supplementary_files', fpath)
+                    structure = fill_structure(structure, base_file, 'out_dir', out_dir)
+                elif not ftype:
+                    print(F"cannot determine file type for {fpath}, AC will not process this file")
                 if base_file in structure:
                     structure = fill_structure(structure, base_file, 'out_dir', out_dir)
             return structure
@@ -149,42 +181,49 @@ def main():
     pbar = tqdm(structure.keys())
     cdate = datetime.now()
 
-    config = args.config
-    output_format = args.output_format if args.output_format else "JSON"
-    trained_data = args.trained_data_set if args.output_format else "eng"
-    if not os.path.exists(target_dir):
-        os.makedirs(target_dir)
-    log_file_name = F"{target_dir}/autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+config = args.config
+config_dir = args.config_dir
+associated_data = args.associated_data
+error_occurred = False
+output_format = args.output_format if args.output_format else "JSON"
+trained_data = args.trained_data_set if args.output_format else "eng"
+if not os.path.exists(target_dir):
+    os.makedirs(target_dir)
+logFileName = F"{target_dir}/autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
 
-    with open(log_file_name, "w") as log_file:
-        log_file.write(
-            F"Auto-CORPus log file from {cdate.hour}:{cdate.minute} on {cdate.day}/{cdate.month}/{cdate.year}\n")
-        log_file.write(F"Input directory provided: {file_path}\n")
-        log_file.write(F"Output directory provided: {target_dir}\n")
-        log_file.write(F"Config provided: {config}\n")
-        log_file.write(F"Output format: {output_format}\n")
-        success = []
-        errors = []
-        for key in pbar:
-            pbar.set_postfix(
-                {
-                    "file": key + "*",
-                    "linked_tables": len(structure[key]['linked_tables']),
-                    "table_images": len(structure[key]['table_images'])
-                }
-            )
-            if os.path.isdir(file_path):
-                base_dir = file_path
-            else:
-                base_dir = "/".join(file_path.split("/")[:-1])
-
-            ac = AutoCorpus(config, base_dir=base_dir, main_text=structure[key]['main_text'],
-                            table_images=sorted(structure[key]['table_images']), trained_data=trained_data)
+with open(logFileName, "w") as log_file:
+    log_file.write(F"Auto-CORPus log file from {cdate.hour}:{cdate.minute} on {cdate.day}/{cdate.month}/{cdate.year}\n")
+    log_file.write(F"Input directory provided: {file_path}\n")
+    log_file.write(F"Output directory provided: {target_dir}\n")
+    log_file.write(F"Config provided: {config}\n")
+    log_file.write(F"Output format: {output_format}\n")
+    success = []
+    errors = []
+    for key in pbar:
+        pbar.set_postfix(
+            {
+                "file": key + "*",
+                "linked_tables": len(structure[key]['linked_tables']),
+                "table_images": len(structure[key]['table_images']),
+                "supplementary_files": len(structure[key]['supplementary_files'])
+            }
+        )
+        if os.path.isdir(file_path):
+            base_dir = file_path
+        else:
+            base_dir = "/".join(file_path.split("/")[:-1])
+        try:
+            AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'],
+                            linked_tables=sorted(structure[key]['linked_tables']),
+                            table_images=sorted(structure[key]['table_images']),
+                            supplementary_files=sorted(structure[key]['supplementary_files']), trainedData=trained_data)
 
             out_dir = structure[key]['out_dir']
+            if not os.path.exists(out_dir):
+                os.mkdir(out_dir)
             if structure[key]["main_text"] and ac.main_text:
                 key = key.replace('\\', '/')
-                if output_format == "JSON":
+                if output_format.lower() == "json":
                     with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
                         outfp.write(ac.main_text_to_bioc_json())
                 else:
@@ -198,15 +237,13 @@ def main():
                 with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w", encoding='utf-8') as outfp:
                     outfp.write(ac.tables_to_bioc_json())
             success.append(F"{key} was processed successfully.")
+        except Exception as e:
+            errors.append(F"{key} failed due to {e}.")
+            error_occurred = True
 
-        log_file.write(F"{len(success)} files processed.\n")
-        log_file.write(F"{len(errors)} files not processed due to errors.\n\n\n")
-        log_file.write("\n".join(success) + "\n")
-        log_file.write("\n".join(errors) + "\n")
-        if errors:
-            print(
-                "Auto-CORPus has completed processing with some errors. Please inspect the log file for further details.")
-
-
-if __name__ == '__main__':
-    main()
+    log_file.write(F"{len(success)} files processed.\n")
+    log_file.write(F"{len(errors)} files not processed due to errors.\n\n\n")
+    log_file.write("\n".join(success) + "\n")
+    log_file.write("\n".join(errors) + "\n")
+    if error_occurred:
+        print("Auto-CORPus has completed processing with some errors. Please inspect the log file for further details.")

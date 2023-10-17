@@ -9,12 +9,15 @@ from bioc import loads, dumps, BioCFileType
 # noinspection PyUnresolvedReferences
 from bs4 import Comment, BeautifulSoup
 
+import supplementary_processor
 from src.abbreviation import Abbreviations
 from src.bioc_formatter import BiocFormatter
 from src.section import Section
 from src.table import TableParser
 from src.tableimage import TableImage
 from src.utils import handle_not_tables, assign_heading_by_dag
+
+import src.supplementary_processor
 
 
 def handle_path(func: callable) -> callable:
@@ -188,14 +191,27 @@ class AutoCorpus:
     @staticmethod
     def __set_unknown_section_headings(unique_text: list) -> list:
         paper = {}
-        for para in unique_text:
-            paper[para['section_heading']] = [x['iao_name'] for x in para['section_type']]
-        mapping_dict_with_dag = assign_heading_by_dag(paper)
-        for i, para in enumerate(unique_text):
-            if para['section_heading'] in mapping_dict_with_dag.keys():
-                if not para['section_type']:
-                    unique_text[i]['section_type'] = mapping_dict_with_dag[para['section_heading']]
-        return unique_text
+        for para in uniqueText:
+            if para['section_heading'] != 'keywords':
+                paper[para['section_heading']] = [x['iao_name'] for x in para['section_type']]
+
+        for text in uniqueText:
+            if not text["section_heading"]:
+                text["section_heading"] = "document part"
+                text["section_type"] = [
+                    {
+                        "iao_name": "document part",
+                        "iao_id": "IAO:0000314"
+                    }
+                ]
+
+        # uniqueText = [x for x in uniqueText if x['section_heading']]
+        # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
+        # for i, para in enumerate(uniqueText):
+        #     if para['section_heading'] in mapping_dict_with_DAG.keys():
+        #         if para['section_type'] == []:
+        #             uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
+        return uniqueText
 
     def __handle_html(self, file_path: str, config: dict) -> Union[BeautifulSoup, None]:
         """
@@ -320,16 +336,16 @@ class AutoCorpus:
         else:
             return
 
-    def __init__(self, config_path: object, base_dir: object = None, main_text: str = None,
-                 table_images: object = None, trained_data: object = None) -> None:
-        """
-        Args:
-            config_path: path to the config file to be used
-            base_dir: path to the main text of the article (HTML files only)
-            main_text: Publication text.
-            table_images: list of Table image file paths to be included in this run (JPEG or PNG files only)
-            trained_data:
-        """
+    def __init__(self, config_path, base_dir=None, main_text=None, linked_tables=None, table_images=None,
+                 supplementary_files=None, trainedData=None):
+        '''
+
+        :param config_path: path to the config file to be used
+        :param file_path: path to the main text of the article (HTML files only)
+        :param linked_tables: list of linked table file paths to be included in this run (HTML files only)
+        :param table_images: list of table image file paths to be included in this run (JPEG or PNG files only)
+        :param supplementary_files: this still needs sorting
+        '''
         # handle common
         config = self.__read_config(config_path)
         self.base_dir = base_dir
@@ -343,14 +359,21 @@ class AutoCorpus:
         # handle main_text
         if self.file_path:
             soup = self.__handle_html(self.file_path, config)
-            if soup:
-                self.main_text = self.__extract_text(soup, config)
-                try:
-                    self.abbreviations = Abbreviations(self.main_text, soup, self.file_path).to_dict()
-                except Exception as e:
-                    print(e)
-        if table_images:
-            self.tables = TableImage(table_images, self.base_dir, trained_data=trained_data).to_dict()
+            self.main_text = self.__extract_text(soup, config)
+            try:
+                self.abbreviations = abbreviations(self.main_text, soup, config, self.file_path).to_dict()
+            except Exception as e:
+                print(e)
+
+        if linked_tables:
+            for table_file in linked_tables:
+                soup = self.__handle_html(table_file, config)
+        # Disabled image processing for now
+        # if table_images:
+        #     self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()
+        if supplementary_files:
+            supplementary_processor.process_supplementary_files(supplementary_files)
+
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True

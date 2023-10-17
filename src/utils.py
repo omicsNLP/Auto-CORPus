@@ -4,19 +4,20 @@ import unicodedata
 
 import bs4
 import networkx as nx
-from bs4 import NavigableString
+from bs4 import NavigableString, Tag
 from lxml import etree
+from lxml.html.soupparser import fromstring
 
 
-def get_files(base_dir, pattern=r"(.*).html"):
+def get_files(base_dir, pattern=r'(.*).html'):
     """
     recursively retrieve all PMC.html files from the directory
 
-    Args: 
-        pattern: regex string for finding html file names
-        base_dir: base directory string
+    Args:
+        base_dir: base directory
+        pattern: file name filter REGEX pattern (default *.html)
 
-    Return: 
+    Return:
         file_list: a list of filepath
     """
     file_list = []
@@ -34,7 +35,7 @@ def process_supsub(soup):
     """
     add underscore (_) before all superscript or subscript text
 
-    Args: 
+    Args:
         soup: BeautifulSoup object of html
 
     """
@@ -55,7 +56,7 @@ def process_em(soup):
     remove all emphasized text
     No it doesn't, it just adds a space to it
 
-    Args: 
+    Args:
         soup: BeautifulSoup object of html
 
     """
@@ -97,15 +98,15 @@ def read_mapping_file():
     return mapping_dict
 
 
-def read_iao_term_to_id_file():
-    iao_term_to_no_dict = {}
+def read_IAO_term_to_ID_file():
+    IAO_term_to_no_dict = {}
     with open('src/IAO_dicts/IAO_term_to_ID.txt', 'r') as f:
         lines = f.readlines()
         for line in lines:
-            iao_term = line.split('\t')[0]
-            iao_no = line.split('\t')[1].strip('\n')
-            iao_term_to_no_dict.update({iao_term: iao_no})
-    return iao_term_to_no_dict
+            IAO_term = line.split('\t')[0]
+            IAO_no = line.split('\t')[1].strip('\n')
+            IAO_term_to_no_dict.update({IAO_term: IAO_no})
+    return IAO_term_to_no_dict
 
 
 def config_anchors(value):
@@ -168,6 +169,18 @@ def parse_configs(definition):
     return bsAttrs
 
 
+def recursively_strip_strings(tag):
+    """
+    Remove leading and trailing whitespace & newline characters from soup tags recursively.
+    tag: BeautifulSoup tag or NavigableString
+    """
+    for child in tag.contents:
+        if isinstance(child, Tag):
+            recursively_strip_strings(child)
+        elif isinstance(child, str):
+            child.replace_with(child.strip())
+
+
 def handle_defined_by(config, soup):
     '''
 	:param config: config file section used to parse
@@ -194,10 +207,12 @@ def handle_defined_by(config, soup):
         new_matches = []
         if bsAttrs["name"] or bsAttrs["attrs"]:
             new_matches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
+            if new_matches:
+                new_matches = [x for x in new_matches if x.text]
         if "xpath" in bsAttrs:
             if type(bsAttrs["xpath"]) == list:
                 for path in bsAttrs["xpath"]:
-                    xpath_matches = etree.fromstring(str(soup)).xpath(path)
+                    xpath_matches = fromstring(str(soup)).xpath(path)
                     if xpath_matches:
                         for new_match in xpath_matches:
                             new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"),
@@ -205,7 +220,7 @@ def handle_defined_by(config, soup):
                             if new_match.text.strip():
                                 new_matches.extend(new_match)
             else:
-                xpath_matches = etree.fromstring(str(soup)).xpath(bsAttrs["xpath"])
+                xpath_matches = fromstring(str(soup)).xpath(bsAttrs["xpath"])
                 if xpath_matches:
                     for new_match in xpath_matches:
                         new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"),
@@ -220,13 +235,51 @@ def handle_defined_by(config, soup):
             else:
                 seen_text.append(matched_text)
                 matches.append(match)
+
+    # clean up the match texts
+    # currently unused due to unexpected removal of outputs
+    # for tag in matches:
+    #     recursively_strip_strings(tag)
     return matches
+
+
+def rearrange_segmented_elements(tag_list, seperator_tag):
+    """
+    Creates a new structure for problematic matches returned containing no complete section containers.
+    New structure will group repeated tag patterns together into sections based on the input seperator_tag string.
+    :param tag_list: list of matches (tag objects)
+	:param seperator_tag: HTML tag name (string)
+	:return: List of Tag objects (list)
+    """
+    parent_tags = []  # List to store the parent tags
+
+    current_parent = None  # Variable to store the current parent tag
+
+    for tag in tag_list:
+        if tag.name == seperator_tag:
+            # If the current tag is a seperator tag, create a new parent tag
+            current_parent = Tag(name='div')
+            current_parent.append(tag)
+            parent_tags.append(current_parent)
+        elif current_parent is not None:
+            # If the current tag is not an <h2> tag and a parent tag exists
+            current_parent.append(tag)
+
+    return parent_tags
 
 
 def handle_not_tables(config, soup):
     responses = []
     matches = handle_defined_by(config, soup)
+    # check layout of publication structure
+    # segmented layout is sibling elements throughout rather than containers for each section.
+    is_segmented_layout = False
+    type_count = len(set([x.name for x in matches]))
+    if type_count > 1:
+        is_segmented_layout = True
     if "data" in config:
+        if is_segmented_layout:
+            matches = rearrange_segmented_elements(matches, matches[0].name)
         for match in matches:
             response_addition = {
                 "node": match
@@ -234,11 +287,11 @@ def handle_not_tables(config, soup):
             for ele in config['data']:
                 seen_text = set()
                 for definition in config['data'][ele]:
-                    bs_attrs = parse_configs(definition)
-                    new_matches = match.find_all(bs_attrs['name'], bs_attrs['attrs'])
-                    if new_matches:
-                        response_addition[ele] = []
-                    for newMatch in new_matches:
+                    bsAttrs = parse_configs(definition)
+                    newMatches = match.find_all(definition["tag"], bsAttrs['attrs'])
+                    if newMatches:
+                        responseAddition[ele] = []
+                    for newMatch in newMatches:
                         if newMatch.get_text() in seen_text:
                             continue
                         else:
@@ -322,8 +375,8 @@ def handle_tables(config, soup):
     return responses
 
 
-def assign_heading_by_dag(paper):
-    g = nx.read_graphml('src/DAG_model.graphml')
+def assgin_heading_by_DAG(paper):
+    G = nx.read_graphml('src/DAG_model.graphml')
     new_mapping_dict = {}
     mapping_dict_with_dag = {}
     iao_term_to_no_dict = read_iao_term_to_id_file()
@@ -363,40 +416,40 @@ def assign_heading_by_dag(paper):
                         i2 += 1
 
             if previous_section != "Start of the article" and next_section != "End of the article":
-                if nx.has_path(g, paper[previous_heading][-1], paper[next_heading][0]):
+                try:
                     paths = nx.all_shortest_paths(
-                        g, paper[previous_heading][-1], paper[next_heading][0], weight='cost')
+                        G, paper[previous_heading][-1], paper[next_heading][0], weight='cost')
                     for path in paths:
                         if len(path) <= 2:
-                            mapping_dict_with_dag.update({heading: [path[0]]})
+                            mapping_dict_with_DAG.update({heading: [path[0]]})
                         if len(path) > 2:
-                            mapping_dict_with_dag.update({heading: path[1:-1]})
-                else:
+                            mapping_dict_with_DAG.update({heading: path[1:-1]})
+                except:
                     new_target = paper[list(paper.keys())[i + i2 + 1]][0]
                     paths = nx.all_shortest_paths(
-                        g, paper[previous_heading][-1], new_target, weight='cost')
+                        G, paper[previous_heading][-1], new_target, weight='cost')
                     for path in paths:
                         if len(path) == 2:
-                            mapping_dict_with_dag.update({heading: [path[0]]})
+                            mapping_dict_with_DAG.update({heading: [path[0]]})
                         if len(path) > 2:
-                            mapping_dict_with_dag.update({heading: path[1:-1]})
+                            mapping_dict_with_DAG.update({heading: path[1:-1]})
 
             if next_section == "End of the article":
-                mapping_dict_with_dag.update({heading: [previous_section[-1]]})
+                mapping_dict_with_DAG.update({heading: [previous_section[-1]]})
 
-            for new_heading in mapping_dict_with_dag.keys():
-                new_sec_type = []
-                for secType in mapping_dict_with_dag[new_heading]:
-                    if secType in iao_term_to_no_dict.keys():
-                        mapping_result_id_version = iao_term_to_no_dict[secType]
+            for heading in mapping_dict_with_DAG.keys():
+                newSecType = []
+                for secType in mapping_dict_with_DAG[heading]:
+                    if secType in IAO_term_to_no_dict.keys():
+                        mapping_result_ID_version = IAO_term_to_no_dict[secType]
                     else:
-                        mapping_result_id_version = ''
-                    new_sec_type.append({
+                        mapping_result_ID_version = ''
+                    newSecType.append({
                         "iao_name": secType,
-                        "iao_id": mapping_result_id_version
+                        "iao_id": mapping_result_ID_version
                     })
 
-                new_mapping_dict[new_heading] = new_sec_type
+                new_mapping_dict[heading] = newSecType
     return new_mapping_dict
 
 

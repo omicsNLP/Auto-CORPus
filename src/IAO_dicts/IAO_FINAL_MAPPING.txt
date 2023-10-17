@@ -8,7 +8,7 @@ abbreviations list	abbreviations section
 abbreviations used	abbreviations section
 abbreviations used in this paper	abbreviations section
 abstract	textual abstract section
-accession numbers	
+accession	numbers
 acknowledgement	acknowledgements section
 acknowledgements	acknowledgements section
 acknowledgment	acknowledgements section
@@ -29,7 +29,7 @@ appendix a.  supplementary data	supplementary material section
 appendix a. supplementary data	supplementary material section
 appendix. authors	supplementary material section
 article highlights	highlights section
-article information	
+article	information
 associated data	associated data section
 author contribution (in alphabetic order)	author contributions section
 author contributions	author contributions section
