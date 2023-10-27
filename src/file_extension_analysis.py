@@ -168,7 +168,7 @@ def get_file_extensions(folder_path):
                 extensions[file_extension]['locations'].append(location)
 
             # Check if the file is an archive and retrieve additional extensions
-            new_extensions = []
+            new_extensions = {}
             if file_extension in zip_extensions:
                 new_extensions = search_zip(os.path.join(root, file))
             elif file_extension in tar_extensions:
@@ -206,7 +206,7 @@ def build_data_rows(structure):
         # Iterate over the extensions for each file
         for extension in structure[file].keys():
             # Check if the value associated with the extension is an integer
-            if type(structure[file][extension]) == int:
+            if type(structure[file][extension]) is int:
                 # If it is an integer, add a data row with the file name,
                 # extension, and the integer value to the data table
                 data_table.append([file, extension, structure[file][extension]])

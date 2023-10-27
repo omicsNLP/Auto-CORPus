@@ -7,7 +7,7 @@ import word_extractor
 import excel_extractor
 
 word_extensions = [".doc", ".docx"]
-spreadsheet_extensions = [".csv", ".xls", ".xlsx"]
+spreadsheet_extensions = [".csv", ".xls", ".xlsx", ".tsv"]
 supplementary_types = word_extensions + spreadsheet_extensions + [".pdf"]
 
 
@@ -30,7 +30,7 @@ def __extract_word_data(locations=None, file=None):
         word_locations = [locations[x]["locations"] for x in word_extensions if locations[x]["locations"]]
         temp = []
         for x in word_locations:
-            if not type(x) == list:
+            if not type(x) is list:
                 temp.append(x)
             else:
                 for y in x:
@@ -43,6 +43,13 @@ def __extract_word_data(locations=None, file=None):
 
     if file:
         word_extractor.process_word_document(file)
+
+
+def __output_pdf_tables(base_dir, file_name, tables, text, file):
+    # Write the extracted tables to a JSON file
+    with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
+        tables, text = pdf_extractor.convert_pdf_result(tables, text, file)
+        json.dump(tables, f_out, indent=4)
 
 
 def __extract_pdf_data(locations=None, file=None):
@@ -68,19 +75,22 @@ def __extract_pdf_data(locations=None, file=None):
             # Process the PDF document using a custom pdf_extractor
             tables, text = pdf_extractor.process_pdf(x)
             if tables:
-                # Write the extracted tables to a JSON file
-                with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
-                    tables, text = pdf_extractor.convert_pdf_result(tables, text, x)
-                    json.dump(tables, f_out, indent=4)
+                __output_pdf_tables(base_dir, file_name, tables, text, x)
+
     if file:
         base_dir, file_name = os.path.split(file)
         # Process the PDF document using a custom pdf_extractor
         tables, text = pdf_extractor.process_pdf(file)
         if tables:
-            # Write the extracted tables to a JSON file
-            with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
-                text, tables = pdf_extractor.convert_pdf_result(tables, text, file)
-                json.dump(tables, f_out, indent=4)
+            __output_pdf_tables(base_dir, file_name, tables, text, file)
+
+
+def __output_spreadsheet_data(base_dir, file_name, tables, file):
+    # Create a JSON output file for the extracted tables
+    with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
+        # Generate BioC format representation of the tables
+        json_output = excel_extractor.get_tables_bioc(tables, file)
+        json.dump(json_output, f_out, indent=4)
 
 
 def __extract_spreadsheet_data(locations=None, file=None):
@@ -109,22 +119,15 @@ def __extract_spreadsheet_data(locations=None, file=None):
             tables = excel_extractor.process_spreadsheet(x)
             # If tables are extracted
             if tables:
-                # Create a JSON output file for the extracted tables
-                with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
-                    # Generate BioC format representation of the tables
-                    json_output = excel_extractor.get_tables_bioc(tables, x)
-                    json.dump(json_output, f_out, indent=4)
+                __output_spreadsheet_data(base_dir, file_name, tables, x)
+
     if file:
         base_dir, file_name = os.path.split(file)
         # Process the PDF document using a custom excel_extractor
         tables = excel_extractor.process_spreadsheet(file)
         # If tables are extracted
         if tables:
-            # Create a JSON output file for the extracted tables
-            with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
-                # Generate BioC format representation of the tables
-                json_output = excel_extractor.get_tables_bioc(tables, file)
-                json.dump(json_output, f_out, indent=4)
+            __output_spreadsheet_data(base_dir, file_name, tables, file)
 
 
 def process_supplementary_files(supplementary_files):

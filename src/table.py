@@ -380,7 +380,7 @@ class TableBioc:
     def flatten_documents(docs: list) -> list:
         new_docs = []
         for doc in docs:
-            if type(doc) == list:
+            if type(doc) is list:
                 new_docs += doc
             else:
                 new_docs.append(doc)
@@ -546,7 +546,7 @@ class Table:
                     cur_table.add_passage(Infons.TYPE_CAPTION, TablePassage, caption)
                 # rare case of tables with an image as the header row
                 if not cur_header:
-                    cur_header = Table.__create_headers(["" for x in range(len(row))], split_table_identifier + 1)
+                    cur_header = Table.__create_headers(["" for _ in range(len(row))], split_table_identifier + 1)
                 cur_table.add_table_content_passage(cur_header)
                 tables.append(cur_table)
                 prev_table = cur_table

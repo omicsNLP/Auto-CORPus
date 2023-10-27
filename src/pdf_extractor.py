@@ -11,6 +11,8 @@ from bioc import BioCCollection, BioCDocument, BioCPassage
 import pdfplumber
 import logging
 
+from utils import BioCTable
+
 logging.basicConfig(filename="PDFExtractor.log", level=logging.ERROR, format="%(asctime)s - %(levelname)s - %("
                                                                              "message)s")
 
@@ -23,96 +25,6 @@ plumber_config = {
     "vertical_strategy": "text",
     "horizontal_strategy": "lines"
 }
-
-
-class BioCTable:
-    """
-    Converts tables from nested lists into a BioC table object.
-    """
-
-    def __init__(self, input_file, table_id, table_data):
-        self.inputfile = input_file
-        self.id = str(table_id) + "_1"
-        self.infons = {}
-        self.passages = []
-        self.annotations = []
-        self.__build_table(table_data)
-
-    def __build_table(self, table_data):
-        """
-        Builds a table passage in a specific format and appends it to the list of passages.
-
-        Args:
-            table_data (pandas.DataFrame): The table data to be included in the passage.
-
-        Returns:
-            None
-
-        Example:
-            table_data = pandas.DataFrame(
-                [["A", "B", "C"], [1, 2, 3]],
-                columns=["Column 1", "Column 2", "Column 3"]
-            )
-            self.__build_table(table_data)
-        """
-        # Create the title passage and append it to the list of passages
-        title_passage = {
-            "offset": 0,
-            "infons": {
-                "section_title_1": "table_title",
-                "iao_name_1": "document title",
-                "iao_id_1": "IAO:0000305"
-            },
-        }
-        self.passages.append(title_passage)
-        # Create the caption passage and append it to the list of passages
-        caption_passage = {
-            "offset": 0,
-            "infons": {
-                "section_title_1": "table_caption",
-                "iao_name_1": "caption",
-                "iao_id_1": "IAO:0000304"
-            },
-        }
-        self.passages.append(caption_passage)
-        # Create the passage containing the table content
-        passage = {
-            "offset": 0,
-            "infons": {
-                "section_title_1": "table_content",
-                "iao_name_1": "table",
-                "iao_id_1": "IAO:0000306"
-            },
-            "column_headings": [],
-            "data_section": [
-                {
-                    "table_section_title_1": "",
-                    "data_rows": [
-
-                    ]
-                }
-            ]
-        }
-        # Process the column headings of the table
-        for i, text in enumerate(table_data.columns.values):
-            passage["column_headings"].append(
-                {
-                    "cell_id": self.id + F".1.{i + 1}",
-                    "cell_text": replace_unicode(text)
-                }
-            )
-        # Process the data rows of the table
-        for row_idx, row in enumerate(table_data.values):
-            new_row = []
-            for cell_idx, cell in enumerate(row):
-                new_cell = {
-                    "cell_id": F"{self.id}.{row_idx + 2}.{cell_idx + 1}",
-                    "cell_text": F"{replace_unicode(cell)}"
-                }
-                new_row.append(new_cell)
-            passage["data_section"][0]["data_rows"].append(new_row)
-        # Append the table passage to the list of passages
-        self.passages.append(passage)
 
 
 def get_tables_bioc(tables, filename):
@@ -490,7 +402,6 @@ def validate_bounding_box(page, bbox):
 
     # Return the validated bounding box coordinates tuple
     return validated_bbox
-
 
 
 def get_best_plumber_config(page):

@@ -2,11 +2,10 @@ import argparse
 import json
 import os
 import sys
-# noinspection PyProtectedMember
 from typing import Union
 
+# noinspection PyProtectedMember
 from bioc import loads, dumps, BioCFileType
-# noinspection PyUnresolvedReferences
 from bs4 import Comment, BeautifulSoup
 
 import supplementary_processor
@@ -14,10 +13,7 @@ from src.abbreviation import Abbreviations
 from src.bioc_formatter import BiocFormatter
 from src.section import Section
 from src.table import TableParser
-from src.tableimage import TableImage
-from src.utils import handle_not_tables, assign_heading_by_dag
-
-import src.supplementary_processor
+from src.utils import handle_not_tables
 
 
 def handle_path(func: callable) -> callable:
@@ -191,11 +187,11 @@ class AutoCorpus:
     @staticmethod
     def __set_unknown_section_headings(unique_text: list) -> list:
         paper = {}
-        for para in uniqueText:
+        for para in unique_text:
             if para['section_heading'] != 'keywords':
                 paper[para['section_heading']] = [x['iao_name'] for x in para['section_type']]
 
-        for text in uniqueText:
+        for text in unique_text:
             if not text["section_heading"]:
                 text["section_heading"] = "document part"
                 text["section_type"] = [
@@ -205,13 +201,13 @@ class AutoCorpus:
                     }
                 ]
 
-        # uniqueText = [x for x in uniqueText if x['section_heading']]
+        # unique_text = [x for x in unique_text if x['section_heading']]
         # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-        # for i, para in enumerate(uniqueText):
+        # for i, para in enumerate(unique_text):
         #     if para['section_heading'] in mapping_dict_with_DAG.keys():
         #         if para['section_type'] == []:
-        #             uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
-        return uniqueText
+        #             unique_text[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
+        return unique_text
 
     def __handle_html(self, file_path: str, config: dict) -> Union[BeautifulSoup, None]:
         """
@@ -336,16 +332,16 @@ class AutoCorpus:
         else:
             return
 
-    def __init__(self, config_path, base_dir=None, main_text=None, linked_tables=None, table_images=None,
-                 supplementary_files=None, trainedData=None):
-        '''
+    def __init__(self, config_path, base_dir=None, main_text=None, linked_tables=None,
+                 supplementary_files=None):
+        """
 
         :param config_path: path to the config file to be used
-        :param file_path: path to the main text of the article (HTML files only)
+        :param base_dir: path to the root directory containing input article files
+        :param main_text: path to the main text of the article
         :param linked_tables: list of linked table file paths to be included in this run (HTML files only)
-        :param table_images: list of table image file paths to be included in this run (JPEG or PNG files only)
         :param supplementary_files: this still needs sorting
-        '''
+        """
         # handle common
         config = self.__read_config(config_path)
         self.base_dir = base_dir
@@ -361,13 +357,13 @@ class AutoCorpus:
             soup = self.__handle_html(self.file_path, config)
             self.main_text = self.__extract_text(soup, config)
             try:
-                self.abbreviations = abbreviations(self.main_text, soup, config, self.file_path).to_dict()
+                self.abbreviations = Abbreviations(self.main_text, soup, self.file_path).to_dict()
             except Exception as e:
                 print(e)
 
         if linked_tables:
             for table_file in linked_tables:
-                soup = self.__handle_html(table_file, config)
+                self.__handle_html(table_file, config)
         # Disabled image processing for now
         # if table_images:
         #     self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()

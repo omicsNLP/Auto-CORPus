@@ -232,6 +232,7 @@ def extract_tables(doc):
             tables[-1].append([x.text for x in row.cells])
     return tables
 
+
 def convert_older_doc_file(file):
     operating_system = platform.system()
     if operating_system == "Windows":
@@ -277,10 +278,12 @@ def process_word_document(file):
             if not file.endswith(".docx"):
                 conversion_check = convert_older_doc_file(file)
                 if conversion_check:
-                    logging.info(F"File {file} was converted to .docx as a copy within the same directory for processing.")
+                    logging.info(
+                        F"File {file} was converted to .docx as a copy within the same directory for processing.")
                     process_word_document(file + ".docx")
                 else:
-                    logging.info(F"File {file} could not be processed correctly. It is likely a pre-2007 word document or problematic.")
+                    logging.info(
+                        F"File {file} could not be processed correctly. It is likely a pre-2007 word document or problematic.")
             else:
                 logging.info(F"File {file} could not be processed correctly.")
         except Exception as ex:

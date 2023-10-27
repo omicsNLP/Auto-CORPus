@@ -98,15 +98,15 @@ def read_mapping_file():
     return mapping_dict
 
 
-def read_IAO_term_to_ID_file():
-    IAO_term_to_no_dict = {}
+def read_iao_term_to_id_file():
+    iao_term_to_no_dict = {}
     with open('src/IAO_dicts/IAO_term_to_ID.txt', 'r') as f:
         lines = f.readlines()
         for line in lines:
-            IAO_term = line.split('\t')[0]
-            IAO_no = line.split('\t')[1].strip('\n')
-            IAO_term_to_no_dict.update({IAO_term: IAO_no})
-    return IAO_term_to_no_dict
+            iao_term = line.split('\t')[0]
+            iao_no = line.split('\t')[1].strip('\n')
+            iao_term_to_no_dict.update({iao_term: iao_no})
+    return iao_term_to_no_dict
 
 
 def config_anchors(value):
@@ -155,18 +155,18 @@ def config_tags(tags):
 
 
 def parse_configs(definition):
-    bsAttrs = {
+    bs_attrs = {
         "name": [],
         "attrs": [],
         "xpath": []
     }
     if "tag" in definition:
-        bsAttrs['name'] = config_tags(definition['tag'])
+        bs_attrs['name'] = config_tags(definition['tag'])
     if "attrs" in definition:
-        bsAttrs['attrs'] = config_attrs(definition['attrs'])
+        bs_attrs['attrs'] = config_attrs(definition['attrs'])
     if "xpath" in definition:
-        bsAttrs['xpath'] = definition['xpath']
-    return bsAttrs
+        bs_attrs['xpath'] = definition['xpath']
+    return bs_attrs
 
 
 def recursively_strip_strings(tag):
@@ -178,11 +178,11 @@ def recursively_strip_strings(tag):
         if isinstance(child, Tag):
             recursively_strip_strings(child)
         elif isinstance(child, str):
-            child.replace_with(child.strip())
+            child = child.strip()
 
 
 def handle_defined_by(config, soup):
-    '''
+    """
 	:param config: config file section used to parse
 	:param soup: soup section to parse
 	:return:
@@ -197,21 +197,21 @@ def handle_defined_by(config, soup):
 	data is an object where the results from the config "data" sections is housed. The key is the name of the data
 	section and the values are all matches found within any of the main matches which match the current data section
 	definition. The values is the response you get from get_text() on any found nodes, not the nodes themselves.
-	'''
+	"""
     if "defined-by" not in config:
         quit(F"{config} does not contain the required 'defined-by' key.")
     matches = []
     seen_text = []
     for definition in config['defined-by']:
-        bsAttrs = parse_configs(definition)
+        bs_attrs = parse_configs(definition)
         new_matches = []
-        if bsAttrs["name"] or bsAttrs["attrs"]:
-            new_matches = soup.find_all(bsAttrs['name'], bsAttrs['attrs'])
+        if bs_attrs["name"] or bs_attrs["attrs"]:
+            new_matches = soup.find_all(bs_attrs['name'], bs_attrs['attrs'])
             if new_matches:
                 new_matches = [x for x in new_matches if x.text]
-        if "xpath" in bsAttrs:
-            if type(bsAttrs["xpath"]) == list:
-                for path in bsAttrs["xpath"]:
+        if "xpath" in bs_attrs:
+            if type(bs_attrs["xpath"]) is list:
+                for path in bs_attrs["xpath"]:
                     xpath_matches = fromstring(str(soup)).xpath(path)
                     if xpath_matches:
                         for new_match in xpath_matches:
@@ -220,7 +220,7 @@ def handle_defined_by(config, soup):
                             if new_match.text.strip():
                                 new_matches.extend(new_match)
             else:
-                xpath_matches = fromstring(str(soup)).xpath(bsAttrs["xpath"])
+                xpath_matches = fromstring(str(soup)).xpath(bs_attrs["xpath"])
                 if xpath_matches:
                     for new_match in xpath_matches:
                         new_match = bs4.BeautifulSoup(etree.tostring(new_match, encoding="unicode", method="html"),
@@ -228,7 +228,8 @@ def handle_defined_by(config, soup):
                         if new_match.text.strip():
                             new_matches.extend(new_match)
         for match in new_matches:
-            if type(match) != NavigableString:
+            matched_text = None
+            if type(match) is not NavigableString:
                 matched_text = match.get_text()
             if matched_text in seen_text:
                 continue
@@ -287,11 +288,11 @@ def handle_not_tables(config, soup):
             for ele in config['data']:
                 seen_text = set()
                 for definition in config['data'][ele]:
-                    bsAttrs = parse_configs(definition)
-                    newMatches = match.find_all(definition["tag"], bsAttrs['attrs'])
-                    if newMatches:
-                        responseAddition[ele] = []
-                    for newMatch in newMatches:
+                    bs_attrs = parse_configs(definition)
+                    new_matches = match.find_all(definition["tag"], bs_attrs['attrs'])
+                    if new_matches:
+                        response_addition[ele] = []
+                    for newMatch in new_matches:
                         if newMatch.get_text() in seen_text:
                             continue
                         else:
@@ -375,8 +376,8 @@ def handle_tables(config, soup):
     return responses
 
 
-def assgin_heading_by_DAG(paper):
-    G = nx.read_graphml('src/DAG_model.graphml')
+def assign_heading_by_dag(paper):
+    g = nx.read_graphml('src/DAG_model.graphml')
     new_mapping_dict = {}
     mapping_dict_with_dag = {}
     iao_term_to_no_dict = read_iao_term_to_id_file()
@@ -418,38 +419,38 @@ def assgin_heading_by_DAG(paper):
             if previous_section != "Start of the article" and next_section != "End of the article":
                 try:
                     paths = nx.all_shortest_paths(
-                        G, paper[previous_heading][-1], paper[next_heading][0], weight='cost')
+                        g, paper[previous_heading][-1], paper[next_heading][0], weight='cost')
                     for path in paths:
                         if len(path) <= 2:
-                            mapping_dict_with_DAG.update({heading: [path[0]]})
+                            mapping_dict_with_dag.update({heading: [path[0]]})
                         if len(path) > 2:
-                            mapping_dict_with_DAG.update({heading: path[1:-1]})
+                            mapping_dict_with_dag.update({heading: path[1:-1]})
                 except:
                     new_target = paper[list(paper.keys())[i + i2 + 1]][0]
                     paths = nx.all_shortest_paths(
-                        G, paper[previous_heading][-1], new_target, weight='cost')
+                        g, paper[previous_heading][-1], new_target, weight='cost')
                     for path in paths:
                         if len(path) == 2:
-                            mapping_dict_with_DAG.update({heading: [path[0]]})
+                            mapping_dict_with_dag.update({heading: [path[0]]})
                         if len(path) > 2:
-                            mapping_dict_with_DAG.update({heading: path[1:-1]})
+                            mapping_dict_with_dag.update({heading: path[1:-1]})
 
             if next_section == "End of the article":
-                mapping_dict_with_DAG.update({heading: [previous_section[-1]]})
+                mapping_dict_with_dag.update({heading: [previous_section[-1]]})
 
-            for heading in mapping_dict_with_DAG.keys():
-                newSecType = []
-                for secType in mapping_dict_with_DAG[heading]:
-                    if secType in IAO_term_to_no_dict.keys():
-                        mapping_result_ID_version = IAO_term_to_no_dict[secType]
+            for i_heading in mapping_dict_with_dag.keys():
+                new_sec_type = []
+                for secType in mapping_dict_with_dag[i_heading]:
+                    if secType in iao_term_to_no_dict.keys():
+                        mapping_result_id_version = iao_term_to_no_dict[secType]
                     else:
-                        mapping_result_ID_version = ''
-                    newSecType.append({
+                        mapping_result_id_version = ''
+                    new_sec_type.append({
                         "iao_name": secType,
-                        "iao_id": mapping_result_ID_version
+                        "iao_id": mapping_result_id_version
                     })
 
-                new_mapping_dict[heading] = newSecType
+                new_mapping_dict[i_heading] = new_sec_type
     return new_mapping_dict
 
 
@@ -502,3 +503,120 @@ def is_text(s):
     if any(char.isdigit() for char in s):
         return False
     return True
+
+
+class BioCTable:
+    """
+    Converts tables from nested lists into a BioC table object.
+    """
+
+    def __init__(self, input_file, table_id, table_data):
+        self.inputfile = input_file
+        self.id = str(table_id) + "_1"
+        self.infons = {}
+        self.passages = []
+        self.annotations = []
+        self.__build_table(table_data)
+
+    def __build_table(self, table_data):
+        """
+        Builds a table passage based on the provided table_data and adds it to the passages list.
+
+        Args:
+            table_data: A pandas DataFrame containing the data for the table.
+
+        Returns:
+            None
+        """
+        # Create a title passage
+        title_passage = {
+            "offset": 0,
+            "infons": {
+                "section_title_1": "table_title",
+                "iao_name_1": "document title",
+                "iao_id_1": "IAO:0000305"
+            },
+        }
+        self.passages.append(title_passage)
+        # Create a caption passage
+        caption_passage = {
+            "offset": 0,
+            "infons": {
+                "section_title_1": "table_caption",
+                "iao_name_1": "caption",
+                "iao_id_1": "IAO:0000304"
+            },
+        }
+        self.passages.append(caption_passage)
+        # Create a passage for table content
+        passage = {
+            "offset": 0,
+            "infons": {
+                "section_title_1": "table_content",
+                "iao_name_1": "table",
+                "iao_id_1": "IAO:0000306"
+            },
+            "column_headings": [],
+            "data_section": [
+                {
+                    "table_section_title_1": "",
+                    "data_rows": [
+
+                    ]
+                }
+            ]
+        }
+        # Populate column headings
+        for i, text in enumerate(table_data.columns.values):
+            passage["column_headings"].append(
+                {
+                    "cell_id": self.id + F".1.{i + 1}",
+                    "cell_text": replace_unicode(text)
+                }
+            )
+        # Populate table rows with cell data
+        for row_idx, row in enumerate(table_data.values):
+            new_row = []
+            for cell_idx, cell in enumerate(row):
+                new_cell = {
+                    "cell_id": F"{self.id}.{row_idx + 2}.{cell_idx + 1}",
+                    "cell_text": F"{replace_unicode(cell)}"
+                }
+                new_row.append(new_cell)
+            passage["data_section"][0]["data_rows"].append(new_row)
+        # Add the table passage to the passages list
+        self.passages.append(passage)
+
+
+def replace_unicode(text):
+    """
+    Replaces specific Unicode characters in a given text.
+
+    Args:
+        text: The input text to be processed.
+
+    Returns:
+        The processed text with the specified Unicode characters replaced.
+
+    Examples:
+        replace_unicode('\u00a0Hello\u00adWorld\u2010')  # ' Hello-World-'
+        replace_unicode(['\u00a0Hello', '\u00adWorld'])  # [' Hello', 'World']
+    """
+    if not text:
+        return None
+    if type(text) is list:
+        clean_texts = []
+        for t in text:
+            if t and type(t) is str:
+                clean_texts.append(
+                    t.replace('\u00a0', ' ').replace('\u00ad', '-').replace('\u2010', '-').replace('\u00d7', 'x'))
+            else:
+                clean_texts.append(t)
+        return clean_texts
+    else:
+        if type(text) is str:
+            clean_text = text.replace('\u00a0', ' ').replace('\u00ad', '-').replace('\u2010', '-').replace('\u00d7',
+                                                                                                           'x')
+        else:
+            clean_text = text
+        return clean_text
