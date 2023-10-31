@@ -5,7 +5,6 @@ import sys
 from bioc import loads, dumps, BioCFileType
 from bs4 import BeautifulSoup
 
-import supplementary_processor
 from src.abbreviation import abbreviations
 from src.bioc_formatter import BiocFormatter
 from src.section import section
@@ -13,7 +12,7 @@ from src.table import table
 from src.table_image import table_image
 from src.utils import *
 
-import src.supplementary_processor
+from src.supplementary_processor import process_supplementary_files
 
 
 def handle_path(func):
@@ -370,7 +369,7 @@ class autoCORPus:
         # if table_images:
         #     self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()
         if supplementary_files:
-            supplementary_processor.process_supplementary_files(supplementary_files)
+            process_supplementary_files(supplementary_files)
 
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:

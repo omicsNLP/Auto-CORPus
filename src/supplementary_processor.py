@@ -1,10 +1,10 @@
 import json
 import os.path
 
-import file_extension_analysis
-import pdf_extractor
-import word_extractor
-import excel_extractor
+from .file_extension_analysis import get_file_extensions
+from .pdf_extractor import process_pdf, convert_pdf_result
+from .word_extractor import process_word_document
+from .excel_extractor import process_spreadsheet, get_tables_bioc
 
 word_extensions = [".doc", ".docx"]
 spreadsheet_extensions = [".csv", ".xls", ".xlsx"]
@@ -39,10 +39,10 @@ def __extract_word_data(locations=None, file=None):
         # Iterate over the file locations of Word documents
         for x in word_locations:
             # Process the Word document using a custom word_extractor
-            word_extractor.process_word_document(x)
+            process_word_document(x)
 
     if file:
-        word_extractor.process_word_document(file)
+        process_word_document(file)
 
 
 def __extract_pdf_data(locations=None, file=None):
@@ -66,20 +66,20 @@ def __extract_pdf_data(locations=None, file=None):
         for x in pdf_locations:
             base_dir, file_name = os.path.split(x)
             # Process the PDF document using a custom pdf_extractor
-            tables, text = pdf_extractor.process_pdf(x)
+            tables, text = process_pdf(x)
             if tables:
                 # Write the extracted tables to a JSON file
                 with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
-                    tables, text = pdf_extractor.convert_pdf_result(tables, text, x)
+                    tables, text = convert_pdf_result(tables, text, x)
                     json.dump(tables, f_out, indent=4)
     if file:
         base_dir, file_name = os.path.split(file)
         # Process the PDF document using a custom pdf_extractor
-        tables, text = pdf_extractor.process_pdf(file)
+        tables, text = process_pdf(file)
         if tables:
             # Write the extracted tables to a JSON file
             with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
-                text, tables = pdf_extractor.convert_pdf_result(tables, text, file)
+                text, tables = convert_pdf_result(tables, text, file)
                 json.dump(tables, f_out, indent=4)
 
 
@@ -106,24 +106,24 @@ def __extract_spreadsheet_data(locations=None, file=None):
         for x in spreadsheet_locations:
             base_dir, file_name = os.path.split(x)
             # Process the PDF document using a custom excel_extractor
-            tables = excel_extractor.process_spreadsheet(x)
+            tables = process_spreadsheet(x)
             # If tables are extracted
             if tables:
                 # Create a JSON output file for the extracted tables
                 with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
                     # Generate BioC format representation of the tables
-                    json_output = excel_extractor.get_tables_bioc(tables, x)
+                    json_output = get_tables_bioc(tables, x)
                     json.dump(json_output, f_out, indent=4)
     if file:
         base_dir, file_name = os.path.split(file)
         # Process the PDF document using a custom excel_extractor
-        tables = excel_extractor.process_spreadsheet(file)
+        tables = process_spreadsheet(file)
         # If tables are extracted
         if tables:
             # Create a JSON output file for the extracted tables
             with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
                 # Generate BioC format representation of the tables
-                json_output = excel_extractor.get_tables_bioc(tables, file)
+                json_output = get_tables_bioc(tables, file)
                 json.dump(json_output, f_out, indent=4)
 
 
@@ -166,7 +166,7 @@ def generate_file_report(input_directory):
     """
     if not os.path.exists(input_directory) or not os.path.isdir(input_directory):
         return None
-    file_extensions = file_extension_analysis.get_file_extensions(input_directory)
+    file_extensions = get_file_extensions(input_directory)
     # Check if no file extensions are found
     if not file_extensions:
         return None

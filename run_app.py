@@ -7,9 +7,8 @@ from datetime import datetime
 
 from tqdm import tqdm
 
-import supplementary_processor
 from src.autoCORPus import autoCORPus
-from supplementary_processor import supplementary_types
+from src.supplementary_processor import supplementary_types
 
 parser = argparse.ArgumentParser(prog='PROG')
 parser.add_argument('-f', '--filepath', type=str, help="filepath for document/directory to run AC on")
