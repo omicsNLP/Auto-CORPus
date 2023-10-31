@@ -88,6 +88,17 @@ first and then re-run
 
 $ pip install .
 
+
+# Conda installation
+
+$ conda create -n autocorpus python==3.9 pip python-levenshtein==0.12.2
+
+$ conda activate autocorpus
+
+$ pip install .
+
+
+# Try the install
 Run the below command for a single file example
 
 $ python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
