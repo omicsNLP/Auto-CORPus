@@ -441,8 +441,9 @@ def rotate_page(file, page):
         new_page = plumber_page.pages[0]
 
         # Extract tables from the plumber_page using the best plumber configuration
+        data = None
         data = new_page.extract_tables(table_settings=get_best_plumber_config(new_page))
-        return data
+        return data if data else False
 
 
 def validate_bounding_box(page, bbox):
@@ -526,7 +527,11 @@ def get_best_plumber_config(page):
     table_area = None
     new_plumber_config = plumber_config
     # Find tables on the page
-    tables = page.find_tables()
+    tables = []
+    try:
+        tables = page.find_tables()
+    except:
+        return plumber_config
     if tables:
         try:
             # Get the first table and its bounding box
@@ -622,8 +627,8 @@ def process_pdf(input_file):
                     # Create a pandas DataFrame using the rows and columns
                     df = pandas.DataFrame(rows, columns=cols)
                 except ValueError as ve:
-                    logging.error(msg=F"Failed to process file: {input_file} due to:\n{ve}")
-                    return False, False
+                    logging.error(msg=F"Failed to process table on page {i} of file: {input_file} due to:\n{ve}")
+                    continue
                 except Exception as ex:
                     logging.error(msg=F"Failed to process file: {input_file} due to:\n{ex}")
                     return False, False
