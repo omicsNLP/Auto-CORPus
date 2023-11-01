@@ -198,16 +198,17 @@ def get_text_bioc(parsed_texts):
     collection.key = "pdfextractor.key"
     document = BioCDocument()
     current_offset = 0
-    for text in parsed_texts:
-        passage = BioCPassage()
-        # Replace Unicode characters in the text
-        passage.text = replace_unicode(text)
-        # Set the offset for the passage
-        passage.offset = current_offset
-        # Increment the current offset by the length of the text
-        current_offset += len(text)
-        # Add the passage to the document
-        document.add_passage(passage)
+    for page in parsed_texts:
+        for text in page:
+            passage = BioCPassage()
+            # Replace Unicode characters in the text
+            passage.text = replace_unicode(text)
+            # Set the offset for the passage
+            passage.offset = current_offset
+            # Increment the current offset by the length of the text
+            current_offset += len(text)
+            # Add the passage to the document
+            document.add_passage(passage)
     # Add the document to the collection
     collection.add_document(document)
     return collection
@@ -631,7 +632,7 @@ def process_pdf(input_file):
                     continue
                 except Exception as ex:
                     logging.error(msg=F"Failed to process file: {input_file} due to:\n{ex}")
-                    return False, False
+                    continue
                 # Append the DataFrame to the tables list
                 tables.append(df)
         # Append the page text to the page_texts list
