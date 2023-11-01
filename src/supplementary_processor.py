@@ -1,6 +1,8 @@
 import json
 import os.path
 
+from bioc import biocjson
+
 from .file_extension_analysis import get_file_extensions
 from .pdf_extractor import process_pdf, convert_pdf_result
 from .word_extractor import process_word_document
@@ -67,20 +69,26 @@ def __extract_pdf_data(locations=None, file=None):
             base_dir, file_name = os.path.split(x)
             # Process the PDF document using a custom pdf_extractor
             tables, text = process_pdf(x)
+            text, tables = convert_pdf_result(tables, text, x)
+            # Write the extracted tables & texts to JSON files
             if tables:
-                # Write the extracted tables to a JSON file
-                with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
-                    tables, text = convert_pdf_result(tables, text, x)
-                    json.dump(tables, f_out, indent=4)
+                with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as tables_out:
+                    json.dump(tables, tables_out, indent=4)
+            if text:
+                with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as text_out:
+                    biocjson.dump(text, text_out)
     if file:
         base_dir, file_name = os.path.split(file)
         # Process the PDF document using a custom pdf_extractor
         tables, text = process_pdf(file)
+        # Write the extracted tables to a JSON file
+        text, tables = convert_pdf_result(tables, text, file)
         if tables:
-            # Write the extracted tables to a JSON file
-            with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as f_out:
-                text, tables = convert_pdf_result(tables, text, file)
-                json.dump(tables, f_out, indent=4)
+            with open(F"{os.path.join(base_dir, file_name + '_tables.json')}", "w", encoding="utf-8") as tables_out:
+                json.dump(tables, tables_out, indent=4)
+        if text:
+            with open(F"{os.path.join(base_dir, file_name + '_bioc.json')}", "w", encoding="utf-8") as text_out:
+                biocjson.dump(text, text_out)
 
 
 def __extract_spreadsheet_data(locations=None, file=None):
@@ -127,7 +135,7 @@ def __extract_spreadsheet_data(locations=None, file=None):
                 json.dump(json_output, f_out, indent=4)
 
 
-def process_supplementary_files(supplementary_files):
+def process_supplementary_files(supplementary_files, output_format='json'):
     """
     Processes input list of file paths as supplementary data.
 
