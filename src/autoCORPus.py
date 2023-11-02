@@ -390,6 +390,10 @@ class autoCORPus:
 
     def abbreviations_to_bioc_json(self, indent=2):
         return json.dumps(self.abbreviations, ensure_ascii=False, indent=indent)
+    
+    def abbreviations_to_bioc_xml(self):
+        collection = loads(BiocFormatter(self.abbreviations).to_json(2), BioCFileType.BIOC_JSON)
+        return dumps(collection, BioCFileType.BIOC_XML)
 
     def to_json(self, indent=2):
         return json.dumps(self.to_dict(), ensure_ascii=False, indent=indent)

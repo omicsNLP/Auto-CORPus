@@ -14,7 +14,7 @@ parser = argparse.ArgumentParser(prog='PROG')
 parser.add_argument('-f', '--filepath', type=str, help="filepath for document/directory to run AC on")
 parser.add_argument('-t', '--target_dir', type=str, help="target directory")  # default autoCORPusOutput
 parser.add_argument('-a', '--associated_data', type=str, help="directory of associated data")
-parser.add_argument('-o', '--output_format', type=str,
+parser.add_argument('-o', '--output_format', type=str, default="all",
                     help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations")
 parser.add_argument('-s', '--trained_data_set', type=str,
                     help="trained dataset to use with pytesseract, must be in the form pytesseract expects for the lang argument, default eng")
@@ -30,7 +30,9 @@ config = args.config
 config_dir = args.config_dir
 associated_data = args.associated_data
 output_format = args.output_format if args.output_format else "JSON"
-trained_data = args.trained_data_set if args.output_format else "eng"
+# TODO: check if this is correct, seemed like a copy paste error as trained_data should be a lanaguge such as `eng`
+# trained_data = args.trained_data_set if args.output_format else "eng"
+trained_data = args.trained_data_set if args.trained_data_set else "eng"
 
 
 def get_file_type(file_path):
@@ -157,7 +159,9 @@ config_dir = args.config_dir
 associated_data = args.associated_data
 error_occurred = False
 output_format = args.output_format if args.output_format else "JSON"
-trained_data = args.trained_data_set if args.output_format else "eng"
+# TODO: check if this is correct, seemed like a copy paste error as trained_data should be a lanaguge such as `eng`
+# trained_data = args.trained_data_set if args.output_format else "eng"
+trained_data = args.trained_data_set if args.trained_data_set else "eng"
 if not os.path.exists(target_dir):
     os.makedirs(target_dir)
 logFileName = F"{target_dir}/autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
@@ -194,14 +198,16 @@ with open(logFileName, "w") as log_file:
                 os.mkdir(out_dir)
             if structure[key]["main_text"]:
                 key = key.replace('\\', '/')
-                if output_format.lower() == "json":
+                if output_format.lower() in ["json", "all"]:
                     with open(out_dir + "/" + key.split("/")[-1] + "_bioc.json", "w", encoding='utf-8') as outfp:
                         outfp.write(AC.main_text_to_bioc_json())
-                else:
+                    with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w", encoding='utf-8') as outfpA:
+                        outfpA.write(AC.abbreviations_to_bioc_json())
+                if output_format.lower() in ["xml", "all"]:
                     with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w", encoding='utf-8') as outfp:
                         outfp.write(AC.main_text_to_bioc_xml())
-                with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.json", "w", encoding='utf-8') as outfp:
-                    outfp.write(AC.abbreviations_to_bioc_json())
+                    with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.xml", "w", encoding='utf-8') as outfpA:
+                        outfpA.write(AC.abbreviations_to_bioc_xml())
 
             # AC does not support the conversion of tables or abbreviations to the XML format
             if AC.has_tables:
