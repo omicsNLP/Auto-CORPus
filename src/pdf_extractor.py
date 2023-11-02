@@ -7,7 +7,7 @@ from os.path import join
 
 import PyPDF2
 import pandas
-from bioc import BioCCollection, BioCDocument, BioCPassage
+from bioc import BioCCollection
 import pdfplumber
 import logging
 
@@ -15,6 +15,7 @@ logging.basicConfig(filename="PDFExtractor.log", level=logging.ERROR, format="%(
                                                                              "message)s")
 
 pdf_data = None
+filename = ""
 table_references = []
 table_locations = {}
 table_count = 0
@@ -25,13 +26,68 @@ plumber_config = {
 }
 
 
+class BioCText:
+    def __init__(self, text):
+        self.infons = {}
+        self.passages = self.__identify_passages(text)
+        self.annotations = []
+
+    @staticmethod
+    def __identify_passages(text):
+        """
+        Identifies passages within the given text and creates passage objects.
+
+        Args:
+            text (list): The text to be processed, represented as a list of lines.
+
+        Returns:
+            list: A list of passage objects. Each passage object is a dictionary containing the following keys:
+                  - "offset": The offset of the passage in the original text.
+                  - "infons": A dictionary of information associated with the passage, including:
+                      - "iao_name_1": The name or type of the passage.
+                      - "iao_id_1": The unique identifier associated with the passage.
+                  - "text": The content of the passage.
+                  - "sentences": An empty list of sentences (to be populated later if needed).
+                  - "annotations": An empty list of annotations (to be populated later if needed).
+                  - "relations": An empty list of relations (to be populated later if needed).
+
+        Example:
+            text = [
+                "Introduction",
+                "This is the first paragraph.",
+                "Conclusion"
+            ]
+            passages = __identify_passages(text)
+        """
+        offset = 0
+        passages = []
+        # Iterate through each line in the text
+        for line in text:
+            # Determine the type of the line and assign appropriate information
+            iao_name = "supplementary material section"
+            iao_id = "IAO:0000326"
+            # Create a passage object and add it to the passages list
+            passages.append({
+                "offset": offset,
+                "infons": {
+                    "iao_name_1": iao_name,
+                    "iao_id_1": iao_id
+                },
+                "text": line,
+                "sentences": [],
+                "annotations": [],
+                "relations": []
+            })
+            offset += len(line)
+        return passages
+
+
 class BioCTable:
     """
     Converts tables from nested lists into a BioC table object.
     """
 
-    def __init__(self, input_file, table_id, table_data):
-        self.inputfile = input_file
+    def __init__(self, table_id, table_data):
         self.id = str(table_id) + "_1"
         self.infons = {}
         self.passages = []
@@ -127,11 +183,20 @@ def get_tables_bioc(tables, filename):
         dict: A dictionary representing the tables in the BioC format.
     """
     bioc = {
-        "source": "PDFExtractor",
+        "source": "Auto-CORPus (supplementary)",
         "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "pdfextractor.key",
+        "key": "autocorpus_supplementary.key",
         "infons": {},
-        "documents": [BioCTable(filename, i + 1, x).__dict__ for i, x in enumerate(tables)]
+        "documents": [
+            {
+                "id": 1,
+                "inputfile": filename,
+                "infons": {},
+                "passages": [BioCTable(i + 1, x).__dict__ for i, x in enumerate(tables)],
+                "annotations": [],
+                "relations": []
+            }
+        ]
     }
     return bioc
 
@@ -163,7 +228,7 @@ def get_blank_cell_count(row):
     return blank_count
 
 
-def get_text_bioc(parsed_texts):
+def get_text_bioc(parsed_texts, filename):
     """
     Convert parsed texts into BioC format.
 
@@ -192,26 +257,24 @@ def get_text_bioc(parsed_texts):
     Finally, the document is added to the collection using the `collection.add_document(document)` method,
     and the collection is returned as the converted texts in BioC format.
     """
-    collection = BioCCollection()
-    collection.source = "PDFExtractor"
-    collection.date = str(datetime.date.today().strftime("%Y%m%d"))
-    collection.key = "pdfextractor.key"
-    document = BioCDocument()
-    current_offset = 0
-    for page in parsed_texts:
-        for text in page:
-            passage = BioCPassage()
-            # Replace Unicode characters in the text
-            passage.text = replace_unicode(text)
-            # Set the offset for the passage
-            passage.offset = current_offset
-            # Increment the current offset by the length of the text
-            current_offset += len(text)
-            # Add the passage to the document
-            document.add_passage(passage)
-    # Add the document to the collection
-    collection.add_document(document)
-    return collection
+    # Create a BioC XML structure dictionary
+    bioc = {
+        "source": "Auto-CORPus (supplementary)",
+        "date": str(datetime.date.today().strftime("%Y%m%d")),
+        "key": "autocorpus_supplementary.key",
+        "infons": {},
+        "documents": [
+            {
+                "id": 1,
+                "inputfile": filename,
+                "infons": {},
+                "passages": [BioCText(replace_unicode(x)).__dict__ for x in [y for y in parsed_texts]],
+                "annotations": [],
+                "relations": []
+            }
+        ]
+    }
+    return bioc
 
 
 def convert_pdf_result(tables, text, input_file):
@@ -238,7 +301,7 @@ def convert_pdf_result(tables, text, input_file):
     Finally, the function returns a tuple containing the converted BioC text and tables as `bioc_text` and `bioc_tables`, respectively.
     """
 
-    bioc_tables, bioc_text = get_tables_bioc(tables, input_file), get_text_bioc(text)
+    bioc_tables, bioc_text = get_tables_bioc(tables, input_file), get_text_bioc(text, input_file)
     return bioc_text, bioc_tables
 
 
@@ -494,7 +557,6 @@ def validate_bounding_box(page, bbox):
     return validated_bbox
 
 
-
 def get_best_plumber_config(page):
     """
     Determine the best configuration for extracting tables using the pdfplumber library.
@@ -596,6 +658,7 @@ def process_pdf(input_file):
 
     Finally, the function returns the `tables` and `page_texts` lists as a tuple.
     """
+    filename = input_file
     pdf = pdfplumber.open(input_file)
     logging.info(input_file)
     tables = []

@@ -169,11 +169,20 @@ def get_tables_bioc(tables):
     global filename
     # Create a BioC XML structure dictionary
     bioc = {
-        "source": "WordExtractor",
+        "source": "Auto-CORPus (supplementary)",
         "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "wordextractor.key",
+        "key": "autocorpus_supplementary.key",
         "infons": {},
-        "documents": [BioCTable(filename, i + 1, x).__dict__ for i, x in enumerate(tables)]
+        "documents": [
+            {
+                "id": 1,
+                "inputfile": filename,
+                "infons": {},
+                "passages": [BioCTable(filename, i + 1, x).__dict__ for i, x in enumerate(tables)],
+                "annotations": [],
+                "relations": []
+            }
+        ]
     }
     return bioc
 
@@ -195,11 +204,20 @@ def get_text_bioc(paragraphs):
     global filename
     # Create a BioC XML structure dictionary
     bioc = {
-        "source": "WordExtractor",
+        "source": "Auto-CORPus (supplementary)",
         "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "wordextractor.key",
+        "key": "autocorpus_supplementary.key",
         "infons": {},
-        "documents": [BioCText(filename, paragraphs).__dict__]
+        "documents": [
+            {
+                "id": 1,
+                "inputfile": filename,
+                "infons": {},
+                "passages": [BioCText(filename, paragraphs).__dict__],
+                "annotations": [],
+                "relations": []
+            }
+        ]
     }
     return bioc
 
@@ -232,6 +250,7 @@ def extract_tables(doc):
             tables[-1].append([x.text for x in row.cells])
     return tables
 
+
 def convert_older_doc_file(file):
     operating_system = platform.system()
     if operating_system == "Windows":
@@ -247,7 +266,7 @@ def convert_older_doc_file(file):
         subprocess.call(['unoconv', '-d', 'document', '--format=docx', file])
         return True
     elif operating_system == "mac":
-        pass
+        return False
 
 
 def process_word_document(file):
@@ -277,10 +296,12 @@ def process_word_document(file):
             if not file.endswith(".docx"):
                 conversion_check = convert_older_doc_file(file)
                 if conversion_check:
-                    logging.info(F"File {file} was converted to .docx as a copy within the same directory for processing.")
+                    logging.info(
+                        F"File {file} was converted to .docx as a copy within the same directory for processing.")
                     process_word_document(file + ".docx")
                 else:
-                    logging.info(F"File {file} could not be processed correctly. It is likely a pre-2007 word document or problematic.")
+                    logging.info(
+                        F"File {file} could not be processed correctly. It is likely a pre-2007 word document or problematic.")
             else:
                 logging.info(F"File {file} could not be processed correctly.")
         except Exception as ex:

@@ -16,8 +16,7 @@ class BioCTable:
     Converts tables from nested lists into a BioC table object.
     """
 
-    def __init__(self, input_file, table_id, table_data):
-        self.inputfile = input_file
+    def __init__(self, table_id, table_data):
         self.id = str(table_id) + "_1"
         self.infons = {}
         self.passages = []
@@ -107,11 +106,11 @@ def get_tables_bioc(tables, filename):
     """
     # Create a BioC dictionary
     bioc = {
-        "source": "ExcelExtractor",
+        "source": "Auto-CORPus (supplementary)",
         "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "excelextractor.key",
+        "key": "autocorpus_supplementary.key",
         "infons": {},
-        "documents": [BioCTable(filename, i + 1, x).__dict__ for i, x in enumerate(tables)]
+        "documents": [BioCTable(i + 1, x).__dict__ for i, x in enumerate(tables)]
     }
     return bioc
 
