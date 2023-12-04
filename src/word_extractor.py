@@ -169,11 +169,20 @@ def get_tables_bioc(tables):
     global filename
     # Create a BioC XML structure dictionary
     bioc = {
-        "source": "WordExtractor",
+        "source": "Auto-CORPus (supplementary)",
         "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "wordextractor.key",
+        "key": "autocorpus_supplementary.key",
         "infons": {},
-        "documents": [BioCTable(filename, i + 1, x).__dict__ for i, x in enumerate(tables)]
+        "documents": [
+            {
+                "id": 1,
+                "inputfile": filename,
+                "infons": {},
+                "passages": [BioCTable(filename, i + 1, x).__dict__ for i, x in enumerate(tables)],
+                "annotations": [],
+                "relations": []
+            }
+        ]
     }
     return bioc
 
@@ -195,11 +204,20 @@ def get_text_bioc(paragraphs):
     global filename
     # Create a BioC XML structure dictionary
     bioc = {
-        "source": "WordExtractor",
+        "source": "Auto-CORPus (supplementary)",
         "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "wordextractor.key",
+        "key": "autocorpus_supplementary.key",
         "infons": {},
-        "documents": [BioCText(filename, paragraphs).__dict__]
+        "documents": [
+            {
+                "id": 1,
+                "inputfile": filename,
+                "infons": {},
+                "passages": [BioCText(filename, paragraphs).__dict__],
+                "annotations": [],
+                "relations": []
+            }
+        ]
     }
     return bioc
 
@@ -238,9 +256,10 @@ def convert_older_doc_file(file):
     if operating_system == "Windows":
         import win32com.client
         try:
-            word = win32com.client.Dispatch("Word.Application")
+            word = win32com.client.DispatchEx("Word.Application")
             doc = word.Documents.Open(file)
             doc.SaveAs(file + ".docx", 16)
+            doc.Close()
             return True
         except Exception as e:
             return False
@@ -248,7 +267,7 @@ def convert_older_doc_file(file):
         subprocess.call(['unoconv', '-d', 'document', '--format=docx', file])
         return True
     elif operating_system == "mac":
-        pass
+        return False
 
 
 def process_word_document(file):

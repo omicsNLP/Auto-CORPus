@@ -7,16 +7,15 @@ from os.path import join
 
 import PyPDF2
 import pandas
-from bioc import BioCCollection, BioCDocument, BioCPassage
+from bioc import BioCCollection
 import pdfplumber
 import logging
-
-from utils import BioCTable
 
 logging.basicConfig(filename="PDFExtractor.log", level=logging.ERROR, format="%(asctime)s - %(levelname)s - %("
                                                                              "message)s")
 
 pdf_data = None
+filename = ""
 table_references = []
 table_locations = {}
 table_count = 0
@@ -25,6 +24,151 @@ plumber_config = {
     "vertical_strategy": "text",
     "horizontal_strategy": "lines"
 }
+
+
+class BioCText:
+    def __init__(self, text):
+        self.infons = {}
+        self.passages = self.__identify_passages(text)
+        self.annotations = []
+
+    @staticmethod
+    def __identify_passages(text):
+        """
+        Identifies passages within the given text and creates passage objects.
+
+        Args:
+            text (list): The text to be processed, represented as a list of lines.
+
+        Returns:
+            list: A list of passage objects. Each passage object is a dictionary containing the following keys:
+                  - "offset": The offset of the passage in the original text.
+                  - "infons": A dictionary of information associated with the passage, including:
+                      - "iao_name_1": The name or type of the passage.
+                      - "iao_id_1": The unique identifier associated with the passage.
+                  - "text": The content of the passage.
+                  - "sentences": An empty list of sentences (to be populated later if needed).
+                  - "annotations": An empty list of annotations (to be populated later if needed).
+                  - "relations": An empty list of relations (to be populated later if needed).
+
+        Example:
+            text = [
+                "Introduction",
+                "This is the first paragraph.",
+                "Conclusion"
+            ]
+            passages = __identify_passages(text)
+        """
+        offset = 0
+        passages = []
+        # Iterate through each line in the text
+        for line in text:
+            # Determine the type of the line and assign appropriate information
+            iao_name = "supplementary material section"
+            iao_id = "IAO:0000326"
+            # Create a passage object and add it to the passages list
+            passages.append({
+                "offset": offset,
+                "infons": {
+                    "iao_name_1": iao_name,
+                    "iao_id_1": iao_id
+                },
+                "text": line,
+                "sentences": [],
+                "annotations": [],
+                "relations": []
+            })
+            offset += len(line)
+        return passages
+
+
+class BioCTable:
+    """
+    Converts tables from nested lists into a BioC table object.
+    """
+
+    def __init__(self, table_id, table_data):
+        self.id = str(table_id) + "_1"
+        self.infons = {}
+        self.passages = []
+        self.annotations = []
+        self.__build_table(table_data)
+
+    def __build_table(self, table_data):
+        """
+        Builds a table passage in a specific format and appends it to the list of passages.
+
+        Args:
+            table_data (pandas.DataFrame): The table data to be included in the passage.
+
+        Returns:
+            None
+
+        Example:
+            table_data = pandas.DataFrame(
+                [["A", "B", "C"], [1, 2, 3]],
+                columns=["Column 1", "Column 2", "Column 3"]
+            )
+            self.__build_table(table_data)
+        """
+        # Create the title passage and append it to the list of passages
+        title_passage = {
+            "offset": 0,
+            "infons": {
+                "section_title_1": "table_title",
+                "iao_name_1": "document title",
+                "iao_id_1": "IAO:0000305"
+            },
+        }
+        self.passages.append(title_passage)
+        # Create the caption passage and append it to the list of passages
+        caption_passage = {
+            "offset": 0,
+            "infons": {
+                "section_title_1": "table_caption",
+                "iao_name_1": "caption",
+                "iao_id_1": "IAO:0000304"
+            },
+        }
+        self.passages.append(caption_passage)
+        # Create the passage containing the table content
+        passage = {
+            "offset": 0,
+            "infons": {
+                "section_title_1": "table_content",
+                "iao_name_1": "table",
+                "iao_id_1": "IAO:0000306"
+            },
+            "column_headings": [],
+            "data_section": [
+                {
+                    "table_section_title_1": "",
+                    "data_rows": [
+
+                    ]
+                }
+            ]
+        }
+        # Process the column headings of the table
+        for i, text in enumerate(table_data.columns.values):
+            passage["column_headings"].append(
+                {
+                    "cell_id": self.id + F".1.{i + 1}",
+                    "cell_text": replace_unicode(text)
+                }
+            )
+        # Process the data rows of the table
+        for row_idx, row in enumerate(table_data.values):
+            new_row = []
+            for cell_idx, cell in enumerate(row):
+                new_cell = {
+                    "cell_id": F"{self.id}.{row_idx + 2}.{cell_idx + 1}",
+                    "cell_text": F"{replace_unicode(cell)}"
+                }
+                new_row.append(new_cell)
+            passage["data_section"][0]["data_rows"].append(new_row)
+        # Append the table passage to the list of passages
+        self.passages.append(passage)
 
 
 def get_tables_bioc(tables, filename):
@@ -39,11 +183,20 @@ def get_tables_bioc(tables, filename):
         dict: A dictionary representing the tables in the BioC format.
     """
     bioc = {
-        "source": "PDFExtractor",
+        "source": "Auto-CORPus (supplementary)",
         "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "pdfextractor.key",
+        "key": "autocorpus_supplementary.key",
         "infons": {},
-        "documents": [BioCTable(filename, i + 1, x).__dict__ for i, x in enumerate(tables)]
+        "documents": [
+            {
+                "id": 1,
+                "inputfile": filename,
+                "infons": {},
+                "passages": [BioCTable(i + 1, x).__dict__ for i, x in enumerate(tables)],
+                "annotations": [],
+                "relations": []
+            }
+        ]
     }
     return bioc
 
@@ -75,7 +228,7 @@ def get_blank_cell_count(row):
     return blank_count
 
 
-def get_text_bioc(parsed_texts):
+def get_text_bioc(parsed_texts, filename):
     """
     Convert parsed texts into BioC format.
 
@@ -104,25 +257,24 @@ def get_text_bioc(parsed_texts):
     Finally, the document is added to the collection using the `collection.add_document(document)` method,
     and the collection is returned as the converted texts in BioC format.
     """
-    collection = BioCCollection()
-    collection.source = "PDFExtractor"
-    collection.date = str(datetime.date.today().strftime("%Y%m%d"))
-    collection.key = "pdfextractor.key"
-    document = BioCDocument()
-    current_offset = 0
-    for text in parsed_texts:
-        passage = BioCPassage()
-        # Replace Unicode characters in the text
-        passage.text = replace_unicode(text)
-        # Set the offset for the passage
-        passage.offset = current_offset
-        # Increment the current offset by the length of the text
-        current_offset += len(text)
-        # Add the passage to the document
-        document.add_passage(passage)
-    # Add the document to the collection
-    collection.add_document(document)
-    return collection
+    # Create a BioC XML structure dictionary
+    bioc = {
+        "source": "Auto-CORPus (supplementary)",
+        "date": str(datetime.date.today().strftime("%Y%m%d")),
+        "key": "autocorpus_supplementary.key",
+        "infons": {},
+        "documents": [
+            {
+                "id": 1,
+                "inputfile": filename,
+                "infons": {},
+                "passages": [BioCText(replace_unicode(x)).__dict__ for x in [y for y in parsed_texts]],
+                "annotations": [],
+                "relations": []
+            }
+        ]
+    }
+    return bioc
 
 
 def convert_pdf_result(tables, text, input_file):
@@ -149,7 +301,7 @@ def convert_pdf_result(tables, text, input_file):
     Finally, the function returns a tuple containing the converted BioC text and tables as `bioc_text` and `bioc_tables`, respectively.
     """
 
-    bioc_tables, bioc_text = get_tables_bioc(tables, input_file), get_text_bioc(text)
+    bioc_tables, bioc_text = get_tables_bioc(tables, input_file), get_text_bioc(text, input_file)
     return bioc_text, bioc_tables
 
 
@@ -353,8 +505,9 @@ def rotate_page(file, page):
         new_page = plumber_page.pages[0]
 
         # Extract tables from the plumber_page using the best plumber configuration
+        data = None
         data = new_page.extract_tables(table_settings=get_best_plumber_config(new_page))
-        return data
+        return data if data else False
 
 
 def validate_bounding_box(page, bbox):
@@ -437,7 +590,11 @@ def get_best_plumber_config(page):
     table_area = None
     new_plumber_config = plumber_config
     # Find tables on the page
-    tables = page.find_tables()
+    tables = []
+    try:
+        tables = page.find_tables()
+    except:
+        return plumber_config
     if tables:
         try:
             # Get the first table and its bounding box
@@ -501,6 +658,7 @@ def process_pdf(input_file):
 
     Finally, the function returns the `tables` and `page_texts` lists as a tuple.
     """
+    filename = input_file
     pdf = pdfplumber.open(input_file)
     logging.info(input_file)
     tables = []
@@ -533,11 +691,11 @@ def process_pdf(input_file):
                     # Create a pandas DataFrame using the rows and columns
                     df = pandas.DataFrame(rows, columns=cols)
                 except ValueError as ve:
-                    logging.error(msg=F"Failed to process file: {input_file} due to:\n{ve}")
-                    return False, False
+                    logging.error(msg=F"Failed to process table on page {i} of file: {input_file} due to:\n{ve}")
+                    continue
                 except Exception as ex:
                     logging.error(msg=F"Failed to process file: {input_file} due to:\n{ex}")
-                    return False, False
+                    continue
                 # Append the DataFrame to the tables list
                 tables.append(df)
         # Append the page text to the page_texts list
