@@ -256,9 +256,10 @@ def convert_older_doc_file(file):
     if operating_system == "Windows":
         import win32com.client
         try:
-            word = win32com.client.Dispatch("Word.Application")
+            word = win32com.client.DispatchEx("Word.Application")
             doc = word.Documents.Open(file)
             doc.SaveAs(file + ".docx", 16)
+            doc.Close()
             return True
         except Exception as e:
             return False

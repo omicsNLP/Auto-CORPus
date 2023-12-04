@@ -211,8 +211,12 @@ with open(logFileName, "w") as log_file:
 
             # AC does not support the conversion of tables or abbreviations to the XML format
             if AC.has_tables:
-                with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w", encoding='utf-8') as outfp:
-                    outfp.write(AC.tables_to_bioc_json())
+                if output_format.lower() in ["json", "all"]:
+                    with open(out_dir + "/" + key.split("/")[-1] + "_tables.json", "w", encoding='utf-8') as outfp:
+                        outfp.write(AC.tables_to_bioc_json())
+                if output_format.lower() in ["xml", "all"]:
+                    with open(out_dir + "/" + key.split("/")[-1] + "_tables.xml", "w", encoding='utf-8') as out_fp:
+                        out_fp.write(AC.tables_to_bioc_xml())
             success.append(F"{key} was processed successfully.")
         except Exception as e:
             errors.append(F"{key} failed due to {e}.")

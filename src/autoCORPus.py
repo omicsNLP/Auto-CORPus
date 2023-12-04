@@ -388,6 +388,10 @@ class autoCORPus:
     def tables_to_bioc_json(self, indent=2):
         return json.dumps(self.tables, ensure_ascii=False, indent=indent)
 
+    def tables_to_bioc_xml(self):
+        collection = loads(BiocFormatter(self).to_json(), BioCFileType.BIOC_JSON)
+        return dumps(collection, BioCFileType.BIOC_XML)
+
     def abbreviations_to_bioc_json(self, indent=2):
         return json.dumps(self.abbreviations, ensure_ascii=False, indent=indent)
     
