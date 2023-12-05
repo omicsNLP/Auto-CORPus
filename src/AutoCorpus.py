@@ -4,8 +4,10 @@ import os
 import sys
 from typing import Union
 
+import bioc.biocxml
 # noinspection PyProtectedMember
 from bioc import loads, dumps, BioCFileType
+from bioc.biocxml.encoder import encode_infons, encode_sentence, encode_annotation, encode_relation
 from bs4 import Comment, BeautifulSoup
 
 import supplementary_processor
@@ -14,6 +16,7 @@ from src.bioc_formatter import BiocFormatter
 from src.section import Section
 from src.table import TableParser
 from src.utils import handle_not_tables
+from lxml import etree
 
 
 def handle_path(func: callable) -> callable:
@@ -399,6 +402,84 @@ class AutoCorpus:
             "abbreviations": self.abbreviations,
             "tables": self.tables
         }
+
+    def abbreviations_to_bioc_xml(self):
+        pass
+
+    def tables_to_bioc_xml(self):
+        collection = bioc.biocxml.encoder.BioCCollection()
+        collection.source = self.tables["source"]
+        collection.date = self.tables["date"]
+        collection.key = self.tables["key"]
+        for table in self.tables["documents"]:
+            document = bioc.biocxml.encoder.BioCDocument()
+            document.id = table["id"]
+            document.__setattr__("inputfile", table["inputfile"])
+            for i in range(len(table["passages"])):
+                passage = table["passages"][i]
+                temp_passage = bioc.BioCPassage()
+                if "text" in passage.keys():
+                    temp_passage.text = passage["text"]
+                else:
+                    temp_passage.__setattr__("column_headings", passage["column_headings"])
+                    temp_passage.__setattr__("data_section", passage["data_section"])
+                temp_passage.infons = passage["infons"]
+                temp_passage.offset = passage["offset"]
+                temp_passage.annotations = passage["annotations"]
+                temp_passage.relations = passage["relations"]
+                document.passages.append(temp_passage)
+            collection.documents.append(document)
+        return bioc.biocxml.dumps(collection)
+
+
+def _encode_column_heading(heading):
+    """Encode a single table column heading."""
+    tree = etree.Element('column_heading', {'cell_id': heading['cell_id']})
+    etree.SubElement(tree, 'cell_text').text = heading['cell_text']
+    return tree
+
+
+def _encode_data_section(section):
+    """Encode a single table data section."""
+    tree = etree.Element('data_section')
+    data_rows = etree.Element('data_rows')
+    tree.append(data_rows)
+    for row in section['data_rows']:
+        row_elem = etree.Element('row')
+        data_rows.append(row_elem)
+        for cell in row:
+            cell_elem = etree.Element('cell', {'cell_id': cell['cell_id']})
+            etree.SubElement(cell_elem, 'text').text = str(cell['cell_text'])
+            row_elem.append(cell_elem)
+    etree.SubElement(tree, 'annotations')
+    etree.SubElement(tree, 'relations')
+    return tree
+
+
+def _encode_passage(passage):
+    """(TABLE BIOC OVERRIDE) Encode a single passage."""
+    tree = etree.Element('passage')
+    encode_infons(tree, passage.infons)
+    etree.SubElement(tree, 'offset').text = str(passage.offset)
+    if passage.text:
+        etree.SubElement(tree, 'text').text = passage.text
+    if hasattr(passage, "column_headings"):
+        for heading in passage.column_headings:
+            tree.append(_encode_column_heading(heading))
+    if hasattr(passage, "data_section"):
+        for section in passage.data_section:
+            tree.append(_encode_data_section(section))
+    for sen in passage.sentences:
+        tree.append(encode_sentence(sen))
+    for ann in passage.annotations:
+        tree.append(encode_annotation(ann))
+    for rel in passage.relations:
+        tree.append(encode_relation(rel))
+    return tree
+
+
+# overrides for table bioc inclusions
+bioc.biocxml.encoder.encode_passage = _encode_passage
 
 
 def run():
