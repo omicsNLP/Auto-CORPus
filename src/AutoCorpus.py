@@ -1,27 +1,31 @@
 import argparse
 import json
+import os
 import sys
+from typing import Union
 
+import bioc.biocxml
+# noinspection PyProtectedMember
 from bioc import loads, dumps, BioCFileType
-from bs4 import BeautifulSoup
+from bioc.biocxml.encoder import encode_infons, encode_sentence, encode_annotation, encode_relation
+from bs4 import Comment, BeautifulSoup
 
-from src.abbreviation import abbreviations
+import supplementary_processor
+from src.abbreviation import Abbreviations
 from src.bioc_formatter import BiocFormatter
-from src.section import section
-from src.table import table
-from src.table_image import table_image
-from src.utils import *
+from src.section import Section
+from src.table import TableParser
+from src.utils import handle_not_tables
+from lxml import etree
 
 
-def handle_path(func):
+def handle_path(func: callable) -> callable:
     def inner_function(*args, **kwargs):
         try:
             return func(*args, **kwargs)
+
         except IOError as io:
             print(io)
-            sys.exit()
-        except OSError as exc:
-            print(exc)
             sys.exit()
         except Exception as e:
             print(e)
@@ -31,45 +35,50 @@ def handle_path(func):
     return inner_function
 
 
-class autoCORPus:
-    '''
-    '''
+class AutoCorpus:
+    """
+    """
 
     @handle_path
-    def __read_config(self, config_path):
+    def __read_config(self, config_path: str) -> dict:
         with open(config_path, "r") as f:
-            ## TODO: validate config file here if possible
+            # TODO: validate config file here if possible
             content = json.load(f)
             return content["config"]
 
     @handle_path
-    def __import_file(self, file_path):
+    def __import_file(self, file_path: str) -> tuple:
         with open(file_path, "r") as f:
             return f.read(), file_path
 
     @handle_path
-    def __handle_target_dir(self, target_dir):
+    def __handle_target_dir(self, target_dir: str) -> None:
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
         return
 
-    def __validate_infile(self):
-        pass
-
-    def __soupify_infile(self, fpath):
+    @staticmethod
+    def __soupify_infile(fpath: str) -> BeautifulSoup:
         try:
-            with open(fpath, "r", encoding="utf-8") as fp:
+            with open(fpath, "r", encoding="utf-8", errors="replace") as fp:
                 soup = BeautifulSoup(fp.read(), 'html.parser')
-                for e in soup.find_all(attrs={'style': ['display:none', 'visibility:hidden']}):
-                    e.extract()
+                # remove hidden elements
+                for elem in soup.find_all(attrs={'style': ['display:none', 'visibility:hidden']}):
+                    elem.extract()
+                # remove HTML comments
+                if soup.find('body'):
+                    for elem in soup.body(text=lambda x: isinstance(x, Comment)):
+                        elem.extract()
                 return soup
         except Exception as e:
             print(e)
 
-    def __clean_text(self, result):
-        '''
+    @staticmethod
+    def __clean_text(result: dict) -> dict:
+        """
         clean the main text body output of extract_text() further as follows:
-            remove duplicated texts from each section (assuming the text from html file has hierarchy up to h3, i.e. no subsubsections);
+            remove duplicated texts from each section (assuming the text
+            from html file has hierarchy up to h3, i.e. no sub-subsections);
             remove items with empty bodies
 
         Args:
@@ -78,7 +87,7 @@ class autoCORPus:
 
         Return:
             result: cleaned dict of the maintext
-        '''
+        """
         # Remove duplicated contents from the 'result' output of extract_text()
 
         # Identify unique section headings and the index of their first appearance
@@ -103,18 +112,19 @@ class autoCORPus:
                     result['paragraphs'][idx_subsection]['body'] = result['paragraphs'][idx_subsection]['body'].replace(
                         p, '')
             for idx_subsection in range(idx_section[i] + 1, idx_section_last):
-                if result['paragraphs'][idx_subsection]['subsection_heading'] == result['paragraphs'][idx_section[i]][
-                    'subsection_heading']:
+                if result['paragraphs'][idx_subsection]['subsection_heading'] \
+                        == result['paragraphs'][idx_section[i]]['subsection_heading']:
                     result['paragraphs'][idx_section[i]]['subsection_heading'] = ''
         return result
 
-    def __get_keywords(self, soup, config):
+    @staticmethod
+    def __get_keywords(soup: BeautifulSoup, config: dict) -> list:
 
         if "keywords" in config:
             responses = handle_not_tables(config['keywords'], soup)
             responses = " ".join([x['node'].get_text() for x in responses])
             if not responses == "":
-                keywordSection = {
+                keyword_section = {
                     "section_heading": "keywords",
                     "subsection_heading": "",
                     "body": responses,
@@ -125,10 +135,11 @@ class autoCORPus:
                         }
                     ]
                 }
-                return [keywordSection]
-            return False
+                return [keyword_section]
+            return []
 
-    def __get_title(self, soup, config):
+    @staticmethod
+    def __get_title(soup: BeautifulSoup, config: dict) -> str:
         if "title" in config:
             titles = handle_not_tables(config['title'], soup)
             if len(titles) == 0:
@@ -138,13 +149,14 @@ class autoCORPus:
         else:
             return ""
 
-    def __get_sections(self, soup, config):
+    @staticmethod
+    def __get_sections(soup: BeautifulSoup, config: dict) -> list:
         if "sections" in config:
             sections = handle_not_tables(config["sections"], soup)
             return sections
         return []
 
-    def __extract_text(self, soup, config):
+    def __extract_text(self, soup: BeautifulSoup, config: dict) -> dict:
         """
         convert beautiful soup object into a python dict object with cleaned main text body
 
@@ -154,44 +166,35 @@ class autoCORPus:
         Return:
             result: dict of the maintext
         """
-        result = {}
+        result = {'title': self.__get_title(soup, config)}
 
-        # Tags of text body to be extracted are hard-coded as p (main text) and span (keywords and refs)
-        body_select_tag = 'p,span,a'
-
-        # Extract title
-        # try:
-        # 	h1 = soup.find(config['title']['name'],
-        # 	               config['title']['attrs']).get_text().strip('\n')
-        # except:
-        # 	h1 = ''
-        result['title'] = self.__get_title(soup, config)
         maintext = self.__get_keywords(soup, config) if self.__get_keywords(soup, config) else []
         sections = self.__get_sections(soup, config)
-        # sections = [x['node'] for x in sections]
+
         for sec in sections:
-            maintext.extend(section(config, sec).to_dict())
+            maintext.extend(Section(config, sec).to_dict())
         # filter out the sections which do not contain any info
-        filteredText = []
-        [filteredText.append(x) for x in maintext if x]
-        uniqueText = []
+        filtered_text = []
+        [filtered_text.append(x) for x in maintext if x]
+        unique_text = []
         seen_text = []
-        for text in filteredText:
+        for text in filtered_text:
             if text['body'] not in seen_text:
                 seen_text.append(text['body'])
-                uniqueText.append(text)
+                unique_text.append(text)
 
-        result['paragraphs'] = self.__set_unknown_section_headings(uniqueText)
+        result['paragraphs'] = self.__set_unknown_section_headings(unique_text)
 
         return result
 
-    def __set_unknown_section_headings(self, uniqueText):
+    @staticmethod
+    def __set_unknown_section_headings(unique_text: list) -> list:
         paper = {}
-        for para in uniqueText:
+        for para in unique_text:
             if para['section_heading'] != 'keywords':
                 paper[para['section_heading']] = [x['iao_name'] for x in para['section_type']]
 
-        for text in uniqueText:
+        for text in unique_text:
             if not text["section_heading"]:
                 text["section_heading"] = "document part"
                 text["section_type"] = [
@@ -201,33 +204,34 @@ class autoCORPus:
                     }
                 ]
 
-        # uniqueText = [x for x in uniqueText if x['section_heading']]
+        # unique_text = [x for x in unique_text if x['section_heading']]
         # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-        # for i, para in enumerate(uniqueText):
+        # for i, para in enumerate(unique_text):
         #     if para['section_heading'] in mapping_dict_with_DAG.keys():
         #         if para['section_type'] == []:
-        #             uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
-        return uniqueText
+        #             unique_text[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
+        return unique_text
 
-    def __handle_html(self, file_path, config):
-        '''
+    def __handle_html(self, file_path: str, config: dict) -> Union[BeautifulSoup, None]:
+        """
         handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables)
-        :return: soup object
-        '''
+        :return: soup object or None
+        """
 
         soup = self.__soupify_infile(file_path)
+        if not soup:
+            return None
         if "tables" in config:
             if self.tables == {}:
-                self.tables, self.empty_tables = table(soup, config, file_path, self.base_dir).to_dict()
+                self.tables, self.empty_tables = TableParser(config).get_tables(soup, file_path)
             else:
-                seenIDs = set()
+                seen_ids = set()
                 for tab in self.tables['documents']:
                     if "." in tab['id']:
-                        seenIDs.add(tab['id'].split(".")[0])
+                        seen_ids.add(tab['id'].split(".")[0])
                     else:
-                        seenIDs.add(tab['id'])
-                tmp_tables, tmp_empty = table(soup, config, file_path, self.base_dir).to_dict()
-                additive = 0
+                        seen_ids.add(tab['id'])
+                tmp_tables, tmp_empty = TableParser(config).get_tables(soup, file_path)
                 for tabl in tmp_tables['documents']:
                     if "." in tabl['id']:
                         tabl_id = tabl['id'].split(".")[0]
@@ -235,38 +239,38 @@ class autoCORPus:
                     else:
                         tabl_id = tabl['id']
                         tabl_pos = None
-                    if tabl_id in seenIDs:
-                        tabl_id = str(len(seenIDs) + 1)
+                    if tabl_id in seen_ids:
+                        tabl_id = str(len(seen_ids) + 1)
                         if tabl_pos:
                             tabl['id'] = F"{tabl_id}.{tabl_pos}"
                         else:
                             tabl['id'] = tabl_id
-                    seenIDs.add(tabl_id)
+                    seen_ids.add(tabl_id)
                 self.tables["documents"].extend(tmp_tables["documents"])
                 self.empty_tables.extend(tmp_empty)
         return soup
 
     def __merge_table_data(self):
-        if self.empty_tables == []:
+        if not self.empty_tables:
             return
         if "documents" in self.tables:
-            if self.tables['documents'] == []:
+            if not self.tables['documents']:
                 return
             else:
-                seenIDs = {}
+                seen_ids = {}
                 for i, table in enumerate(self.tables['documents']):
                     if "id" in table:
-                        seenIDs[str(i)] = F"Table {table['id']}."
+                        seen_ids[str(i)] = F"Table {table['id']}."
                 for table in self.empty_tables:
-                    for seenID in seenIDs.keys():
-                        if table['title'].startswith(seenIDs[seenID]):
+                    for seenID in seen_ids.keys():
+                        if table['title'].startswith(seen_ids[seenID]):
                             if "title" in table and not table['title'] == "":
-                                setNew = False
+                                set_new = False
                                 for passage in self.tables['documents'][int(seenID)]['passages']:
                                     if passage['infons']['section_type'][0]['section_name'] == "table_title":
                                         passage['text'] = table['title']
-                                        setNew = True
-                                if not setNew:
+                                        set_new = True
+                                if not set_new:
                                     self.tables['documents'][int(seenID)]['passages'].append(
                                         {
                                             "offset": 0,
@@ -284,12 +288,12 @@ class autoCORPus:
                                     )
                                 pass
                             if "caption" in table and not table['caption'] == "":
-                                setNew = False
+                                set_new = False
                                 for passage in self.tables['documents'][int(seenID)]['passages']:
                                     if passage['infons']['section_type'][0]['section_name'] == "table_caption":
                                         passage['text'] = table['caption']
-                                        setNew = True
-                                if not setNew:
+                                        set_new = True
+                                if not set_new:
                                     self.tables['documents'][int(seenID)]['passages'].append(
                                         {
                                             "offset": 0,
@@ -307,12 +311,12 @@ class autoCORPus:
                                     )
                                 pass
                             if "footer" in table and not table['footer'] == "":
-                                setNew = False
+                                set_new = False
                                 for passage in self.tables['documents'][int(seenID)]['passages']:
                                     if passage['infons']['section_type'][0]['section_name'] == "table_footer":
                                         passage['text'] = table['footer']
-                                        setNew = True
-                                if not setNew:
+                                        set_new = True
+                                if not set_new:
                                     self.tables['documents'][int(seenID)]['passages'].append(
                                         {
                                             "offset": 0,
@@ -331,16 +335,16 @@ class autoCORPus:
         else:
             return
 
-    def __init__(self, config_path, base_dir=None, main_text=None, linked_tables=None, table_images=None,
-                 associated_data_path=None, trainedData=None):
-        '''
+    def __init__(self, config_path, base_dir=None, main_text=None, linked_tables=None,
+                 supplementary_files=None):
+        """
 
         :param config_path: path to the config file to be used
-        :param file_path: path to the main text of the article (HTML files only)
+        :param base_dir: path to the root directory containing input article files
+        :param main_text: path to the main text of the article
         :param linked_tables: list of linked table file paths to be included in this run (HTML files only)
-        :param table_images: list of table image file paths to be included in this run (JPEG or PNG files only)
-        :param associated_data_path: this still needs sorting
-        '''
+        :param supplementary_files: this still needs sorting
+        """
         # handle common
         config = self.__read_config(config_path)
         self.base_dir = base_dir
@@ -356,14 +360,19 @@ class autoCORPus:
             soup = self.__handle_html(self.file_path, config)
             self.main_text = self.__extract_text(soup, config)
             try:
-                self.abbreviations = abbreviations(self.main_text, soup, config, self.file_path).to_dict()
+                self.abbreviations = Abbreviations(self.main_text, soup, self.file_path).to_dict()
             except Exception as e:
                 print(e)
+
         if linked_tables:
             for table_file in linked_tables:
-                soup = self.__handle_html(table_file, config)
-        if table_images:
-            self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()
+                self.__handle_html(table_file, config)
+        # Disabled image processing for now
+        # if table_images:
+        #     self.tables = table_image(table_images, self.base_dir, trainedData=trainedData).to_dict()
+        if supplementary_files:
+            supplementary_processor.process_supplementary_files(supplementary_files)
+
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
@@ -394,8 +403,86 @@ class autoCORPus:
             "tables": self.tables
         }
 
+    def abbreviations_to_bioc_xml(self):
+        pass
 
-if __name__ == "__main__":
+    def tables_to_bioc_xml(self):
+        collection = bioc.biocxml.encoder.BioCCollection()
+        collection.source = self.tables["source"]
+        collection.date = self.tables["date"]
+        collection.key = self.tables["key"]
+        for table in self.tables["documents"]:
+            document = bioc.biocxml.encoder.BioCDocument()
+            document.id = table["id"]
+            document.__setattr__("inputfile", table["inputfile"])
+            for i in range(len(table["passages"])):
+                passage = table["passages"][i]
+                temp_passage = bioc.BioCPassage()
+                if "text" in passage.keys():
+                    temp_passage.text = passage["text"]
+                else:
+                    temp_passage.__setattr__("column_headings", passage["column_headings"])
+                    temp_passage.__setattr__("data_section", passage["data_section"])
+                temp_passage.infons = passage["infons"]
+                temp_passage.offset = passage["offset"]
+                temp_passage.annotations = passage["annotations"]
+                temp_passage.relations = passage["relations"]
+                document.passages.append(temp_passage)
+            collection.documents.append(document)
+        return bioc.biocxml.dumps(collection)
+
+
+def _encode_column_heading(heading):
+    """Encode a single table column heading."""
+    tree = etree.Element('column_heading', {'cell_id': heading['cell_id']})
+    etree.SubElement(tree, 'cell_text').text = heading['cell_text']
+    return tree
+
+
+def _encode_data_section(section):
+    """Encode a single table data section."""
+    tree = etree.Element('data_section')
+    data_rows = etree.Element('data_rows')
+    tree.append(data_rows)
+    for row in section['data_rows']:
+        row_elem = etree.Element('row')
+        data_rows.append(row_elem)
+        for cell in row:
+            cell_elem = etree.Element('cell', {'cell_id': cell['cell_id']})
+            etree.SubElement(cell_elem, 'text').text = str(cell['cell_text'])
+            row_elem.append(cell_elem)
+    etree.SubElement(tree, 'annotations')
+    etree.SubElement(tree, 'relations')
+    return tree
+
+
+def _encode_passage(passage):
+    """(TABLE BIOC OVERRIDE) Encode a single passage."""
+    tree = etree.Element('passage')
+    encode_infons(tree, passage.infons)
+    etree.SubElement(tree, 'offset').text = str(passage.offset)
+    if passage.text:
+        etree.SubElement(tree, 'text').text = passage.text
+    if hasattr(passage, "column_headings"):
+        for heading in passage.column_headings:
+            tree.append(_encode_column_heading(heading))
+    if hasattr(passage, "data_section"):
+        for section in passage.data_section:
+            tree.append(_encode_data_section(section))
+    for sen in passage.sentences:
+        tree.append(encode_sentence(sen))
+    for ann in passage.annotations:
+        tree.append(encode_annotation(ann))
+    for rel in passage.relations:
+        tree.append(encode_relation(rel))
+    return tree
+
+
+# overrides for table bioc inclusions
+bioc.biocxml.encoder.encode_passage = _encode_passage
+
+
+def run():
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--filepath", type=str,
                         help="filepath of html file to be processed")
@@ -410,4 +497,8 @@ if __name__ == "__main__":
     target_dir = args.target_dir
     config_path = args.config
 
-    autoCORPus(config_path, filepath, target_dir).to_file(target_dir)
+    AutoCorpus(config_path, filepath, target_dir)
+
+
+if __name__ == "__main__":
+    run()
