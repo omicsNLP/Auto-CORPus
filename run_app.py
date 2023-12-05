@@ -7,7 +7,7 @@ from datetime import datetime
 
 from tqdm import tqdm
 
-from src.autoCORPus import autoCORPus
+from src.AutoCorpus import AutoCorpus
 from src.supplementary_processor import supplementary_types
 
 parser = argparse.ArgumentParser(prog='PROG')
@@ -188,10 +188,9 @@ with open(logFileName, "w") as log_file:
         else:
             base_dir = "/".join(file_path.split("/")[:-1])
         try:
-            AC = autoCORPus(config, base_dir=base_dir, main_text=structure[key]['main_text'],
+            AC = AutoCorpus(config, base_dir=base_dir, main_text=structure[key]['main_text'],
                             linked_tables=sorted(structure[key]['linked_tables']),
-                            table_images=sorted(structure[key]['table_images']),
-                            supplementary_files=sorted(structure[key]['supplementary_files']), trainedData=trained_data)
+                            supplementary_files=sorted(structure[key]['supplementary_files']))
 
             out_dir = structure[key]['out_dir']
             if not os.path.exists(out_dir):
@@ -206,8 +205,8 @@ with open(logFileName, "w") as log_file:
                 if output_format.lower() in ["xml", "all"]:
                     with open(out_dir + "/" + key.split("/")[-1] + "_bioc.xml", "w", encoding='utf-8') as outfp:
                         outfp.write(AC.main_text_to_bioc_xml())
-                    with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.xml", "w", encoding='utf-8') as outfpA:
-                        outfpA.write(AC.abbreviations_to_bioc_xml())
+                    # with open(out_dir + "/" + key.split("/")[-1] + "_abbreviations.xml", "w", encoding='utf-8') as outfpA:
+                    #     outfpA.write(AC.abbreviations_to_bioc_xml())
 
             # AC does not support the conversion of tables or abbreviations to the XML format
             if AC.has_tables:

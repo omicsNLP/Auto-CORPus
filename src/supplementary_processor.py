@@ -3,10 +3,10 @@ import os.path
 
 from bioc import biocjson
 
-from .file_extension_analysis import get_file_extensions
-from .pdf_extractor import process_pdf, convert_pdf_result
-from .word_extractor import process_word_document
-from .excel_extractor import process_spreadsheet, get_tables_bioc
+from file_extension_analysis import get_file_extensions
+from pdf_extractor import process_pdf, convert_pdf_result
+from word_extractor import process_word_document
+from excel_extractor import process_spreadsheet, get_tables_bioc
 
 word_extensions = [".doc", ".docx"]
 spreadsheet_extensions = [".csv", ".xls", ".xlsx"]
