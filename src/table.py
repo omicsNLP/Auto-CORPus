@@ -512,11 +512,12 @@ class Table:
         final_row = len(table_2d)
         superrows_created = 0  # Deduct this row count when adding data rows with cell ids.
         data_row_added = False
-
+        skipped_row_idx = 1  # Deduct this row count when adding data rows with cell ids. (headers merged)
         for row_idx in range(len(table_2d)):
             row = table_2d[row_idx]
             # Ignore blank rows.
             if not any([i for i in row if i not in ['', 'None']]):
+                skipped_row_idx += 1
                 continue
 
             # Add table header if within the header indexes and skip to next row.
@@ -558,7 +559,8 @@ class Table:
 
             # If final row, add the last section to the table.
             elif row_idx + 1 == final_row:
-                row = Table.__create_row_cells(row, split_table_identifier, row_idx - superrows_created)
+                row = Table.__create_row_cells(row, split_table_identifier,
+                                               row_idx - (superrows_created + skipped_row_idx))
                 # Rare case of single data row tables will require a new data section here.
                 if not cur_data_section:
                     cur_data_section = cur_table.add_data_section([row], Infons.TYPE_DATA_SECTION, cur_superrow)
@@ -571,12 +573,14 @@ class Table:
             elif row_idx not in header_idx:
                 # Add content to current table section if one is in progress
                 if cur_data_section and prev_superrow == cur_superrow:
-                    row = Table.__create_row_cells(row, split_table_identifier, row_idx - superrows_created)
+                    row = Table.__create_row_cells(row, split_table_identifier,
+                                                   row_idx - (superrows_created + skipped_row_idx))
                     cur_data_section.data_rows.append(row)
 
                 # Create a new data section
                 else:
-                    row = Table.__create_row_cells(row, split_table_identifier, row_idx - superrows_created)
+                    row = Table.__create_row_cells(row, split_table_identifier,
+                                                   row_idx - (superrows_created + skipped_row_idx))
                     cur_data_section = cur_table.add_data_section([row], Infons.TYPE_DATA_SECTION, cur_superrow)
                     prev_superrow = cur_superrow
                 # Data rows have started being added.
