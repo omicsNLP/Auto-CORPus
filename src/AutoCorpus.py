@@ -435,7 +435,7 @@ class AutoCorpus:
 def _encode_column_heading(heading):
     """Encode a single table column heading."""
     tree = etree.Element('column_heading', {'cell_id': heading['cell_id']})
-    etree.SubElement(tree, 'cell_text').text = heading['cell_text']
+    etree.SubElement(tree, 'cell_text').text = str(heading['cell_text'])
     return tree
 
 
