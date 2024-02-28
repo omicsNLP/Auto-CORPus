@@ -16,7 +16,8 @@ class BioCPassage:
         }
         return cls(title_passage, offset)
 
-    def __build_passage(self, passage, offset):
+    @staticmethod
+    def __build_passage(passage, offset):
         defaultkeys = ["section_heading", "subsection_heading", "body", "section_type"]
         passage_dict = {
             "offset": offset,
@@ -29,8 +30,8 @@ class BioCPassage:
         for key in passage.keys():
             if key not in defaultkeys:
                 passage_dict['infons'][key] = passage[key]
-        # TODO: currently assumes section_heading and subsection_heading will always exist, should ideally check for existence.
-        #  Also doesn't account for subsubsection headings which might exist
+        # TODO: currently assumes section_heading and subsection_heading will always exist, should ideally check for
+        #  existence. Also doesn't account for sub-subsection headings which might exist
         if passage['section_heading'] != "":
             passage_dict['infons']['section_title_1'] = passage['section_heading']
         if passage['subsection_heading'] != "":
