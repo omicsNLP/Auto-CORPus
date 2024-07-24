@@ -147,15 +147,15 @@ def process_supplementary_files(supplementary_files, output_format='json'):
             continue
 
         # Extract data from Word files if they are present
-        if [1 for x in word_extensions if file.endswith(x)]:
+        if [1 for x in word_extensions if file.lower().endswith(x)]:
             __extract_word_data(file=file)
 
         # Extract data from PDF files if they are present
-        elif file.endswith("pdf"):
+        elif file.lower().endswith("pdf"):
             __extract_pdf_data(file=file)
 
         # Extract data from spreadsheet files if they are present
-        elif [1 for x in spreadsheet_extensions if file.endswith(x)]:
+        elif [1 for x in spreadsheet_extensions if file.lower().endswith(x)]:
             __extract_spreadsheet_data(file=file)
 
 
