@@ -255,14 +255,18 @@ def convert_older_doc_file(file):
     operating_system = platform.system()
     if operating_system == "Windows":
         import win32com.client
+        word = None
         try:
             word = win32com.client.DispatchEx("Word.Application")
             doc = word.Documents.Open(file)
             doc.SaveAs(file + ".docx", 16)
             doc.Close()
+            word.Quit()
             return True
         except Exception as e:
             return False
+        finally:
+            word.Quit()
     elif operating_system == "linux":
         subprocess.call(['unoconv', '-d', 'document', '--format=docx', file])
         return True
@@ -286,7 +290,7 @@ def process_word_document(file):
     """
     tables, paragraphs = [], []
     # Check if the file has a ".doc" or ".docx" extension
-    if file.endswith(".doc") or file.endswith(".docx"):
+    if file.lower().endswith(".doc") or file.lower().endswith(".docx"):
         try:
             doc = Document(file)
             tables = extract_tables(doc)
@@ -294,7 +298,7 @@ def process_word_document(file):
             paragraphs = [(x.text, True if text_sizes and x.style.font.size and int(x.style.font.size) > min(
                 text_sizes) else False) for x in doc.paragraphs]
         except ValueError:
-            if not file.endswith(".docx"):
+            if not file.lower().endswith(".docx"):
                 conversion_check = convert_older_doc_file(file)
                 if conversion_check:
                     logging.info(
