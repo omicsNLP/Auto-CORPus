@@ -2,6 +2,7 @@
 
 [![DOI:10.1101/2021.01.08.425887](http://img.shields.io/badge/DOI-10.1101/2021.01.08.425887-BE2536.svg)](https://doi.org/10.1101/2021.01.08.425887)
 [![DOI:10.3389/fdgth.2022.788124](http://img.shields.io/badge/DOI-10.3389/fdgth.2022.788124-70286A.svg)](https://doi.org/10.3389/fdgth.2022.788124)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 *Requires python 3.6+*
 
