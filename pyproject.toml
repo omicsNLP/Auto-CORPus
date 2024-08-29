@@ -30,6 +30,11 @@ networkx = "2.5.1"
 opencv-contrib-python = "^4.10.0.84"
 python-levenshtein = "0.12.2"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+pytest-cov = "^5.0.0"
+pytest-mock = "^3.14.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
