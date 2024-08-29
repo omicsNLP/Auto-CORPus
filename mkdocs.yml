@@ -35,5 +35,7 @@ plugins:
 
 nav:
   - Auto-CORPus documentation: index.md
+  - How to create/edit a config file: config_tutorial.md
+  - Use of data elements: data_elements.md
   # defer to gen-files + literate-nav
   - Code Reference: reference/
