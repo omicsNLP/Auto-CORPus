@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "src"
+version = "1.0.0"
+description = "A tool to standardise text and table data extracted from full text publications."
+authors = [
+    "Tim Beck <tim.beck@nottingham.ac.uk>",
+    "Joram Matthias Posma <j.posma11@imperial.ac.uk>",
+]
+license = "GPL-3.0-only"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+# This is an indirect dependency for bioc, but seemingly this version has been yanked.
+# Once we have updated bioc to the latest version, this line should be dropped.
+docutils = "!=0.21.post1"
+
+python = ">=3.7,<3.11"
+regex = "2021.8.3"
+bioc = "1.3.7"
+beautifulsoup4 = "4.9.3"
+nltk = "3.6.2"
+fuzzywuzzy = "0.18.0"
+pytesseract = "0.3.8"
+lxml = "4.6.3"
+networkx = "2.5.1"
+opencv-contrib-python = "^4.10.0.84"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
