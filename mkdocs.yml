@@ -1,0 +1,39 @@
+site_name: Auto-CORPus
+watch: [src]
+
+theme:
+  name: material
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.snippets:
+      check_paths: true
+  - toc:
+      permalink: ¤
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs/gen_ref_nav.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            # docstring_style: sphinx
+            show_source: true
+            show_root_heading: true
+            show_category_heading: true
+            merge_init_into_class: true
+
+nav:
+  - Auto-CORPus documentation: index.md
+  # defer to gen-files + literate-nav
+  - Code Reference: reference/
