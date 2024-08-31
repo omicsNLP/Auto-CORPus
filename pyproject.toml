@@ -38,3 +38,6 @@ pytest-mock = "^3.14.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "-v -p no:warnings --cov=src --cov-report=html --doctest-modules --ignore=run_app.py"
