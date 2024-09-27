@@ -19,15 +19,32 @@ jobs:
         python-version: ['3.12']
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: poetry
+
+      # Install Poetry
       - name: Install Poetry
         uses: abatilo/actions-poetry@v3.0.0
         with:
           poetry-version: 1.8.3
+
+      # Cache Poetry dependencies
+      - name: Cache Poetry Dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/.venv
+            ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
+      # Install dependencies using Poetry
       - name: Install dependencies
         run: poetry install
+
+      # Run tests using Poetry
       - name: Run tests
         run: poetry run pytest
