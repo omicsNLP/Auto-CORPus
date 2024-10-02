@@ -1,0 +1,1482 @@
+{
+  "source": "Auto-CORPus (tables)",
+  "date": "20240829",
+  "key": "autocorpus_tables.key",
+  "infons": {},
+  "documents": [
+    {
+      "inputfile": "tests/data/PMC8885717.html",
+      "id": "1",
+      "infons": {},
+      "passages": [
+        {
+          "offset": 0,
+          "infons": {
+            "section_title_1": "table_title",
+            "iao_name_1": "document title",
+            "iao_id_1": "IAO:0000305"
+          },
+          "text": [
+            "Table 1"
+          ]
+        },
+        {
+          "offset": 1,
+          "infons": {
+            "section_title_1": "table_caption",
+            "iao_name_1": "caption",
+            "iao_id_1": "IAO:0000304"
+          },
+          "text": "Publishers and journals included in the publisher dataset."
+        },
+        {
+          "offset": 59,
+          "infons": {
+            "section_title_1": "table_content",
+            "iao_name_1": "table",
+            "iao_id_1": "IAO:0000306"
+          },
+          "column_headings": [
+            {
+              "cell_id": "1.1.1",
+              "cell_text": "Publisher"
+            },
+            {
+              "cell_id": "1.1.2",
+              "cell_text": "Journal"
+            },
+            {
+              "cell_id": "1.1.3",
+              "cell_text": "Number of full-text files"
+            },
+            {
+              "cell_id": "1.1.4",
+              "cell_text": "Overlap with OA dataset"
+            },
+            {
+              "cell_id": "1.1.5",
+              "cell_text": "Table type"
+            },
+            {
+              "cell_id": "1.1.6",
+              "cell_text": "Number of table files"
+            }
+          ],
+          "data_section": [
+            {
+              "table_section_title_1": "",
+              "data_rows": [
+                [
+                  {
+                    "cell_id": "1.2.1",
+                    "cell_text": "American Heart Association"
+                  },
+                  {
+                    "cell_id": "1.2.2",
+                    "cell_text": "Circulation Cardiovascular Genetics"
+                  },
+                  {
+                    "cell_id": "1.2.3",
+                    "cell_text": 52.0
+                  },
+                  {
+                    "cell_id": "1.2.4",
+                    "cell_text": 39.0
+                  },
+                  {
+                    "cell_id": "1.2.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.2.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.3.1",
+                    "cell_text": "American Physical Society"
+                  },
+                  {
+                    "cell_id": "1.3.2",
+                    "cell_text": "Physical Review Letters<sup>a</sup>"
+                  },
+                  {
+                    "cell_id": "1.3.3",
+                    "cell_text": 6.0
+                  },
+                  {
+                    "cell_id": "1.3.4",
+                    "cell_text": "–"
+                  },
+                  {
+                    "cell_id": "1.3.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.3.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.4.1",
+                    "cell_text": "American Psychological Association"
+                  },
+                  {
+                    "cell_id": "1.4.2",
+                    "cell_text": "Psychological Bulletin<sup>a</sup>"
+                  },
+                  {
+                    "cell_id": "1.4.3",
+                    "cell_text": 3.0
+                  },
+                  {
+                    "cell_id": "1.4.4",
+                    "cell_text": "–"
+                  },
+                  {
+                    "cell_id": "1.4.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.4.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.5.1",
+                    "cell_text": "American Society of Hematology"
+                  },
+                  {
+                    "cell_id": "1.5.2",
+                    "cell_text": "Blood"
+                  },
+                  {
+                    "cell_id": "1.5.3",
+                    "cell_text": 31.0
+                  },
+                  {
+                    "cell_id": "1.5.4",
+                    "cell_text": 25.0
+                  },
+                  {
+                    "cell_id": "1.5.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.5.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.6.1",
+                    "cell_text": "American Thoracic Society"
+                  },
+                  {
+                    "cell_id": "1.6.2",
+                    "cell_text": "American Journal of Respiratory and Critical Care Medicine"
+                  },
+                  {
+                    "cell_id": "1.6.3",
+                    "cell_text": 20.0
+                  },
+                  {
+                    "cell_id": "1.6.4",
+                    "cell_text": 18.0
+                  },
+                  {
+                    "cell_id": "1.6.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.6.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.7.1",
+                    "cell_text": "BioMed Central"
+                  },
+                  {
+                    "cell_id": "1.7.2",
+                    "cell_text": "BMC Medical Genetics"
+                  },
+                  {
+                    "cell_id": "1.7.3",
+                    "cell_text": 43.0
+                  },
+                  {
+                    "cell_id": "1.7.4",
+                    "cell_text": 43.0
+                  },
+                  {
+                    "cell_id": "1.7.5",
+                    "cell_text": "Linked HTML"
+                  },
+                  {
+                    "cell_id": "1.7.6",
+                    "cell_text": 160.0
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.8.1",
+                    "cell_text": "Cell Press"
+                  },
+                  {
+                    "cell_id": "1.8.2",
+                    "cell_text": "American Journal of Human Genetics"
+                  },
+                  {
+                    "cell_id": "1.8.3",
+                    "cell_text": 5.0
+                  },
+                  {
+                    "cell_id": "1.8.4",
+                    "cell_text": 5.0
+                  },
+                  {
+                    "cell_id": "1.8.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.8.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.9.1",
+                    "cell_text": "Elsevier"
+                  },
+                  {
+                    "cell_id": "1.9.2",
+                    "cell_text": "Biological Psychiatry"
+                  },
+                  {
+                    "cell_id": "1.9.3",
+                    "cell_text": 5.0
+                  },
+                  {
+                    "cell_id": "1.9.4",
+                    "cell_text": 5.0
+                  },
+                  {
+                    "cell_id": "1.9.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.9.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.10.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.10.2",
+                    "cell_text": "Gastroenterology"
+                  },
+                  {
+                    "cell_id": "1.10.3",
+                    "cell_text": 5.0
+                  },
+                  {
+                    "cell_id": "1.10.4",
+                    "cell_text": 2.0
+                  },
+                  {
+                    "cell_id": "1.10.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.10.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.11.1",
+                    "cell_text": "Frontiers"
+                  },
+                  {
+                    "cell_id": "1.11.2",
+                    "cell_text": "Frontiers in Genetics"
+                  },
+                  {
+                    "cell_id": "1.11.3",
+                    "cell_text": 20.0
+                  },
+                  {
+                    "cell_id": "1.11.4",
+                    "cell_text": 20.0
+                  },
+                  {
+                    "cell_id": "1.11.5",
+                    "cell_text": "Linked images"
+                  },
+                  {
+                    "cell_id": "1.11.6",
+                    "cell_text": "n/a"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.12.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.12.2",
+                    "cell_text": "Frontiers in Physics<sup>a</sup>"
+                  },
+                  {
+                    "cell_id": "1.12.3",
+                    "cell_text": 3.0
+                  },
+                  {
+                    "cell_id": "1.12.4",
+                    "cell_text": "–"
+                  },
+                  {
+                    "cell_id": "1.12.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.12.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.13.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.13.2",
+                    "cell_text": "Frontiers in Psychology<sup>a</sup>"
+                  },
+                  {
+                    "cell_id": "1.13.3",
+                    "cell_text": 4.0
+                  },
+                  {
+                    "cell_id": "1.13.4",
+                    "cell_text": "–"
+                  },
+                  {
+                    "cell_id": "1.13.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.13.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.14.1",
+                    "cell_text": "Massachusetts Medical Society"
+                  },
+                  {
+                    "cell_id": "1.14.2",
+                    "cell_text": "The New England Journal of Medicine"
+                  },
+                  {
+                    "cell_id": "1.14.3",
+                    "cell_text": 20.0
+                  },
+                  {
+                    "cell_id": "1.14.4",
+                    "cell_text": 12.0
+                  },
+                  {
+                    "cell_id": "1.14.5",
+                    "cell_text": "Linked images"
+                  },
+                  {
+                    "cell_id": "1.14.6",
+                    "cell_text": "n/a"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.15.1",
+                    "cell_text": "Mosby"
+                  },
+                  {
+                    "cell_id": "1.15.2",
+                    "cell_text": "The Journal of Allergy and Clinical Immunology"
+                  },
+                  {
+                    "cell_id": "1.15.3",
+                    "cell_text": 5.0
+                  },
+                  {
+                    "cell_id": "1.15.4",
+                    "cell_text": 3.0
+                  },
+                  {
+                    "cell_id": "1.15.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.15.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.16.1",
+                    "cell_text": "Nature Portfolio"
+                  },
+                  {
+                    "cell_id": "1.16.2",
+                    "cell_text": "European Journal of Human Genetics"
+                  },
+                  {
+                    "cell_id": "1.16.3",
+                    "cell_text": 50.0
+                  },
+                  {
+                    "cell_id": "1.16.4",
+                    "cell_text": 50.0
+                  },
+                  {
+                    "cell_id": "1.16.5",
+                    "cell_text": "Linked HTML"
+                  },
+                  {
+                    "cell_id": "1.16.6",
+                    "cell_text": 123.0
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.17.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.17.2",
+                    "cell_text": "Journal of Human Genetics"
+                  },
+                  {
+                    "cell_id": "1.17.3",
+                    "cell_text": 37.0
+                  },
+                  {
+                    "cell_id": "1.17.4",
+                    "cell_text": 3.0
+                  },
+                  {
+                    "cell_id": "1.17.5",
+                    "cell_text": "Linked HTML"
+                  },
+                  {
+                    "cell_id": "1.17.6",
+                    "cell_text": 90.0
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.18.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.18.2",
+                    "cell_text": "Molecular Psychiatry"
+                  },
+                  {
+                    "cell_id": "1.18.3",
+                    "cell_text": 103.0
+                  },
+                  {
+                    "cell_id": "1.18.4",
+                    "cell_text": 78.0
+                  },
+                  {
+                    "cell_id": "1.18.5",
+                    "cell_text": "Linked HTML"
+                  },
+                  {
+                    "cell_id": "1.18.6",
+                    "cell_text": 262.0
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.19.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.19.2",
+                    "cell_text": "Nature Physics<sup>a</sup>"
+                  },
+                  {
+                    "cell_id": "1.19.3",
+                    "cell_text": 3.0
+                  },
+                  {
+                    "cell_id": "1.19.4",
+                    "cell_text": "–"
+                  },
+                  {
+                    "cell_id": "1.19.5",
+                    "cell_text": "–"
+                  },
+                  {
+                    "cell_id": "1.19.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.20.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.20.2",
+                    "cell_text": "Scientific Reports"
+                  },
+                  {
+                    "cell_id": "1.20.3",
+                    "cell_text": 80.0
+                  },
+                  {
+                    "cell_id": "1.20.4",
+                    "cell_text": 80.0
+                  },
+                  {
+                    "cell_id": "1.20.5",
+                    "cell_text": "Linked HTML"
+                  },
+                  {
+                    "cell_id": "1.20.6",
+                    "cell_text": 190.0
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.21.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.21.2",
+                    "cell_text": "The Pharmacogenomics Journal"
+                  },
+                  {
+                    "cell_id": "1.21.3",
+                    "cell_text": 37.0
+                  },
+                  {
+                    "cell_id": "1.21.4",
+                    "cell_text": 16.0
+                  },
+                  {
+                    "cell_id": "1.21.5",
+                    "cell_text": "Linked HTML"
+                  },
+                  {
+                    "cell_id": "1.21.6",
+                    "cell_text": 116.0
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.22.1",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.22.2",
+                    "cell_text": "Translational Psychiatry"
+                  },
+                  {
+                    "cell_id": "1.22.3",
+                    "cell_text": 41.0
+                  },
+                  {
+                    "cell_id": "1.22.4",
+                    "cell_text": 41.0
+                  },
+                  {
+                    "cell_id": "1.22.5",
+                    "cell_text": "Linked HTML"
+                  },
+                  {
+                    "cell_id": "1.22.6",
+                    "cell_text": 87.0
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.23.1",
+                    "cell_text": "Oxford University Press"
+                  },
+                  {
+                    "cell_id": "1.23.2",
+                    "cell_text": "Human Molecular Genetics"
+                  },
+                  {
+                    "cell_id": "1.23.3",
+                    "cell_text": 254.0
+                  },
+                  {
+                    "cell_id": "1.23.4",
+                    "cell_text": 186.0
+                  },
+                  {
+                    "cell_id": "1.23.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.23.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.24.1",
+                    "cell_text": "PLOS"
+                  },
+                  {
+                    "cell_id": "1.24.2",
+                    "cell_text": "PLOS One"
+                  },
+                  {
+                    "cell_id": "1.24.3",
+                    "cell_text": 20.0
+                  },
+                  {
+                    "cell_id": "1.24.4",
+                    "cell_text": 20.0
+                  },
+                  {
+                    "cell_id": "1.24.5",
+                    "cell_text": "Linked images"
+                  },
+                  {
+                    "cell_id": "1.24.6",
+                    "cell_text": "n/a"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.25.1",
+                    "cell_text": "SAGE Publications"
+                  },
+                  {
+                    "cell_id": "1.25.2",
+                    "cell_text": "Psychological Science<sup>a</sup>"
+                  },
+                  {
+                    "cell_id": "1.25.3",
+                    "cell_text": 3.0
+                  },
+                  {
+                    "cell_id": "1.25.4",
+                    "cell_text": "–"
+                  },
+                  {
+                    "cell_id": "1.25.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.25.6",
+                    "cell_text": "-"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.26.1",
+                    "cell_text": "Springer"
+                  },
+                  {
+                    "cell_id": "1.26.2",
+                    "cell_text": "Human Genetics"
+                  },
+                  {
+                    "cell_id": "1.26.3",
+                    "cell_text": 5.0
+                  },
+                  {
+                    "cell_id": "1.26.4",
+                    "cell_text": 2.0
+                  },
+                  {
+                    "cell_id": "1.26.5",
+                    "cell_text": "Linked HTML"
+                  },
+                  {
+                    "cell_id": "1.26.6",
+                    "cell_text": 13.0
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.27.1",
+                    "cell_text": "Wiley-Blackwell"
+                  },
+                  {
+                    "cell_id": "1.27.2",
+                    "cell_text": "American Journal of Medical Genetics"
+                  },
+                  {
+                    "cell_id": "1.27.3",
+                    "cell_text": 5.0
+                  },
+                  {
+                    "cell_id": "1.27.4",
+                    "cell_text": 0.0
+                  },
+                  {
+                    "cell_id": "1.27.5",
+                    "cell_text": "Inline"
+                  },
+                  {
+                    "cell_id": "1.27.6",
+                    "cell_text": "–"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "1.28.1",
+                    "cell_text": "Total"
+                  },
+                  {
+                    "cell_id": "1.28.2",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.28.3",
+                    "cell_text": 860.0
+                  },
+                  {
+                    "cell_id": "1.28.4",
+                    "cell_text": 648.0
+                  },
+                  {
+                    "cell_id": "1.28.5",
+                    "cell_text": ""
+                  },
+                  {
+                    "cell_id": "1.28.6",
+                    "cell_text": 1041.0
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset": 1542,
+          "infons": {
+            "section_title_1": "table_footer",
+            "iao_name_1": "caption",
+            "iao_id_1": "IAO:0000304"
+          },
+          "text": "The full-text files were downloaded in HTML format and the linked table files were downloaded when available in HTML formats. The full-text files that overlap with the OA dataset were used to assess the consistency of outputs generated from different sources.<sup>a</sup>These publications are not part of the publisher dataset for evaluating tables, but are used for evaluating the accuracy of IAO header mapping."
+        }
+      ]
+    },
+    {
+      "inputfile": "tests/data/PMC8885717.html",
+      "id": "2",
+      "infons": {},
+      "passages": [
+        {
+          "offset": 0,
+          "infons": {
+            "section_title_1": "table_title",
+            "iao_name_1": "document title",
+            "iao_id_1": "IAO:0000305"
+          },
+          "text": [
+            "Table 2"
+          ]
+        },
+        {
+          "offset": 1,
+          "infons": {
+            "section_title_1": "table_caption",
+            "iao_name_1": "caption",
+            "iao_id_1": "IAO:0000304"
+          },
+          "text": "New synonyms identified for existing IAO terms from the fuzzy and digraph mappings of 2,441 publications."
+        },
+        {
+          "offset": 106,
+          "infons": {
+            "section_title_1": "table_content",
+            "iao_name_1": "table",
+            "iao_id_1": "IAO:0000306"
+          },
+          "column_headings": [
+            {
+              "cell_id": "2.1.1",
+              "cell_text": "Category (IAO identifier)"
+            },
+            {
+              "cell_id": "2.1.2",
+              "cell_text": "Existing synonyms<sup>a</sup>"
+            },
+            {
+              "cell_id": "2.1.3",
+              "cell_text": "New synonyms identified<sup>b</sup>"
+            }
+          ],
+          "data_section": [
+            {
+              "table_section_title_1": "",
+              "data_rows": [
+                [
+                  {
+                    "cell_id": "2.2.1",
+                    "cell_text": "abbreviations (IAO:0000606)"
+                  },
+                  {
+                    "cell_id": "2.2.2",
+                    "cell_text": "abbreviations, abbreviations list, abbreviations used, list of abbreviations, list of abbreviations used"
+                  },
+                  {
+                    "cell_id": "2.2.3",
+                    "cell_text": "abbreviation and acronyms, abbreviation list, abbreviations and acronyms, abbreviations used in this paper, definitions for abbreviations, glossary, key abbreviations, non-standard abbreviations, nonstandard abbreviations, nonstandard abbreviations and acronyms"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.3.1",
+                    "cell_text": "abstract (IAO:0000315)"
+                  },
+                  {
+                    "cell_id": "2.3.2",
+                    "cell_text": "abstract"
+                  },
+                  {
+                    "cell_id": "2.3.3",
+                    "cell_text": "precis"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.4.1",
+                    "cell_text": "acknowledgments (IAO:0000324)"
+                  },
+                  {
+                    "cell_id": "2.4.2",
+                    "cell_text": "acknowledgments, acknowledgments"
+                  },
+                  {
+                    "cell_id": "2.4.3",
+                    "cell_text": "acknowledgment, acknowledgment, acknowledgments and disclaimer"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.5.1",
+                    "cell_text": "author contributions (IAO:0000323)"
+                  },
+                  {
+                    "cell_id": "2.5.2",
+                    "cell_text": "author contributions, contributions by the authors"
+                  },
+                  {
+                    "cell_id": "2.5.3",
+                    "cell_text": "authors' contribution, authors' contributions, authors' roles, contributorship, main authors by consortium and author contributions"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.6.1",
+                    "cell_text": "author information (IAO:0000607)"
+                  },
+                  {
+                    "cell_id": "2.6.2",
+                    "cell_text": "author information, authors' information"
+                  },
+                  {
+                    "cell_id": "2.6.3",
+                    "cell_text": "biographies, contributor information"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.7.1",
+                    "cell_text": "availability (IAO:0000611)"
+                  },
+                  {
+                    "cell_id": "2.7.2",
+                    "cell_text": "availability, availability and requirements"
+                  },
+                  {
+                    "cell_id": "2.7.3",
+                    "cell_text": "availability of data, availability of data and materials, data archiving, data availability, data availability statement, data sharing statement"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.8.1",
+                    "cell_text": "conclusion (IAO:0000615)"
+                  },
+                  {
+                    "cell_id": "2.8.2",
+                    "cell_text": "concluding remarks, conclusion, conclusions, findings, summary"
+                  },
+                  {
+                    "cell_id": "2.8.3",
+                    "cell_text": "conclusion and perspectives, summary and conclusion"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.9.1",
+                    "cell_text": "conflict of interest (IAO:0000616)"
+                  },
+                  {
+                    "cell_id": "2.9.2",
+                    "cell_text": "competing interests, conflict of interest, conflict of interest statement, declaration of competing interests, disclosure of potential conflicts of interest"
+                  },
+                  {
+                    "cell_id": "2.9.3",
+                    "cell_text": "authors' disclosures of potential conflicts of interest, competing financial interests, conflict of interests, conflicts of interest, declaration of competing interest, declaration of interest, declaration of interests, disclosure of conflict of interest, duality of interest, statement of interest"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.10.1",
+                    "cell_text": "consent (IAO:0000618)"
+                  },
+                  {
+                    "cell_id": "2.10.2",
+                    "cell_text": "consent"
+                  },
+                  {
+                    "cell_id": "2.10.3",
+                    "cell_text": "Informed consent"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.11.1",
+                    "cell_text": "discussion (IAO:0000319)"
+                  },
+                  {
+                    "cell_id": "2.11.2",
+                    "cell_text": "discussion, discussion section"
+                  },
+                  {
+                    "cell_id": "2.11.3",
+                    "cell_text": "discussions"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.12.1",
+                    "cell_text": "ethical approval (IAO:0000620)"
+                  },
+                  {
+                    "cell_id": "2.12.2",
+                    "cell_text": "ethical approval"
+                  },
+                  {
+                    "cell_id": "2.12.3",
+                    "cell_text": "ethics approval and consent to participate, ethical requirements, ethics, ethics statement"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.13.1",
+                    "cell_text": "footnote (IAO:0000325)"
+                  },
+                  {
+                    "cell_id": "2.13.2",
+                    "cell_text": "endnote, footnote"
+                  },
+                  {
+                    "cell_id": "2.13.3",
+                    "cell_text": "footnotes"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.14.1",
+                    "cell_text": "funding source declaration (IAO:0000623)"
+                  },
+                  {
+                    "cell_id": "2.14.2",
+                    "cell_text": "funding, funding information, funding sources, funding statement, funding/support, source of funding, sources of funding"
+                  },
+                  {
+                    "cell_id": "2.14.3",
+                    "cell_text": "financial support, grants, role of the funding source, study funding"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.15.1",
+                    "cell_text": "future directions (IAO:0000625)"
+                  },
+                  {
+                    "cell_id": "2.15.2",
+                    "cell_text": "future challenges, future considerations, future developments, future directions, future outlook, future perspectives, future plans, future prospects, future research, future research directions, future studies, future work"
+                  },
+                  {
+                    "cell_id": "2.15.3",
+                    "cell_text": "outlook"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.16.1",
+                    "cell_text": "introduction (IAO:0000316)"
+                  },
+                  {
+                    "cell_id": "2.16.2",
+                    "cell_text": "background, introduction"
+                  },
+                  {
+                    "cell_id": "2.16.3",
+                    "cell_text": "introductory paragraph"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.17.1",
+                    "cell_text": "materials (IAO:0000633)"
+                  },
+                  {
+                    "cell_id": "2.17.2",
+                    "cell_text": "materials"
+                  },
+                  {
+                    "cell_id": "2.17.3",
+                    "cell_text": "data, data description"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.18.1",
+                    "cell_text": "methods (IAO:0000317)"
+                  },
+                  {
+                    "cell_id": "2.18.2",
+                    "cell_text": "experimental, experimental procedures, experimental section, materials and methods, methods"
+                  },
+                  {
+                    "cell_id": "2.18.3",
+                    "cell_text": "analytical methods, concise methods, experimental methods, method, method validation, methodology, methods and design, methods and procedures, methods and tools, methods/design, online methods, star methods, study design, study design and methods"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.19.1",
+                    "cell_text": "references (IAO:0000320)"
+                  },
+                  {
+                    "cell_id": "2.19.2",
+                    "cell_text": "bibliography, literature cited, references"
+                  },
+                  {
+                    "cell_id": "2.19.3",
+                    "cell_text": "literature cited, reference, references, reference list, selected references, web site references"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.20.1",
+                    "cell_text": "statistical analysis (IAO:0000644)"
+                  },
+                  {
+                    "cell_id": "2.20.2",
+                    "cell_text": "statistical analysis"
+                  },
+                  {
+                    "cell_id": "2.20.3",
+                    "cell_text": "statistical methods, statistical methods and analysis, statistics"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.21.1",
+                    "cell_text": "study limitations (IAO:0000631)"
+                  },
+                  {
+                    "cell_id": "2.21.2",
+                    "cell_text": "limitations, study limitations"
+                  },
+                  {
+                    "cell_id": "2.21.3",
+                    "cell_text": "strengths and limitations, study strengths and limitations"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "2.22.1",
+                    "cell_text": "supplementary material (IAO:0000326)"
+                  },
+                  {
+                    "cell_id": "2.22.2",
+                    "cell_text": "additional information, appendix, supplemental information, supplementary material, supporting information"
+                  },
+                  {
+                    "cell_id": "2.22.3",
+                    "cell_text": "additional file, additional files, additional information and declarations, additional points, electronic supplementary material, electronic supplementary materials, online content, supplemental data, supplemental material, supplementary data, supplementary figures and tables, supplementary files, supplementary information, supplementary materials, supplementary materials figures, supplementary materials figures and tables, supplementary materials table, supplementary materials tables"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset": 4116,
+          "infons": {
+            "section_title_1": "table_footer",
+            "iao_name_1": "caption",
+            "iao_id_1": "IAO:0000304"
+          },
+          "text": "<sup>a</sup>IAO v2020-06-10.<sup>b</sup>Elements in italics have previously been submitted by us for inclusion into IAO and added in the v2020-12-09 IAO release."
+        }
+      ]
+    },
+    {
+      "inputfile": "tests/data/PMC8885717.html",
+      "id": "3",
+      "infons": {},
+      "passages": [
+        {
+          "offset": 0,
+          "infons": {
+            "section_title_1": "table_title",
+            "iao_name_1": "document title",
+            "iao_id_1": "IAO:0000305"
+          },
+          "text": [
+            "Table 3"
+          ]
+        },
+        {
+          "offset": 1,
+          "infons": {
+            "section_title_1": "table_caption",
+            "iao_name_1": "caption",
+            "iao_id_1": "IAO:0000304"
+          },
+          "text": "(A) Proposed new IAO terms to define publication sections that were derived from analyzing the sections of 2,441 publications. (B) Proposed new IAO terms to define parts of a table section. Elements in italics have previously been submitted by us for inclusion into IAO and added in the v2020-12-09 IAO release."
+        },
+        {
+          "offset": 312,
+          "infons": {
+            "section_title_1": "table_content",
+            "iao_name_1": "table",
+            "iao_id_1": "IAO:0000306"
+          },
+          "column_headings": [
+            {
+              "cell_id": "3.1.1",
+              "cell_text": ""
+            },
+            {
+              "cell_id": "3.1.2",
+              "cell_text": "Proposed definition"
+            },
+            {
+              "cell_id": "3.1.3",
+              "cell_text": "Proposed synonyms"
+            }
+          ],
+          "data_section": [
+            {
+              "table_section_title_1": "",
+              "data_rows": [
+                [
+                  {
+                    "cell_id": "3.2.1",
+                    "cell_text": "(A) Proposed category"
+                  },
+                  {
+                    "cell_id": "3.2.2",
+                    "cell_text": "(A) Proposed category"
+                  },
+                  {
+                    "cell_id": "3.2.3",
+                    "cell_text": "(A) Proposed category"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "3.3.1",
+                    "cell_text": "Disclosure"
+                  },
+                  {
+                    "cell_id": "3.3.2",
+                    "cell_text": "“A part of a document used to disclose any associations by authors that might be perceived as to potentially interfere with or prevent them from reporting research with complete objectivity.”"
+                  },
+                  {
+                    "cell_id": "3.3.3",
+                    "cell_text": "Author disclosure statement, declarations, disclosure, disclosure statement, disclosures"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "3.4.1",
+                    "cell_text": "Graphical abstract"
+                  },
+                  {
+                    "cell_id": "3.4.2",
+                    "cell_text": "“An abstract that is a pictorial summary of the main findings described in a document.”"
+                  },
+                  {
+                    "cell_id": "3.4.3",
+                    "cell_text": "Central illustration, graphical abstract, TOC image, visual abstract"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "3.5.1",
+                    "cell_text": "Highlights"
+                  },
+                  {
+                    "cell_id": "3.5.2",
+                    "cell_text": "“A short collection of key messages that describe the core findings and essence of the article in concise form. It is distinct and separate from the abstract and only conveys the results and concept of a study. It is devoid of jargon, acronyms and abbreviations and targeted at a broader, non-technical audience.”"
+                  },
+                  {
+                    "cell_id": "3.5.3",
+                    "cell_text": "Author summary, editors' summary, highlights, key points, overview, research in context, significance, TOC"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "3.6.1",
+                    "cell_text": "Participants"
+                  },
+                  {
+                    "cell_id": "3.6.2",
+                    "cell_text": "“A section describing the recruitment of subjects into a research study. This section is distinct from the ‘patients' section and mostly focusses on healthy volunteers.”"
+                  },
+                  {
+                    "cell_id": "3.6.3",
+                    "cell_text": "Participants, sample"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "3.7.1",
+                    "cell_text": "(B) Proposed category"
+                  },
+                  {
+                    "cell_id": "3.7.2",
+                    "cell_text": "(B) Proposed category"
+                  },
+                  {
+                    "cell_id": "3.7.3",
+                    "cell_text": "(B) Proposed category"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "3.8.1",
+                    "cell_text": "Table title"
+                  },
+                  {
+                    "cell_id": "3.8.2",
+                    "cell_text": "“A textual entity that names a table.”"
+                  },
+                  {
+                    "cell_id": "3.8.3",
+                    "cell_text": ""
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "3.9.1",
+                    "cell_text": "Table caption"
+                  },
+                  {
+                    "cell_id": "3.9.2",
+                    "cell_text": "“A textual entity that describes a table.”"
+                  },
+                  {
+                    "cell_id": "3.9.3",
+                    "cell_text": ""
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "3.10.1",
+                    "cell_text": "Table footer"
+                  },
+                  {
+                    "cell_id": "3.10.2",
+                    "cell_text": "“A part of a table that provides additional information about a specific other part of the table. Footers are spatially segregated from the rest of the table and are usually indicated by a superscripted number or letter, or a special typographic character such as †.”"
+                  },
+                  {
+                    "cell_id": "3.10.3",
+                    "cell_text": "Table key, table note, table notes"
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "inputfile": "tests/data/PMC8885717.html",
+      "id": "4",
+      "infons": {},
+      "passages": [
+        {
+          "offset": 0,
+          "infons": {
+            "section_title_1": "table_title",
+            "iao_name_1": "document title",
+            "iao_id_1": "IAO:0000305"
+          },
+          "text": [
+            "Table 4"
+          ]
+        },
+        {
+          "offset": 1,
+          "infons": {
+            "section_title_1": "table_caption",
+            "iao_name_1": "caption",
+            "iao_id_1": "IAO:0000304"
+          },
+          "text": "Differences between the Auto-CORPus BioC and PMC BioC JSON outputs."
+        },
+        {
+          "offset": 68,
+          "infons": {
+            "section_title_1": "table_content",
+            "iao_name_1": "table",
+            "iao_id_1": "IAO:0000306"
+          },
+          "column_headings": [
+            {
+              "cell_id": "4.1.1",
+              "cell_text": "Difference"
+            },
+            {
+              "cell_id": "4.1.2",
+              "cell_text": "Auto-CORPus"
+            },
+            {
+              "cell_id": "4.1.3",
+              "cell_text": "PMC"
+            }
+          ],
+          "data_section": [
+            {
+              "table_section_title_1": "",
+              "data_rows": [
+                [
+                  {
+                    "cell_id": "4.2.1",
+                    "cell_text": "Section titles"
+                  },
+                  {
+                    "cell_id": "4.2.2",
+                    "cell_text": "Section titles, subtitles, subsubtitles (and so on) are linked to the passage text they apply to"
+                  },
+                  {
+                    "cell_id": "4.2.3",
+                    "cell_text": "Section titles, subtitles, subsubtitles (and so on) precede the passage text they apply to"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "4.3.1",
+                    "cell_text": "Section types"
+                  },
+                  {
+                    "cell_id": "4.3.2",
+                    "cell_text": "Section types are annotated using IAO terms"
+                  },
+                  {
+                    "cell_id": "4.3.3",
+                    "cell_text": "Section types are described using custom labels"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "4.4.1",
+                    "cell_text": "Offset counts"
+                  },
+                  {
+                    "cell_id": "4.4.2",
+                    "cell_text": "Offset increased by 1 for every character (including whitespace) in a passage"
+                  },
+                  {
+                    "cell_id": "4.4.3",
+                    "cell_text": "Offset increased by the number of bytes in the text of a passage plus one space"
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "4.5.1",
+                    "cell_text": "Table and figure sections"
+                  },
+                  {
+                    "cell_id": "4.5.2",
+                    "cell_text": "Structured table data are stored in table JSON. Figure captions are included in the BioC JSON in the sequential order in which they occur within paragraphs."
+                  },
+                  {
+                    "cell_id": "4.5.3",
+                    "cell_text": "Table data and figure captions occur at the end of the JSON document. Table content is given as XML."
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "4.6.1",
+                    "cell_text": "Abbreviations section"
+                  },
+                  {
+                    "cell_id": "4.6.2",
+                    "cell_text": "Abbreviations section stored in abbreviations JSON. Abbreviation and definition components are related. Incomplete/one-sided definitions are not stored."
+                  },
+                  {
+                    "cell_id": "4.6.3",
+                    "cell_text": "Abbreviations and definitions from the abbreviations section are stored separately as text with no relations between the two components. Incomplete/one-sided definitions are stored."
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "4.7.1",
+                    "cell_text": "Link anchor text"
+                  },
+                  {
+                    "cell_id": "4.7.2",
+                    "cell_text": "Link anchor text retained (HTML element tags removed)."
+                  },
+                  {
+                    "cell_id": "4.7.3",
+                    "cell_text": "Link anchor text removed."
+                  }
+                ],
+                [
+                  {
+                    "cell_id": "4.8.1",
+                    "cell_text": "Character encoding"
+                  },
+                  {
+                    "cell_id": "4.8.2",
+                    "cell_text": "UTF-8 used for outputs"
+                  },
+                  {
+                    "cell_id": "4.8.3",
+                    "cell_text": "Available in Unicode and ASCII"
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

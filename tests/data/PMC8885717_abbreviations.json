@@ -1,0 +1,68 @@
+{
+  "source": "Auto-CORPus (abbreviations)",
+  "date": "20240829",
+  "key": "autocorpus_abbreviations.key",
+  "documents": [
+    {
+      "id": "PMC8885717",
+      "inputfile": "tests/data/PMC8885717.html",
+      "passages": [
+        {
+          "text_short": "NLP",
+          "text_long_1": "Natural language processing",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "PMC",
+          "text_long_1": "PubMed Central",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "IAO",
+          "text_long_1": "Information Artifact Ontology",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "GWAS",
+          "text_long_1": "genome-wide association study",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "MWAS",
+          "text_long_1": "Metabolome-Wide Association Study",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "OA",
+          "text_long_1": "Open Access",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "DPGs",
+          "text_long_1": "directed path graphs",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "LOOM",
+          "text_long_1": "Lexical OWL Ontology Matcher",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "NER",
+          "text_long_1": "named-entity recognition",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "HDR",
+          "text_long_1": "Health Data Research",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "CRIS-CODE",
+          "text_long_1": "Clinical Record Interactive Search Comprehensive Data Extraction",
+          "extraction_algorithm_1": "fulltext"
+        }
+      ]
+    }
+  ]
+}
