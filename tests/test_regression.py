@@ -12,11 +12,18 @@ def test_autoCORPus():
     """
     from src.autoCORPus import autoCORPus
 
-    with open(Path(__file__).parent / "data" / "PMC8885717_abbreviations.json") as f:
+    with open(
+        Path(__file__).parent / "data" / "PMC8885717_abbreviations.json",
+        encoding="utf-8",
+    ) as f:
         expected_abbreviations = json.load(f)
-    with open(Path(__file__).parent / "data" / "PMC8885717_bioc.json") as f:
+    with open(
+        Path(__file__).parent / "data" / "PMC8885717_bioc.json", encoding="utf-8"
+    ) as f:
         expected_bioc = json.load(f)
-    with open(Path(__file__).parent / "data" / "PMC8885717_tables.json") as f:
+    with open(
+        Path(__file__).parent / "data" / "PMC8885717_tables.json", encoding="utf-8"
+    ) as f:
         expected_tables = json.load(f)
 
     auto_corpus = autoCORPus(
