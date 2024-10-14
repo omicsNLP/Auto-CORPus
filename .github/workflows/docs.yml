@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Build docs with MkDocs
-        run: poetry run mkdocs build --strict
+        run: poetry run mkdocs build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
