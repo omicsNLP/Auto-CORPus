@@ -2,7 +2,7 @@ import argparse
 import json
 import sys
 
-from bioc import loads, dumps, BioCFileType
+from bioc import loads, dumps, biocxml, biocjson
 from bs4 import BeautifulSoup
 
 from src.abbreviation import abbreviations
@@ -375,8 +375,8 @@ class autoCORPus:
         return BiocFormatter(self).to_json(indent)
 
     def main_text_to_bioc_xml(self):
-        collection = loads(BiocFormatter(self).to_json(2), BioCFileType.BIOC_JSON)
-        return dumps(collection, BioCFileType.BIOC_XML)
+        collection = biocjson.loads(BiocFormatter(self).to_json(2))
+        return biocxml.dumps(collection)
 
     def tables_to_bioc_json(self, indent=2):
         return json.dumps(self.tables, ensure_ascii=False, indent=indent)
