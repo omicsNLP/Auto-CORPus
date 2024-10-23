@@ -1,5 +1,5 @@
 import logging
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 
@@ -27,7 +27,6 @@ class abbreviations:
         :param candidate: candidate abbreviation
         :return: True if this is a good candidate
         """
-        LF_in_parentheses = False
         viable = True
         if re2.match(r"(\p{L}\.?\s?){2,}", candidate.lstrip()):
             viable = True
@@ -35,7 +34,6 @@ class abbreviations:
             viable = False
         if len(candidate.split()) > 2:
             viable = False
-            LF_in_parentheses = True  # customize funcition find LF in parentheses
         if candidate.islower():  # customize funcition discard all lower case candidate
             viable = False
         if not re2.search(r"\p{L}", candidate):  # \p{L} = All Unicode letter
@@ -345,7 +343,6 @@ class abbreviations:
         return abbre_dict
 
     def __abbre_list_to_dict(self, t):
-        abbre_list = []
         SF = t.findAll("dt")
         SF_list = [SF_word.get_text() for SF_word in SF]
         LF = t.findAll("dd")
@@ -450,7 +447,6 @@ class abbreviations:
         return abbrev_json
 
     def __biocify_abbreviations(self, abbreviations, file_path):
-        offset = 0
         template = {
             "source": "Auto-CORPus (abbreviations)",
             # "inputfile": file_path,

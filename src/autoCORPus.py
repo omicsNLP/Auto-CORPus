@@ -1,8 +1,9 @@
 import argparse
 import json
+import os
 import sys
 
-from bioc import loads, dumps, BioCFileType
+from bioc import BioCFileType, dumps, loads
 from bs4 import BeautifulSoup
 
 from src.abbreviation import abbreviations
@@ -10,7 +11,7 @@ from src.bioc_formatter import BiocFormatter
 from src.section import section
 from src.table import table
 from src.table_image import table_image
-from src.utils import *
+from src.utils import handle_not_tables
 
 
 def handle_path(func):
@@ -163,7 +164,6 @@ class autoCORPus:
         result = {}
 
         # Tags of text body to be extracted are hard-coded as p (main text) and span (keywords and refs)
-        body_select_tag = "p,span,a"
 
         # Extract title
         # try:
@@ -240,7 +240,6 @@ class autoCORPus:
                 tmp_tables, tmp_empty = table(
                     soup, config, file_path, self.base_dir
                 ).to_dict()
-                additive = 0
                 for tabl in tmp_tables["documents"]:
                     if "." in tabl["id"]:
                         tabl_id = tabl["id"].split(".")[0]

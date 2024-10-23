@@ -1,8 +1,9 @@
+import re
 from datetime import datetime
 from itertools import product
 from pathlib import Path
 
-from src.utils import *
+from src.utils import get_data_element_node, handle_tables, navigate_contents
 
 
 class table:
@@ -263,7 +264,7 @@ class table:
 
         """
         if any(char.isdigit() for char in s):
-            if any(char for char in s if char.isdigit() == False):
+            if any(char for char in s if char.isdigit() is False):
                 return True
         return False
 
@@ -509,7 +510,7 @@ class table:
 
             # find superrows
             superrow_idx = []
-            if table_2d != None:
+            if table_2d is not None:
                 for row_idx, row in enumerate(table_2d):
                     if row_idx not in header_idx:
                         if self.__check_superrow(row):
@@ -608,7 +609,7 @@ class table:
                             .replace("–", "-")
                             .replace(",", "")
                         )
-                    except:
+                    except Exception:
                         row[cell] = row[cell]
 
             cur_table = self.__table2json(

@@ -195,7 +195,7 @@ def handle_defined_by(config, soup):
             if new_matches:
                 new_matches = [x for x in new_matches if x.text]
         if "xpath" in bsAttrs:
-            if type(bsAttrs["xpath"]) == list:
+            if type(bsAttrs["xpath"]) is list:
                 for path in bsAttrs["xpath"]:
                     xpath_matches = fromstring(str(soup)).xpath(path)
                     if xpath_matches:
@@ -221,7 +221,7 @@ def handle_defined_by(config, soup):
                         if new_match.text.strip():
                             new_matches.extend(new_match)
         for match in new_matches:
-            if type(match) != NavigableString:
+            if type(match) is not NavigableString:
                 matched_text = match.get_text()
             if matched_text in seen_text:
                 continue
@@ -264,7 +264,6 @@ def get_data_element_node(config, soup):
 
 def navigate_contents(item):
     value = ""
-    xa = "\xa0"
     if isinstance(item, bs4.element.NavigableString):
         value += unicodedata.normalize("NFKD", item)
     if isinstance(item, bs4.element.Tag):
@@ -365,7 +364,7 @@ def assgin_heading_by_DAG(paper):
                             mapping_dict_with_DAG.update({heading: [path[0]]})
                         if len(path) > 2:
                             mapping_dict_with_DAG.update({heading: path[1:-1]})
-                except:
+                except Exception:
                     new_target = paper[list(paper.keys())[i + i2 + 1]][0]
                     paths = nx.all_shortest_paths(
                         G, paper[previous_heading][-1], new_target, weight="cost"

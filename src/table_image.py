@@ -74,7 +74,7 @@ class table_image:
         )
         size = added.shape
         # print('added.shape: ', size)
-        imgarea = size[0] * size[1]
+        size[0] * size[1]
 
         # gray = cv2.cvtColor(added, cv2.COLOR_BGR2GRAY)
         gray = self.rm_lines(img)

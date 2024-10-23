@@ -1,8 +1,10 @@
+import re
+
 import nltk
 from fuzzywuzzy import fuzz
 
 from src.references import references
-from src.utils import *
+from src.utils import handle_not_tables, read_IAO_term_to_ID_file, read_mapping_file
 
 
 class section:
@@ -77,7 +79,7 @@ class section:
                 for tr in abbreviations_tables.find_all("tr"):
                     short_form, long_form = [td.get_text() for td in tr.find_all("td")]
                     abbreviations[short_form] = long_form
-            except:
+            except Exception:
                 abbreviations = {}
             self.__add_paragraph(str(abbreviations))
 
@@ -119,7 +121,6 @@ class section:
                     else:
                         mapping_result = []
         else:
-            h2 = ""
             mapping_result = []
         self.section_type = mapping_result
 
@@ -161,7 +162,6 @@ class section:
             unwanted_paragraphs.extend(capt.find_all("p", recursive=True))
             for capt in all_figures
         ]
-        filtered_paragraphs = []
         all_paragraphs = [
             para for para in all_paragraphs if para not in unwanted_paragraphs
         ]
