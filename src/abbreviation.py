@@ -7,7 +7,6 @@ import regex as re2
 
 
 class abbreviations:
-
     def __yield_lines_from_doc(self, doc_text):
         for line in doc_text.split("."):
             yield line.strip()
@@ -30,7 +29,7 @@ class abbreviations:
         """
         LF_in_parentheses = False
         viable = True
-        if re2.match(r'(\p{L}\.?\s?){2,}', candidate.lstrip()):
+        if re2.match(r"(\p{L}\.?\s?){2,}", candidate.lstrip()):
             viable = True
         if len(candidate) < 2 or len(candidate) > 10:
             viable = False
@@ -39,7 +38,7 @@ class abbreviations:
             LF_in_parentheses = True  # customize funcition find LF in parentheses
         if candidate.islower():  # customize funcition discard all lower case candidate
             viable = False
-        if not re2.search(r'\p{L}', candidate):  # \p{L} = All Unicode letter
+        if not re2.search(r"\p{L}", candidate):  # \p{L} = All Unicode letter
             viable = False
         if not candidate[0].isalnum():
             viable = False
@@ -52,20 +51,21 @@ class abbreviations:
         :return: a Candidate iterator
         """
 
-        if '(' in sentence:
+        if "(" in sentence:
             # Check some things first
-            if sentence.count('(') != sentence.count(')'):
+            if sentence.count("(") != sentence.count(")"):
                 raise ValueError("Unbalanced parentheses: {}".format(sentence))
 
-            if sentence.find('(') > sentence.find(')'):
+            if sentence.find("(") > sentence.find(")"):
                 raise ValueError("First parentheses is right: {}".format(sentence))
 
             close_index = -1
             while 1:
                 # Look for open parenthesis. Need leading whitespace to avoid matching mathematical and chemical formulae
-                open_index = sentence.find(' (', close_index + 1)
+                open_index = sentence.find(" (", close_index + 1)
 
-                if open_index == -1: break
+                if open_index == -1:
+                    break
 
                 # Advance beyond whitespace
                 open_index += 1
@@ -82,9 +82,9 @@ class abbreviations:
                         # Skip the opening bracket
                         skip = True
                         break
-                    if char == '(':
+                    if char == "(":
                         open_count += 1
-                    elif char in [')', ';', ':']:
+                    elif char in [")", ";", ":"]:
                         open_count -= 1
                     close_index += 1
 
@@ -122,7 +122,7 @@ class abbreviations:
         :return: candidate definition for this abbreviation
         """
         # Take the tokens in front of the candidate
-        tokens = re2.split(r'[\s\-]+', sentence[:candidate.start - 2].lower())
+        tokens = re2.split(r"[\s\-]+", sentence[: candidate.start - 2].lower())
         # the char that we are looking for
         key = candidate[0].lower()
 
@@ -153,7 +153,7 @@ class abbreviations:
                 count = first_chars[start_index:].count(key)
 
             # We found enough keys in the definition so return the definition as a definition candidate
-            start = len(' '.join(tokens[:start_index]))
+            start = len(" ".join(tokens[:start_index]))
             stop = candidate.start - 1
             candidate = sentence[start:stop]
 
@@ -167,7 +167,9 @@ class abbreviations:
             return new_candidate
 
         else:
-            raise ValueError('There are less keys in the tokens in front of candidate than there are in the candidate')
+            raise ValueError(
+                "There are less keys in the tokens in front of candidate than there are in the candidate"
+            )
 
     def __select_definition(self, definition, abbrev):
         """
@@ -182,10 +184,10 @@ class abbreviations:
         """
 
         if len(definition) < len(abbrev):
-            raise ValueError('Abbreviation is longer than definition')
+            raise ValueError("Abbreviation is longer than definition")
 
         if abbrev in definition.split():
-            raise ValueError('Abbreviation is full word of definition')
+            raise ValueError("Abbreviation is full word of definition")
 
         s_index = -1
         l_index = -1
@@ -203,14 +205,21 @@ class abbreviations:
 
             if s_index == -1 * len(abbrev):
                 if short_char == long_char:
-                    if l_index == -1 * len(definition) or not definition[l_index - 1].isalnum():
+                    if (
+                        l_index == -1 * len(definition)
+                        or not definition[l_index - 1].isalnum()
+                    ):
                         break
                     else:
                         l_index -= 1
                 else:
                     l_index -= 1
                     if l_index == -1 * (len(definition) + 1):
-                        raise ValueError("definition {} was not found in {}".format(abbrev, definition))
+                        raise ValueError(
+                            "definition {} was not found in {}".format(
+                                abbrev, definition
+                            )
+                        )
 
             else:
                 if short_char == long_char:
@@ -219,7 +228,7 @@ class abbreviations:
                 else:
                     l_index -= 1
 
-        new_candidate = Candidate(definition[l_index:len(definition)])
+        new_candidate = Candidate(definition[l_index : len(definition)])
         new_candidate.set_position(definition.start, definition.stop)
         definition = new_candidate
 
@@ -230,13 +239,18 @@ class abbreviations:
             raise ValueError("did not meet min(|A|+5, |A|*2) constraint")
 
         # Do not return definitions that contain unbalanced parentheses
-        if definition.count('(') != definition.count(')'):
+        if definition.count("(") != definition.count(")"):
             raise ValueError("Unbalanced parentheses not allowed in a definition")
 
         return definition
 
-    def __extract_abbreviation_definition_pairs(self, doc_text=None, most_common_definition=False,
-                                                first_definition=False, all_definition=True):
+    def __extract_abbreviation_definition_pairs(
+        self,
+        doc_text=None,
+        most_common_definition=False,
+        first_definition=False,
+        all_definition=True,
+    ):
         abbrev_map = dict()
         list_abbrev_map = defaultdict(list)
         counter_abbrev_map = dict()
@@ -250,21 +264,29 @@ class abbreviations:
 
         for i, sentence in sentence_iterator:
             # Remove any quotes around potential candidate terms
-            clean_sentence = re2.sub(r'([(])[\'"\p{Pi}]|[\'"\p{Pf}]([);:])', r'\1\2', sentence)
+            clean_sentence = re2.sub(
+                r'([(])[\'"\p{Pi}]|[\'"\p{Pf}]([);:])', r"\1\2", sentence
+            )
             try:
                 for candidate in self.__best_candidates(clean_sentence):
                     try:
                         definition = self.__get_definition(candidate, clean_sentence)
                     except (ValueError, IndexError) as e:
-                        self.log.debug("{} Omitting candidate {}. Reason: {}".format(i, candidate, e.args[0]))
+                        self.log.debug(
+                            "{} Omitting candidate {}. Reason: {}".format(
+                                i, candidate, e.args[0]
+                            )
+                        )
                         omit += 1
                     else:
                         try:
                             definition = self.__select_definition(definition, candidate)
                         except (ValueError, IndexError) as e:
                             self.log.debug(
-                                "{} Omitting definition {} for candidate {}. Reason: {}".format(i, definition,
-                                                                                                candidate, e.args[0]))
+                                "{} Omitting definition {} for candidate {}. Reason: {}".format(
+                                    i, definition, candidate, e.args[0]
+                                )
+                            )
                             omit += 1
                         else:
                             # Either append the current definition to the list of previous definitions ...
@@ -275,8 +297,12 @@ class abbreviations:
                                 abbrev_map[candidate] = definition
                             written += 1
             except (ValueError, IndexError) as e:
-                self.log.debug("{} Error processing sentence {}: {}".format(i, sentence, e.args[0]))
-        self.log.debug("{} abbreviations detected and kept ({} omitted)".format(written, omit))
+                self.log.debug(
+                    "{} Error processing sentence {}: {}".format(i, sentence, e.args[0])
+                )
+        self.log.debug(
+            "{} abbreviations detected and kept ({} omitted)".format(written, omit)
+        )
 
         # Return most common definition for each term
         if collect_definitions:
@@ -297,7 +323,9 @@ class abbreviations:
         return abbrev_map
 
     def __extract_abbreviation(self, main_text):
-        pairs = self.__extract_abbreviation_definition_pairs(doc_text=main_text, most_common_definition=True)
+        pairs = self.__extract_abbreviation_definition_pairs(
+            doc_text=main_text, most_common_definition=True
+        )
 
         return pairs
 
@@ -309,7 +337,7 @@ class abbreviations:
         abbre_list = []
         rows = t.findAll("tr")
         for i in rows:
-            elements = i.findAll(['td', 'th'])
+            elements = i.findAll(["td", "th"])
             vals = [j.get_text() for j in elements]
             if len(vals) > 1:
                 abbre_list += vals
@@ -327,57 +355,77 @@ class abbreviations:
 
     def __get_abbre_plain_text(self, soup_og):
         abbre_text = soup_og.get_text()
-        abbre_list = abbre_text.split(';')
+        abbre_list = abbre_text.split(";")
         list_lenth = len(abbre_list)
         return abbre_list, list_lenth
 
     def __get_abbre_dict_given_by_author(self, soup_og):
-        header = soup_og.find_all('h2', recursive=True)
+        header = soup_og.find_all("h2", recursive=True)
         abbre_dict = {}
         for number, element in enumerate(header):
-            if re2.search('abbreviation', element.get_text(), re2.IGNORECASE):
+            if re2.search("abbreviation", element.get_text(), re2.IGNORECASE):
                 nearest_down_tag = element.next_element
                 while nearest_down_tag:
                     tag_name = nearest_down_tag.name
 
                     # when abbre is table
-                    if tag_name == 'table':
+                    if tag_name == "table":
                         abbre_dict = self.__abbre_table_to_dict(nearest_down_tag)
                         break
 
                     # when abbre is list
-                    elif tag_name == 'dl':
+                    elif tag_name == "dl":
                         abbre_dict = self.__abbre_list_to_dict(nearest_down_tag)
                         break
 
                     # when abbre is plain text
-                    elif tag_name == 'p':
-                        abbre_list, list_lenth = self.__get_abbre_plain_text(nearest_down_tag)
+                    elif tag_name == "p":
+                        abbre_list, list_lenth = self.__get_abbre_plain_text(
+                            nearest_down_tag
+                        )
                         if list_lenth <= 2:
                             nearest_down_tag = nearest_down_tag.next_element
                             continue
                         else:
                             for abbre_pair in abbre_list:
-                                if len(abbre_pair.split(':')) == 2:
-                                    abbre_dict.update({abbre_pair.split(':')[0]: abbre_pair.split(':')[1]})
-                                elif len(abbre_pair.split(',')) == 2:
-                                    abbre_dict.update({abbre_pair.split(',')[0]: abbre_pair.split(',')[1]})
-                                elif len(abbre_pair.split(' ')) == 2:
-                                    abbre_dict.update({abbre_pair.split(' ')[0]: abbre_pair.split(' ')[1]})
+                                if len(abbre_pair.split(":")) == 2:
+                                    abbre_dict.update(
+                                        {
+                                            abbre_pair.split(":")[0]: abbre_pair.split(
+                                                ":"
+                                            )[1]
+                                        }
+                                    )
+                                elif len(abbre_pair.split(",")) == 2:
+                                    abbre_dict.update(
+                                        {
+                                            abbre_pair.split(",")[0]: abbre_pair.split(
+                                                ","
+                                            )[1]
+                                        }
+                                    )
+                                elif len(abbre_pair.split(" ")) == 2:
+                                    abbre_dict.update(
+                                        {
+                                            abbre_pair.split(" ")[0]: abbre_pair.split(
+                                                " "
+                                            )[1]
+                                        }
+                                    )
                             break
 
                     # search until next h2
-                    elif tag_name == 'h2':
+                    elif tag_name == "h2":
                         break
                     else:
                         nearest_down_tag = nearest_down_tag.next_element
         return abbre_dict
 
     def __get_abbreviations(self, main_text, soup, config):
-        paragraphs = main_text['paragraphs']
+        paragraphs = main_text["paragraphs"]
         all_abbreviations = {}
         for paragraph in paragraphs:
-            maintext = paragraph['body']
+            maintext = paragraph["body"]
             pairs = self.__extract_abbreviation(maintext)
             all_abbreviations.update(pairs)
         author_provided_abbreviations = self.__get_abbre_dict_given_by_author(soup)
@@ -385,7 +433,9 @@ class abbreviations:
         abbrev_json = {}
 
         for key in author_provided_abbreviations.keys():
-            abbrev_json[key] = {author_provided_abbreviations[key]: ["abbreviations section"]}
+            abbrev_json[key] = {
+                author_provided_abbreviations[key]: ["abbreviations section"]
+            }
         for key in all_abbreviations:
             if key in abbrev_json:
                 if all_abbreviations[key] in abbrev_json[key].keys():
@@ -410,28 +460,32 @@ class abbreviations:
                 {
                     "id": Path(file_path).name.split(".")[0],
                     "inputfile": file_path,
-                    "passages": []
+                    "passages": [],
                 }
-            ]
+            ],
         }
         passages = template["documents"][0]["passages"]
         for short in abbreviations.keys():
             counter = 1
-            shortTemplate = {
-                "text_short": short
-            }
+            shortTemplate = {"text_short": short}
             for long in abbreviations[short].keys():
-                shortTemplate[F"text_long_{counter}"] = long.replace("\n", " ")
-                shortTemplate[F"extraction_algorithm_{counter}"] = ", ".join(abbreviations[short][long])
+                shortTemplate[f"text_long_{counter}"] = long.replace("\n", " ")
+                shortTemplate[f"extraction_algorithm_{counter}"] = ", ".join(
+                    abbreviations[short][long]
+                )
                 counter += 1
             passages.append(shortTemplate)
         return template
 
     def __init__(self, main_text, soup, config, file_path):
-        logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+        logging.basicConfig(
+            format="%(asctime)s : %(levelname)s : %(message)s", level=logging.INFO
+        )
         self.log = logging.getLogger(__name__)
 
-        self.abbreviations = self.__biocify_abbreviations(self.__get_abbreviations(main_text, soup, config), file_path)
+        self.abbreviations = self.__biocify_abbreviations(
+            self.__get_abbreviations(main_text, soup, config), file_path
+        )
         pass
 
     def to_dict(self):
