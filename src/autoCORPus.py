@@ -1,6 +1,7 @@
 import argparse
 import json
 import sys
+from pathlib import Path
 
 from bioc import loads, dumps, BioCFileType
 from bs4 import BeautifulSoup
@@ -37,28 +38,32 @@ class autoCORPus:
 
     @handle_path
     def __read_config(self, config_path):
-        with open(config_path, "r") as f:
+        config_path = Path(config_path)
+        with config_path.open("r") as f:
             ## TODO: validate config file here if possible
             content = json.load(f)
             return content["config"]
 
     @handle_path
     def __import_file(self, file_path):
-        with open(file_path, "r") as f:
+        file_path = Path(file_path)
+        with file_path.open("r") as f:
             return f.read(), file_path
 
     @handle_path
     def __handle_target_dir(self, target_dir):
-        if not os.path.exists(target_dir):
-            os.makedirs(target_dir)
+        target_dir = Path(target_dir)
+        if not target_dir.exists():
+            target_dir.mkdir(parents=True)
         return
 
     def __validate_infile(self):
         pass
 
     def __soupify_infile(self, fpath):
+        fpath = Path(fpath)
         try:
-            with open(fpath, "r", encoding="utf-8") as fp:
+            with fpath.open("r", encoding="utf-8") as fp:
                 soup = BeautifulSoup(fp.read(), 'html.parser')
                 for e in soup.find_all(attrs={'style': ['display:none', 'visibility:hidden']}):
                     e.extract()
