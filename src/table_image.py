@@ -3,6 +3,7 @@
 
 from datetime import datetime
 from operator import itemgetter
+from pathlib import Path
 
 import cv2
 import pytesseract
@@ -389,13 +390,15 @@ class table_image:
             "infons": {},
             "documents": []
         }
+        base_dir = Path(base_dir)
         for image_path in table_images:
-            imgname = image_path.split('/')[-1]
+            image_path = Path(image_path) 
+            imgname = image_path.name
             self.tableIdentifier = imgname.split("_")[-1].split(".")[0]
-            self.file_name = imgname.replace(base_dir + "/", "")
-            pmc = imgname[0:imgname.rfind('.')]
+            self.file_name = str(image_path.relative_to(base_dir))
+            pmc = imgname.stem
 
-            img = cv2.imread(image_path)
+            img = cv2.imread(str(image_path))
 
             cells, added, thresh = self.find_cells(img)
             table_row = self.cell2table(cells, added, thresh, "imagesOut", pmc)
