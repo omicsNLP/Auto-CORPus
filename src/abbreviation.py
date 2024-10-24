@@ -34,7 +34,7 @@ class abbreviations:
             viable = False
         if len(candidate.split()) > 2:
             viable = False
-        if candidate.islower():  # customize function discard all lower case candidate
+        if candidate.islower():  # customize funcition discard all lower case candidate
             viable = False
         if not re2.search(r"\p{L}", candidate):  # \p{L} = All Unicode letter
             viable = False
