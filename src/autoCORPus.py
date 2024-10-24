@@ -1,10 +1,9 @@
 import argparse
 import json
-import os
 import sys
 from pathlib import Path
 
-from bioc import BioCFileType, dumps, loads, biocxml, biocjson
+from bioc import biocxml, biocjson
 from bs4 import BeautifulSoup
 
 from src.abbreviation import abbreviations
