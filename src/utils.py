@@ -1,6 +1,6 @@
-import os
 import re
 import unicodedata
+from pathlib import Path
 
 import bs4
 import networkx as nx
@@ -21,13 +21,13 @@ def get_files(base_dir, pattern=r"(.*).html"):
         file_list: a list of filepath
     """
     file_list = []
-    files = os.listdir(base_dir)
-    for i in files:
-        abs_path = os.path.join(base_dir, i)
-        if re.match(pattern, abs_path):
-            file_list.append(abs_path)
-        elif os.path.isdir(abs_path) & ("ipynb_checkpoints" not in abs_path):
-            file_list += get_files(abs_path)
+    base_dir = Path(base_dir)
+    for item in base_dir.iterdir():
+        abs_path = item.resolve()
+        if abs_path.is_file() and re.match(pattern, str(abs_path)):
+            file_list.append(str(abs_path))
+        elif abs_path.is_dir() and 'ipynb_checkpoints' not in str(abs_path):
+            file_list += get_files(abs_path, pattern)
     return file_list
 
 

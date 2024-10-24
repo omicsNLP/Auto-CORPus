@@ -10,25 +10,17 @@ license = "GPL-3.0-only"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-# This is an indirect dependency for bioc, but seemingly this version has been yanked.
-# Once we have updated bioc to the latest version, this line should be dropped.
-docutils = "!=0.21.post1"
-
-# Numpy is also an indirect dependency, but v2 isn't compatible with the version of
-# networkx we're using. This should also be dropped once we've upgraded.
-numpy = "<2"
-
-python = ">=3.8,<3.11"
-regex = "^2024.7.24"
-bioc = "1.3.7"
-beautifulsoup4 = "4.9.3"
-nltk = "3.6.2"
-fuzzywuzzy = "0.18.0"
-pytesseract = "0.3.8"
+python = ">=3.10,<3.13"
+regex = "^2024.9.11"
+bioc = "^2.1"
+beautifulsoup4 = "^4.12.3"
+nltk = "^3.9.1"
+fuzzywuzzy = "^0.18.0"
+pytesseract = "^0.3.13"
 lxml = "^5.3.0"
-networkx = "2.5.1"
+networkx = "^3.4.2"
 opencv-contrib-python = "^4.10.0.84"
-python-levenshtein = "0.12.2"
+python-levenshtein = "^0.26.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
@@ -37,12 +29,12 @@ pytest-mock = "^3.14.0"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.6.0"
-mkdocstrings = "^0.25.2"
+mkdocstrings = "^0.26.2"
 mkdocstrings-python = "^1.10.8"
 mkdocs-gen-files = "^0.5.0"
 mkdocs-literate-nav = "^0.6.1"
 mkdocs-section-index = "^0.3.9"
-mkdocs-material = "^9.5.33"
+mkdocs-material = "^9.5.42"
 
 [build-system]
 requires = ["poetry-core"]
