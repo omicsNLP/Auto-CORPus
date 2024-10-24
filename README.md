@@ -28,12 +28,14 @@ Auto-CORPus does not provide functionality to retrieve input files directly from
 Auto-CORPus relies on a standard naming convention to recognise the files and identify the correct order of tables. The naming convention can be seen below:
 
 Full article HTML: {any_name_you_want}.html
+
 - {any_name_you_want} is how Auto-CORPus will group articles and linked tables/image files
 
 Linked table HTML: {any_name_you_want}_table_X.html
-- {any_name_you_want} must be identical to the name given to the full text file followed by _table_X where X is the table number
 
-If passing a single file via the file path then that file will be processed in the most suitable manner, if a directory is passed then 
+- {any_name_you_want} must be identical to the name given to the full text file followed by_table_X where X is the table number
+
+If passing a single file via the file path then that file will be processed in the most suitable manner, if a directory is passed then
 Auto-CORPus will first group files based on common elements in their file name {any_name_you_want} and process all related files at once. Related files in separate directories will not be processed at the same time. Files processed at the same time will be output into the same files, an example input and output directory can be seen below:
 
 **Input:**
@@ -52,16 +54,15 @@ Auto-CORPus will first group files based on common elements in their file name {
     PMC1_tables.json (contains table 1 & 2 and any tables described within the main text)
     /subdir
         PMC1_tables.json (contains tables 3 & 4 only)
-   
+
 A log file is produced in the output directory providing details of the day/time Auto-CORPus was run,
 the arguments used and information about which files were successfully/unsuccessfully processed with a relevant error message.
-
 
 **Getting started:**
 
 Clone the repo, e.g.:
 
-$ git clone git@github.com:omicsNLP/Auto-CORPus.git or (using HTTPS) git clone https://github.com/omicsNLP/Auto-CORPus.git
+$ git clone <git@github.com>:omicsNLP/Auto-CORPus.git or (using HTTPS) git clone <https://github.com/omicsNLP/Auto-CORPus.git>
 
 $ cd Auto-CORPus
 
@@ -71,12 +72,12 @@ $ source env/bin/activate or (for Windows users) path/to/env/Scripts/activate.ba
 
 $ pip install .
 
-You might get an error here `ModuleNotFoundError: No module named 'skbuild'` if you do then run 
+You might get an error here `ModuleNotFoundError: No module named 'skbuild'` if you do then run
 
-$ pip install --upgrade pip 
+$ pip install --upgrade pip
 
-Or you might need to install the Microsoft Build Tools for Visual Studio 
-(see https://www.scivision.dev/python-windows-visual-c-14-required for minimal installation requirements so that python-Levenshtein package can be installed)
+Or you might need to install the Microsoft Build Tools for Visual Studio
+(see <https://www.scivision.dev/python-windows-visual-c-14-required> for minimal installation requirements so that python-Levenshtein package can be installed)
 first and then re-run
 
 $ pip install .
@@ -99,26 +100,24 @@ $  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/direct
 
 `-o`(output format) - either JSON or XML (defaults to JSON)
 
-
-
 <h3><a name="alpha">Alpha testing</a></h3>
 
-We are developing an Auto-CORPus plugin to process images of tables and we include an alpha version of this 
+We are developing an Auto-CORPus plugin to process images of tables and we include an alpha version of this
 functionality. Table image files can be processed in either .png or .jpeg/jpg formats. We are working on improving the accuracy of both the table layout and character recognition aspects, and we will update this repo as the plugin advances.
 
 We utilise [opencv](https://pypi.org/project/opencv-python/) for cell detection and [tesseract](https://github.com/tesseract-ocr/tesseract) for optical character recognition. Tesseract will need to be installed separately onto your system for the table image recognition aspect of Auto-CORPus to work. Please follow the guidance given by tesseract on how to do this.
 
-We have made trained datasets available for use with this feature, but we will continue to train these datasets to 
+We have made trained datasets available for use with this feature, but we will continue to train these datasets to
 increase their accuracy, and it is very likely that the trained datasets we offer will be updated frequently during
 active development periods.
 
 As with HTML input files, the image input files should be retrieved by the user in a way which the publisher permits. The naming convention is:
 
 Table image file: {any_name_you_want}_table_X.png/jpg/jpeg
-- {any_name_you_want} must be identical to the name given to the full text file followed by _table_X where X is the table number
+
+- {any_name_you_want} must be identical to the name given to the full text file followed by_table_X where X is the table number
 
 **Additional argument:**
 
 `-s` (trained dataset) - trained dataset to use for pytesseract OCR. Value should be given in a format
     recognised by pytesseract with a "+" between each datafile, such as "eng+all".
-    

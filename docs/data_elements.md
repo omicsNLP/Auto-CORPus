@@ -30,10 +30,10 @@ All other sections make use of the `data` entity. The following sections and cor
 
 In addition, the References section does not require any entries within the `data` entity to function correctly, but does allow
 the use of:
-  - title
-  - journal
-  - volume
+
+- title
+- journal
+- volume
 
 Some HTML source files include markup within the reference text to identify the above information. The inclusion
 of these `data` entries in the config will enable Auto-CORPus to identify and process this information and include it in the output file.
-
