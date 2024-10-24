@@ -4,7 +4,8 @@ repos:
     hooks:
       - id: check-merge-conflict
       - id: debug-statements
-      # - id: trailing-whitespace
+      - id: trailing-whitespace
+        exclude: ^src/IAO_dicts/
       - id: end-of-file-fixer
       - id: pretty-format-json
         args: [--autofix, --indent, '4', --no-sort]
@@ -33,3 +34,4 @@ repos:
     hooks:
       - id: codespell
         args: [-I, .codespell_ignore.txt]
+        exclude: ^tests/data/
