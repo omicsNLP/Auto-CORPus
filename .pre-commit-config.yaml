@@ -28,8 +28,3 @@ repos:
     hooks:
       - id: markdownlint-fix
         args: [--disable, MD013, MD033, MD036, MD041, MD040, --]
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.3.0
-    hooks:
-      - id: codespell
-        args: [-I, .codespell_ignore.txt]

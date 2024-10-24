@@ -114,7 +114,7 @@ experimental design	methods section / materials section
 experimental methods	methods section
 experimental procedures	methods section
 experimental section	methods section
-extended data	supplementary material section
+extented data	supplementary material section
 figures and tables	supplementary material section
 financial support	funding source declaration section
 footnotes	footnote section
