@@ -8,18 +8,36 @@ from tqdm import tqdm
 
 from src.autoCORPus import autoCORPus
 
-parser = argparse.ArgumentParser(prog='PROG')
-parser.add_argument('-f', '--filepath', type=str, help="filepath for document/directory to run AC on")
-parser.add_argument('-t', '--target_dir', type=str, help="target directory")  # default autoCORPusOutput
-parser.add_argument('-a', '--associated_data', type=str, help="directory of associated data")
-parser.add_argument('-o', '--output_format', type=str,
-                    help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations")
-parser.add_argument('-s', '--trained_data_set', type=str,
-                    help="trained dataset to use with pytesseract, must be in the form pytesseract expects for the lang argument, default eng")
+parser = argparse.ArgumentParser(prog="PROG")
+parser.add_argument(
+    "-f", "--filepath", type=str, help="filepath for document/directory to run AC on"
+)
+parser.add_argument(
+    "-t", "--target_dir", type=str, help="target directory"
+)  # default autoCORPusOutput
+parser.add_argument(
+    "-a", "--associated_data", type=str, help="directory of associated data"
+)
+parser.add_argument(
+    "-o",
+    "--output_format",
+    type=str,
+    help="output format for main text, can be either JSON or XML. Does not effect tables or abbreviations",
+)
+parser.add_argument(
+    "-s",
+    "--trained_data_set",
+    type=str,
+    help="trained dataset to use with pytesseract, must be in the form pytesseract expects for the lang argument, default eng",
+)
 
 group = parser.add_mutually_exclusive_group()
-group.add_argument("-c", "--config", type=str, help="filepath for configuration JSON file")
-group.add_argument("-d", "--config_dir", type=str, help="directory of configuration JSON files")
+group.add_argument(
+    "-c", "--config", type=str, help="filepath for configuration JSON file"
+)
+group.add_argument(
+    "-d", "--config_dir", type=str, help="directory of configuration JSON files"
+)
 
 args = parser.parse_args()
 file_path = args.filepath
@@ -91,7 +109,7 @@ def read_file_structure(file_path, target_dir):
     file_path = Path(file_path)
     if file_path.exists():
         if file_path.is_dir():
-            all_fpaths = file_path.rglob('*')
+            all_fpaths = file_path.rglob("*")
             for fpath in all_fpaths:
                 tmp_out = fpath.relative_to(file_path).parent
                 out_dir = Path(target_dir) / tmp_out
@@ -160,14 +178,19 @@ trained_data = args.trained_data_set if args.output_format else "eng"
 target_dir = Path(target_dir)
 if not target_dir.exists():
     target_dir.mkdir(parents=True)
-logFileName = target_dir / f"autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+logFileName = (
+    target_dir
+    / f"autoCORPus-log-{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+)
 
 with logFileName.open("w") as log_file:
-    log_file.write(F"Auto-CORPus log file from {cdate.hour}:{cdate.minute} on {cdate.day}/{cdate.month}/{cdate.year}\n")
-    log_file.write(F"Input directory provided: {file_path}\n")
-    log_file.write(F"Output directory provided: {target_dir}\n")
-    log_file.write(F"Config provided: {config}\n")
-    log_file.write(F"Output format: {output_format}\n")
+    log_file.write(
+        f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} on {cdate.day}/{cdate.month}/{cdate.year}\n"
+    )
+    log_file.write(f"Input directory provided: {file_path}\n")
+    log_file.write(f"Output directory provided: {target_dir}\n")
+    log_file.write(f"Config provided: {config}\n")
+    log_file.write(f"Output format: {output_format}\n")
     success = []
     errors = []
     for key in pbar:
@@ -178,7 +201,9 @@ with logFileName.open("w") as log_file:
                 "table_images": len(structure[key]["table_images"]),
             }
         )
-        base_dir = Path(file_path).parent if not Path(file_path).is_dir() else Path(file_path)
+        base_dir = (
+            Path(file_path).parent if not Path(file_path).is_dir() else Path(file_path)
+        )
         try:
             AC = autoCORPus(
                 config,
@@ -189,21 +214,31 @@ with logFileName.open("w") as log_file:
                 trainedData=trained_data,
             )
 
-            out_dir = Path(structure[key]['out_dir'])
+            out_dir = Path(structure[key]["out_dir"])
             if structure[key]["main_text"]:
                 key = key.replace("\\", "/")
                 if output_format.lower() == "json":
-                    with open(out_dir / f"{Path(key).name}_bioc.json", "w", encoding='utf-8') as outfp:
+                    with open(
+                        out_dir / f"{Path(key).name}_bioc.json", "w", encoding="utf-8"
+                    ) as outfp:
                         outfp.write(AC.main_text_to_bioc_json())
                 else:
-                    with open(out_dir / f"{Path(key).name}_bioc.xml", "w", encoding='utf-8') as outfp:
+                    with open(
+                        out_dir / f"{Path(key).name}_bioc.xml", "w", encoding="utf-8"
+                    ) as outfp:
                         outfp.write(AC.main_text_to_bioc_xml())
-                with open(out_dir / f"{Path(key).name}_abbreviations.json", "w", encoding='utf-8') as outfp:
+                with open(
+                    out_dir / f"{Path(key).name}_abbreviations.json",
+                    "w",
+                    encoding="utf-8",
+                ) as outfp:
                     outfp.write(AC.abbreviations_to_bioc_json())
 
             # AC does not support the conversion of tables or abbreviations to the XML format
             if AC.has_tables:
-                with open(out_dir / f"{Path(key).name}_tables.json", "w", encoding='utf-8') as outfp:
+                with open(
+                    out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
+                ) as outfp:
                     outfp.write(AC.tables_to_bioc_json())
             success.append(f"{key} was processed successfully.")
         except Exception as e:

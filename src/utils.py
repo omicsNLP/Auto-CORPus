@@ -26,7 +26,7 @@ def get_files(base_dir, pattern=r"(.*).html"):
         abs_path = item.resolve()
         if abs_path.is_file() and re.match(pattern, str(abs_path)):
             file_list.append(str(abs_path))
-        elif abs_path.is_dir() and 'ipynb_checkpoints' not in str(abs_path):
+        elif abs_path.is_dir() and "ipynb_checkpoints" not in str(abs_path):
             file_list += get_files(abs_path, pattern)
     return file_list
 
