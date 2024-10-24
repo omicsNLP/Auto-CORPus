@@ -1,160 +1,148 @@
 {
-    "config": {
-        "title": {
-            "data": {},
-            "defined-by": [
-                {
-                    "tag": "h1",
-                    "attrs": {
-                        "id": "artTitle"
-                    }
-                }
-            ]
-        },
-        "keywords": {
-            "data": {},
-            "defined-by": []
-        },
-        "references": {
-            "data": {},
-            "defined-by": [
-                {
-                    "tag": "li",
-                    "attrs": {
-                        "id": "^ref\\d+$"
-                    }
-                }
-            ]
-        },
-        "sections": {
-            "data": {
-                "headers": [
-                    {
-                        "tag": "h2"
-                    }
-                ]
-            },
-            "defined-by": [
-                {
-                    "tag": "div",
-                    "attrs": {
-                        "class": "toc-section"
-                    }
-                }
-            ]
-        },
-        "sub-sections": {
-            "data": {
-                "headers": [
-                    {
-                        "tag": "h[3-6]"
-                    }
-                ]
-            },
-            "defined-by": [
-                {
-                    "tag": "div",
-                    "attrs": {
-                        "class": "section"
-                    }
-                }
-            ]
-        },
-        "paragraphs": {
-            "data": {},
-            "defined-by": [
-                {
-                    "tag": "p"
-                }
-            ]
-        },
-        "tables": {
-            "data": {
-                "caption": [
-                    {
-                        "tag": "p"
-                    }
-                ],
-                "table-content": [],
-                "title": [
-                    {
-                        "tag": "div",
-                        "attrs": {
-                            "class": "figcaption"
-                        }
-                    }
-                ],
-                "footer": [
-                    {
-                        "tag": "p",
-                        "attrs": {
-                            "class": "caption_object"
-                        }
-                    }
-                ],
-                "table-row": [
-                    {
-                        "tag": "tr"
-                    }
-                ],
-                "header-row": [
-                    {
-                        "tag": "thead"
-                    }
-                ],
-                "header-element": [
-                    {
-                        "tag": "th"
-                    }
-                ]
-            },
-            "defined-by": [
-                {
-                    "tag": "div",
-                    "attrs": {
-                        "class": "figure",
-                        "data-doi": ".*\\.t\\d*"
-                    }
-                }
-            ]
-        },
-        "figures": {
-            "data": {
-                "caption": [
-                    {
-                        "tag": "p"
-                    }
-                ]
-            },
-            "defined-by": [
-                {
-                    "tag": "div",
-                    "attrs": {
-                        "class": "figure",
-                        "data-doi": ".*\\.g\\d*"
-                    }
-                }
-            ]
-        },
-        "abbreviations-table": {
-            "data": {},
-            "defined-by": []
+  "config": {
+    "title": {
+      "data": {},
+      "defined-by": [
+        {
+          "tag":"h1",
+          "attrs":{"id":"artTitle"}
         }
+      ]
     },
-    "contributions": {
-        "author": {
-            "name": "Tom Shorter",
-            "contact_email": "ts339@le.ac.uk",
-            "comments": "Provided with Auto-CORPus for processing Plos Genetics HTML files"
-        },
-        "editors": [
-            {
-                "name": "",
-                "contact_email": "",
-                "date_edited": "",
-                "comments": ""
-            }
+    "keywords": {
+      "data": {},
+      "defined-by": []
+    },
+    "references": {
+      "data": {},
+      "defined-by":[
+        {
+          "tag": "li",
+          "attrs": {"id": "^ref\\d+$"}
+        }
+      ]
+    },
+    "sections": {
+      "data": {
+        "headers": [
+          {
+            "tag": "h2"
+          }
         ]
+      },
+      "defined-by": [
+        {
+          "tag":"div",
+          "attrs":{"class":"toc-section"}
+        }
+      ]
     },
-    "example_source_HTML_URL": "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.0030058"
+    "sub-sections": {
+      "data": {
+        "headers": [
+          {
+            "tag": "h[3-6]"
+          }
+        ]
+      },
+      "defined-by": [
+        {
+          "tag":"div",
+          "attrs":{"class":"section"}
+        }
+      ]
+    },
+    "paragraphs": {
+      "data": {},
+      "defined-by": [
+        {
+          "tag": "p"
+        }
+      ]
+    },
+    "tables": {
+      "data": {
+        "caption": [
+          {
+            "tag": "p"
+          }
+        ],
+        "table-content": [],
+        "title": [
+          {
+            "tag":"div",
+            "attrs": {"class": "figcaption"}
+          }
+        ],
+        "footer": [
+          {
+            "tag":"p",
+            "attrs":{"class":"caption_object"}
+          }
+        ],
+        "table-row": [
+          {
+            "tag":"tr"
+          }
+        ],
+        "header-row": [
+          {
+            "tag":"thead"
+          }
+        ],
+        "header-element": [
+          {
+            "tag":"th"
+          }
+        ]
+      },
+      "defined-by": [
+        {
+          "tag": "div",
+          "attrs": {
+            "class":  "figure",
+            "data-doi":  ".*\\.t\\d*"
+          }
+        }
+      ]
+    },
+    "figures": {
+      "data": {
+        "caption": [
+          {
+            "tag": "p"
+          }
+        ]
+      },
+      "defined-by": [
+        {
+          "tag": "div",
+          "attrs": {
+            "class": "figure",
+            "data-doi":  ".*\\.g\\d*"
+          }
+        }
+      ]
+    },
+    "abbreviations-table": {
+      "data": {},
+      "defined-by": []
+    }
+  },
+  "contributions": {
+    "author": {
+      "name": "Tom Shorter",
+      "contact_email": "ts339@le.ac.uk",
+      "comments": "Provided with Auto-CORPus for processing Plos Genetics HTML files"
+    },
+    "editors": [
+      {
+        "name": "",
+        "contact_email": "",
+        "date_edited": "",
+        "comments": ""
+      }
+    ]
+  },
+  "example_source_HTML_URL": "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.0030058"
 }

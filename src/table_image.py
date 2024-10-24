@@ -170,16 +170,16 @@ class table_image:
 
         """
         # The block (have not fully developed) is used to recognize section names in the left-most column
-
+        
         for row in table_row:
             new_row = []
             row.sort(key=lambda x: x[0])
-
+            
             # start = row[0]
             # # row(i)[0][x]+[w] < row(i+1)[0][x] means the below cell is blank
             # if prev[0] + prev[2] < start[0]:
             # append to the above line
-
+    
             for (j, (x, y, w, h)) in enumerate(row):
                 # print(row)
                 # # if cells in the first column have all white pixels below, marked as section name
@@ -190,13 +190,13 @@ class table_image:
                 #     new_table.append(new_row)
                 #     new_row=[]
                 #     continue
-
+    
                 new_row.append(img2text(thresh, x, y, w, h))
-
+    
                 # comment to write OCR results directly in the image
                 # font = cv2.FONT_HERSHEY_SIMPLEX
                 # cv2.putText(added, text, (x, y - 10), font, 1, color, 1);
-
+    
             table_row.append(new_row)
         """
 

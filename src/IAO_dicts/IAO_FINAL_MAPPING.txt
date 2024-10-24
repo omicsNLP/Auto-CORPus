@@ -35,7 +35,7 @@ author contribution (in alphabetic order)	author contributions section
 author contributions	author contributions section
 author disclosure statement	disclosure section
 author present address	author information section
-author summary
+author summary	
 authors contributions	author contributions section
 authors' contribution	author contributions section
 authors' contributions	author contributions section
@@ -51,9 +51,9 @@ background	introduction section
 background and summary	textual abstract section
 biographies	author information section
 central illustration	highlights section
-clinical applicability
-comment
-comments
+clinical applicability	
+comment	
+comments	
 competing financial interests	conflict of interest section
 competing interests	conflict of interest section
 compliance with ethical standards	ethical approval section
@@ -68,13 +68,13 @@ conflict of interest	conflict of interest section
 conflict of interest statement	conflict of interest section
 conflict of interests	conflict of interest section
 conflicts of interest	conflict of interest section
-consent for publication
+consent for publication	
 consortia	funding source declaration section
 contributor information	author information section
 contributorship	author contributions section
 data	materials section
 data analysis	statistical analysis section
-data and methods	methods section / materials section
+data and methods	methods section / materials section 
 data archiving	availability section
 data availability	availability section
 data availability and accession code availability	availability section
@@ -118,8 +118,8 @@ extented data	supplementary material section
 figures and tables	supplementary material section
 financial support	funding source declaration section
 footnotes	footnote section
-formats:
-full text
+formats:	
+full text	
 funding	funding source declaration section
 funding and disclosure	funding source declaration section / conflict of interest section
 funding information	funding source declaration section
@@ -164,7 +164,7 @@ non-standard abbreviations	abbreviations section
 nonstandard abbreviations	abbreviations section
 nonstandard abbreviations and acronyms	abbreviations section
 notes	notes section
-nutritional status
+nutritional status	
 one sentence summary	highlights section
 online content	supplementary material section
 online methods	methods section
@@ -176,7 +176,7 @@ participant and methods	participants section
 participants	participants section
 participants and methods	methods section
 participants and methods	participants section / methods section
-patents
+patents	
 patient and methods	patients section / methods section
 patient consent for publication	patients section
 patient selection	participants section
@@ -196,14 +196,14 @@ research involving human participants	ethical approval section
 result and discussion	results section / discussion section
 results	results section
 results and discussion	results section / discussion section
-role of the funding source	funding source declaration section
-role of the study sponsor	funding source declaration section
+role of the funding source	funding source declaration section 
+role of the study sponsor	funding source declaration section 
 sample & methods	materials section / methods section
 selected references	references section
-share
+share	
 significance	highlights section
 significance statement	highlights section
-simple ncbi directory
+simple ncbi directory	
 sources of funding	funding source declaration section
 star methods	methods section
 statement of interest	conflict of interest section
@@ -213,11 +213,11 @@ statistical methods and analysis	statistical analysis section
 statistics	statistical analysis section
 strengths and limitations	highlights section
 study design	methods section
-study design and methods	methods section
+study design and methods	methods section 
 study funding	funding source declaration section
 study groups and methods	materials section / methods section
 study highlights	highlights section
-study limitations
+study limitations	
 study population	participants section
 study population and methods	participants section / methods section
 study strengths and limitations	highlights section
@@ -245,7 +245,7 @@ toc	textual abstract section
 toc image	graphical abstract section
 transparency document	availability section
 urls	references section
-version changes
+version changes	
 visual abstract	graphical abstract section
 web resources	references section
 web site references	references section
