@@ -1,186 +1,278 @@
 {
-  "config": {
-    "title": {
-      "defined-by": [
-        {
-          "tag":"",
-          "attrs":{"":[""]}
+    "config": {
+        "title": {
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        "keywords": {
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        "references": {
+            "data": {
+                "title": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "journal": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "volume": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        "sections": {
+            "data": {
+                "headers": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        "sub-sections": {
+            "data": {
+                "headers": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        "paragraphs": {
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        "tables": {
+            "data": {
+                "caption": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "table-content": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "title": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "footer": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "header-row": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "header-element": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "body-row": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ],
+                "body-element": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        "figures": {
+            "data": {
+                "caption": [
+                    {
+                        "tag": "",
+                        "attrs": {
+                            "": [
+                                ""
+                            ]
+                        }
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        "abbreviations-table": {
+            "defined-by": [
+                {
+                    "tag": "",
+                    "attrs": {
+                        "": [
+                            ""
+                        ]
+                    }
+                }
+            ]
         }
-      ]
     },
-    "keywords": {
-      "defined-by": [
-        {
-          "tag":"",
-          "attrs":{"":[""]}
-        }
-      ]
-    },
-    "references": {
-      "data": {
-        "title": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "journal": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "volume": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
+    "contributions": {
+        "author": {
+            "name": "",
+            "contact_email": "",
+            "comments": ""
+        },
+        "editors": [
+            {
+                "name": "",
+                "contact_email": "",
+                "date_edited": "",
+                "comments": ""
+            }
         ]
-      },
-      "defined-by":[
-        {
-          "tag":"",
-          "attrs":{"":[""]}
-        }
-      ]
     },
-    "sections": {
-      "data": {
-        "headers": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ]
-      },
-      "defined-by": [
-        {
-          "tag":"",
-          "attrs":{"":[""]}
-        }
-      ]
-    },
-    "sub-sections": {
-      "data": {
-        "headers": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ]
-      },
-      "defined-by": [
-        {
-          "tag":"",
-          "attrs":{"":[""]}
-        }
-      ]
-    },
-    "paragraphs": {
-      "defined-by": [
-        {
-          "tag":"",
-          "attrs":{"":[""]}
-        }
-      ]
-    },
-    "tables": {
-      "data": {
-        "caption": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "table-content": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "title": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "footer": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "header-row": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "header-element": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "body-row": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ],
-        "body-element": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ]
-      },
-      "defined-by": [
-        {
-          "tag":"",
-          "attrs":{"":[""]}
-        }
-      ]
-    },
-    "figures": {
-      "data": {
-        "caption": [
-          {
-            "tag":"",
-            "attrs":{"":[""]}
-          }
-        ]
-      },
-      "defined-by": [
-        {
-          "tag":"",
-          "attrs":{"":[""]}
-        }
-      ]
-    },
-    "abbreviations-table": {
-      "defined-by": [
-        {
-          "tag":"",
-          "attrs":{"":[""]}
-        }
-      ]
-    }
-  },
-  "contributions": {
-    "author": {
-      "name": "",
-      "contact_email": "",
-      "comments": ""
-    },
-    "editors": [
-      {
-        "name": "",
-        "contact_email": "",
-        "date_edited": "",
-        "comments": ""
-      }
-    ]
-  },
-  "example_source_HTML_URL": ""
+    "example_source_HTML_URL": ""
 }

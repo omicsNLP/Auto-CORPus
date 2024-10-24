@@ -1,146 +1,152 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "properties": {
-    "source": {
-      "type": "string"
-    },
-    "date": {
-      "type": "string"
-    },
-    "key": {
-      "type": "string"
-    },
-    "infons": {
-      "type": "object"
-    },
-    "documents": {
-      "type": "array",
-      "items": [
-        {
-          "type": "object",
-          "properties": {
-            "inputfile": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "infons": {
-              "type": "object"
-            },
-            "passages": {
-              "type": "array",
-              "items": [
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "source": {
+            "type": "string"
+        },
+        "date": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "infons": {
+            "type": "object"
+        },
+        "documents": {
+            "type": "array",
+            "items": [
                 {
-                  "type": "object",
-                  "properties": {
-                    "offset": {
-                      "type": "integer"
-                    },
-                    "infons": {
-                      "type": "object",
-                      "properties": {
-                        "section_title_\\d+": {
-                          "type": "string"
+                    "type": "object",
+                    "properties": {
+                        "inputfile": {
+                            "type": "string"
                         },
-                        "iao_name_\\d+": {
-                          "type": "string"
+                        "id": {
+                            "type": "string"
                         },
-                        "iao_id_\\d+": {
-                          "type": "string"
-                        }
-                      },
-                      "required": []
-                    },
-                    "column_headings": {
-                      "type": "array",
-                      "items": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "cell_id": {
-                              "type": "string"
-                            },
-                            "cell_text": {
-                              "type": ["integer","string"]
-                            }
-                          },
-                          "required": [
-                            "cell_id",
-                            "cell_text"
-                          ]
-                        }
-                      ]
-                    },
-                    "data_section": {
-                      "type": "array",
-                      "items": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "table_section_title_\\d+": {
-                              "type": "string"
-                            },
-                            "data_rows": {
-                              "type": "array",
-                              "items": [
+                        "infons": {
+                            "type": "object"
+                        },
+                        "passages": {
+                            "type": "array",
+                            "items": [
                                 {
-                                  "type": "array",
-                                  "items": [
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "cell_id": {
-                                          "type": "string"
+                                    "type": "object",
+                                    "properties": {
+                                        "offset": {
+                                            "type": "integer"
                                         },
-                                        "cell_text": {
-                                          "type": ["integer","string"]
+                                        "infons": {
+                                            "type": "object",
+                                            "properties": {
+                                                "section_title_\\d+": {
+                                                    "type": "string"
+                                                },
+                                                "iao_name_\\d+": {
+                                                    "type": "string"
+                                                },
+                                                "iao_id_\\d+": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": []
+                                        },
+                                        "column_headings": {
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "cell_id": {
+                                                            "type": "string"
+                                                        },
+                                                        "cell_text": {
+                                                            "type": [
+                                                                "integer",
+                                                                "string"
+                                                            ]
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "cell_id",
+                                                        "cell_text"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "data_section": {
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "table_section_title_\\d+": {
+                                                            "type": "string"
+                                                        },
+                                                        "data_rows": {
+                                                            "type": "array",
+                                                            "items": [
+                                                                {
+                                                                    "type": "array",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "object",
+                                                                            "properties": {
+                                                                                "cell_id": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "cell_text": {
+                                                                                    "type": [
+                                                                                        "integer",
+                                                                                        "string"
+                                                                                    ]
+                                                                                }
+                                                                            },
+                                                                            "required": [
+                                                                                "cell_id",
+                                                                                "cell_text"
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "data_rows"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "text": {
+                                            "type": "string"
                                         }
-                                      },
-                                      "required": [
-                                        "cell_id",
-                                        "cell_text"
-                                      ]
-                                    }
-                                  ]
+                                    },
+                                    "required": [
+                                        "offset",
+                                        "infons"
+                                    ]
                                 }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "data_rows"
-                          ]
+                            ]
                         }
-                      ]
                     },
-                    "text": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "offset",
-                    "infons"
-                  ]
+                    "required": [
+                        "inputfile",
+                        "id",
+                        "infons",
+                        "passages"
+                    ]
                 }
-              ]
-            }
-          },
-          "required": [
-            "inputfile",
-            "id",
-            "infons",
-            "passages"
-          ]
+            ]
         }
-      ]
-    }
-  },
-  "required": [
-    "source",
-    "date",
-    "key",
-    "infons",
-    "documents"
-  ]
+    },
+    "required": [
+        "source",
+        "date",
+        "key",
+        "infons",
+        "documents"
+    ]
 }
