@@ -1,9 +1,9 @@
 import argparse
-import imghdr
 import re
 from datetime import datetime
 from pathlib import Path
 
+from filetype import is_image
 from tqdm import tqdm
 
 from src.autoCORPus import autoCORPus
@@ -62,9 +62,9 @@ def get_file_type(file_path):
             return "linked_tables"
         else:
             return "main_text"
-    elif imghdr.what(file_path):
-        # imghdr returns the type of image a file is (png/jpeg etc or None if not an image)
-        # this should be tidied up to only include the image types which are supported by AC instead of any image files
+    elif is_image(file_path):
+        # this should be tidied up to only include the image types which are supported
+        # by AC instead of any image files
         return "table_images"
     else:
         print(
