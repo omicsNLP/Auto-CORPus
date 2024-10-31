@@ -155,100 +155,110 @@ def read_file_structure(file_path: Path, target_dir: Path):
     return template
 
 
-args = parser.parse_args()
-file_path = Path(args.filepath)
-target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
-config = args.config
-config_dir = args.config_dir
-associated_data = args.associated_data
-output_format = args.output_format if args.output_format else "JSON"
-trained_data = args.trained_data_set if args.output_format else "eng"
+def main():
+    """The main entrypoint for the Auto-CORPus CLI."""
+    args = parser.parse_args()
+    file_path = Path(args.filepath)
+    target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
+    config = args.config
+    config_dir = args.config_dir  # noqa: F841 ## TODO: Use this variable
+    associated_data = args.associated_data  # noqa: F841 ## TODO: Use this variable
+    output_format = args.output_format if args.output_format else "JSON"
+    trained_data = args.trained_data_set if args.output_format else "eng"
 
-if not file_path.exists():
-    raise FileNotFoundError(f"{file_path} does not exist")
-if not target_dir.exists():
-    target_dir.mkdir(parents=True)
-if not target_dir.is_dir():
-    raise NotADirectoryError(f"{target_dir} is not a directory")
+    if not file_path.exists():
+        raise FileNotFoundError(f"{file_path} does not exist")
+    if not target_dir.exists():
+        target_dir.mkdir(parents=True)
+    if not target_dir.is_dir():
+        raise NotADirectoryError(f"{target_dir} is not a directory")
 
-structure = read_file_structure(file_path, target_dir)
-pbar = tqdm(structure.keys())
-cdate = datetime.now()
+    structure = read_file_structure(file_path, target_dir)
+    pbar = tqdm(structure.keys())
+    cdate = datetime.now()
 
-error_occurred = False
+    error_occurred = False
 
-log_file_path = (
-    target_dir / "autoCORPus-log-"
-    f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
-)
-
-with log_file_path.open("w") as log_file:
-    log_file.write(
-        f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
-        f"on {cdate.day}/{cdate.month}/{cdate.year}\n"
+    log_file_path = (
+        target_dir / "autoCORPus-log-"
+        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
     )
-    log_file.write(f"Input directory provided: {file_path}\n")
-    log_file.write(f"Output directory provided: {target_dir}\n")
-    log_file.write(f"Config provided: {config}\n")
-    log_file.write(f"Output format: {output_format}\n")
-    success = []
-    errors = []
-    for key in pbar:
-        pbar.set_postfix(
-            {
-                "file": key + "*",
-                "linked_tables": len(structure[key]["linked_tables"]),
-                "table_images": len(structure[key]["table_images"]),
-            }
+
+    with log_file_path.open("w") as log_file:
+        log_file.write(
+            f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
+            f"on {cdate.day}/{cdate.month}/{cdate.year}\n"
         )
-        base_dir = file_path.parent if not file_path.is_dir() else file_path
-        try:
-            AC = autoCORPus(
-                config,
-                base_dir=str(base_dir),
-                main_text=structure[key]["main_text"],
-                linked_tables=sorted(structure[key]["linked_tables"]),
-                table_images=sorted(structure[key]["table_images"]),
-                trainedData=trained_data,
+        log_file.write(f"Input directory provided: {file_path}\n")
+        log_file.write(f"Output directory provided: {target_dir}\n")
+        log_file.write(f"Config provided: {config}\n")
+        log_file.write(f"Output format: {output_format}\n")
+        success = []
+        errors = []
+        for key in pbar:
+            pbar.set_postfix(
+                {
+                    "file": key + "*",
+                    "linked_tables": len(structure[key]["linked_tables"]),
+                    "table_images": len(structure[key]["table_images"]),
+                }
+            )
+            base_dir = file_path.parent if not file_path.is_dir() else file_path
+            try:
+                AC = autoCORPus(
+                    config,
+                    base_dir=str(base_dir),
+                    main_text=structure[key]["main_text"],
+                    linked_tables=sorted(structure[key]["linked_tables"]),
+                    table_images=sorted(structure[key]["table_images"]),
+                    trainedData=trained_data,
+                )
+
+                out_dir = Path(structure[key]["out_dir"])
+                if structure[key]["main_text"]:
+                    key = key.replace("\\", "/")
+                    if output_format.lower() == "json":
+                        with open(
+                            out_dir / f"{Path(key).name}_bioc.json",
+                            "w",
+                            encoding="utf-8",
+                        ) as outfp:
+                            outfp.write(AC.main_text_to_bioc_json())
+                    else:
+                        with open(
+                            out_dir / f"{Path(key).name}_bioc.xml",
+                            "w",
+                            encoding="utf-8",
+                        ) as outfp:
+                            outfp.write(AC.main_text_to_bioc_xml())
+                    with open(
+                        out_dir / f"{Path(key).name}_abbreviations.json",
+                        "w",
+                        encoding="utf-8",
+                    ) as outfp:
+                        outfp.write(AC.abbreviations_to_bioc_json())
+
+                # AC does not support the conversion of tables or abbreviations to XML
+                if AC.has_tables:
+                    with open(
+                        out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
+                    ) as outfp:
+                        outfp.write(AC.tables_to_bioc_json())
+                success.append(f"{key} was processed successfully.")
+            except Exception as e:
+                errors.append(f"{key} failed due to {e}.")
+                error_occurred = True
+
+        log_file.write(f"{len(success)} files processed.\n")
+        log_file.write(f"{len(errors)} files not processed due to errors.\n\n\n")
+        log_file.write("\n".join(success) + "\n")
+        log_file.write("\n".join(errors) + "\n")
+        if error_occurred:
+            print(
+                "Auto-CORPus has completed processing with some errors. "
+                "Please inspect the log file for further details."
             )
 
-            out_dir = Path(structure[key]["out_dir"])
-            if structure[key]["main_text"]:
-                key = key.replace("\\", "/")
-                if output_format.lower() == "json":
-                    with open(
-                        out_dir / f"{Path(key).name}_bioc.json", "w", encoding="utf-8"
-                    ) as outfp:
-                        outfp.write(AC.main_text_to_bioc_json())
-                else:
-                    with open(
-                        out_dir / f"{Path(key).name}_bioc.xml", "w", encoding="utf-8"
-                    ) as outfp:
-                        outfp.write(AC.main_text_to_bioc_xml())
-                with open(
-                    out_dir / f"{Path(key).name}_abbreviations.json",
-                    "w",
-                    encoding="utf-8",
-                ) as outfp:
-                    outfp.write(AC.abbreviations_to_bioc_json())
 
-            # AC does not support the conversion of tables or abbreviations to XML
-            if AC.has_tables:
-                with open(
-                    out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
-                ) as outfp:
-                    outfp.write(AC.tables_to_bioc_json())
-            success.append(f"{key} was processed successfully.")
-        except Exception as e:
-            errors.append(f"{key} failed due to {e}.")
-            error_occurred = True
-
-    log_file.write(f"{len(success)} files processed.\n")
-    log_file.write(f"{len(errors)} files not processed due to errors.\n\n\n")
-    log_file.write("\n".join(success) + "\n")
-    log_file.write("\n".join(errors) + "\n")
-    if error_occurred:
-        print(
-            "Auto-CORPus has completed processing with some errors. "
-            "Please inspect the log file for further details."
-        )
+if __name__ == "__main__":
+    main()
