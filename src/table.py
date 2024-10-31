@@ -104,14 +104,11 @@ class table:
 
         """
         cleaned_row = set(
-            [i for i in row if (str(i) != "") & (str(i) != "\n") & (str(i) != "None")]
+            i for i in row if (str(i) != "") & (str(i) != "\n") & (str(i) != "None")
         )
-        if len(cleaned_row) == 1 and bool(
+        return len(cleaned_row) == 1 and bool(
             re.match("[a-zA-Z]", next(iter(cleaned_row)))
-        ):
-            return True
-        else:
-            return False
+        )
 
     def __find_format(self, header):
         """
