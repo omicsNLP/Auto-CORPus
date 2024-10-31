@@ -10,30 +10,33 @@ import pytesseract
 
 
 class table_image:
-
     def img2text(self, img, x, y, w, h):
-        '''
+        """
         Function: translate image into texts
         Input: original image, and location of text boxes
         Output: extracted texts
-        '''
+        """
 
-        ROI = img[y - 3:(y + h + 6), x - 3:(x + w + 6)]
+        ROI = img[y - 3 : (y + h + 6), x - 3 : (x + w + 6)]
         # pytesseract.pytesseract.tesseract_cmd = 'D:/Tesseract/tesseract.exe'
         # change the 'lang' here for different traineddata
-        text = pytesseract.image_to_string(ROI, lang=self.trainedData, config='--psm 6 --oem 3').strip()
+        text = pytesseract.image_to_string(
+            ROI, lang=self.trainedData, config="--psm 6 --oem 3"
+        ).strip()
         new_text = text.replace("\n", " ")
         return new_text
 
     def rm_lines(self, img):
-        '''
+        """
         Function: remove all the horizontal and vertical lines in image and binary it
         Input: original image
         Output: image after preprocessing
-        '''
+        """
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        binary = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 35, -5)
+        binary = cv2.adaptiveThreshold(
+            ~gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 35, -5
+        )
         # binary = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, -5)
         rows, cols = binary.shape
 
@@ -61,16 +64,18 @@ class table_image:
         return after
 
     def find_cells(self, img):
-        '''
+        """
         Function: find cells in table images and sort them from top-left to bottom-right
         Input: original image
         Output: ordered table cells, and processed image
-        '''
+        """
 
-        added = cv2.copyMakeBorder(img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255])
+        added = cv2.copyMakeBorder(
+            img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255]
+        )
         size = added.shape
         # print('added.shape: ', size)
-        imgarea = size[0] * size[1]
+        size[0] * size[1]
 
         # gray = cv2.cvtColor(added, cv2.COLOR_BGR2GRAY)
         gray = self.rm_lines(img)
@@ -83,7 +88,9 @@ class table_image:
         scale = 150  # the larger, the rectangles smaller
         # the second parameter of kernel and morphology iterations /
         # need to be fine-tuned according to the image size
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (cols // scale, rows // scale + 2))
+        kernel = cv2.getStructuringElement(
+            cv2.MORPH_RECT, (cols // scale, rows // scale + 2)
+        )
         # Another method for erosion
         # eroded = cv2.morphologyEx(thresh, cv2.MORPH_GRADIENT, kernel, iterations=3)
         # eroded = cv2.bitwise_not(eroded)
@@ -93,9 +100,15 @@ class table_image:
 
         # Add white borders before finding contours
         # eroded = eroded[10:(rows - 10), 10:(cols - 10)]
-        eroded = cv2.copyMakeBorder(eroded, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255])
-        thresh = cv2.copyMakeBorder(thresh, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255])
-        contours, hierarchy = cv2.findContours(eroded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        eroded = cv2.copyMakeBorder(
+            eroded, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255]
+        )
+        thresh = cv2.copyMakeBorder(
+            thresh, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255]
+        )
+        contours, hierarchy = cv2.findContours(
+            eroded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
+        )
 
         # 'cells' save the location and sort
         cells = []
@@ -126,18 +139,18 @@ class table_image:
         return cells, added, thresh
 
     def cell2table(self, cells, added, thresh, target_dir, pmc):
-        '''
+        """
         Function: save table texts in several rows
         Input: ordered table cells, and processed image
         Output: table text saved line by line
-        '''
+        """
 
         # after sort, read cells line by line
         color = (0, 255, 0)  # box color
         table_row = []
         row = []
 
-        for (i, (x, y, w, h)) in enumerate(cells):
+        for i, (x, y, w, h) in enumerate(cells):
             # print(x, y, w, h)
             cv2.rectangle(added, (x, y), (x + w, y + h), color, 1)
             row.append(cells[i])
@@ -155,18 +168,18 @@ class table_image:
                 # save a new line
                 row = []
 
-        '''
+        """
         # The block (have not fully developed) is used to recognize section names in the left-most column
-        
+
         for row in table_row:
             new_row = []
             row.sort(key=lambda x: x[0])
-            
+
             # start = row[0]
             # # row(i)[0][x]+[w] < row(i+1)[0][x] means the below cell is blank
             # if prev[0] + prev[2] < start[0]:
             # append to the above line
-    
+
             for (j, (x, y, w, h)) in enumerate(row):
                 # print(row)
                 # # if cells in the first column have all white pixels below, marked as section name
@@ -177,19 +190,19 @@ class table_image:
                 #     new_table.append(new_row)
                 #     new_row=[]
                 #     continue
-    
+
                 new_row.append(img2text(thresh, x, y, w, h))
-    
+
                 # comment to write OCR results directly in the image
                 # font = cv2.FONT_HERSHEY_SIMPLEX
                 # cv2.putText(added, text, (x, y - 10), font, 1, color, 1);
-    
+
             table_row.append(new_row)
-        '''
+        """
 
         for row in table_row:
             row.sort(key=lambda x: x[0])
-            for (i, (x, y, w, h)) in enumerate(row):
+            for i, (x, y, w, h) in enumerate(row):
                 row[i] = self.img2text(thresh, x, y, w, h)
 
         # cv2.imwrite(target_dir + '/' + "{}_result.jpg".format(pmc), added)
@@ -197,39 +210,39 @@ class table_image:
         return table_row
 
     def text2json(self, table_row):
-        '''
+        """
         Function: save table into a formatted json file
         Input: table text saved line by line
         Output: formatted json file of tables
-        '''
+        """
 
-        identifier = ''
-        title = ''
-        footer = ''
-        superline = ''
+        identifier = ""
+        title = ""
+        footer = ""
+        superline = ""
         cnt1 = cnt2 = 0  # count to identify the column name line
 
-        for (i, row) in enumerate(table_row):
+        for i, row in enumerate(table_row):
             if len(row) == 1:
                 if i == 0:
                     while len(table_row[i]) == 1:
-                        superline = superline + ' ' + ''.join(table_row[i])
+                        superline = superline + " " + "".join(table_row[i])
                         i = i + 1
                         cnt1 = cnt1 + 1
                     low = superline.lower()
-                    identifier = superline[low.find('table'): low.find('table') + 7]
-                    title = superline[low.find('table') + 9:].strip()
+                    identifier = superline[low.find("table") : low.find("table") + 7]
+                    title = superline[low.find("table") + 9 :].strip()
                 if i == len(table_row) - 1:
-                    superline = ''
+                    superline = ""
                     while len(table_row[i]) == 1:
-                        superline = ''.join(table_row[i]) + ' ' + superline
+                        superline = "".join(table_row[i]) + " " + superline
                         i = i - 1
                         cnt2 = cnt2 + 1
                     footer = superline
 
         # remove titles and footers
         # table_row = table_row[cnt1: len(table_row) - 1 - cnt2]
-        table_row = table_row[cnt1: len(table_row) - cnt2]
+        table_row = table_row[cnt1 : len(table_row) - cnt2]
 
         table = {}
         sections = []
@@ -237,10 +250,10 @@ class table_image:
 
         pre_header = []
         pre_superrow = None
-        cur_header = ''
-        cur_superrow = ''
+        cur_header = ""
+        cur_superrow = ""
 
-        for (i, row) in enumerate(table_row):
+        for i, row in enumerate(table_row):
             if i == 0:
                 cur_header = row
             # elif is_column:
@@ -254,26 +267,28 @@ class table_image:
             #     break
 
             # skip blank rows (rarely happen)
-            if not any([i for i in row if i not in ['', 'None']]):
+            if not any([i for i in row if i not in ["", "None"]]):
                 continue
 
             else:
                 if cur_header != pre_header:
                     sections = []
                     pre_superrow = None
-                    table = {'identifier': identifier,
-                             'title': title,
-                             'columns': cur_header,
-                             'section': sections,
-                             'footer': footer}
+                    table = {
+                        "identifier": identifier,
+                        "title": title,
+                        "columns": cur_header,
+                        "section": sections,
+                        "footer": footer,
+                    }
                 elif cur_header == pre_header:
-                    table['section'] = sections
+                    table["section"] = sections
 
                 if cur_superrow != pre_superrow:
-                    cur_section = {'section_name': cur_superrow, 'results': []}
+                    cur_section = {"section_name": cur_superrow, "results": []}
                     sections.append(cur_section)
                 elif cur_superrow == pre_superrow:
-                    cur_section['results'].append(row)
+                    cur_section["results"].append(row)
 
                 pre_header = cur_header
                 pre_superrow = cur_superrow
@@ -286,7 +301,7 @@ class table_image:
         if table == {}:
             return {}
         offset = 0
-        if not "title" in table:
+        if "title" not in table:
             print("no title")
         tableDict = {
             "inputfile": self.file_name,
@@ -298,23 +313,23 @@ class table_image:
                     "infons": {
                         "section_title_1": "table_title",
                         "iao_name_1": "document title",
-                        "iao_id_1": "IAO:0000305"
+                        "iao_id_1": "IAO:0000305",
                     },
-                    "text": table['title']
+                    "text": table["title"],
                 }
-            ]
+            ],
         }
-        offset += len(table['title'])
-        if "caption" in table.keys() and not table['caption'] == "":
-            tableDict['passages'].append(
+        offset += len(table["title"])
+        if "caption" in table.keys() and not table["caption"] == "":
+            tableDict["passages"].append(
                 {
                     "offset": offset,
                     "infons": {
                         "section_title_1": "table_caption",
                         "iao_name_1": "caption",
-                        "iao_id_1": "IAO:0000304"
+                        "iao_id_1": "IAO:0000304",
                     },
-                    "text": table["caption"]
+                    "text": table["caption"],
                 }
             )
             offset += len(table["caption"])
@@ -324,18 +339,17 @@ class table_image:
             rsection = []
             this_offset = offset
             for sect in table["section"]:
-
                 resultsDict = {
-                    "table_section_title_1": sect['section_name'],
-                    "data_rows": []
+                    "table_section_title_1": sect["section_name"],
+                    "data_rows": [],
                 }
                 for resultrow in sect["results"]:
                     colID = 1
                     rrow = []
                     for result in resultrow:
                         resultDict = {
-                            "cell_id": F"{self.tableIdentifier}.{rowID}.{colID}",
-                            "cell_text": result
+                            "cell_id": f"{self.tableIdentifier}.{rowID}.{colID}",
+                            "cell_text": result,
                         }
                         colID += 1
                         offset += len(str(result))
@@ -348,33 +362,33 @@ class table_image:
             for i, column in enumerate(table.get("column_headings", [])):
                 columns.append(
                     {
-                        "cell_id": F"{self.tableIdentifier}.1.{i + 1}",
-                        "cell_text": column
+                        "cell_id": f"{self.tableIdentifier}.1.{i + 1}",
+                        "cell_text": column,
                     }
                 )
-            tableDict['passages'].append(
+            tableDict["passages"].append(
                 {
                     "offset": this_offset,
                     "infons": {
                         "section_title_1": "table_content",
                         "iao_name_1": "table",
-                        "iao_id_1": "IAO:0000306"
+                        "iao_id_1": "IAO:0000306",
                     },
                     "column_headings": columns,
-                    "results_section": rsection
+                    "results_section": rsection,
                 }
             )
 
-        if "footer" in table.keys() and not table['footer'] == "":
-            tableDict['passages'].append(
+        if "footer" in table.keys() and not table["footer"] == "":
+            tableDict["passages"].append(
                 {
                     "offset": offset,
                     "infons": {
                         "section_title_1": "table_footer",
                         "iao_name_1": "caption",
-                        "iao_id_1": "IAO:0000304"
+                        "iao_id_1": "IAO:0000304",
                     },
-                    "text": table["footer"]
+                    "text": table["footer"],
                 }
             )
             offset += len(table["footer"])
@@ -388,11 +402,11 @@ class table_image:
             "date": f'{datetime.today().strftime("%Y%m%d")}',
             "key": "autocorpus_tables.key",
             "infons": {},
-            "documents": []
+            "documents": [],
         }
         base_dir = Path(base_dir)
         for image_path in table_images:
-            image_path = Path(image_path) 
+            image_path = Path(image_path)
             imgname = image_path.name
             self.tableIdentifier = imgname.split("_")[-1].split(".")[0]
             self.file_name = str(image_path.relative_to(base_dir))
@@ -402,7 +416,9 @@ class table_image:
 
             cells, added, thresh = self.find_cells(img)
             table_row = self.cell2table(cells, added, thresh, "imagesOut", pmc)
-            self.tables['documents'].append(self.__reformat_table_json(self.text2json(table_row)))
+            self.tables["documents"].append(
+                self.__reformat_table_json(self.text2json(table_row))
+            )
 
     def to_dict(self):
-        return (self.tables)
+        return self.tables

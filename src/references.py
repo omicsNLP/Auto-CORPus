@@ -1,7 +1,7 @@
 import re
 
 
-class references():
+class references:
     #
     # def __get_section_header(self, soup_section):
     # 	h2 = ""
@@ -27,18 +27,15 @@ class references():
     # 	pass
 
     def __create_reference_block(self, reference):
-        text = reference['node'].get_text().replace("Go to:", "").replace("\n", "")
+        text = reference["node"].get_text().replace("Go to:", "").replace("\n", "")
         text = re.sub("\s{2,}", " ", text)
         refSection = {
             "section_heading": self.section_heading,
             "subsection_heading": "",
             "body": text,
             "section_type": [
-                {
-                    "iao_name": "references section",
-                    "iao_id": "IAO:0000320"
-                }
-            ]
+                {"iao_name": "references section", "iao_id": "IAO:0000320"}
+            ],
         }
 
         for subsec in reference:
