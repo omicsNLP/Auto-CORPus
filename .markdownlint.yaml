@@ -1,0 +1,6 @@
+# For list of markdownlint rules, see: https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
+MD013: false
+MD033: false
+MD036: false
+MD040: false
+MD041: false
