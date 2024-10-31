@@ -6,12 +6,12 @@ from pathlib import Path
 from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
 
-from src.abbreviation import abbreviations
-from src.bioc_formatter import BiocFormatter
-from src.section import section
-from src.table import table
-from src.table_image import table_image
-from src.utils import handle_not_tables
+from .abbreviation import abbreviations
+from .bioc_formatter import BiocFormatter
+from .section import section
+from .table import table
+from .table_image import table_image
+from .utils import handle_not_tables
 
 
 def handle_path(func):

@@ -10,7 +10,7 @@ def test_autoCORPus():
     python run_app.py -c "configs/config_pmc.json" -t "tests/data" -f tests/data/PMC8885717.html -o JSON
     ```
     """
-    from src.autoCORPus import autoCORPus
+    from autocorpus.autoCORPus import autoCORPus
 
     with open(
         Path(__file__).parent / "data" / "PMC8885717_abbreviations.json",

@@ -71,7 +71,8 @@ def process_em(soup):
 
 def read_mapping_file():
     mapping_dict = {}
-    with open("src/IAO_dicts/IAO_FINAL_MAPPING.txt", encoding="utf-8") as f:
+    # TODO: dynamically find these resources to make compatible with packaging (twice more too)
+    with open("autocorpus/IAO_dicts/IAO_FINAL_MAPPING.txt", encoding="utf-8") as f:
         lines = f.readlines()
         for line in lines:
             heading = line.split("\t")[0].lower().strip("\n")
@@ -100,7 +101,7 @@ def read_mapping_file():
 
 def read_IAO_term_to_ID_file():
     IAO_term_to_no_dict = {}
-    with open("src/IAO_dicts/IAO_term_to_ID.txt") as f:
+    with open("autocorpus/IAO_dicts/IAO_term_to_ID.txt") as f:
         lines = f.readlines()
         for line in lines:
             IAO_term = line.split("\t")[0]
@@ -314,7 +315,7 @@ def handle_tables(config, soup):
 
 
 def assgin_heading_by_DAG(paper):
-    G = nx.read_graphml("src/DAG_model.graphml")
+    G = nx.read_graphml("autocorpus/DAG_model.graphml")
     new_mapping_dict = {}
     mapping_dict_with_DAG = {}
     IAO_term_to_no_dict = read_IAO_term_to_ID_file()

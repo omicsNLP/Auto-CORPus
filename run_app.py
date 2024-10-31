@@ -6,7 +6,7 @@ from pathlib import Path
 from filetype import is_image
 from tqdm import tqdm
 
-from src.autoCORPus import autoCORPus
+from autocorpus.autoCORPus import autoCORPus
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(

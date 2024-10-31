@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from src.bioc_documents import BiocDocument
+from .bioc_documents import BiocDocument
 
 
 class BiocFormatter:
