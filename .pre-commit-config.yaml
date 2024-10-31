@@ -1,3 +1,4 @@
+exclude: ^tests/data/
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
@@ -34,4 +35,3 @@ repos:
     hooks:
       - id: codespell
         args: [-I, .codespell_ignore.txt]
-        exclude: ^tests/data/
