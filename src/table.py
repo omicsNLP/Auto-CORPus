@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from itertools import product
+from itertools import pairwise, product
 from pathlib import Path
 
 from src.utils import get_data_element_node, handle_tables, navigate_contents
@@ -69,8 +69,8 @@ class table:
                 # 		value += item.get_text()
                 # clean the cell
                 value = value.strip().replace("\u2009", " ").replace("&#x000a0;", " ")
-                value = re.sub("\s", " ", value)
-                value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
+                value = re.sub(r"\s", " ", value)
+                value = re.sub("<\\/?span[^>\n]*>?|<hr\\/>?", "", value)
                 value = re.sub("\\n", "", value)
                 if value.startswith("(") and value.endswith(")"):
                     value = value[1:-1]
@@ -104,12 +104,11 @@ class table:
 
         """
         cleaned_row = set(
-            [i for i in row if (str(i) != "") & (str(i) != "\n") & (str(i) != "None")]
+            i for i in row if (str(i) != "") & (str(i) != "\n") & (str(i) != "None")
         )
-        if len(cleaned_row) == 1 and bool(re.match("[a-zA-Z]", list(cleaned_row)[0])):
-            return True
-        else:
-            return False
+        return len(cleaned_row) == 1 and bool(
+            re.match("[a-zA-Z]", next(iter(cleaned_row)))
+        )
 
     def __find_format(self, header):
         """
@@ -138,7 +137,7 @@ class table:
         # identify special character
         special_char_idx = []
         for idx, part in enumerate(parts):
-            if part in ":|\/,;":
+            if part in r":|\/,;":
                 special_char_idx.append(idx)
 
         # generate regex pattern
@@ -147,9 +146,9 @@ class table:
             for idx in range(len(parts)):
                 if idx in special_char_idx:
                     char = parts[idx]
-                    pattern += "({})".format(char)
+                    pattern += f"({char})"
                 else:
-                    pattern += "(\w+)"
+                    pattern += r"(\w+)"
             pattern = re.compile(pattern)
             return pattern
         else:
@@ -188,7 +187,7 @@ class table:
         Raises:
                 KeyError: Raises an exception.
         """
-        return [i for i in re.split(r"[:|/,;]", s) if i not in ":|\/,;"]
+        return [i for i in re.split(r"[:|/,;]", s) if i not in r":|\/,;"]
 
     def __get_headers(self, t, config):
         """
@@ -324,10 +323,10 @@ class table:
                 continue
             if row_idx in header_idx:
                 cur_header = [
-                    table_2d[i] for i in [i for i in subheader_idx if row_idx in i][0]
+                    table_2d[i] for i in next(i for i in subheader_idx if row_idx in i)
                 ]
             elif row_idx in superrow_idx:
-                cur_superrow = [i for i in row if i not in ["", "None"]][0]
+                cur_superrow = next(i for i in row if i not in ("", "None"))
             else:
                 if cur_header != pre_header:
                     sections = []
@@ -354,7 +353,7 @@ class table:
 
         if len(tables) > 1:
             for table_idx, table in enumerate(tables):
-                table["identifier"] += ".{}".format(table_idx + 1)
+                table["identifier"] += f".{table_idx + 1}"
         return tables
 
     def __reformat_table_json(self, table_json):
@@ -591,7 +590,7 @@ class table:
 
             subheader_idx = []
             tmp = [header_idx[0]]
-            for i, j in zip(header_idx, header_idx[1:]):
+            for i, j in pairwise(header_idx):
                 if j == i + 1:
                     tmp.append(j)
                 else:
@@ -648,7 +647,7 @@ class table:
         file_name = Path(file_name).name
         self.tableIdentifier = None
         self.base_dir = base_dir
-        if re.search("_table_\d+\.html", file_name):
+        if re.search(r"_table_\d+\.html", file_name):
             self.tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
         self.pval_regex = (
             r"((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d+)"

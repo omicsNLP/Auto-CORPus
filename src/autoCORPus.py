@@ -3,7 +3,7 @@ import json
 import sys
 from pathlib import Path
 
-from bioc import biocxml, biocjson
+from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
 
 from src.abbreviation import abbreviations
@@ -18,7 +18,7 @@ def handle_path(func):
     def inner_function(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except IOError as io:
+        except OSError as io:
             print(io)
             sys.exit()
         except OSError as exc:
@@ -62,7 +62,7 @@ class autoCORPus:
     def __soupify_infile(self, fpath):
         fpath = Path(fpath)
         try:
-            with open(fpath, "r", encoding="utf-8") as fp:
+            with open(fpath, encoding="utf-8") as fp:
                 soup = BeautifulSoup(fp.read(), "html.parser")
                 for e in soup.find_all(
                     attrs={"style": ["display:none", "visibility:hidden"]}

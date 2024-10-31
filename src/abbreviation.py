@@ -12,7 +12,7 @@ class abbreviations:
             yield line.strip()
 
     def __conditions(self, candidate):
-        """
+        r"""
         Based on Schwartz&Hearst
 
         2 <= len(str) <= 10
@@ -52,10 +52,10 @@ class abbreviations:
         if "(" in sentence:
             # Check some things first
             if sentence.count("(") != sentence.count(")"):
-                raise ValueError("Unbalanced parentheses: {}".format(sentence))
+                raise ValueError(f"Unbalanced parentheses: {sentence}")
 
             if sentence.find("(") > sentence.find(")"):
-                raise ValueError("First parentheses is right: {}".format(sentence))
+                raise ValueError(f"First parentheses is right: {sentence}")
 
             close_index = -1
             while 1:
@@ -139,7 +139,7 @@ class abbreviations:
             start_index = len(first_chars) - 1
             while count < candidate_freq:
                 if abs(start) > len(first_chars):
-                    raise ValueError("candidate {} not found".format(candidate))
+                    raise ValueError(f"candidate {candidate} not found")
                 start -= 1
                 # Look up key in the definition
                 try:
@@ -214,9 +214,7 @@ class abbreviations:
                     l_index -= 1
                     if l_index == -1 * (len(definition) + 1):
                         raise ValueError(
-                            "definition {} was not found in {}".format(
-                                abbrev, definition
-                            )
+                            f"definition {abbrev} was not found in {definition}"
                         )
 
             else:
@@ -271,9 +269,7 @@ class abbreviations:
                         definition = self.__get_definition(candidate, clean_sentence)
                     except (ValueError, IndexError) as e:
                         self.log.debug(
-                            "{} Omitting candidate {}. Reason: {}".format(
-                                i, candidate, e.args[0]
-                            )
+                            f"{i} Omitting candidate {candidate}. Reason: {e.args[0]}"
                         )
                         omit += 1
                     else:
@@ -281,9 +277,7 @@ class abbreviations:
                             definition = self.__select_definition(definition, candidate)
                         except (ValueError, IndexError) as e:
                             self.log.debug(
-                                "{} Omitting definition {} for candidate {}. Reason: {}".format(
-                                    i, definition, candidate, e.args[0]
-                                )
+                                f"{i} Omitting definition {definition} for candidate {candidate}. Reason: {e.args[0]}"
                             )
                             omit += 1
                         else:
@@ -295,12 +289,8 @@ class abbreviations:
                                 abbrev_map[candidate] = definition
                             written += 1
             except (ValueError, IndexError) as e:
-                self.log.debug(
-                    "{} Error processing sentence {}: {}".format(i, sentence, e.args[0])
-                )
-        self.log.debug(
-            "{} abbreviations detected and kept ({} omitted)".format(written, omit)
-        )
+                self.log.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
+        self.log.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
 
         # Return most common definition for each term
         if collect_definitions:

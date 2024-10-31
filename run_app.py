@@ -58,7 +58,7 @@ def get_file_type(file_path):
     if file_path.is_dir():
         return "directory"
     elif file_path.suffix == ".html":
-        if re.search("table_\d+.html", file_path.name):
+        if re.search(r"table_\d+.html", file_path.name):
             return "linked_tables"
         else:
             return "main_text"
@@ -118,17 +118,17 @@ def read_file_structure(file_path, target_dir):
                 if ftype == "directory":
                     continue
                 elif ftype == "main_text":
-                    base_file = re.sub("\.html", "", fpath)
+                    base_file = re.sub(r"\.html", "", fpath)
                     structure = fill_structure(structure, base_file, "main_text", fpath)
                     structure = fill_structure(structure, base_file, "out_dir", out_dir)
                 elif ftype == "linked_tables":
-                    base_file = re.sub("_table_\d+\.html", "", fpath)
+                    base_file = re.sub(r"_table_\d+\.html", "", fpath)
                     structure = fill_structure(
                         structure, base_file, "linked_tables", fpath
                     )
                     structure = fill_structure(structure, base_file, "out_dir", out_dir)
                 elif ftype == "table_images":
-                    base_file = re.sub("_table_\d+\..*", "", fpath)
+                    base_file = re.sub(r"_table_\d+\..*", "", fpath)
                     structure = fill_structure(
                         structure, base_file, "table_images", fpath
                     )
@@ -143,11 +143,11 @@ def read_file_structure(file_path, target_dir):
         else:
             ftype = get_file_type(file_path)
             if ftype == "main_text":
-                base_file = re.sub("\.html", "", file_path).split("/")[-1]
+                base_file = re.sub(r"\.html", "", file_path).split("/")[-1]
             if ftype == "linked_tables":
-                base_file = re.sub("_table_\d+\.html", "", file_path).split("/")[-1]
+                base_file = re.sub(r"_table_\d+\.html", "", file_path).split("/")[-1]
             if ftype == "table_images":
-                base_file = re.sub("_table_\d+\..*", "", file_path).split("/")[-1]
+                base_file = re.sub(r"_table_\d+\..*", "", file_path).split("/")[-1]
             template = {
                 base_file: {
                     "main_text": "",

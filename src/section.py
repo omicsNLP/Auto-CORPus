@@ -77,7 +77,7 @@ class section:
                 abbreviations_tables = abbreviations_tables[0]["node"]
                 abbreviations = {}
                 for tr in abbreviations_tables.find_all("tr"):
-                    short_form, long_form = [td.get_text() for td in tr.find_all("td")]
+                    short_form, long_form = (td.get_text() for td in tr.find_all("td"))
                     abbreviations[short_form] = long_form
             except Exception:
                 abbreviations = {}
@@ -96,9 +96,9 @@ class section:
         if h2_tmp != "":
             if any(x in h2_tmp for x in [" and ", "&", "/"]):
                 mapping_result = []
-                h2_parts = re.split(" and |\s?/\s?|\s?&\s?", h2_tmp)
+                h2_parts = re.split(r" and |\s?/\s?|\s?&\s?", h2_tmp)
                 for h2_part in h2_parts:
-                    h2_part = re.sub("^\d*\s?[\(\.]]?\s?", "", h2_part)
+                    h2_part = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_part)
                     pass
                     for IAO_term, heading_list in mapping_dict.items():
                         if any(
@@ -112,7 +112,7 @@ class section:
 
             else:
                 for IAO_term, heading_list in mapping_dict.items():
-                    h2_tmp = re.sub("^\d*\s?[\(\.]]?\s?", "", h2_tmp)
+                    h2_tmp = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_tmp)
                     if any(
                         [fuzz.ratio(h2_tmp, heading) > 80 for heading in heading_list]
                     ):

@@ -12,7 +12,7 @@ for folder1_file_path in folder1_path.rglob("*"):
         continue
     folder2_file_path = folder2_path / folder1_file_path.name
     if folder2_file_path.exists():
-        with open(folder1_file_path, "r") as f1, open(folder2_file_path, "r") as f2:
+        with open(folder1_file_path) as f1, open(folder2_file_path) as f2:
             lines1 = f1.readlines()
             lines2 = f2.readlines()
             different_lines = [
