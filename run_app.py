@@ -177,8 +177,6 @@ def main():
     pbar = tqdm(structure.keys())
     cdate = datetime.now()
 
-    error_occurred = False
-
     log_file_path = (
         target_dir / "autoCORPus-log-"
         f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
@@ -247,13 +245,12 @@ def main():
                 success.append(f"{key} was processed successfully.")
             except Exception as e:
                 errors.append(f"{key} failed due to {e}.")
-                error_occurred = True
 
         log_file.write(f"{len(success)} files processed.\n")
         log_file.write(f"{len(errors)} files not processed due to errors.\n\n\n")
         log_file.write("\n".join(success) + "\n")
         log_file.write("\n".join(errors) + "\n")
-        if error_occurred:
+        if errors:
             print(
                 "Auto-CORPus has completed processing with some errors. "
                 "Please inspect the log file for further details."
