@@ -39,15 +39,6 @@ group.add_argument(
     "-d", "--config_dir", type=str, help="directory of configuration JSON files"
 )
 
-args = parser.parse_args()
-file_path = args.filepath
-target_dir = args.target_dir if args.target_dir else "autoCORPus_output"
-config = args.config
-config_dir = args.config_dir
-associated_data = args.associated_data
-output_format = args.output_format if args.output_format else "JSON"
-trained_data = args.trained_data_set if args.output_format else "eng"
-
 
 def get_file_type(file_path):
     """
@@ -165,17 +156,21 @@ def read_file_structure(file_path, target_dir):
     pass
 
 
+args = parser.parse_args()
+file_path = Path(args.filepath)
+target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
+config = args.config
+config_dir = args.config_dir
+associated_data = args.associated_data
+output_format = args.output_format if args.output_format else "JSON"
+trained_data = args.trained_data_set if args.output_format else "eng"
+
+
 structure = read_file_structure(file_path, target_dir)
 pbar = tqdm(structure.keys())
 cdate = datetime.now()
 
-config = args.config
-config_dir = args.config_dir
-associated_data = args.associated_data
 error_occurred = False
-output_format = args.output_format if args.output_format else "JSON"
-trained_data = args.trained_data_set if args.output_format else "eng"
-target_dir = Path(target_dir)
 if not target_dir.exists():
     target_dir.mkdir(parents=True)
 logFileName = (
