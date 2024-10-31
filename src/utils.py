@@ -45,9 +45,9 @@ def process_supsub(soup):
         if sup.string is None:
             sup.extract()
         elif re.match("[_-]", s):
-            sup.string.replace_with("{} ".format(s))
+            sup.string.replace_with(f"{s} ")
         else:
-            sup.string.replace_with("_{} ".format(s))
+            sup.string.replace_with(f"_{s} ")
     return soup
 
 
@@ -65,13 +65,13 @@ def process_em(soup):
         if em.string is None:
             em.extract()
         else:
-            em.string.replace_with("{} ".format(s))
+            em.string.replace_with(f"{s} ")
     return soup
 
 
 def read_mapping_file():
     mapping_dict = {}
-    with open("src/IAO_dicts/IAO_FINAL_MAPPING.txt", "r", encoding="utf-8") as f:
+    with open("src/IAO_dicts/IAO_FINAL_MAPPING.txt", encoding="utf-8") as f:
         lines = f.readlines()
         for line in lines:
             heading = line.split("\t")[0].lower().strip("\n")
@@ -100,7 +100,7 @@ def read_mapping_file():
 
 def read_IAO_term_to_ID_file():
     IAO_term_to_no_dict = {}
-    with open("src/IAO_dicts/IAO_term_to_ID.txt", "r") as f:
+    with open("src/IAO_dicts/IAO_term_to_ID.txt") as f:
         lines = f.readlines()
         for line in lines:
             IAO_term = line.split("\t")[0]

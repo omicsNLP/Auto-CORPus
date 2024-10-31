@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from itertools import product
+from itertools import pairwise, product
 from pathlib import Path
 
 from src.utils import get_data_element_node, handle_tables, navigate_contents
@@ -106,7 +106,9 @@ class table:
         cleaned_row = set(
             [i for i in row if (str(i) != "") & (str(i) != "\n") & (str(i) != "None")]
         )
-        if len(cleaned_row) == 1 and bool(re.match("[a-zA-Z]", list(cleaned_row)[0])):
+        if len(cleaned_row) == 1 and bool(
+            re.match("[a-zA-Z]", next(iter(cleaned_row)))
+        ):
             return True
         else:
             return False
@@ -147,7 +149,7 @@ class table:
             for idx in range(len(parts)):
                 if idx in special_char_idx:
                     char = parts[idx]
-                    pattern += "({})".format(char)
+                    pattern += f"({char})"
                 else:
                     pattern += "(\w+)"
             pattern = re.compile(pattern)
@@ -324,10 +326,10 @@ class table:
                 continue
             if row_idx in header_idx:
                 cur_header = [
-                    table_2d[i] for i in [i for i in subheader_idx if row_idx in i][0]
+                    table_2d[i] for i in next(i for i in subheader_idx if row_idx in i)
                 ]
             elif row_idx in superrow_idx:
-                cur_superrow = [i for i in row if i not in ["", "None"]][0]
+                cur_superrow = next(i for i in row if i not in ("", "None"))
             else:
                 if cur_header != pre_header:
                     sections = []
@@ -354,7 +356,7 @@ class table:
 
         if len(tables) > 1:
             for table_idx, table in enumerate(tables):
-                table["identifier"] += ".{}".format(table_idx + 1)
+                table["identifier"] += f".{table_idx + 1}"
         return tables
 
     def __reformat_table_json(self, table_json):
@@ -591,7 +593,7 @@ class table:
 
             subheader_idx = []
             tmp = [header_idx[0]]
-            for i, j in zip(header_idx, header_idx[1:]):
+            for i, j in pairwise(header_idx):
                 if j == i + 1:
                     tmp.append(j)
                 else:

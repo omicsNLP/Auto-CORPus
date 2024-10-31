@@ -55,3 +55,8 @@ select = [
     "UP",  # pyupgrade
     "RUF"  # ruff
 ]
+ignore = [
+    "E501",   # line too long
+    "RUF001", # ambiguous multiplication sign
+    "RUF003", # ambiguous fullwidth colon
+]

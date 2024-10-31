@@ -77,7 +77,7 @@ class section:
                 abbreviations_tables = abbreviations_tables[0]["node"]
                 abbreviations = {}
                 for tr in abbreviations_tables.find_all("tr"):
-                    short_form, long_form = [td.get_text() for td in tr.find_all("td")]
+                    short_form, long_form = (td.get_text() for td in tr.find_all("td"))
                     abbreviations[short_form] = long_form
             except Exception:
                 abbreviations = {}
