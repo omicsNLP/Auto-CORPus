@@ -10,7 +10,7 @@ license = "GPL-3.0-only"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
+python = ">=3.10,<4"
 regex = "^2024.9.11"
 bioc = "^2.1"
 beautifulsoup4 = "^4.12.3"
