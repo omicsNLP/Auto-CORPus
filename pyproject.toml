@@ -20,7 +20,7 @@ pytesseract = "^0.3.13"
 lxml = "^5.3.0"
 networkx = "^3.4.2"
 opencv-contrib-python = "^4.10.0.84"
-python-levenshtein = "^0.26.0"
+python-levenshtein = "^0.26.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
