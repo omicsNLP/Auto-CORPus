@@ -105,7 +105,7 @@ the HTML is generated from each source without having to define exact matches fo
 The second example identifies all `header` elements ranging from `<h3>` to `<h6>`. Auto-CORPus will process all matching
 headers at the same time.
 
-Within the first example, notice the use of "\\\d" instead of the usual "\d" for identifying any digit. This is due to the regex pattern being defined within the config which is a JSON file. For further information about escapaing special characters within JSON have a look at [this guide by tutorials point](https://www.tutorialspoint.com/json_simple/json_simple_escape_characters.htm).
+Within the first example, notice the use of "\\\d" instead of the usual "\d" for identifying any digit. This is due to the regex pattern being defined within the config which is a JSON file. For further information about escaping special characters within JSON have a look at [this guide by tutorials point](https://www.tutorialspoint.com/json_simple/json_simple_escape_characters.htm).
 
 <h3><a name="submit">Submitting/editing config files</a></h3>
 
