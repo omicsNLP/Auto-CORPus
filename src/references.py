@@ -28,7 +28,7 @@ class references:
 
     def __create_reference_block(self, reference):
         text = reference["node"].get_text().replace("Go to:", "").replace("\n", "")
-        text = re.sub("\s{2,}", " ", text)
+        text = re.sub(r"\s{2,}", " ", text)
         refSection = {
             "section_heading": self.section_heading,
             "subsection_heading": "",

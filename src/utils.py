@@ -302,7 +302,7 @@ def handle_tables(config, soup):
                                     value += navigate_contents(item)
                                     # clean the cell
                                 value = value.strip().replace("\u2009", " ")
-                                value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
+                                value = re.sub("<\\/?span[^>\n]*>?|<hr\\/>?", "", value)
                                 value = re.sub("\\n", "", value)
                                 responseAddition[ele].append(value)
             responses.append(responseAddition)

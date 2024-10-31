@@ -69,8 +69,8 @@ class table:
                 # 		value += item.get_text()
                 # clean the cell
                 value = value.strip().replace("\u2009", " ").replace("&#x000a0;", " ")
-                value = re.sub("\s", " ", value)
-                value = re.sub("<\/?span[^>\n]*>?|<hr\/>?", "", value)
+                value = re.sub(r"\s", " ", value)
+                value = re.sub("<\\/?span[^>\n]*>?|<hr\\/>?", "", value)
                 value = re.sub("\\n", "", value)
                 if value.startswith("(") and value.endswith(")"):
                     value = value[1:-1]
@@ -140,7 +140,7 @@ class table:
         # identify special character
         special_char_idx = []
         for idx, part in enumerate(parts):
-            if part in ":|\/,;":
+            if part in r":|\/,;":
                 special_char_idx.append(idx)
 
         # generate regex pattern
@@ -151,7 +151,7 @@ class table:
                     char = parts[idx]
                     pattern += f"({char})"
                 else:
-                    pattern += "(\w+)"
+                    pattern += r"(\w+)"
             pattern = re.compile(pattern)
             return pattern
         else:
@@ -190,7 +190,7 @@ class table:
         Raises:
                 KeyError: Raises an exception.
         """
-        return [i for i in re.split(r"[:|/,;]", s) if i not in ":|\/,;"]
+        return [i for i in re.split(r"[:|/,;]", s) if i not in r":|\/,;"]
 
     def __get_headers(self, t, config):
         """
@@ -650,7 +650,7 @@ class table:
         file_name = Path(file_name).name
         self.tableIdentifier = None
         self.base_dir = base_dir
-        if re.search("_table_\d+\.html", file_name):
+        if re.search(r"_table_\d+\.html", file_name):
             self.tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
         self.pval_regex = (
             r"((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d+)"

@@ -53,7 +53,8 @@ select = [
     "F",   # Pyflakes
     "I",   # isort
     "UP",  # pyupgrade
-    "RUF"  # ruff
+    "RUF", # ruff
+    "W",   # pylint
 ]
 ignore = [
     "E501",   # line too long
