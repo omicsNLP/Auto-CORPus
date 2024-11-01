@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from src.bioc_passages import BioCPassage
+from .bioc_passages import BioCPassage
 
 
 class BiocDocument:

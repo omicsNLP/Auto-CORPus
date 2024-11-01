@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "src"
+name = "autocorpus"
 version = "1.0.0"
 description = "A tool to standardise text and table data extracted from full text publications."
 authors = [
@@ -8,6 +8,9 @@ authors = [
 ]
 license = "GPL-3.0-only"
 readme = "README.md"
+
+[tool.poetry.scripts]
+auto-corpus = "autocorpus.__main__:main"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
@@ -43,7 +46,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "-v -p no:warnings --cov=src --cov-report=html --doctest-modules --ignore=run_app.py"
+addopts = "-v -p no:warnings --cov=autocorpus --cov-report=html --doctest-modules --ignore=run_app.py --ignore=docs/"
 
 [tool.ruff]
 target-version = "py310"

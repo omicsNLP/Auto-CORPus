@@ -6,7 +6,7 @@ import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
 
-for path in sorted(Path("src").glob("**/*.py")):
+for path in sorted(Path("autocorpus").glob("**/*.py")):
     module_path = path.relative_to(".").with_suffix("")
     doc_path = path.relative_to(".").with_suffix(".md")
     full_doc_path = Path("reference", doc_path)

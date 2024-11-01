@@ -3,8 +3,8 @@ import re
 import nltk
 from fuzzywuzzy import fuzz
 
-from src.references import references
-from src.utils import handle_not_tables, read_IAO_term_to_ID_file, read_mapping_file
+from .references import references
+from .utils import handle_not_tables, read_IAO_term_to_ID_file, read_mapping_file
 
 
 class section:

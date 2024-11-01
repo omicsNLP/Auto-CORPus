@@ -1,5 +1,5 @@
 site_name: Auto-CORPus
-watch: [src]
+watch: [autocorpus]
 
 theme:
   name: material

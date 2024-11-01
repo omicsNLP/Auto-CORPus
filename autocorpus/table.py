@@ -3,7 +3,7 @@ from datetime import datetime
 from itertools import pairwise, product
 from pathlib import Path
 
-from src.utils import get_data_element_node, handle_tables, navigate_contents
+from .utils import get_data_element_node, handle_tables, navigate_contents
 
 
 class table:

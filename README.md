@@ -1,8 +1,8 @@
-<h3>Auto-CORPus</h3>
-
 [![DOI:10.1101/2021.01.08.425887](http://img.shields.io/badge/DOI-10.1101/2021.01.08.425887-BE2536.svg)](https://doi.org/10.1101/2021.01.08.425887)
 [![DOI:10.3389/fdgth.2022.788124](http://img.shields.io/badge/DOI-10.3389/fdgth.2022.788124-70286A.svg)](https://doi.org/10.3389/fdgth.2022.788124)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+# Auto-CORPus
 
 *Requires Python 3.10+*
 
@@ -40,20 +40,24 @@ Auto-CORPus will first group files based on common elements in their file name {
 
 **Input:**
 
-    PMC1.html
-    PMC1_table_1.html
-    PMC1_table_2.html
-    /subdir
-        PMC1_table_3.html
-        PMC1_table_4.html
+```
+PMC1.html
+PMC1_table_1.html
+PMC1_table_2.html
+/subdir
+    PMC1_table_3.html
+    PMC1_table_4.html
+```
 
 **Output:**
 
-    PMC1_bioc.json
-    PMC1_abbreviations.json
-    PMC1_tables.json (contains table 1 & 2 and any tables described within the main text)
-    /subdir
-        PMC1_tables.json (contains tables 3 & 4 only)
+```
+PMC1_bioc.json
+PMC1_abbreviations.json
+PMC1_tables.json (contains table 1 & 2 and any tables described within the main text)
+/subdir
+    PMC1_tables.json (contains tables 3 & 4 only)
+```
 
 A log file is produced in the output directory providing details of the day/time Auto-CORPus was run,
 the arguments used and information about which files were successfully/unsuccessfully processed with a relevant error message.
@@ -62,33 +66,32 @@ the arguments used and information about which files were successfully/unsuccess
 
 Clone the repo, e.g.:
 
-$ git clone <git@github.com>:omicsNLP/Auto-CORPus.git or (using HTTPS) git clone <https://github.com/omicsNLP/Auto-CORPus.git>
+```
+git clone git@github.com:omicsNLP/Auto-CORPus.git  # (using SSH)
+git clone https://github.com/omicsNLP/Auto-CORPus.git  # (using HTTPS)
+```
 
-$ cd Auto-CORPus
+```
+cd Auto-CORPus
+```
 
-$ python3 -m venv env or (for Windows users) py -[v] -m venv env (where v is the version of Python used)
-
-$ source env/bin/activate or (for Windows users) path/to/env/Scripts/activate.bat
-
-$ pip install .
-
-You might get an error here `ModuleNotFoundError: No module named 'skbuild'` if you do then run
-
-$ pip install --upgrade pip
-
-Or you might need to install the Microsoft Build Tools for Visual Studio
-(see <https://www.scivision.dev/python-windows-visual-c-14-required> for minimal installation requirements so that python-Levenshtein package can be installed)
-first and then re-run
-
-$ pip install .
+```
+poetry install
+```
 
 Run the below command for a single file example
 
-$ python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+```
+auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+```
 
 Run the below command for a directory of files example
 
-$  python run_app.py -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+```
+auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+```
+
+**Note:** `python -m autocorpus` can be used instead of `auto-corpus`
 
 **Available arguments:**
 
