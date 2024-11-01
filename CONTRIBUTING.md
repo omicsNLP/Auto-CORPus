@@ -149,7 +149,7 @@ Please follow these steps to have your contribution considered by the maintainer
    the new feature.
 4. Follow the [styleguides](#styleguides)
 5. After you submit your pull request, verify that all [status
-   checks](https://help.github.com/articles/about-status-checks/) are passing <details><summary>What
+   checks](https://help.github.com/articles/about-status-checks/) are passing <details><summary>What  <!-- markdownlint-disable-line MD033 -->
    if the status checks are failing?</summary>If a status check is failing, and you believe that the
    failure is unrelated to your change, please leave a comment on the pull request explaining why
    you believe the failure is unrelated. A maintainer will re-run the status check for you. If we

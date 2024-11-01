@@ -4,7 +4,7 @@ about: Create a report to help us improve
 labels: bug
 ---
 
-## Describe the bug
+## Describe the bug <!-- markdownlint-disable-line MD041 -->
 
 A clear and concise description of what the bug is, including error messages.
 

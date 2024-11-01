@@ -4,7 +4,7 @@ about: Suggest an idea for this project
 labels: enhancement
 ---
 
-## Is your feature request related to a problem? Please describe
+## Is your feature request related to a problem? Please describe <!-- markdownlint-disable-line MD041 -->
 
 A clear and concise description of what the problem is. E.g. I'm always frustrated when [...]
 

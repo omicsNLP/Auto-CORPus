@@ -1,6 +1,6 @@
-**How to create/edit a config file**
+# How to create/edit a config file
 
-For instructions on how to submit your own configs or make changes to existing config files please see [submit/update](#submit)
+For instructions on how to submit your own configs or make changes to existing config files please see [submit/update](#submitting-and-editing-config-files)
 
 *The [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json) file is used as the example in this tutorial.*
 
@@ -10,7 +10,7 @@ so we recommend starting from the template config file or a working config file 
 
 For each section in a publication, the config declares `data` and `defined-by` entities.
 
-```
+```json
 {
     "section":{
         "defined-by":[],
@@ -22,7 +22,7 @@ For each section in a publication, the config declares `data` and `defined-by` e
 The `defined-by` entity provides a list of HTML tags and attributes which Auto-CORPus can utilise to find occurrences of the
 section within the source HTML. Each section must contain a `defined-by` entity.
 
-```
+```json
 {
     "section":{
         "defined-by":[
@@ -40,7 +40,7 @@ The `data` entity allows HTML tags and attributes for areas of interest within
 the defined section to be defined. This could be the title of a table or the heading of a section. Some of these `data` elements
 are required to allow Auto-CORPus to accurately parse the source HTML whereas others are optional to allow the user to parse extra information from certain sections if provided by a HTML source. Further details about the `data` elements can be found in [data_elements.md](data_elements.md).
 
-```
+```json
 {
     "section":{
         "defined-by":[],
@@ -66,7 +66,7 @@ one of the provided `tag`/`attrs` pairs.
 Each `defined-by` or `data` element list object can contain a `tag` and an `attrs` entry. The `tag` entry defines the HTML tag used to denote the section. The `attrs` entry is used to pass in HTML attributes which can uniquely identify
 this section from others.
 
-```
+```json
             {
                 "tag": "div",
                 "attrs": {"class": ["ref-cit-blk"]}
@@ -79,7 +79,7 @@ Regular expressions can be used within the `tag` entry value and `attrs` entry v
 Auto-CORPus will automatically enclose any `tag` and `attrs` entries with the regex start (`^`) and end (`$`) anchors, this is to ensure there are no
 erroneous matches. In [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json), article sections are defined using the below `attrs`:
 
-```
+```json
 "attrs": {"class": "sec"}
 ```
 
@@ -89,7 +89,7 @@ Without the inclusion of the start and end anchors, Auto-CORPus would also find 
 
 Below are two further examples of how this regex approach can be used:
 
-```
+```json
             {
                 "tag": "p",
                 "attrs": {"id": "_{0,2}p\\d+"}
@@ -107,7 +107,7 @@ headers at the same time.
 
 Within the first example, notice the use of "\\\d" instead of the usual "\d" for identifying any digit. This is due to the regex pattern being defined within the config which is a JSON file. For further information about escaping special characters within JSON have a look at [this guide by tutorials point](https://www.tutorialspoint.com/json_simple/json_simple_escape_characters.htm).
 
-<h3><a name="submit">Submitting/editing config files</a></h3>
+## Submitting and editing config files
 
 To submit a new config file or edit an existing one, please follow these instructions:
 
