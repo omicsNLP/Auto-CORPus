@@ -18,6 +18,14 @@ jobs:
         with:
           python-version: '3.13'
 
+      - name: Check package version matches tag
+        run: |
+          pkgver=$(python -c "import autocorpus; print(autocorpus.__version__, end='')")
+
+          # NB: tag name must be prefixed by "v" (the default for GitHub Releases)
+          test v$pkgver = ${{ github.ref_name }}
+
+
       - name: Build package
         run: poetry build
 
