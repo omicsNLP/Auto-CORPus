@@ -1,8 +1,8 @@
-<h3>Auto-CORPus</h3>
-
 [![DOI:10.1101/2021.01.08.425887](http://img.shields.io/badge/DOI-10.1101/2021.01.08.425887-BE2536.svg)](https://doi.org/10.1101/2021.01.08.425887)
 [![DOI:10.3389/fdgth.2022.788124](http://img.shields.io/badge/DOI-10.3389/fdgth.2022.788124-70286A.svg)](https://doi.org/10.3389/fdgth.2022.788124)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+# Auto-CORPus
 
 *Requires Python 3.10+*
 
@@ -67,7 +67,8 @@ the arguments used and information about which files were successfully/unsuccess
 Clone the repo, e.g.:
 
 ```
-git clone <git@github.com>:omicsNLP/Auto-CORPus.git or (using HTTPS) git clone <https://github.com/omicsNLP/Auto-CORPus.git>
+git clone git@github.com:omicsNLP/Auto-CORPus.git  # (using SSH)
+git clone https://github.com/omicsNLP/Auto-CORPus.git  # (using HTTPS)
 ```
 
 ```
