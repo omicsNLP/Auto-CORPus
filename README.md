@@ -1,16 +1,47 @@
+# Auto-CORPus
+
 [![DOI:10.1101/2021.01.08.425887](http://img.shields.io/badge/DOI-10.1101/2021.01.08.425887-BE2536.svg)](https://doi.org/10.1101/2021.01.08.425887)
 [![DOI:10.3389/fdgth.2022.788124](http://img.shields.io/badge/DOI-10.3389/fdgth.2022.788124-70286A.svg)](https://doi.org/10.3389/fdgth.2022.788124)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-# Auto-CORPus
-
-*Requires Python 3.10+*
+*Requires Python 3.10+* <!-- markdownlint-disable-line MD036 -->
 
 The Automated pipeline for Consistent Outputs from Research Publications (Auto-CORPus) is a tool for the standardisation and conversion of publication HTML to three convenient machine-interpretable outputs to support biomedical text analytics. Firstly, Auto-CORPus can be configured to convert HTML from various publication sources to [BioC format](http://bioc.sourceforge.net/). Secondly, Auto-CORPus transforms publication tables to a JSON format to store, exchange and annotate table data between text analytics systems. Finally, Auto-CORPus extracts abbreviations declared within publication text and provides an abbreviations JSON output that relates an abbreviation with the full definition.
 
 We present a JSON format for sharing table content and metadata that is based on the BioC format. The [JSON schema](keyFiles/table_schema.json) for the tables JSON can be found within the [keyfiles](keyFiles) directory.
 
-**Config files**
+## Installation
+
+Install with pip
+
+```sh
+pip install autocorpus
+```
+
+## Usage
+
+Run the below command for a single file example
+
+```sh
+auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+```
+
+Run the main app for a directory of files example
+
+```sh
+auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+```
+
+### Available arguments
+
+| Flag | Name | Description |
+| -------- | ------- | ------- |
+| `-f` | Input File Path | File or directory to run Auto-CORPus on |
+| `-t` | Output File Path | Directory path where Auto-CORPus should save output files |
+| `-c` | Config | Which config file to use |
+| `-o` | Output Format | Either `JSON` or `XML` (defaults to `JSON`) |
+
+## Config files
 
 If you wish to contribute or edit a config file then please follow the instructions in the [config guide](docs/config_tutorial.md).
 
@@ -21,7 +52,7 @@ Auto-CORPus is able to parse HTML from different publishers, which utilise diffe
 - Full text HTML documents covering the entire article
 - HTML files which describe a single table
 
-Current work in progress is extending this to include images of tables. See the [Alpha Testing](#alpha) section below.
+Current work in progress is extending this to include images of tables. See the [Alpha Testing](#alpha-testing) section below.
 
 Auto-CORPus does not provide functionality to retrieve input files directly from the publisher. Input file retrieval must be completed by the user in a way which the publisher permits.
 
@@ -40,7 +71,7 @@ Auto-CORPus will first group files based on common elements in their file name {
 
 **Input:**
 
-```
+```sh
 PMC1.html
 PMC1_table_1.html
 PMC1_table_2.html
@@ -51,7 +82,7 @@ PMC1_table_2.html
 
 **Output:**
 
-```
+```sh
 PMC1_bioc.json
 PMC1_abbreviations.json
 PMC1_tables.json (contains table 1 & 2 and any tables described within the main text)
@@ -62,48 +93,50 @@ PMC1_tables.json (contains table 1 & 2 and any tables described within the main 
 A log file is produced in the output directory providing details of the day/time Auto-CORPus was run,
 the arguments used and information about which files were successfully/unsuccessfully processed with a relevant error message.
 
-**Getting started:**
+## For developers
 
-Clone the repo, e.g.:
+This is a Python application that uses [poetry](https://python-poetry.org) for packaging
+and dependency management. It also provides [pre-commit](https://pre-commit.com/) hooks
+for various linters and formatters and automated tests using
+[pytest](https://pytest.org/) and [GitHub Actions](https://github.com/features/actions).
 
-```
-git clone git@github.com:omicsNLP/Auto-CORPus.git  # (using SSH)
-git clone https://github.com/omicsNLP/Auto-CORPus.git  # (using HTTPS)
-```
+To get started:
 
-```
-cd Auto-CORPus
-```
+1. [Download and install Poetry](https://python-poetry.org/docs/#installation) following the instructions for your OS.
+1. Clone this repository and make it your working directory
+1. Set up the virtual environment:
 
-```
-poetry install
-```
+   ```sh
+   poetry install
+   ```
 
-Run the below command for a single file example
+1. Activate the virtual environment (alternatively, ensure any Python-related command is preceded by `poetry run`):
 
-```
-auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
-```
+   ```sh
+   poetry shell
+   ```
 
-Run the below command for a directory of files example
+1. Install the git hooks:
 
-```
-auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
-```
+   ```sh
+   pre-commit install
+   ```
 
-**Note:** `python -m autocorpus` can be used instead of `auto-corpus`
+1. Run the main app for a single file example:
 
-**Available arguments:**
+   ```sh
+   python -m autocorpus -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+   ```
 
-`-f` (input file path) - file or directory to run Auto-CORPus on
+1. Run the main app for a directory of files example
 
-`-t` (output file path) - file path where Auto-CORPus should output files
+   ```sh
+   python -m autocorpus -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+   ```
 
-`-c` (config) - which config file to use
+**Note:** The `auto-corpus` commandline script is also available and will behave the same as `python -m autocorpus`
 
-`-o`(output format) - either JSON or XML (defaults to JSON)
-
-<h3><a name="alpha">Alpha testing</a></h3>
+## Alpha testing
 
 We are developing an Auto-CORPus plugin to process images of tables and we include an alpha version of this
 functionality. Table image files can be processed in either .png or .jpeg/jpg formats. We are working on improving the accuracy of both the table layout and character recognition aspects, and we will update this repo as the plugin advances.
@@ -120,7 +153,8 @@ Table image file: {any_name_you_want}_table_X.png/jpg/jpeg
 
 - {any_name_you_want} must be identical to the name given to the full text file followed by_table_X where X is the table number
 
-**Additional argument:**
+### Additional argument
 
-`-s` (trained dataset) - trained dataset to use for pytesseract OCR. Value should be given in a format
-    recognised by pytesseract with a "+" between each datafile, such as "eng+all".
+| Flag | Name | Description |
+| -------- | ------- | ------- |
+| `-s` | Trained Dataset | Trained dataset to use for pytesseract OCR. Value should be given in a format recognised by pytesseract with a "+" between each datafile, such as "eng+all" |
