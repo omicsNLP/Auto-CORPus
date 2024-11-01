@@ -8,6 +8,18 @@ authors = [
 ]
 license = "GPL-3.0-only"
 readme = "README.md"
+repository = "https://github.com/omicsNLP/Auto-CORPus"
+documentation = "https://omicsnlp.github.io/Auto-CORPus/"
+keywords = [
+    "natural language processing",
+    "text mining",
+    "biomedical literature",
+    "semantics, health data",
+]
+classifiers = ["Intended Audience :: Science/Research"]
+
+[tool.poetry.urls]
+"Publication" = "https://doi.org/10.3389/fdgth.2022.788124"
 
 [tool.poetry.scripts]
 auto-corpus = "autocorpus.__main__:main"
