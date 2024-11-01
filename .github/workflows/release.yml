@@ -25,7 +25,6 @@ jobs:
           # NB: tag name must be prefixed by "v" (the default for GitHub Releases)
           test v$pkgver = ${{ github.ref_name }}
 
-
       - name: Build package
         run: poetry build
 
