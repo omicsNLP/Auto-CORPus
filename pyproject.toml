@@ -14,7 +14,8 @@ keywords = [
     "natural language processing",
     "text mining",
     "biomedical literature",
-    "semantics, health data",
+    "semantics",
+    "health data"
 ]
 classifiers = ["Intended Audience :: Science/Research"]
 

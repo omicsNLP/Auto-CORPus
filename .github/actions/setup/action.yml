@@ -1,0 +1,22 @@
+name: Set up
+description: Set up Python environment and install dependencies
+inputs:
+  python-version:
+    description: The Python version to use
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install Poetry
+      shell: bash
+      run: pipx install poetry
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+        cache: poetry
+
+    - name: Install dependencies
+      shell: bash
+      run: poetry install
