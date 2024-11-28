@@ -3,6 +3,7 @@
 [![DOI:10.1101/2021.01.08.425887](http://img.shields.io/badge/DOI-10.1101/2021.01.08.425887-BE2536.svg)](https://doi.org/10.1101/2021.01.08.425887)
 [![DOI:10.3389/fdgth.2022.788124](http://img.shields.io/badge/DOI-10.3389/fdgth.2022.788124-70286A.svg)](https://doi.org/10.3389/fdgth.2022.788124)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/omicsNLP/Auto-CORPus/main.svg)](https://results.pre-commit.ci/latest/github/omicsNLP/Auto-CORPus/main)
 
 *Requires Python 3.10+* <!-- markdownlint-disable-line MD036 -->
 
