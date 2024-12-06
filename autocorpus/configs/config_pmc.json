@@ -2,12 +2,9 @@
     "config": {
         "references": {
             "data": {
-                "title": [
-                ],
-                "journal": [
-                ],
-                "volume": [
-                ]
+                "title": [],
+                "journal": [],
+                "volume": []
             },
             "defined-by": [
                 {
