@@ -8,7 +8,6 @@ jobs:
   test:
     uses: ./.github/workflows/ci.yml
 
-  # If tests are successful, we build the wheel and push it to the release
   build-wheel:
     needs: test
     runs-on: ubuntu-latest
@@ -18,27 +17,44 @@ jobs:
         with:
           python-version: '3.13'
 
+      # Install dependencies for Poetry and the package
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root  # Install dependencies without installing the package
+
+      # Check package version matches release tag
       - name: Check package version matches tag
         run: |
-          pkgver=$(python -c "import autocorpus; print(autocorpus.__version__, end='')")
-
-          # NB: tag name must be prefixed by "v" (the default for GitHub Releases)
+          poetry install
+          pkgver=$(python -c "
+          import autocorpus
+          try:
+              from importlib.metadata import version
+              print(version('autocorpus'), end='')
+          except importlib.metadata.PackageNotFoundError:
+              print(autocorpus.__dict__.get('__version__', '0.0.0'), end='')
+          ")
+          echo "Detected package version: $pkgver"
+          # Ensure tag name matches version
           test v$pkgver = ${{ github.ref_name }}
 
+
+      # Build package with Poetry
       - name: Build package
         run: poetry build
 
-        # Upload files as test artifact (to be retrieved later)
+      # Upload files as test artifact
       - uses: actions/upload-artifact@v4
         with:
           path: dist/*
 
-        # Publish files as release artifacts
+      # Publish files as release artifacts
       - uses: softprops/action-gh-release@v2
         with:
           files: dist/*
 
-  # If all goes well, publish to PyPI
   publish-pypi:
     needs: build-wheel
     name: Publish to PyPI
