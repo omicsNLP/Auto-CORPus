@@ -24,13 +24,13 @@ pip install autocorpus
 Run the below command for a single file example
 
 ```sh
-auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
 ```
 
 Run the main app for a directory of files example
 
 ```sh
-auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
 ```
 
 ### Available arguments
@@ -46,7 +46,7 @@ auto-corpus -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/ht
 
 If you wish to contribute or edit a config file then please follow the instructions in the [config guide](docs/config_tutorial.md).
 
-Auto-CORPus is able to parse HTML from different publishers, which utilise different HTML structures and naming conventions. This is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied a config template along with example config files for [PubMed Central](configs/config_pmc.json), [Plos Genetics](configs/config_plos_genetics.json) and [Nature Genetics](configs/config_nature_genetics.json) in the [configs](configs) directory. Users of Auto-CORPus can submit their own config files for different sources via the [issues](https://github.com/omicsNLP/Auto-CORPus/issues) tab.
+Auto-CORPus is able to parse HTML from different publishers, which utilise different HTML structures and naming conventions. This is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied a config template along with example config files for [PubMed Central](autocorpus/configs/config_pmc.json), [Plos Genetics](autocorpus/configs/config_plos_genetics.json) and [Nature Genetics](autocorpus/configs/config_nature_genetics.json) in the [configs](autocorpus/configs) directory. Users of Auto-CORPus can submit their own config files for different sources via the [issues](https://github.com/omicsNLP/Auto-CORPus/issues) tab.
 
 **Auto-CORPus recognises 2 types of input file which are:**
 
@@ -126,13 +126,13 @@ To get started:
 1. Run the main app for a single file example:
 
    ```sh
-   python -m autocorpus -c "configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+   python -m autocorpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
    ```
 
 1. Run the main app for a directory of files example
 
    ```sh
-   python -m autocorpus -c "configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+   python -m autocorpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
    ```
 
 **Note:** The `auto-corpus` commandline script is also available and will behave the same as `python -m autocorpus`

@@ -1,0 +1,194 @@
+{
+    "config": {
+        "references": {
+            "data": {
+                "title": [],
+                "journal": [],
+                "volume": []
+            },
+            "defined-by": [
+                {
+                    "tag": "li"
+                },
+                {
+                    "tag": "p",
+                    "attrs": {
+                        "id": "(__){0,2}p\\d+"
+                    }
+                },
+                {
+                    "xpath": "//*[@class=\"ref-list\"]"
+                }
+            ]
+        },
+        "title": {
+            "data": {},
+            "defined-by": [
+                {
+                    "tag": "h1",
+                    "xpath": "/html/body/div[2]/div[2]/div/div[1]/div/div[2]/main/article/section[1]/section[2]/div/hgroup/h1"
+                }
+            ]
+        },
+        "keywords": {
+            "data": {},
+            "defined-by": [
+                {
+                    "tag": "section",
+                    "attrs": {
+                        "class": [
+                            "kwd-group"
+                        ]
+                    }
+                }
+            ]
+        },
+        "abbreviations-table": {
+            "data": {},
+            "defined-by": [
+                {
+                    "tag": "table",
+                    "attrs": {
+                        "class": "glossary"
+                    }
+                }
+            ]
+        },
+        "sections": {
+            "data": {
+                "headers": [
+                    {
+                        "tag": "h2",
+                        "attrs": {
+                            "class": "pmc_sec_title"
+                        }
+                    },
+                    {
+                        "tag": "h2"
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "xpath": "//section[contains(@class, 'body')]/section"
+                }
+            ]
+        },
+        "sub-sections": {
+            "data": {
+                "headers": [
+                    {
+                        "tag": "h[3-6]",
+                        "attrs": {
+                            "class": "pmc_sec_title"
+                        }
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "tag": "section",
+                    "xpath": "//section[contains(@class, 'body')]/section/section"
+                }
+            ]
+        },
+        "paragraphs": {
+            "data": {},
+            "defined-by": [
+                {
+                    "tag": "p"
+                },
+                {
+                    "tag": "p",
+                    "xpath": "//section[contains(@class, 'body')]/section//p"
+                }
+            ]
+        },
+        "tables": {
+            "data": {
+                "caption": [
+                    {
+                        "tag": "div",
+                        "attrs": {
+                            "class": "caption"
+                        }
+                    }
+                ],
+                "table-content": [
+                    {
+                        "tag": "table"
+                    }
+                ],
+                "title": [
+                    {
+                        "tag": "h4",
+                        "attrs": {
+                            "class": "obj_head"
+                        }
+                    }
+                ],
+                "footer": [
+                    {
+                        "tag": "div",
+                        "attrs": {
+                            "class": "tw-foot"
+                        }
+                    }
+                ],
+                "table-row": [
+                    {
+                        "tag": "tr"
+                    }
+                ],
+                "header-row": [
+                    {
+                        "tag": "thead"
+                    }
+                ],
+                "header-element": [
+                    {
+                        "tag": "th"
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "tag": "section",
+                    "attrs": {
+                        "class": "tw"
+                    }
+                }
+            ]
+        },
+        "figures": {
+            "data": {
+                "caption": [
+                    {
+                        "tag": "p"
+                    }
+                ]
+            },
+            "defined-by": [
+                {
+                    "tag": "figcaption"
+                }
+            ]
+        }
+    },
+    "contributions": {
+        "author": {
+            "name": "Tom Shorter",
+            "contact_email": "ts339@le.ac.uk",
+            "comments": "Provided with Auto-CORPus for processing PubMed Central HTML files"
+        },
+        "editors": [
+            {
+                "name": "Thomas Rowlands",
+                "contact_email": "",
+                "date_edited": "28/11/2024",
+                "comments": "Modified for compatibility with PMC website changes from October 2024."
+            }
+        ]
+    },
+    "example_source_HTML_URL": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8885717"
+}
