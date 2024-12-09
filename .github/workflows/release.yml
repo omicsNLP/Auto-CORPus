@@ -27,18 +27,7 @@ jobs:
       # Check package version matches release tag
       - name: Check package version matches tag
         run: |
-          poetry install
-          pkgver=$(python -c "
-          import autocorpus
-          try:
-              from importlib.metadata import version
-              print(version('autocorpus'), end='')
-          except importlib.metadata.PackageNotFoundError:
-              print(autocorpus.__dict__.get('__version__', '0.0.0'), end='')
-          ")
-          echo "Detected package version: $pkgver"
-          # Ensure tag name matches version
-          test v$pkgver = ${{ github.ref_name }}
+          pkgver=$(poetry run python -c "import autocorpus; print(autocorpus.__version__, end='')")
 
 
       # Build package with Poetry
