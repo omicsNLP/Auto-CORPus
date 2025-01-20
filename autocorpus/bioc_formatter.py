@@ -8,7 +8,7 @@ class BiocFormatter:
     def build_bioc_format(self, input_vals):
         return {
             "source": "Auto-CORPus (full-text)",
-            "date": f'{datetime.today().strftime("%Y%m%d")}',
+            "date": f"{datetime.today().strftime('%Y%m%d')}",
             "key": "autocorpus_fulltext.key",
             "infons": {},
             "documents": [BiocDocument(input_vals).as_dict()],
