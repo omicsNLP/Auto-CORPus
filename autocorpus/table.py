@@ -8,8 +8,7 @@ from .utils import get_data_element_node, handle_tables, navigate_contents
 
 class table:
     def __table_to_2d(self, t, config):
-        """
-        transform tables from nested lists to JSON
+        """Transform tables from nested lists to JSON
 
         Args:
                 t: html table, beautiful soup object
@@ -93,8 +92,7 @@ class table:
         return table
 
     def __check_superrow(self, row):
-        """
-        check if the current row is a superrow
+        """Check if the current row is a superrow
 
         Args:
                 row: python list
@@ -111,8 +109,7 @@ class table:
         )
 
     def __find_format(self, header):
-        """
-        determine if there exists a splittable pattern in the header cell
+        """Determine if there exists a splittable pattern in the header cell
 
         Args:
                 header: single header str
@@ -122,8 +119,8 @@ class table:
 
         Raises:
                 KeyError: Raises an exception.
-        """
 
+        """
         if header == "":
             return None
         #     parts = nltk.tokenize.word_tokenize(header)
@@ -155,8 +152,7 @@ class table:
             return None
 
     def __test_format(self, pattern, s):
-        """
-        check if the element conforms to the regex pattern
+        """Check if the element conforms to the regex pattern
 
         Args:
                 header: single header str
@@ -167,15 +163,14 @@ class table:
 
         Raises:
                 KeyError: Raises an exception.
-        """
 
+        """
         if re.search(pattern, s):
             return True
         return False
 
     def __split_format(self, pattern, s):
-        """
-        split s according to regex pattern
+        """Split s according to regex pattern
 
         Args:
                 pattern: regex object
@@ -186,12 +181,12 @@ class table:
 
         Raises:
                 KeyError: Raises an exception.
+
         """
         return [i for i in re.split(r"[:|/,;]", s) if i not in r":|\/,;"]
 
     def __get_headers(self, t, config):
-        """
-        identify headers from a table
+        """Identify headers from a table
 
         Args:
                 t: BeautifulSoup object of table
@@ -201,6 +196,7 @@ class table:
 
         Raises:
                 KeyError: Raises an exception.
+
         """
         idx_list = []
         for idx, row in enumerate(
@@ -217,8 +213,7 @@ class table:
         return idx_list
 
     def __get_superrows(self, t):
-        """
-        determine supperrows in a table
+        """Determine supperrows in a table
 
         Args:
                 t: BeautifulSoup object of table
@@ -235,8 +230,7 @@ class table:
         return idx_list
 
     def __is_number(self, s):
-        """
-        check if input string is a number
+        """Check if input string is a number
 
         Args:
                 s: input string
@@ -252,8 +246,7 @@ class table:
             return False
 
     def __is_mix(self, s):
-        """
-        check if input string is a mix of number and text
+        """Check if input string is a mix of number and text
 
         Args:
                 s: input string
@@ -268,8 +261,7 @@ class table:
         return False
 
     def __is_text(self, s):
-        """
-        check if input string is all text
+        """Check if input string is all text
 
         Args:
                 s: input string
@@ -293,8 +285,7 @@ class table:
         footer,
         caption,
     ):
-        """
-        transform tables from nested lists to JSON
+        """Transform tables from nested lists to JSON
 
         Args:
                 table_2d: nested list tables

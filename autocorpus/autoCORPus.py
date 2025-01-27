@@ -72,18 +72,18 @@ class autoCORPus:
         except Exception as e:
             print(e)
 
-    def __clean_text(self, result):
-        """
-        clean the main text body output of extract_text() further as follows:
+    def __clean_text(self, result: dict) -> dict:
+        """Clean the main text body output of extract_text() further as follows:
             remove duplicated texts from each section (assuming the text from html file has hierarchy up to h3, i.e. no subsubsections);
             remove items with empty bodies
 
         Args:
-            result: dict of the maintext
+            result (dict): dict of the maintext
 
 
         Return:
-            result: cleaned dict of the maintext
+            result (dict): cleaned dict of the maintext
+
         """
         # Remove duplicated contents from the 'result' output of extract_text()
 
@@ -156,14 +156,14 @@ class autoCORPus:
         return []
 
     def __extract_text(self, soup, config):
-        """
-        convert beautiful soup object into a python dict object with cleaned main text body
+        """Convert beautiful soup object into a python dict object with cleaned main text body
 
         Args:
             soup: BeautifulSoup object of html
 
         Return:
             result: dict of the maintext
+
         """
         result = {}
 
@@ -223,11 +223,9 @@ class autoCORPus:
         return uniqueText
 
     def __handle_html(self, file_path, config):
-        """
-        handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables)
+        """Handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables)
         :return: soup object
         """
-
         soup = self.__soupify_infile(file_path)
         if "tables" in config:
             if self.tables == {}:
@@ -384,9 +382,7 @@ class autoCORPus:
         associated_data_path=None,
         trainedData=None,
     ):
-        """
-
-        :param config_path: path to the config file to be used
+        """:param config_path: path to the config file to be used
         :param file_path: path to the main text of the article (HTML files only)
         :param linked_tables: list of linked table file paths to be included in this run (HTML files only)
         :param table_images: list of table image file paths to be included in this run (JPEG or PNG files only)

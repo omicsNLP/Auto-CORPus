@@ -47,8 +47,7 @@ group.add_argument(
 
 
 def get_file_type(file_path: Path) -> str:
-    """
-    :param file_path: file path to be checked
+    """:param file_path: file path to be checked
     :return: "directory", "main_text", "linked_table" or "table_image"
     """
     if file_path.is_dir():
@@ -67,8 +66,7 @@ def get_file_type(file_path: Path) -> str:
 
 
 def fill_structure(structure, key, ftype, fpath: Path):
-    """
-    takes the structure dict, if key is not present then creates new entry with default
+    """Takes the structure dict, if key is not present then creates new entry with default
     vals and adds fpath to correct ftype if key is present then updates the dict with
     the new fpath only
 
@@ -93,8 +91,7 @@ def fill_structure(structure, key, ftype, fpath: Path):
 
 
 def read_file_structure(file_path: Path, target_dir: Path):
-    """
-    takes in any file structure (flat or nested) and groups files, returns a dict of
+    """Takes in any file structure (flat or nested) and groups files, returns a dict of
     files which are all related and the paths to each related file
     :param file_path:
     :return: list of dicts

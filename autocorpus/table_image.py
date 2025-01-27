@@ -10,12 +10,10 @@ import pytesseract
 
 class table_image:
     def img2text(self, img, x, y, w, h):
-        """
-        Function: translate image into texts
+        """Function: translate image into texts
         Input: original image, and location of text boxes
         Output: extracted texts
         """
-
         ROI = img[y - 3 : (y + h + 6), x - 3 : (x + w + 6)]
         # pytesseract.pytesseract.tesseract_cmd = 'D:/Tesseract/tesseract.exe'
         # change the 'lang' here for different traineddata
@@ -26,12 +24,10 @@ class table_image:
         return new_text
 
     def rm_lines(self, img):
-        """
-        Function: remove all the horizontal and vertical lines in image and binary it
+        """Function: remove all the horizontal and vertical lines in image and binary it
         Input: original image
         Output: image after preprocessing
         """
-
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         binary = cv2.adaptiveThreshold(
             ~gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 35, -5
@@ -63,12 +59,10 @@ class table_image:
         return after
 
     def find_cells(self, img):
-        """
-        Function: find cells in table images and sort them from top-left to bottom-right
+        """Function: find cells in table images and sort them from top-left to bottom-right
         Input: original image
         Output: ordered table cells, and processed image
         """
-
         added = cv2.copyMakeBorder(
             img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255]
         )
@@ -138,12 +132,10 @@ class table_image:
         return cells, added, thresh
 
     def cell2table(self, cells, added, thresh, target_dir, pmc):
-        """
-        Function: save table texts in several rows
+        """Function: save table texts in several rows
         Input: ordered table cells, and processed image
         Output: table text saved line by line
         """
-
         # after sort, read cells line by line
         color = (0, 255, 0)  # box color
         table_row = []
@@ -209,12 +201,10 @@ class table_image:
         return table_row
 
     def text2json(self, table_row):
-        """
-        Function: save table into a formatted json file
+        """Function: save table into a formatted json file
         Input: table text saved line by line
         Output: formatted json file of tables
         """
-
         identifier = ""
         title = ""
         footer = ""

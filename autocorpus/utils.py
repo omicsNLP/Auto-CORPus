@@ -11,8 +11,7 @@ from lxml.html.soupparser import fromstring
 
 
 def get_files(base_dir, pattern=r"(.*).html"):
-    """
-    recursively retrieve all PMC.html files from the directory
+    """Recursively retrieve all PMC.html files from the directory
 
     Args:
         base_dir: base directory
@@ -20,6 +19,7 @@ def get_files(base_dir, pattern=r"(.*).html"):
 
     Return:
         file_list: a list of filepath
+
     """
     file_list = []
     base_dir = Path(base_dir)
@@ -33,8 +33,7 @@ def get_files(base_dir, pattern=r"(.*).html"):
 
 
 def process_supsub(soup):
-    """
-    add underscore (_) before all superscript or subscript text
+    """Add underscore (_) before all superscript or subscript text
 
     Args:
         soup: BeautifulSoup object of html
@@ -53,8 +52,7 @@ def process_supsub(soup):
 
 
 def process_em(soup):
-    """
-    remove all emphasized text
+    """Remove all emphasized text
     No it doesn't, it just adds a space to it
 
     Args:
@@ -169,9 +167,7 @@ def parse_configs(definition):
 
 
 def handle_defined_by(config, soup):
-    """
-
-    :param config: config file section used to parse
+    """:param config: config file section used to parse
     :param soup: soup section to parse
     :return:
     list of objects, each object being a matching node. Object of the form:

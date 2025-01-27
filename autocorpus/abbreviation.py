@@ -12,8 +12,7 @@ class abbreviations:
             yield line.strip()
 
     def __conditions(self, candidate):
-        r"""
-        Based on Schwartz&Hearst
+        r"""Based on Schwartz&Hearst
 
         2 <= len(str) <= 10
         len(tokens) <= 2
@@ -44,11 +43,9 @@ class abbreviations:
         return viable
 
     def __best_candidates(self, sentence):
-        """
-        :param sentence: line read from input file
+        """:param sentence: line read from input file
         :return: a Candidate iterator
         """
-
         if "(" in sentence:
             # Check some things first
             if sentence.count("(") != sentence.count(")"):
@@ -109,8 +106,7 @@ class abbreviations:
     # elif LF_in_parentheses:
 
     def __get_definition(self, candidate, sentence):
-        """
-        Takes a candidate and a sentence and returns the definition candidate.
+        """Takes a candidate and a sentence and returns the definition candidate.
 
         The definition candidate is the set of tokens (in front of the candidate)
         that starts with a token starting with the first character of the candidate
@@ -170,8 +166,7 @@ class abbreviations:
             )
 
     def __select_definition(self, definition, abbrev):
-        """
-        Takes a definition candidate and an abbreviation candidate
+        """Takes a definition candidate and an abbreviation candidate
         and returns True if the chars in the abbreviation occur in the definition
 
         Based on
@@ -180,7 +175,6 @@ class abbreviations:
         :param abbrev: candidate abbreviation
         :return:
         """
-
         if len(definition) < len(abbrev):
             raise ValueError("Abbreviation is longer than definition")
 

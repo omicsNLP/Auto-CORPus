@@ -181,8 +181,7 @@ class section:
             self.__navigate_children(child, all_subSections, all_paragraphs)
 
     def __get_references(self, soup_section):
-        """
-        do somet with references here
+        """Do somet with references here
         :return:
         """
         all_references = handle_not_tables(self.config["references"], soup_section)
