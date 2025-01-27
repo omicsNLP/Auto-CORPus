@@ -1,7 +1,13 @@
+"""
+Use regular expression for searching/replacing reference strings.
+"""
 import re
 
 
-class references:
+class References:
+    """
+    Class for processing references using an input soup object and references config.
+    """
     #
     # def __get_section_header(self, soup_section):
     # 	h2 = ""
@@ -29,7 +35,7 @@ class references:
     def __create_reference_block(self, reference):
         text = reference["node"].get_text().replace("Go to:", "").replace("\n", "")
         text = re.sub(r"\s{2,}", " ", text)
-        refSection = {
+        ref_section = {
             "section_heading": self.section_heading,
             "subsection_heading": "",
             "body": text,
@@ -38,18 +44,30 @@ class references:
             ],
         }
 
-        for subsec in reference:
-            if subsec == "node":
+        for sub_sec in reference:
+            if sub_sec == "node":
                 continue
-            refSection[subsec] = ". ".join(reference[subsec])
+            ref_section[sub_sec] = ". ".join(reference[sub_sec])
 
-        return refSection
+        return ref_section
 
     def __init__(self, soup, config, section_heading):
+        """
+
+        Args:
+            soup (BeautifulSoup): BeautifulSoup object
+            config (Object): AutoCorpus configuration references object
+            section_heading (str): Section heading string
+        """
         self.config = config
         self.section_heading = section_heading
 
         self.reference = self.__create_reference_block(soup)
 
     def to_dict(self):
+        """
+        Return the reference BioC dictionary block.
+        Returns (dict): Reference BioC dictionary.
+
+        """
         return self.reference
