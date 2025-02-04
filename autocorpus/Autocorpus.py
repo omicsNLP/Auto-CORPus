@@ -1,3 +1,6 @@
+"""
+Auto-CORPus primary functions are called from this script, after initialisation with __main__.py
+"""
 import argparse
 import json
 import sys
@@ -6,36 +9,16 @@ from pathlib import Path
 from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
 
-from .abbreviation import abbreviations
+from .abbreviation import Abbreviations
 from .bioc_formatter import BiocFormatter
-from .section import section
-from .table import table
-from .table_image import table_image
+from .section import Section
+from .table import Table
+from .tableimage import TableImage
 from .utils import handle_not_tables
 
+class Autocorpus:
+    """Parent class for all Auto-CORPus functionality"""
 
-def handle_path(func):
-    def inner_function(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except OSError as io:
-            print(io)
-            sys.exit()
-        except OSError as exc:
-            print(exc)
-            sys.exit()
-        except Exception as e:
-            print(e)
-            sys.exit()
-        pass
-
-    return inner_function
-
-
-class autoCORPus:
-    """ """
-
-    @handle_path
     def __read_config(self, config_path):
         config_path = Path(config_path)
         with config_path.open("r") as f:
@@ -43,13 +26,11 @@ class autoCORPus:
             content = json.load(f)
             return content["config"]
 
-    @handle_path
     def __import_file(self, file_path):
         file_path = Path(file_path)
         with file_path.open("r") as f:
             return f.read(), file_path
 
-    @handle_path
     def __handle_target_dir(self, target_dir):
         target_dir = Path(target_dir)
         if not target_dir.exists():
@@ -74,8 +55,8 @@ class autoCORPus:
 
     def __clean_text(self, result: dict) -> dict:
         """Clean the main text body output of extract_text() further as follows:
-            remove duplicated texts from each section (assuming the text from html file has hierarchy up to h3, i.e. no subsubsections);
-            remove items with empty bodies
+        - remove duplicated texts from each section (assuming the text from html file has hierarchy up to h3, i.e. no subsubsections);
+        - remove items with empty bodies
 
         Args:
             result (dict): dict of the maintext
@@ -128,7 +109,7 @@ class autoCORPus:
             responses = handle_not_tables(config["keywords"], soup)
             responses = " ".join([x["node"].get_text() for x in responses])
             if not responses == "":
-                keywordSection = {
+                keyword_section = {
                     "section_heading": "keywords",
                     "subsection_heading": "",
                     "body": responses,
@@ -136,7 +117,7 @@ class autoCORPus:
                         {"iao_name": "keywords section", "iao_id": "IAO:0000630"}
                     ],
                 }
-                return [keywordSection]
+                return [keyword_section]
             return False
 
     def __get_title(self, soup, config):
@@ -184,30 +165,30 @@ class autoCORPus:
         sections = self.__get_sections(soup, config)
         # sections = [x['node'] for x in sections]
         for sec in sections:
-            maintext.extend(section(config, sec).to_dict())
+            maintext.extend(Section(config, sec).to_list())
         # filter out the sections which do not contain any info
-        filteredText = []
-        [filteredText.append(x) for x in maintext if x]
-        uniqueText = []
+        filtered_text = []
+        [filtered_text.append(x) for x in maintext if x]
+        unique_text = []
         seen_text = []
-        for text in filteredText:
+        for text in filtered_text:
             if text["body"] not in seen_text:
                 seen_text.append(text["body"])
-                uniqueText.append(text)
+                unique_text.append(text)
 
-        result["paragraphs"] = self.__set_unknown_section_headings(uniqueText)
+        result["paragraphs"] = self.__set_unknown_section_headings(unique_text)
 
         return result
 
-    def __set_unknown_section_headings(self, uniqueText):
+    def __set_unknown_section_headings(self, unique_text):
         paper = {}
-        for para in uniqueText:
+        for para in unique_text:
             if para["section_heading"] != "keywords":
                 paper[para["section_heading"]] = [
                     x["iao_name"] for x in para["section_type"]
                 ]
 
-        for text in uniqueText:
+        for text in unique_text:
             if not text["section_heading"]:
                 text["section_heading"] = "document part"
                 text["section_type"] = [
@@ -220,7 +201,7 @@ class autoCORPus:
         #     if para['section_heading'] in mapping_dict_with_DAG.keys():
         #         if para['section_type'] == []:
         #             uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
-        return uniqueText
+        return unique_text
 
     def __handle_html(self, file_path, config):
         """Handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables)
@@ -229,17 +210,17 @@ class autoCORPus:
         soup = self.__soupify_infile(file_path)
         if "tables" in config:
             if self.tables == {}:
-                self.tables, self.empty_tables = table(
+                self.tables, self.empty_tables = Table(
                     soup, config, file_path, self.base_dir
                 ).to_dict()
             else:
-                seenIDs = set()
+                seen_ids = set()
                 for tab in self.tables["documents"]:
                     if "." in tab["id"]:
-                        seenIDs.add(tab["id"].split(".")[0])
+                        seen_ids.add(tab["id"].split(".")[0])
                     else:
-                        seenIDs.add(tab["id"])
-                tmp_tables, tmp_empty = table(
+                        seen_ids.add(tab["id"])
+                tmp_tables, tmp_empty = Table(
                     soup, config, file_path, self.base_dir
                 ).to_dict()
                 for tabl in tmp_tables["documents"]:
@@ -249,13 +230,13 @@ class autoCORPus:
                     else:
                         tabl_id = tabl["id"]
                         tabl_pos = None
-                    if tabl_id in seenIDs:
-                        tabl_id = str(len(seenIDs) + 1)
+                    if tabl_id in seen_ids:
+                        tabl_id = str(len(seen_ids) + 1)
                         if tabl_pos:
                             tabl["id"] = f"{tabl_id}.{tabl_pos}"
                         else:
                             tabl["id"] = tabl_id
-                    seenIDs.add(tabl_id)
+                    seen_ids.add(tabl_id)
                 self.tables["documents"].extend(tmp_tables["documents"])
                 self.empty_tables.extend(tmp_empty)
         return soup
@@ -267,15 +248,15 @@ class autoCORPus:
             if self.tables["documents"] == []:
                 return
             else:
-                seenIDs = {}
+                seen_ids = {}
                 for i, table in enumerate(self.tables["documents"]):
                     if "id" in table:
-                        seenIDs[str(i)] = f"Table {table['id']}."
+                        seen_ids[str(i)] = f"Table {table['id']}."
                 for table in self.empty_tables:
-                    for seenID in seenIDs.keys():
-                        if table["title"].startswith(seenIDs[seenID]):
+                    for seenID in seen_ids.keys():
+                        if table["title"].startswith(seen_ids[seenID]):
                             if "title" in table and not table["title"] == "":
-                                setNew = False
+                                set_new = False
                                 for passage in self.tables["documents"][int(seenID)][
                                     "passages"
                                 ]:
@@ -286,8 +267,8 @@ class autoCORPus:
                                         == "table_title"
                                     ):
                                         passage["text"] = table["title"]
-                                        setNew = True
-                                if not setNew:
+                                        set_new = True
+                                if not set_new:
                                     self.tables["documents"][int(seenID)][
                                         "passages"
                                     ].append(
@@ -307,7 +288,7 @@ class autoCORPus:
                                     )
                                 pass
                             if "caption" in table and not table["caption"] == "":
-                                setNew = False
+                                set_new = False
                                 for passage in self.tables["documents"][int(seenID)][
                                     "passages"
                                 ]:
@@ -318,8 +299,8 @@ class autoCORPus:
                                         == "table_caption"
                                     ):
                                         passage["text"] = table["caption"]
-                                        setNew = True
-                                if not setNew:
+                                        set_new = True
+                                if not set_new:
                                     self.tables["documents"][int(seenID)][
                                         "passages"
                                     ].append(
@@ -339,7 +320,7 @@ class autoCORPus:
                                     )
                                 pass
                             if "footer" in table and not table["footer"] == "":
-                                setNew = False
+                                set_new = False
                                 for passage in self.tables["documents"][int(seenID)][
                                     "passages"
                                 ]:
@@ -350,8 +331,8 @@ class autoCORPus:
                                         == "table_footer"
                                     ):
                                         passage["text"] = table["footer"]
-                                        setNew = True
-                                if not setNew:
+                                        set_new = True
+                                if not set_new:
                                     self.tables["documents"][int(seenID)][
                                         "passages"
                                     ].append(
@@ -380,7 +361,7 @@ class autoCORPus:
         linked_tables=None,
         table_images=None,
         associated_data_path=None,
-        trainedData=None,
+        trained_data=None,
     ):
         """:param config_path: path to the config file to be used
         :param file_path: path to the main text of the article (HTML files only)
@@ -403,7 +384,7 @@ class autoCORPus:
             soup = self.__handle_html(self.file_path, config)
             self.main_text = self.__extract_text(soup, config)
             try:
-                self.abbreviations = abbreviations(
+                self.abbreviations = Abbreviations(
                     self.main_text, soup, config, self.file_path
                 ).to_dict()
             except Exception as e:
@@ -412,33 +393,80 @@ class autoCORPus:
             for table_file in linked_tables:
                 soup = self.__handle_html(table_file, config)
         if table_images:
-            self.tables = table_image(
-                table_images, self.base_dir, trainedData=trainedData
+            self.tables = TableImage(
+                table_images, self.base_dir, trained_data=trained_data
             ).to_dict()
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
 
     def to_bioc(self):
+        """
+        Get the currently loaded bioc as a dict.
+        Returns:
+            dict: bioc as a dict
+        """
         return BiocFormatter(self).to_dict()
 
     def main_text_to_bioc_json(self, indent=2):
+        """
+        Get the currently loaded main text as BioC JSON.
+        Args:
+            indent (int): level of indentation
+
+        Returns:
+            str: main text as BioC JSON
+        """
         return BiocFormatter(self).to_json(indent)
 
     def main_text_to_bioc_xml(self):
+        """
+        Get the currently loaded main text as BioC XML.
+        Returns:
+            str: main text as BioC XML
+        """
         collection = biocjson.loads(BiocFormatter(self).to_json(2))
         return biocxml.dumps(collection)
 
     def tables_to_bioc_json(self, indent=2):
+        """
+        Get the currently loaded tables as Tables-JSON.
+        Args:
+            indent (int): level of indentation
+
+        Returns:
+            str: tables as Tables-JSON
+        """
         return json.dumps(self.tables, ensure_ascii=False, indent=indent)
 
     def abbreviations_to_bioc_json(self, indent=2):
+        """
+        Get the currently loaded abbreviations as BioC JSON.
+        Args:
+            indent (int): level of indentation
+
+        Returns:
+            str: abbreviations as BioC JSON
+        """
         return json.dumps(self.abbreviations, ensure_ascii=False, indent=indent)
 
     def to_json(self, indent=2):
+        """
+        Get the currently loaded AC object as a dict.
+        Args:
+            indent ():
+
+        Returns:
+            str: AC object as a JSON string
+        """
         return json.dumps(self.to_dict(), ensure_ascii=False, indent=indent)
 
     def to_dict(self):
+        """
+        Get the currently loaded AC object as a dict.
+        Returns:
+            dict: AC object as a dict
+        """
         return {
             "main_text": self.main_text,
             "abbreviations": self.abbreviations,
@@ -468,4 +496,4 @@ if __name__ == "__main__":
     target_dir = args.target_dir
     config_path = args.config
 
-    autoCORPus(config_path, filepath, target_dir).to_file(target_dir)
+    Autocorpus(config_path, filepath, target_dir).to_file(target_dir)

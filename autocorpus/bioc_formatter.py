@@ -5,6 +5,9 @@ from .bioc_documents import BiocDocument
 
 
 class BiocFormatter:
+    """
+    BioC Collection builder/formatter
+    """
     def build_bioc_format(self, input_vals):
         return {
             "source": "Auto-CORPus (full-text)",
@@ -15,10 +18,15 @@ class BiocFormatter:
         }
 
     def __init__(self, input_vals):
+        """
+        Constructor
+        Args:
+            input_vals ():
+        """
         self.bioc_output = self.build_bioc_format(input_vals)
 
-    def to_json(self, indentVal=None):
-        return json.dumps(self.bioc_output, indent=indentVal, ensure_ascii=False)
+    def to_json(self, indent_val=None):
+        return json.dumps(self.bioc_output, indent=indent_val, ensure_ascii=False)
 
     def to_dict(self):
         return self.bioc_output

@@ -1,5 +1,4 @@
-"""
-Handles section processing for Auto-CORPus.
+"""Handles section processing for Auto-CORPus.
 
 Modules used:
 - re: regular expression searching/replacing.
@@ -12,12 +11,11 @@ import nltk
 from fuzzywuzzy import fuzz
 
 from .references import References
-from .utils import handle_not_tables, read_IAO_term_to_ID_file, read_mapping_file
+from .utils import handle_not_tables, read_iao_term_to_id_file, read_mapping_file
 
 
 class Section:
-    """
-    Class for processing section data.
+    """Class for processing section data.
     """
     # def __get_section_header(self, soup_section):
     #
@@ -145,7 +143,7 @@ class Section:
         # 	IAO_term = mapping_dict_with_DAG[self.section_heading]
 
         # map IAO terms to IAO IDs
-        iao_term_to_no_dict = read_IAO_term_to_ID_file()
+        iao_term_to_no_dict = read_iao_term_to_id_file()
         if iao_term in iao_term_to_no_dict.keys():
             mapping_result_id_version = iao_term_to_no_dict[iao_term]
         else:
@@ -202,11 +200,9 @@ class Section:
             )
 
     def __init__(self, config, section_dict):
-        """
-
-        Args:
-            config (Object):
-            section_dict (dict):
+        """Args:
+        config (Object):
+        section_dict (dict):
         """
         self.config = config
         self.section_heading = (
@@ -228,8 +224,7 @@ class Section:
             self.__get_section(section_dict["node"])
 
     def to_list(self):
-        """
-        Retrieve a list of section paragraphs
+        """Retrieve a list of section paragraphs
         Returns (list): section paragraphs
 
         """

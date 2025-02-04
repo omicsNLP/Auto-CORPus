@@ -6,7 +6,7 @@ from pathlib import Path
 from .utils import get_data_element_node, handle_tables, navigate_contents
 
 
-class table:
+class Table:
     def __table_to_2d(self, t, config):
         """Transform tables from nested lists to JSON
 
@@ -15,7 +15,7 @@ class table:
                 config: configuration dictionary
 
         Returns:
-                table: table in JSON format
+                Table: table in JSON format
 
         """
         # https://stackoverflow.com/questions/48393253/how-to-parse-table-with-rowspan-and-colspan
@@ -53,9 +53,9 @@ class table:
                 # next column is offset by the colspan
                 span_offset += colspan - 1
                 # value = ''.join(str(x) for x in cell.get_text())
-                cCont = cell.contents
+                c_cont = cell.contents
                 value = ""
-                for item in cCont:
+                for item in c_cont:
                     value += navigate_contents(item)
                 # if isinstance(item, bs4.element.NavigableString):
                 # 	value += item + " "
@@ -357,17 +357,17 @@ class table:
         }
         for table in table_json["tables"]:
             if "." in table["identifier"] and self.tableIdentifier:
-                tableIdentifier = (
+                table_identifier = (
                     self.tableIdentifier + "_" + table["identifier"].split(".")[-1]
                 )
             else:
                 if self.tableIdentifier:
-                    tableIdentifier = self.tableIdentifier
+                    table_identifier = self.tableIdentifier
                 else:
-                    tableIdentifier = table["identifier"].replace(".", "_")
-            identifier = tableIdentifier
+                    table_identifier = table["identifier"].replace(".", "_")
+            identifier = table_identifier
             offset = 0
-            tableDict = {
+            table_dict = {
                 "inputfile": self.file_path,
                 "id": f"{identifier}",
                 "infons": {},
@@ -385,7 +385,7 @@ class table:
             }
             offset += len(table["title"])
             if "caption" in table.keys() and not table["caption"] == "":
-                tableDict["passages"].append(
+                table_dict["passages"].append(
                     {
                         "offset": offset,
                         "infons": {
@@ -399,35 +399,35 @@ class table:
                 offset += len("".join(table["caption"]))
 
             if "section" in table.keys():
-                rowID = 2
+                row_id = 2
                 rsection = []
                 this_offset = offset
                 for sect in table["section"]:
-                    resultsDict = {
+                    results_dict = {
                         "table_section_title_1": sect["section_name"],
                         "data_rows": [],
                     }
                     for resultrow in sect["results"]:
-                        colID = 1
+                        col_id = 1
                         rrow = []
                         for result in resultrow:
-                            resultDict = {
-                                "cell_id": f"{identifier}.{rowID}.{colID}",
+                            result_dict = {
+                                "cell_id": f"{identifier}.{row_id}.{col_id}",
                                 "cell_text": result,
                             }
-                            colID += 1
+                            col_id += 1
                             offset += len(str(result))
-                            rrow.append(resultDict)
-                        resultsDict["data_rows"].append(rrow)
-                        rowID += 1
-                    rsection.append(resultsDict)
+                            rrow.append(result_dict)
+                        results_dict["data_rows"].append(rrow)
+                        row_id += 1
+                    rsection.append(results_dict)
 
                 columns = []
                 for i, column in enumerate(table.get("columns", [])):
                     columns.append(
                         {"cell_id": f"{identifier}.1.{i + 1}", "cell_text": column}
                     )
-                tableDict["passages"].append(
+                table_dict["passages"].append(
                     {
                         "offset": this_offset,
                         "infons": {
@@ -441,7 +441,7 @@ class table:
                 )
 
             if "footer" in table.keys() and not table["footer"] == "":
-                tableDict["passages"].append(
+                table_dict["passages"].append(
                     {
                         "offset": offset,
                         "infons": {
@@ -453,7 +453,7 @@ class table:
                     }
                 )
                 offset += len("".join(table["footer"]))
-            bioc_format["documents"].append(tableDict)
+            bioc_format["documents"].append(table_dict)
         return bioc_format
 
     def __main(self, soup, config):
@@ -479,12 +479,12 @@ class table:
                 pass
             # has a table element, not empty
             else:
-                etDict = {
+                et_dict = {
                     "title": " ".join(etable["title"]),
                     "caption": " ".join(etable["caption"]),
                     "footer": " ".join(etable["footer"]),
                 }
-                self.empty_tables.append(etDict)
+                self.empty_tables.append(et_dict)
 
         # One table
         tables = []

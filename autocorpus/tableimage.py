@@ -8,17 +8,17 @@ import cv2
 import pytesseract
 
 
-class table_image:
+class TableImage:
     def img2text(self, img, x, y, w, h):
         """Function: translate image into texts
         Input: original image, and location of text boxes
         Output: extracted texts
         """
-        ROI = img[y - 3 : (y + h + 6), x - 3 : (x + w + 6)]
+        roi = img[y - 3 : (y + h + 6), x - 3 : (x + w + 6)]
         # pytesseract.pytesseract.tesseract_cmd = 'D:/Tesseract/tesseract.exe'
         # change the 'lang' here for different traineddata
         text = pytesseract.image_to_string(
-            ROI, lang=self.trainedData, config="--psm 6 --oem 3"
+            roi, lang=self.trainedData, config="--psm 6 --oem 3"
         ).strip()
         new_text = text.replace("\n", " ")
         return new_text
@@ -292,7 +292,7 @@ class table_image:
         offset = 0
         if "title" not in table:
             print("no title")
-        tableDict = {
+        table_dict = {
             "inputfile": self.file_name,
             "id": self.tableIdentifier,
             "infons": {},
@@ -310,7 +310,7 @@ class table_image:
         }
         offset += len(table["title"])
         if "caption" in table.keys() and not table["caption"] == "":
-            tableDict["passages"].append(
+            table_dict["passages"].append(
                 {
                     "offset": offset,
                     "infons": {
@@ -324,28 +324,28 @@ class table_image:
             offset += len(table["caption"])
 
         if "section" in table.keys():
-            rowID = 2
+            row_id = 2
             rsection = []
             this_offset = offset
             for sect in table["section"]:
-                resultsDict = {
+                results_dict = {
                     "table_section_title_1": sect["section_name"],
                     "data_rows": [],
                 }
-                for resultrow in sect["results"]:
-                    colID = 1
+                for result_row in sect["results"]:
+                    col_id = 1
                     rrow = []
-                    for result in resultrow:
-                        resultDict = {
-                            "cell_id": f"{self.tableIdentifier}.{rowID}.{colID}",
+                    for result in result_row:
+                        result_dict = {
+                            "cell_id": f"{self.tableIdentifier}.{row_id}.{col_id}",
                             "cell_text": result,
                         }
-                        colID += 1
+                        col_id += 1
                         offset += len(str(result))
-                        rrow.append(resultDict)
-                    resultsDict["data_rows"].append(rrow)
-                    rowID += 1
-                rsection.append(resultsDict)
+                        rrow.append(result_dict)
+                    results_dict["data_rows"].append(rrow)
+                    row_id += 1
+                rsection.append(results_dict)
 
                 columns = []
             for i, column in enumerate(table.get("column_headings", [])):
@@ -355,7 +355,7 @@ class table_image:
                         "cell_text": column,
                     }
                 )
-            tableDict["passages"].append(
+            table_dict["passages"].append(
                 {
                     "offset": this_offset,
                     "infons": {
@@ -369,7 +369,7 @@ class table_image:
             )
 
         if "footer" in table.keys() and not table["footer"] == "":
-            tableDict["passages"].append(
+            table_dict["passages"].append(
                 {
                     "offset": offset,
                     "infons": {
@@ -381,10 +381,10 @@ class table_image:
                 }
             )
             offset += len(table["footer"])
-        return tableDict
+        return table_dict
 
-    def __init__(self, table_images, base_dir, trainedData="eng"):
-        self.trainedData = trainedData
+    def __init__(self, table_images, base_dir, trained_data="eng"):
+        self.trainedData = trained_data
         self.table_raw = []
         self.tables = {
             "source": "Auto-CORPus (tables)",
