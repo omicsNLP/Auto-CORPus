@@ -7,6 +7,7 @@ modules used:
 - pathlib: OS-agnostic pathing
 - regex: regular expression matching/replacing
 """
+
 import logging
 from collections import Counter, defaultdict
 from datetime import datetime
@@ -17,6 +18,7 @@ import regex as re2
 
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
+
     def __yield_lines_from_doc(self, doc_text):
         for line in doc_text.split("."):
             yield line.strip()
@@ -495,6 +497,7 @@ class Abbreviations:
 
 class Candidate(str):
     """Candidate string."""
+
     def __init__(self, value):
         """Stores the start/stop positions within strings.
 

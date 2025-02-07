@@ -1,4 +1,5 @@
 """Top-level BioC collection builder script."""
+
 import json
 from datetime import datetime
 
@@ -7,6 +8,7 @@ from .bioc_documents import BiocDocument
 
 class BiocFormatter:
     """BioC Collection builder/formatter."""
+
     def build_bioc_format(self, input_vals):
         """Constructs a BioC collection from input document-level data.
 

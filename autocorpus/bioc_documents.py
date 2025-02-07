@@ -1,4 +1,5 @@
 """Script for handling construction of BioC documents."""
+
 from pathlib import Path
 
 from .bioc_passages import BioCPassage
@@ -6,6 +7,7 @@ from .bioc_passages import BioCPassage
 
 class BiocDocument:
     """BioC Document builder."""
+
     def build_passages(self, data_store):
         """Constructs the BioC document passages using the provided data store.
 

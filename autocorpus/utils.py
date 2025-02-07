@@ -1,4 +1,5 @@
 """Utility script containing various functions used throughout AC in different use-cases."""
+
 import re
 import unicodedata
 from importlib import resources
@@ -375,13 +376,20 @@ def handle_tables(config, soup):
     text_data = ["caption", "title", "footer"]
     if "data" in config:
         for match in matches:
-            response_addition = {"node": match, "title": "", "footer": "", "caption": ""}
+            response_addition = {
+                "node": match,
+                "title": "",
+                "footer": "",
+                "caption": "",
+            }
             for ele in config["data"]:
                 if ele in text_data:
                     seen_text = set()
                     for definition in config["data"][ele]:
                         bs_attrs = parse_configs(definition)
-                        new_matches = match.find_all(bs_attrs["name"], bs_attrs["attrs"])
+                        new_matches = match.find_all(
+                            bs_attrs["name"], bs_attrs["attrs"]
+                        )
                         if new_matches:
                             response_addition[ele] = []
                         for newMatch in new_matches:
