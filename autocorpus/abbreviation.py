@@ -495,8 +495,12 @@ class Abbreviations:
 
 class Candidate(str):
     """Candidate string."""
-    def __init__(self):
-        """Stores the start/stop positions within strings."""
+    def __init__(self, value):
+        """Stores the start/stop positions within strings.
+
+        Args:
+            value (str): Candidate value
+        """
         super().__init__()
         self.start = 0
         self.stop = 0
