@@ -1,6 +1,21 @@
+"""
+BioC Passage builder script
+"""
 class BioCPassage:
+    """
+    BioC Passage builder class
+    """
     @classmethod
     def from_title(cls, title, offset):
+        """
+        Creates a BioCPassage object from a title
+        Args:
+            title (str): Passage title
+            offset (int): Passage offset
+
+        Returns:
+            (dict): BioCPassage object
+        """
         title_passage = {
             "section_heading": "",
             "subsection_heading": "",
@@ -42,4 +57,9 @@ class BioCPassage:
         pass
 
     def as_dict(self):
+        """
+        Returns a dictionary representation of the passage
+        Returns:
+            (dict): Dictionary representation of the passage
+        """
         return self.passage

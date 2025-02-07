@@ -97,6 +97,7 @@ def read_file_structure(file_path: Path, target_dir: Path):
     """Takes in any file structure (flat or nested) and groups files, returns a dict of files which are all related and the paths to each related file.
 
     :param file_path:
+    :param target_dir:
     :return: list of dicts
     """
     if file_path.is_dir():

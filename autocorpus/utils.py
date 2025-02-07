@@ -1,3 +1,6 @@
+"""
+Utility script containing various functions used throughout AC in different use-cases
+"""
 import re
 import unicodedata
 from importlib import resources
@@ -69,6 +72,11 @@ def process_em(soup):
 
 
 def read_mapping_file():
+    """
+    Reads the IAO mapping file and parses it into a dictionary
+    Returns:
+        (dict): parsed IAO mappings
+    """
     mapping_dict = {}
     mapping_path = resources.files("autocorpus.IAO_dicts") / "IAO_FINAL_MAPPING.txt"
     with mapping_path.open(encoding="utf-8") as f:
@@ -99,6 +107,11 @@ def read_mapping_file():
 
 
 def read_iao_term_to_id_file():
+    """
+    Parses the IAO_term_to_ID.txt file
+    Returns:
+        (dict): parsed IAO ids as a dictionary
+    """
     iao_term_to_no_dict = {}
     id_path = resources.files("autocorpus.IAO_dicts") / "IAO_term_to_ID.txt"
     with id_path.open(encoding="utf-8") as f:
@@ -111,6 +124,14 @@ def read_iao_term_to_id_file():
 
 
 def config_anchors(value):
+    """
+
+    Args:
+        value (AC config anchor value):
+
+    Returns:
+        (str): Cleaned regex with missing ^ and $ characters added.
+    """
     if not value.startswith("^"):
         value = f"^{value}"
     if not value.endswith("$"):
@@ -119,6 +140,14 @@ def config_anchors(value):
 
 
 def config_attr_block(block):
+    """
+    Parse the attributes block of an AC config file
+    Args:
+        block (dict): attributes block of an AC config file
+
+    Returns:
+        (dict) regex compiled & cleaned attributes block
+    """
     ret = {}
     for key in block:
         if isinstance(block[key], list):
@@ -129,6 +158,14 @@ def config_attr_block(block):
 
 
 def config_attrs(attrs):
+    """
+
+    Args:
+        attrs (list of dicts or dict): attributes block of an AC config file
+
+    Returns:
+        (list): cleaned and compiled attributes block of an AC config file
+    """
     ret = []
     if isinstance(attrs, list):
         for attr in attrs:
@@ -141,6 +178,14 @@ def config_attrs(attrs):
 
 
 def config_tags(tags):
+    """
+    Parse the tags block of an AC config file
+    Args:
+        tags (list or str): tags block of an AC config file
+
+    Returns:
+        (list): cleaned and compiled tags block of an AC config file
+    """
     ret = []
     if isinstance(tags, list):
         for tag in tags:
@@ -156,6 +201,14 @@ def config_tags(tags):
 
 
 def parse_configs(definition):
+    """
+    Parse a top-level block of an AC config file
+    Args:
+        definition (dict): top-level block of an AC config file
+
+    Returns:
+        (dict): cleaned and compiled block of an AC config file
+    """
     bs_attrs = {"name": [], "attrs": [], "xpath": []}
     if "tag" in definition:
         bs_attrs["name"] = config_tags(definition["tag"])
@@ -231,6 +284,15 @@ def handle_defined_by(config, soup):
 
 
 def handle_not_tables(config, soup):
+    """
+    Executes a search on non-table bs4 soup objects based on provided config rules.
+    Args:
+        config (dict): Parsed config rules to be used
+        soup (bs4.BeautifulSoup): BeautifulSoup object containing the input text to search
+
+    Returns:
+        (list): Matches for the provided config rules
+    """
     responses = []
     matches = handle_defined_by(config, soup)
     if "data" in config:
@@ -257,11 +319,28 @@ def handle_not_tables(config, soup):
 
 
 def get_data_element_node(config, soup):
+    """
+    Retrieve the matches for the data element node config rules.
+    Args:
+        config (dict): Parsed config rules to be used
+        soup (bs4.BeautifulSoup): BeautifulSoup object containing the input text to search
+
+    Returns:
+        (list): Matches for the data element node config rules
+    """
     config = {"defined-by": config}
     return handle_defined_by(config, soup)
 
 
 def navigate_contents(item):
+    """
+    Recursively
+    Args:
+        item (bs4.element.NavigableString or bs4.element.Tag): Root element/tag to extract nested text from.
+
+    Returns:
+        (str) Text nested within the provided item.
+    """
     value = ""
     if isinstance(item, bs4.element.NavigableString):
         value += unicodedata.normalize("NFKD", item)
@@ -278,6 +357,15 @@ def navigate_contents(item):
 
 
 def handle_tables(config, soup):
+    """
+    Parse the provided BeautifulSoup object containing tables using the provided config rules.
+    Args:
+        config (dict): Parsed config rules to be used
+        soup (bs4.BeautifulSoup): BeautifulSoup object containing the input tables to construct
+
+    Returns:
+
+    """
     responses = []
     matches = handle_defined_by(config, soup)
     text_data = ["caption", "title", "footer"]
@@ -316,10 +404,10 @@ def assign_heading_by_dag(paper):
     """Assigns a matched heading using the DAG model (DAG_model.graphml) using the given paper.
 
     Args:
-        paper ():
+        paper (dict): Paper requiring headings to be assigned.
 
     Returns:
-
+        (dict): Mapped paper with headings assigned using the DAG model.
     """
     g = nx.read_graphml(resources.files("autocorpus") / "DAG_model.graphml")
     new_mapping_dict = {}
