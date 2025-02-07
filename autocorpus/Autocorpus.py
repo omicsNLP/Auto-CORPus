@@ -1,4 +1,5 @@
 """Auto-CORPus primary functions are called from this script, after initialisation with __main__.py."""
+
 import argparse
 import json
 from pathlib import Path

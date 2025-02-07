@@ -1,6 +1,9 @@
 """BioC Passage builder script."""
+
+
 class BioCPassage:
     """BioC Passage builder class."""
+
     @classmethod
     def from_title(cls, title, offset):
         """Creates a BioCPassage object from a title.

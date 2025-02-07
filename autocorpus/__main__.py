@@ -1,4 +1,5 @@
 """Main entry script for the autocorpus CLI."""
+
 import argparse
 import re
 from datetime import datetime

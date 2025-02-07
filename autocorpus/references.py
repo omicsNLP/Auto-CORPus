@@ -1,9 +1,11 @@
 """Use regular expression for searching/replacing reference strings."""
+
 import re
 
 
 class References:
     """Class for processing references using an input soup object and references config."""
+
     #
     # def __get_section_header(self, soup_section):
     # 	h2 = ""

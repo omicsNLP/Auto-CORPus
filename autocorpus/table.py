@@ -1,4 +1,5 @@
 """Tables-JSON top-level builder script."""
+
 import re
 from datetime import datetime
 from itertools import pairwise, product
@@ -9,6 +10,7 @@ from .utils import get_data_element_node, handle_tables, navigate_contents
 
 class Table:
     """Table-JSON builder class."""
+
     def __table_to_2d(self, t, config):
         """Transform tables from nested lists to JSON.
 

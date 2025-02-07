@@ -5,6 +5,7 @@ Modules used:
 - nltk: string tokenization
 - fuzzywuzzy: string-in-string ratio
 """
+
 import re
 
 import nltk
@@ -16,6 +17,7 @@ from .utils import handle_not_tables, read_iao_term_to_id_file, read_mapping_fil
 
 class Section:
     """Class for processing section data."""
+
     # def __get_section_header(self, soup_section):
     #
     # 	# if "sectionsNew" in config:
