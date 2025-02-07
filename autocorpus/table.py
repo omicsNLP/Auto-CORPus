@@ -1,6 +1,4 @@
-"""
-Tables-JSON top-level builder script
-"""
+"""Tables-JSON top-level builder script."""
 import re
 from datetime import datetime
 from itertools import pairwise, product
@@ -10,18 +8,16 @@ from .utils import get_data_element_node, handle_tables, navigate_contents
 
 
 class Table:
-    """
-    Table-JSON builder class
-    """
+    """Table-JSON builder class."""
     def __table_to_2d(self, t, config):
-        """Transform tables from nested lists to JSON
+        """Transform tables from nested lists to JSON.
 
         Args:
-                t: html table, beautiful soup object
-                config: configuration dictionary
+            t (bs4.BeautifulSoup): html table, beautiful soup object
+            config (dict): configuration dictionary
 
         Returns:
-                Table: table in JSON format
+            (list): table in JSON format
 
         """
         # https://stackoverflow.com/questions/48393253/how-to-parse-table-with-rowspan-and-colspan
@@ -98,13 +94,13 @@ class Table:
         return table
 
     def __check_superrow(self, row):
-        """Check if the current row is a superrow
+        """Check if the current row is a superrow.
 
         Args:
-                row: python list
+            row (list): list of cells
 
         Return:
-                True/False
+            True/False
 
         """
         cleaned_row = set(
@@ -115,16 +111,16 @@ class Table:
         )
 
     def __find_format(self, header):
-        """Determine if there exists a splittable pattern in the header cell
+        """Determine if there exists a splittable pattern in the header cell.
 
         Args:
-                header: single header str
+            header (str): single header str
 
         Returns:
-                pattern: regex object
+            pattern (object): regex object
 
         Raises:
-                KeyError: Raises an exception.
+            KeyError: Raises an exception.
 
         """
         if header == "":
@@ -158,17 +154,17 @@ class Table:
             return None
 
     def __test_format(self, pattern, s):
-        """Check if the element conforms to the regex pattern
+        """Check if the element conforms to the regex pattern.
 
         Args:
-                header: single header str
-                s: element in string format
+            pattern (str): single header str
+            s (str): element in string format
 
         Returns:
-                result: bool
+            (bool): True/False
 
         Raises:
-                KeyError: Raises an exception.
+            KeyError: Raises an exception.
 
         """
         if re.search(pattern, s):
@@ -176,32 +172,33 @@ class Table:
         return False
 
     def __split_format(self, pattern, s):
-        """Split s according to regex pattern
+        """Split s according to regex pattern.
 
         Args:
-                pattern: regex object
-                s: element in string format
+            pattern (object): regex object
+            s (str): element in string format
 
         Returns:
-                list of substrings
+            (list): list of substrings
 
         Raises:
-                KeyError: Raises an exception.
+            KeyError: Raises an exception.
 
         """
         return [i for i in re.split(r"[:|/,;]", s) if i not in r":|\/,;"]
 
     def __get_headers(self, t, config):
-        """Identify headers from a table
+        """Identify headers from a table.
 
         Args:
-                t: BeautifulSoup object of table
+            t (bs4.BeautifulSoup): BeautifulSoup object of table
+            config (dict): configuration dictionary
 
         Returns:
-                idx_list: a list of header index
+            (list): a list of header index
 
         Raises:
-                KeyError: Raises an exception.
+            KeyError: Raises an exception.
 
         """
         idx_list = []
@@ -219,13 +216,13 @@ class Table:
         return idx_list
 
     def __get_superrows(self, t):
-        """Determine supperrows in a table
+        """Determine supperrows in a table.
 
         Args:
-                t: BeautifulSoup object of table
+            t (bs4.BeautifulSoup): BeautifulSoup object of table
 
         Returns:
-                idx_list: a list of superrow index
+            (list): a list of superrow index
 
         """
         idx_list = []
@@ -236,13 +233,13 @@ class Table:
         return idx_list
 
     def __is_number(self, s):
-        """Check if input string is a number
+        """Check if input string is a number.
 
         Args:
-                s: input string
+            s (str): input string
 
         Returns:
-                True/False
+            (bool): True/False
 
         """
         try:
@@ -252,13 +249,13 @@ class Table:
             return False
 
     def __is_mix(self, s):
-        """Check if input string is a mix of number and text
+        """Check if input string is a mix of number and text.
 
         Args:
-                s: input string
+            s (str): input string
 
         Returns:
-                True/False
+            (bool): True/False
 
         """
         if any(char.isdigit() for char in s):
@@ -267,13 +264,13 @@ class Table:
         return False
 
     def __is_text(self, s):
-        """Check if input string is all text
+        """Check if input string is all text.
 
         Args:
-                s: input string
+            s: input string
 
         Returns:
-                True/False
+            True/False
 
         """
         if any(char.isdigit() for char in s):
@@ -291,19 +288,20 @@ class Table:
         footer,
         caption,
     ):
-        """Transform tables from nested lists to JSON
+        """Transform tables from nested lists to JSON.
 
         Args:
-                table_2d: nested list tables
-                header_idx: list of header indices
-                subheader_idx: list of subheader indices
-                superrow_idx: list of superrow indices
-                table_num: table number
-                caption: table caption
-                footer: table footer
+            table_2d (list): nested list tables
+            header_idx (list): list of header indices
+            subheader_idx (list): list of subheader indices
+            superrow_idx (list): list of superrow indices
+            table_num (int): table number
+            title (str): table title
+            footer (str): table footer
+            caption (str): table caption
 
         Returns:
-                tables: tables in JSON format
+            tables (list): tables in JSON format
 
         """
         tables = []
@@ -640,6 +638,14 @@ class Table:
         return table_json
 
     def __init__(self, soup, config, file_name, base_dir):
+        """Parses provided article data into Tables-JSON format.
+
+        Args:
+            soup (bs4.BeautifulSoup): BeautifulSoup object containing article data.
+            config (dict): AC configuration dictionary.
+            file_name (str): Input file name.
+            base_dir (str): Base directory input files.
+        """
         self.file_path = file_name
         file_name = Path(file_name).name
         self.tableIdentifier = None
@@ -656,8 +662,8 @@ class Table:
         pass
 
     def to_dict(self):
-        """
-        Return the built tables and empty tables as two dictionaries.
+        """Return the built tables and empty tables as two dictionaries.
+
         Returns:
             (dict): Tables-JSON
             (dict): Empty tables

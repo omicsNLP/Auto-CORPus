@@ -1,9 +1,6 @@
-"""
-Auto-CORPus primary functions are called from this script, after initialisation with __main__.py
-"""
+"""Auto-CORPus primary functions are called from this script, after initialisation with __main__.py."""
 import argparse
 import json
-import sys
 from pathlib import Path
 
 from bioc import biocjson, biocxml
@@ -16,8 +13,9 @@ from .table import Table
 from .tableimage import TableImage
 from .utils import handle_not_tables
 
+
 class Autocorpus:
-    """Parent class for all Auto-CORPus functionality"""
+    """Parent class for all Auto-CORPus functionality."""
 
     def __read_config(self, config_path):
         config_path = Path(config_path)
@@ -54,16 +52,17 @@ class Autocorpus:
             print(e)
 
     def __clean_text(self, result: dict) -> dict:
-        """Clean the main text body output of extract_text() further as follows:
-        - remove duplicated texts from each section (assuming the text from html file has hierarchy up to h3, i.e. no subsubsections);
-        - remove items with empty bodies
+        r"""Clean the main text body output of extract_text().
+
+        - removes duplicated texts from each section (assuming the text from html file has hierarchy up to h3, i.e. no subsubsections)
+        - removes items with empty bodies.
 
         Args:
             result (dict): dict of the maintext
 
 
         Return:
-            result (dict): cleaned dict of the maintext
+            (dict): cleaned dict result input
 
         """
         # Remove duplicated contents from the 'result' output of extract_text()
@@ -137,14 +136,14 @@ class Autocorpus:
         return []
 
     def __extract_text(self, soup, config):
-        """Convert beautiful soup object into a python dict object with cleaned main text body
+        """Convert beautiful soup object into a python dict object with cleaned main text body.
 
         Args:
-            soup: BeautifulSoup object of html
+            soup (bs4.BeautifulSoup): BeautifulSoup object of html
+            config (dict): AC config rules
 
         Return:
-            result: dict of the maintext
-
+            (dict): dict of the maintext
         """
         result = {}
 
@@ -204,8 +203,13 @@ class Autocorpus:
         return unique_text
 
     def __handle_html(self, file_path, config):
-        """Handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables)
-        :return: soup object
+        """Handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables).
+
+        Args:
+            file_path (str): path to the main text file
+            config (dict): dict of the maintext
+        Return:
+            (bs4.BeautifulSoup): soup object
         """
         soup = self.__soupify_infile(file_path)
         if "tables" in config:
@@ -363,11 +367,16 @@ class Autocorpus:
         associated_data_path=None,
         trained_data=None,
     ):
-        """:param config_path: path to the config file to be used
-        :param file_path: path to the main text of the article (HTML files only)
-        :param linked_tables: list of linked table file paths to be included in this run (HTML files only)
-        :param table_images: list of table image file paths to be included in this run (JPEG or PNG files only)
-        :param associated_data_path: this still needs sorting
+        """Utilises the input config file to create valid BioC versions of input HTML journal articles.
+
+        Args:
+            config_path (str): path to the config file to be used
+            base_dir (str): base directory of the input HTML journal articles
+            main_text (str): path to the main text of the article (HTML files only)
+            linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
+            table_images (list): list of table image file paths to be included in this run (JPEG or PNG files only)
+            associated_data_path (str): currently unused
+            trained_data (str): currently unused, previously added for image processing
         """
         # handle common
         config = self.__read_config(config_path)
@@ -401,71 +410,71 @@ class Autocorpus:
             self.has_tables = True
 
     def to_bioc(self):
-        """
-        Get the currently loaded bioc as a dict.
+        """Get the currently loaded bioc as a dict.
+
         Returns:
-            dict: bioc as a dict
+            (dict): bioc as a dict
         """
         return BiocFormatter(self).to_dict()
 
     def main_text_to_bioc_json(self, indent=2):
-        """
-        Get the currently loaded main text as BioC JSON.
+        """Get the currently loaded main text as BioC JSON.
+
         Args:
             indent (int): level of indentation
 
         Returns:
-            str: main text as BioC JSON
+            (str): main text as BioC JSON
         """
         return BiocFormatter(self).to_json(indent)
 
     def main_text_to_bioc_xml(self):
-        """
-        Get the currently loaded main text as BioC XML.
+        """Get the currently loaded main text as BioC XML.
+
         Returns:
-            str: main text as BioC XML
+            (str): main text as BioC XML
         """
         collection = biocjson.loads(BiocFormatter(self).to_json(2))
         return biocxml.dumps(collection)
 
     def tables_to_bioc_json(self, indent=2):
-        """
-        Get the currently loaded tables as Tables-JSON.
+        """Get the currently loaded tables as Tables-JSON.
+
         Args:
             indent (int): level of indentation
 
         Returns:
-            str: tables as Tables-JSON
+            (str): tables as Tables-JSON
         """
         return json.dumps(self.tables, ensure_ascii=False, indent=indent)
 
     def abbreviations_to_bioc_json(self, indent=2):
-        """
-        Get the currently loaded abbreviations as BioC JSON.
+        """Get the currently loaded abbreviations as BioC JSON.
+
         Args:
             indent (int): level of indentation
 
         Returns:
-            str: abbreviations as BioC JSON
+            (str): abbreviations as BioC JSON
         """
         return json.dumps(self.abbreviations, ensure_ascii=False, indent=indent)
 
     def to_json(self, indent=2):
-        """
-        Get the currently loaded AC object as a dict.
+        """Get the currently loaded AC object as a dict.
+
         Args:
-            indent ():
+            indent (int): Level of indentation.
 
         Returns:
-            str: AC object as a JSON string
+            (str): AC object as a JSON string
         """
         return json.dumps(self.to_dict(), ensure_ascii=False, indent=indent)
 
     def to_dict(self):
-        """
-        Get the currently loaded AC object as a dict.
+        """Get the currently loaded AC object as a dict.
+
         Returns:
-            dict: AC object as a dict
+            (dict): AC object as a dict
         """
         return {
             "main_text": self.main_text,

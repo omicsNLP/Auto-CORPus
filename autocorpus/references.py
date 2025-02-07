@@ -1,11 +1,9 @@
-"""Use regular expression for searching/replacing reference strings.
-"""
+"""Use regular expression for searching/replacing reference strings."""
 import re
 
 
 class References:
-    """Class for processing references using an input soup object and references config.
-    """
+    """Class for processing references using an input soup object and references config."""
     #
     # def __get_section_header(self, soup_section):
     # 	h2 = ""
@@ -50,10 +48,12 @@ class References:
         return ref_section
 
     def __init__(self, soup, config, section_heading):
-        """Args:
-        soup (BeautifulSoup): BeautifulSoup object
-        config (Object): AutoCorpus configuration references object
-        section_heading (str): Section heading string
+        """References constructor using provided AC config rules and input soup article data.
+
+        Args:
+            soup (BeautifulSoup): BeautifulSoup object
+            config (Object): AutoCorpus configuration references object
+            section_heading (str): Section heading string
         """
         self.config = config
         self.section_heading = section_heading
@@ -62,7 +62,9 @@ class References:
 
     def to_dict(self):
         """Return the reference BioC dictionary block.
-        Returns (dict): Reference BioC dictionary.
+
+        Returns:
+             (dict): Reference BioC dictionary.
 
         """
         return self.reference

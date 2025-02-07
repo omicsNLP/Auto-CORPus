@@ -1,6 +1,4 @@
-"""
-Primary build test script used for regression testing between AC output versions
-"""
+"""Primary build test script used for regression testing between AC output versions."""
 import json
 from pathlib import Path
 

@@ -469,10 +469,10 @@ class Abbreviations:
         """Extract abbreviations from the input main text, using the provided soup and config objects.
 
         Args:
-            main_text ():
-            soup (BeautifulSoup):
-            config (Object):
-            file_path (str):
+            main_text (str): Article main text data
+            soup (bs4.BeautifulSoup): Article as a BeautifulSoup object
+            config (dict): AC configuration rules
+            file_path (str): Input file path
         """
         logging.basicConfig(
             format="%(asctime)s : %(levelname)s : %(message)s", level=logging.INFO
@@ -494,15 +494,9 @@ class Abbreviations:
 
 
 class Candidate(str):
-    """
-    Candidate string
-    """
-    def __init__(self, value):
-        """Stores the start/stop positions within strings.
-
-        Args:
-            value ():
-        """
+    """Candidate string."""
+    def __init__(self):
+        """Stores the start/stop positions within strings."""
         super().__init__()
         self.start = 0
         self.stop = 0
@@ -513,9 +507,6 @@ class Candidate(str):
         Args:
             start (int): start index of the candidate.
             stop (int): stop index of the candidate.
-
-        Returns:
-
         """
         self.start = start
         self.stop = stop

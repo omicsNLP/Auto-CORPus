@@ -1,6 +1,4 @@
-"""
-Utility script containing various functions used throughout AC in different use-cases
-"""
+"""Utility script containing various functions used throughout AC in different use-cases."""
 import re
 import unicodedata
 from importlib import resources
@@ -14,7 +12,7 @@ from lxml.html.soupparser import fromstring
 
 
 def get_files(base_dir, pattern=r"(.*).html"):
-    """Recursively retrieve all PMC.html files from the directory
+    """Recursively retrieve all PMC.html files from the directory.
 
     Args:
         base_dir: base directory
@@ -36,7 +34,7 @@ def get_files(base_dir, pattern=r"(.*).html"):
 
 
 def process_supsub(soup):
-    """Add underscore (_) before all superscript or subscript text
+    """Add underscore (_) before all superscript or subscript text.
 
     Args:
         soup: BeautifulSoup object of html
@@ -55,11 +53,13 @@ def process_supsub(soup):
 
 
 def process_em(soup):
-    """Remove all emphasized text
-    No it doesn't, it just adds a space to it
+    """Add a space to emphasised text.
 
     Args:
-        soup: BeautifulSoup object of html
+        soup: BeautifulSoup object
+
+    Returns:
+        soup: Altered BeautifulSoup object
 
     """
     for em in soup.find_all("em"):
@@ -72,8 +72,8 @@ def process_em(soup):
 
 
 def read_mapping_file():
-    """
-    Reads the IAO mapping file and parses it into a dictionary
+    """Reads the IAO mapping file and parses it into a dictionary.
+
     Returns:
         (dict): parsed IAO mappings
     """
@@ -107,8 +107,8 @@ def read_mapping_file():
 
 
 def read_iao_term_to_id_file():
-    """
-    Parses the IAO_term_to_ID.txt file
+    """Parses the IAO_term_to_ID.txt file.
+
     Returns:
         (dict): parsed IAO ids as a dictionary
     """
@@ -124,10 +124,10 @@ def read_iao_term_to_id_file():
 
 
 def config_anchors(value):
-    """
+    """Clean the regex anchors of an AC config rule.
 
     Args:
-        value (AC config anchor value):
+        value (str): AC config anchor value
 
     Returns:
         (str): Cleaned regex with missing ^ and $ characters added.
@@ -140,8 +140,8 @@ def config_anchors(value):
 
 
 def config_attr_block(block):
-    """
-    Parse the attributes block of an AC config file
+    """Parse the attributes block of an AC config file.
+
     Args:
         block (dict): attributes block of an AC config file
 
@@ -158,7 +158,7 @@ def config_attr_block(block):
 
 
 def config_attrs(attrs):
-    """
+    """Clean and compile attributes block of an AC config file.
 
     Args:
         attrs (list of dicts or dict): attributes block of an AC config file
@@ -178,8 +178,8 @@ def config_attrs(attrs):
 
 
 def config_tags(tags):
-    """
-    Parse the tags block of an AC config file
+    """Parse the tags block of an AC config file.
+
     Args:
         tags (list or str): tags block of an AC config file
 
@@ -201,13 +201,13 @@ def config_tags(tags):
 
 
 def parse_configs(definition):
-    """
-    Parse a top-level block of an AC config file
+    """Parse a top-level block of an AC config file.
+
     Args:
-        definition (dict): top-level block of an AC config file
+        definition (dict): top-level block of an AC config file.
 
     Returns:
-        (dict): cleaned and compiled block of an AC config file
+        (dict): cleaned and compiled block of an AC config file.
     """
     bs_attrs = {"name": [], "attrs": [], "xpath": []}
     if "tag" in definition:
@@ -220,20 +220,24 @@ def parse_configs(definition):
 
 
 def handle_defined_by(config, soup):
-    """:param config: config file section used to parse
-    :param soup: soup section to parse
-    :return:
-    list of objects, each object being a matching node. Object of the form:
-            {
-                    node: bs4Object,
-                    data:{
-                                    key: [values]
-                            }
-            }
-    node is a bs4 object of a single result derived from bs4.find_all()
-    data is an object where the results from the config "data" sections is housed. The key is the name of the data
-    section and the values are all matches found within any of the main matches which match the current data section
-    definition. The values is the response you get from get_text() on any found nodes, not the nodes themselves.
+    """Retrieve matching nodes for the 'defined-by' config rules.
+
+    Args:
+        config (dict): config file section used to parse
+        soup (bs4.BeautifulSoup): soup section to parse
+
+    Returns:
+        (list): list of objects, each object being a matching node. Object of the form:
+                {
+                        node: bs4Object,
+                        data:{
+                                        key: [values]
+                                }
+                }
+        node is a bs4 object of a single result derived from bs4.find_all()
+        data is an object where the results from the config "data" sections is housed. The key is the name of the data
+        section and the values are all matches found within any of the main matches which match the current data section
+        definition. The values is the response you get from get_text() on any found nodes, not the nodes themselves.
     """
     if "defined-by" not in config:
         quit(f"{config} does not contain the required 'defined-by' key.")
@@ -284,8 +288,8 @@ def handle_defined_by(config, soup):
 
 
 def handle_not_tables(config, soup):
-    """
-    Executes a search on non-table bs4 soup objects based on provided config rules.
+    """Executes a search on non-table bs4 soup objects based on provided config rules.
+
     Args:
         config (dict): Parsed config rules to be used
         soup (bs4.BeautifulSoup): BeautifulSoup object containing the input text to search
@@ -319,8 +323,8 @@ def handle_not_tables(config, soup):
 
 
 def get_data_element_node(config, soup):
-    """
-    Retrieve the matches for the data element node config rules.
+    """Retrieve the matches for the data element node config rules.
+
     Args:
         config (dict): Parsed config rules to be used
         soup (bs4.BeautifulSoup): BeautifulSoup object containing the input text to search
@@ -333,8 +337,8 @@ def get_data_element_node(config, soup):
 
 
 def navigate_contents(item):
-    """
-    Recursively
+    """Extract nested text recursively from the provided NavigableString/Tag item.
+
     Args:
         item (bs4.element.NavigableString or bs4.element.Tag): Root element/tag to extract nested text from.
 
@@ -357,14 +361,14 @@ def navigate_contents(item):
 
 
 def handle_tables(config, soup):
-    """
-    Parse the provided BeautifulSoup object containing tables using the provided config rules.
+    """Parse the provided BeautifulSoup object containing tables using the provided config rules.
+
     Args:
         config (dict): Parsed config rules to be used
         soup (bs4.BeautifulSoup): BeautifulSoup object containing the input tables to construct
 
     Returns:
-
+        (list): List of matches for the provided config rules
     """
     responses = []
     matches = handle_defined_by(config, soup)

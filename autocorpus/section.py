@@ -15,8 +15,7 @@ from .utils import handle_not_tables, read_iao_term_to_id_file, read_mapping_fil
 
 
 class Section:
-    """Class for processing section data.
-    """
+    """Class for processing section data."""
     # def __get_section_header(self, soup_section):
     #
     # 	# if "sectionsNew" in config:
@@ -190,8 +189,10 @@ class Section:
             self.__navigate_children(child, all_sub_sections, all_paragraphs)
 
     def __get_references(self, soup_section):
-        """Do somet with references here
-        :return:
+        """Constructs the article references using the provided configuration file.
+
+        Args:
+            soup_section (bs4.BeautifulSoup): article section containing references
         """
         all_references = handle_not_tables(self.config["references"], soup_section)
         for ref in all_references:
@@ -200,9 +201,11 @@ class Section:
             )
 
     def __init__(self, config, section_dict):
-        """Args:
-        config (Object):
-        section_dict (dict):
+        """Identifies a section using the provided configuration.
+
+        Args:
+            config (Object): AC configuration object.
+            section_dict (dict): Article section dictionary.
         """
         self.config = config
         self.section_heading = (
@@ -224,8 +227,10 @@ class Section:
             self.__get_section(section_dict["node"])
 
     def to_list(self):
-        """Retrieve a list of section paragraphs
-        Returns (list): section paragraphs
+        """Retrieve a list of section paragraphs.
+
+        Returns:
+             (list): section paragraphs
 
         """
         return self.paragraphs if self.paragraphs else []

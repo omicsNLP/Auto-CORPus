@@ -1,20 +1,16 @@
-"""
-Script for handling construction of BioC documents.
-"""
+"""Script for handling construction of BioC documents."""
 from pathlib import Path
 
 from .bioc_passages import BioCPassage
 
 
 class BiocDocument:
-    """
-    BioC Document builder
-    """
+    """BioC Document builder."""
     def build_passages(self, data_store):
-        """
-        Constructs the BioC document passages using the provided data store
+        """Constructs the BioC document passages using the provided data store.
+
         Args:
-            data_store ([dict]):
+            data_store ([dict]): Article data store.
 
         Returns:
             (list): list of BioC passages
@@ -37,10 +33,11 @@ class BiocDocument:
         return passages
 
     def build_template(self, data_store):
-        """
-        Constructs the BioC document template using the provided data store
+        """Constructs the BioC document template using the provided data store.
+
         Args:
-            data_store ([dict]):
+            data_store ([dict]): Input article data store (list of dicts).
+
         Returns:
             (dict): BioC document complete populated with passages.
         """
@@ -54,12 +51,17 @@ class BiocDocument:
         }
 
     def __init__(self, input):
+        """BioC Document constructor using input dictionary.
+
+        Args:
+            input (dict): article document-level data.
+        """
         self.document = self.build_template(input)
         pass
 
     def as_dict(self):
-        """
-        Return the BioC document as a dictionary
+        """Return the BioC document as a dictionary.
+
         Returns:
             (dict): BioC document as a dictionary
         """

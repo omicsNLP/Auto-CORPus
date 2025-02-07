@@ -1,14 +1,10 @@
-"""
-BioC Passage builder script
-"""
+"""BioC Passage builder script."""
 class BioCPassage:
-    """
-    BioC Passage builder class
-    """
+    """BioC Passage builder class."""
     @classmethod
     def from_title(cls, title, offset):
-        """
-        Creates a BioCPassage object from a title
+        """Creates a BioCPassage object from a title.
+
         Args:
             title (str): Passage title
             offset (int): Passage offset
@@ -52,13 +48,19 @@ class BioCPassage:
         return passage_dict
 
     def __init__(self, passage, offset):
+        """Construct a passage object from the provided passage dict and offset.
+
+        Args:
+            passage (dict): Article passage dictionary
+            offset (int): Passage offset to use
+        """
         self.offset = 0
         self.passage = self.__build_passage(passage, offset)
         pass
 
     def as_dict(self):
-        """
-        Returns a dictionary representation of the passage
+        """Returns a dictionary representation of the passage.
+
         Returns:
             (dict): Dictionary representation of the passage
         """
