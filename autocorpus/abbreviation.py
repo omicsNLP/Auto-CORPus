@@ -490,7 +490,6 @@ class Abbreviations:
         """Retrieves abbreviations BioC dict.
 
         Returns (dict): abbreviations BioC dict.
-
         """
         return self.abbreviations
 
