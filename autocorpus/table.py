@@ -356,7 +356,7 @@ class Table:
     def __reformat_table_json(self, table_json):
         bioc_format = {
             "source": "Auto-CORPus (tables)",
-            "date": f'{datetime.today().strftime("%Y%m%d")}',
+            "date": f"{datetime.today().strftime('%Y%m%d')}",
             "key": "autocorpus_tables.key",
             "infons": {},
             "documents": [],

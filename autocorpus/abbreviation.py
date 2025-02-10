@@ -444,7 +444,7 @@ class Abbreviations:
         template = {
             "source": "Auto-CORPus (abbreviations)",
             # "inputfile": file_path,
-            "date": f'{datetime.today().strftime("%Y%m%d")}',
+            "date": f"{datetime.today().strftime('%Y%m%d')}",
             "key": "autocorpus_abbreviations.key",
             "documents": [
                 {
