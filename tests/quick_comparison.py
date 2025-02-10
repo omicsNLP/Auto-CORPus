@@ -1,3 +1,5 @@
+"""Basic script for comparing two AC outputs."""
+
 import re
 from pathlib import Path
 

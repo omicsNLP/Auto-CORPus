@@ -1,3 +1,13 @@
+"""Handles the processing of abbreviations.
+
+modules used:
+- logging: log errors/status messages
+- collections: used for counting the most common occurrences
+- datetime: datetime stamping
+- pathlib: OS-agnostic pathing
+- regex: regular expression matching/replacing
+"""
+
 import logging
 from collections import Counter, defaultdict
 from datetime import datetime
@@ -6,14 +16,15 @@ from pathlib import Path
 import regex as re2
 
 
-class abbreviations:
+class Abbreviations:
+    """Class for processing abbreviations using Auto-CORPus configurations."""
+
     def __yield_lines_from_doc(self, doc_text):
         for line in doc_text.split("."):
             yield line.strip()
 
     def __conditions(self, candidate):
-        r"""
-        Based on Schwartz&Hearst
+        r"""Based on Schwartz&Hearst.
 
         2 <= len(str) <= 10
         len(tokens) <= 2
@@ -44,11 +55,11 @@ class abbreviations:
         return viable
 
     def __best_candidates(self, sentence):
-        """
+        """Locates the best candidates for an abbreviation.
+
         :param sentence: line read from input file
         :return: a Candidate iterator
         """
-
         if "(" in sentence:
             # Check some things first
             if sentence.count("(") != sentence.count(")"):
@@ -109,11 +120,7 @@ class abbreviations:
     # elif LF_in_parentheses:
 
     def __get_definition(self, candidate, sentence):
-        """
-        Takes a candidate and a sentence and returns the definition candidate.
-
-        The definition candidate is the set of tokens (in front of the candidate)
-        that starts with a token starting with the first character of the candidate
+        """Takes a candidate and a sentence and returns the definition candidate.The definition candidate is the set of tokens (in front of the candidate) that starts with a token starting with the first character of the candidate.
 
         :param candidate: candidate abbreviation
         :param sentence: current sentence (single line from input file)
@@ -170,9 +177,7 @@ class abbreviations:
             )
 
     def __select_definition(self, definition, abbrev):
-        """
-        Takes a definition candidate and an abbreviation candidate
-        and returns True if the chars in the abbreviation occur in the definition
+        """Takes a definition candidate and an abbreviation candidate and returns True if the chars in the abbreviation occur in the definition.
 
         Based on
         A simple algorithm for identifying abbreviation definitions in biomedical texts, Schwartz & Hearst
@@ -180,7 +185,6 @@ class abbreviations:
         :param abbrev: candidate abbreviation
         :return:
         """
-
         if len(definition) < len(abbrev):
             raise ValueError("Abbreviation is longer than definition")
 
@@ -317,7 +321,7 @@ class abbreviations:
 
         return pairs
 
-    def __listToDict(self, lst):
+    def __list_to_dict(self, lst):
         op = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
         return op
 
@@ -329,15 +333,15 @@ class abbreviations:
             vals = [j.get_text() for j in elements]
             if len(vals) > 1:
                 abbre_list += vals
-        abbre_dict = self.__listToDict(abbre_list)
+        abbre_dict = self.__list_to_dict(abbre_list)
         return abbre_dict
 
     def __abbre_list_to_dict(self, t):
-        SF = t.findAll("dt")
-        SF_list = [SF_word.get_text() for SF_word in SF]
-        LF = t.findAll("dd")
-        LF_list = [LF_word.get_text() for LF_word in LF]
-        abbre_dict = dict(zip(SF_list, LF_list))
+        sf = t.findAll("dt")
+        sf_list = [SF_word.get_text() for SF_word in sf]
+        lf = t.findAll("dd")
+        lf_list = [LF_word.get_text() for LF_word in lf]
+        abbre_dict = dict(zip(sf_list, lf_list))
         return abbre_dict
 
     def __get_abbre_plain_text(self, soup_og):
@@ -453,17 +457,25 @@ class abbreviations:
         passages = template["documents"][0]["passages"]
         for short in abbreviations.keys():
             counter = 1
-            shortTemplate = {"text_short": short}
+            short_template = {"text_short": short}
             for long in abbreviations[short].keys():
-                shortTemplate[f"text_long_{counter}"] = long.replace("\n", " ")
-                shortTemplate[f"extraction_algorithm_{counter}"] = ", ".join(
+                short_template[f"text_long_{counter}"] = long.replace("\n", " ")
+                short_template[f"extraction_algorithm_{counter}"] = ", ".join(
                     abbreviations[short][long]
                 )
                 counter += 1
-            passages.append(shortTemplate)
+            passages.append(short_template)
         return template
 
     def __init__(self, main_text, soup, config, file_path):
+        """Extract abbreviations from the input main text, using the provided soup and config objects.
+
+        Args:
+            main_text (str): Article main text data
+            soup (bs4.BeautifulSoup): Article as a BeautifulSoup object
+            config (dict): AC configuration rules
+            file_path (str): Input file path
+        """
         logging.basicConfig(
             format="%(asctime)s : %(levelname)s : %(message)s", level=logging.INFO
         )
@@ -475,15 +487,32 @@ class abbreviations:
         pass
 
     def to_dict(self):
+        """Retrieves abbreviations BioC dict.
+
+        Returns (dict): abbreviations BioC dict.
+        """
         return self.abbreviations
 
 
 class Candidate(str):
+    """Candidate string."""
+
     def __init__(self, value):
+        """Stores the start/stop positions within strings.
+
+        Args:
+            value (str): Candidate value
+        """
         super().__init__()
         self.start = 0
         self.stop = 0
 
     def set_position(self, start, stop):
+        """Setter for the start and stop positions within a candidate instance.
+
+        Args:
+            start (int): start index of the candidate.
+            stop (int): stop index of the candidate.
+        """
         self.start = start
         self.stop = stop
