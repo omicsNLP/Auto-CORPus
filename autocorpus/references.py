@@ -67,6 +67,5 @@ class References:
 
         Returns:
              (dict): Reference BioC dictionary.
-
         """
         return self.reference
