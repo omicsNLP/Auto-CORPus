@@ -388,7 +388,7 @@ def handle_tables(config, soup):
                     for definition in config["data"][ele]:
                         bs_attrs = parse_configs(definition)
                         new_matches = match.find_all(
-                            bs_attrs["name"], bs_attrs["attrs"]
+                            bs_attrs["name"] if bs_attrs["name"] else None, bs_attrs["attrs"] if bs_attrs["attrs"] else None
                         )
                         if new_matches:
                             response_addition[ele] = []
