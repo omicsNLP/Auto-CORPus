@@ -248,7 +248,10 @@ def handle_defined_by(config, soup):
         bs_attrs = parse_configs(definition)
         new_matches = []
         if bs_attrs["name"] or bs_attrs["attrs"]:
-            new_matches = soup.find_all(bs_attrs["name"] if bs_attrs["name"] else None, bs_attrs["attrs"] if bs_attrs["attrs"] else None)
+            new_matches = soup.find_all(
+                bs_attrs["name"] if bs_attrs["name"] else None,
+                bs_attrs["attrs"] if bs_attrs["attrs"] else None,
+            )
             if new_matches:
                 new_matches = [x for x in new_matches if x.text]
         if "xpath" in bs_attrs:
@@ -307,7 +310,10 @@ def handle_not_tables(config, soup):
                 seen_text = set()
                 for definition in config["data"][ele]:
                     bs_attrs = parse_configs(definition)
-                    new_matches = match.find_all(bs_attrs["name"] if bs_attrs["name"] else None, bs_attrs["attrs"] if bs_attrs["attrs"] else None)
+                    new_matches = match.find_all(
+                        bs_attrs["name"] if bs_attrs["name"] else None,
+                        bs_attrs["attrs"] if bs_attrs["attrs"] else None,
+                    )
                     if new_matches:
                         response_addition[ele] = []
                     for newMatch in new_matches:
@@ -388,7 +394,8 @@ def handle_tables(config, soup):
                     for definition in config["data"][ele]:
                         bs_attrs = parse_configs(definition)
                         new_matches = match.find_all(
-                            bs_attrs["name"] if bs_attrs["name"] else None, bs_attrs["attrs"] if bs_attrs["attrs"] else None
+                            bs_attrs["name"] if bs_attrs["name"] else None,
+                            bs_attrs["attrs"] if bs_attrs["attrs"] else None,
                         )
                         if new_matches:
                             response_addition[ele] = []
