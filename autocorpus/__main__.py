@@ -1,3 +1,5 @@
+"""Main entry script for the autocorpus CLI."""
+
 import argparse
 import re
 from datetime import datetime
@@ -6,7 +8,7 @@ from pathlib import Path
 from filetype import is_image
 from tqdm import tqdm
 
-from autocorpus.autoCORPus import autoCORPus
+from autocorpus.Autocorpus import Autocorpus
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -47,7 +49,8 @@ group.add_argument(
 
 
 def get_file_type(file_path: Path) -> str:
-    """
+    """Identify the type of files present in the given path.
+
     :param file_path: file path to be checked
     :return: "directory", "main_text", "linked_table" or "table_image"
     """
@@ -67,10 +70,7 @@ def get_file_type(file_path: Path) -> str:
 
 
 def fill_structure(structure, key, ftype, fpath: Path):
-    """
-    takes the structure dict, if key is not present then creates new entry with default
-    vals and adds fpath to correct ftype if key is present then updates the dict with
-    the new fpath only
+    """Takes the structure dict, if key is not present then creates new entry with default vals and adds fpath to correct ftype if key is present then updates the dict with the new fpath only.
 
     :param structure: structure dict
     :param key: base file name
@@ -93,10 +93,10 @@ def fill_structure(structure, key, ftype, fpath: Path):
 
 
 def read_file_structure(file_path: Path, target_dir: Path):
-    """
-    takes in any file structure (flat or nested) and groups files, returns a dict of
-    files which are all related and the paths to each related file
+    """Takes in any file structure (flat or nested) and groups files, returns a dict of files which are all related and the paths to each related file.
+
     :param file_path:
+    :param target_dir:
     :return: list of dicts
     """
     if file_path.is_dir():
@@ -203,13 +203,13 @@ def main():
             )
             base_dir = file_path.parent if not file_path.is_dir() else file_path
             try:
-                AC = autoCORPus(
+                ac = Autocorpus(
                     config,
                     base_dir=str(base_dir),
                     main_text=structure[key]["main_text"],
                     linked_tables=sorted(structure[key]["linked_tables"]),
                     table_images=sorted(structure[key]["table_images"]),
-                    trainedData=trained_data,
+                    trained_data=trained_data,
                 )
 
                 out_dir = Path(structure[key]["out_dir"])
@@ -221,27 +221,27 @@ def main():
                             "w",
                             encoding="utf-8",
                         ) as outfp:
-                            outfp.write(AC.main_text_to_bioc_json())
+                            outfp.write(ac.main_text_to_bioc_json())
                     else:
                         with open(
                             out_dir / f"{Path(key).name}_bioc.xml",
                             "w",
                             encoding="utf-8",
                         ) as outfp:
-                            outfp.write(AC.main_text_to_bioc_xml())
+                            outfp.write(ac.main_text_to_bioc_xml())
                     with open(
                         out_dir / f"{Path(key).name}_abbreviations.json",
                         "w",
                         encoding="utf-8",
                     ) as outfp:
-                        outfp.write(AC.abbreviations_to_bioc_json())
+                        outfp.write(ac.abbreviations_to_bioc_json())
 
                 # AC does not support the conversion of tables or abbreviations to XML
-                if AC.has_tables:
+                if ac.has_tables:
                     with open(
                         out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
                     ) as outfp:
-                        outfp.write(AC.tables_to_bioc_json())
+                        outfp.write(ac.tables_to_bioc_json())
                 success.append(f"{key} was processed successfully.")
             except Exception as e:
                 errors.append(f"{key} failed due to {e}.")

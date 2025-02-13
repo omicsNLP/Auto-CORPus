@@ -5,7 +5,7 @@
   "documents": [
     {
       "id": "PMC8885717",
-      "inputfile": "tests/data/PMC8885717.html",
+      "inputfile": "tests/data/PMC/Pre-Oct-2024/PMC8885717.html",
       "passages": [
         {
           "text_short": "NLP",

@@ -7,6 +7,7 @@ authors = [
     "Joram Matthias Posma <j.posma11@imperial.ac.uk>",
     "Thomas Rowlands <thomas.rowlands@nottingham.ac.uk>",
     "Tom Shorter <tom.shorter1@gmail.com>",
+    "Antoine Lain <a.lain@imperial.ac.uk>"
 ]
 license = "GPL-3.0-only"
 readme = "README.md"

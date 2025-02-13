@@ -1,13 +1,23 @@
+"""Handles section processing for Auto-CORPus.
+
+Modules used:
+- re: regular expression searching/replacing.
+- nltk: string tokenization
+- fuzzywuzzy: string-in-string ratio
+"""
+
 import re
 
 import nltk
 from fuzzywuzzy import fuzz
 
-from .references import references
-from .utils import handle_not_tables, read_IAO_term_to_ID_file, read_mapping_file
+from .references import References
+from .utils import handle_not_tables, read_iao_term_to_id_file, read_mapping_file
 
 
-class section:
+class Section:
+    """Class for processing section data."""
+
     # def __get_section_header(self, soup_section):
     #
     # 	# if "sectionsNew" in config:
@@ -83,7 +93,7 @@ class section:
                 abbreviations = {}
             self.__add_paragraph(str(abbreviations))
 
-    def __set_IAO(self):
+    def __set_iao(self):
         mapping_dict = read_mapping_file()
         tokenized_section_heading = nltk.wordpunct_tokenize(self.section_heading)
         text = nltk.Text(tokenized_section_heading)
@@ -107,7 +117,7 @@ class section:
                                 for heading in heading_list
                             ]
                         ):
-                            mapping_result.append(self.__add_IAO(IAO_term))
+                            mapping_result.append(self.__add_iao(IAO_term))
                             break
 
             else:
@@ -116,7 +126,7 @@ class section:
                     if any(
                         [fuzz.ratio(h2_tmp, heading) > 80 for heading in heading_list]
                     ):
-                        mapping_result = [self.__add_IAO(IAO_term)]
+                        mapping_result = [self.__add_iao(IAO_term)]
                         break
                     else:
                         mapping_result = []
@@ -124,32 +134,32 @@ class section:
             mapping_result = []
         self.section_type = mapping_result
 
-    def __add_IAO(self, IAO_term):
+    def __add_iao(self, iao_term):
         paper = {}
-        IAO_term = IAO_term
-        paper.update({self.section_heading: IAO_term})
+        iao_term = iao_term
+        paper.update({self.section_heading: iao_term})
         # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
         #
         # if self.section_heading in mapping_dict_with_DAG.keys():
         # 	IAO_term = mapping_dict_with_DAG[self.section_heading]
 
         # map IAO terms to IAO IDs
-        IAO_term_to_no_dict = read_IAO_term_to_ID_file()
-        if IAO_term in IAO_term_to_no_dict.keys():
-            mapping_result_ID_version = IAO_term_to_no_dict[IAO_term]
+        iao_term_to_no_dict = read_iao_term_to_id_file()
+        if iao_term in iao_term_to_no_dict.keys():
+            mapping_result_id_version = iao_term_to_no_dict[iao_term]
         else:
-            mapping_result_ID_version = ""
-        return {"iao_name": IAO_term, "iao_id": mapping_result_ID_version}
+            mapping_result_id_version = ""
+        return {"iao_name": iao_term, "iao_id": mapping_result_id_version}
 
     def __get_section(self, soup_section):
-        all_subSections = handle_not_tables(self.config["sub-sections"], soup_section)
+        all_sub_sections = handle_not_tables(self.config["sub-sections"], soup_section)
         all_paragraphs = handle_not_tables(self.config["paragraphs"], soup_section)
         all_paragraphs = [x["node"] for x in all_paragraphs]
         all_tables = handle_not_tables(self.config["tables"], soup_section)
         all_tables = [x["node"] for x in all_tables]
         all_figures = handle_not_tables(self.config["figures"], soup_section)
         all_figures = [x["node"] for x in all_figures]
-        # all_subSections = soup_section.find_all(self.config['subsections']['name'], self.config['subsections']['attrs'])
+        # all_sub_sections = soup_section.find_all(self.config['subsections']['name'], self.config['subsections']['attrs'])
         # all_paragraphs = soup_section.find_all(self.config['paragraphs']['name'])
         # all_tables = soup_section.find_all(self.config['table-container']['name'], self.config['table-container']['attrs'])
         unwanted_paragraphs = []
@@ -178,38 +188,51 @@ class section:
         # 			filtered_paragraphs.append(para)
         children = soup_section.findChildren(recursive=False)
         for child in children:
-            self.__navigate_children(child, all_subSections, all_paragraphs)
+            self.__navigate_children(child, all_sub_sections, all_paragraphs)
 
     def __get_references(self, soup_section):
-        """
-        do somet with references here
-        :return:
+        """Constructs the article references using the provided configuration file.
+
+        Args:
+            soup_section (bs4.BeautifulSoup): article section containing references
         """
         all_references = handle_not_tables(self.config["references"], soup_section)
         for ref in all_references:
             self.paragraphs.append(
-                references(ref, self.config, self.section_heading).to_dict()
+                References(ref, self.config, self.section_heading).to_dict()
             )
 
-    def __init__(self, config, sectionDict):
+    def __init__(self, config, section_dict):
+        """Identifies a section using the provided configuration.
+
+        Args:
+            config (Object): AC configuration object.
+            section_dict (dict): Article section dictionary.
+        """
         self.config = config
         self.section_heading = (
-            sectionDict["headers"][0]
-            if "headers" in sectionDict and not sectionDict["headers"] == ""
+            section_dict["headers"][0]
+            if "headers" in section_dict and not section_dict["headers"] == ""
             else ""
         )
-        self.__set_IAO()
+        self.__set_iao()
         self.subheader = ""
         self.paragraphs = []
         if self.section_heading == "Abbreviations":
-            self.__get_abbreviations(sectionDict["node"])
+            self.__get_abbreviations(section_dict["node"])
         elif {
             "iao_name": "references section",
             "iao_id": "IAO:0000320",
         } in self.section_type:
-            self.__get_references(sectionDict["node"])
+            self.__get_references(section_dict["node"])
         else:
-            self.__get_section(sectionDict["node"])
+            self.__get_section(section_dict["node"])
 
-    def to_dict(self):
+    def to_list(self):
+        """Retrieve a list of section paragraphs.
+
+        Returns:
+             (list): section paragraphs
+
+        """
         return self.paragraphs if self.paragraphs else []

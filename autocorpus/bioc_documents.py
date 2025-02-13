@@ -1,16 +1,28 @@
+"""Script for handling construction of BioC documents."""
+
 from pathlib import Path
 
 from .bioc_passages import BioCPassage
 
 
 class BiocDocument:
-    def build_passages(self, dataStore):
+    """BioC Document builder."""
+
+    def build_passages(self, data_store):
+        """Constructs the BioC document passages using the provided data store.
+
+        Args:
+            data_store ([dict]): Article data store.
+
+        Returns:
+            (list): list of BioC passages
+        """
         seen_headings = []
-        passages = [BioCPassage.from_title(dataStore.main_text["title"], 0).as_dict()]
-        if dataStore.main_text["title"] not in seen_headings:
-            offset = len(dataStore.main_text["title"])
-            seen_headings.append(dataStore.main_text["title"])
-        for passage in dataStore.main_text["paragraphs"]:
+        passages = [BioCPassage.from_title(data_store.main_text["title"], 0).as_dict()]
+        if data_store.main_text["title"] not in seen_headings:
+            offset = len(data_store.main_text["title"])
+            seen_headings.append(data_store.main_text["title"])
+        for passage in data_store.main_text["paragraphs"]:
             passage_obj = BioCPassage(passage, offset)
             passages.append(passage_obj.as_dict())
             offset += len(passage["body"])
@@ -22,19 +34,37 @@ class BiocDocument:
                 seen_headings.append(passage["section_heading"])
         return passages
 
-    def build_template(self, dataStore):
+    def build_template(self, data_store):
+        """Constructs the BioC document template using the provided data store.
+
+        Args:
+            data_store ([dict]): Input article data store (list of dicts).
+
+        Returns:
+            (dict): BioC document complete populated with passages.
+        """
         return {
-            "id": Path(dataStore.file_path).name.split(".")[0],
-            "inputfile": dataStore.file_path,
+            "id": Path(data_store.file_path).name.split(".")[0],
+            "inputfile": data_store.file_path,
             "infons": {},
-            "passages": self.build_passages(dataStore),
+            "passages": self.build_passages(data_store),
             "annotations": [],
             "relations": [],
         }
 
     def __init__(self, input):
+        """BioC Document constructor using input dictionary.
+
+        Args:
+            input (dict): article document-level data.
+        """
         self.document = self.build_template(input)
         pass
 
     def as_dict(self):
+        """Return the BioC document as a dictionary.
+
+        Returns:
+            (dict): BioC document as a dictionary
+        """
         return self.document

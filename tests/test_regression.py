@@ -1,8 +1,10 @@
+"""Primary build test script used for regression testing between AC output versions."""
+
 import json
 from pathlib import Path
 
 
-def test_autoCORPus():
+def test_autocorpus():
     """A regression test for the main autoCORPus class on the AutoCORPus Paper.
 
     The test data output is built using `run_app.py` with the following arguments:
@@ -10,26 +12,40 @@ def test_autoCORPus():
     python run_app.py -c "configs/config_pmc.json" -t "tests/data" -f tests/data/PMC8885717.html -o JSON
     ```
     """
-    from autocorpus.autoCORPus import autoCORPus
+    from autocorpus.Autocorpus import Autocorpus
 
     with open(
-        Path(__file__).parent / "data" / "PMC8885717_abbreviations.json",
+        Path(__file__).parent
+        / "data"
+        / "PMC"
+        / "Pre-Oct-2024"
+        / "PMC8885717_abbreviations.json",
         encoding="utf-8",
     ) as f:
         expected_abbreviations = json.load(f)
     with open(
-        Path(__file__).parent / "data" / "PMC8885717_bioc.json", encoding="utf-8"
+        Path(__file__).parent
+        / "data"
+        / "PMC"
+        / "Pre-Oct-2024"
+        / "PMC8885717_bioc.json",
+        encoding="utf-8",
     ) as f:
         expected_bioc = json.load(f)
     with open(
-        Path(__file__).parent / "data" / "PMC8885717_tables.json", encoding="utf-8"
+        Path(__file__).parent
+        / "data"
+        / "PMC"
+        / "Pre-Oct-2024"
+        / "PMC8885717_tables.json",
+        encoding="utf-8",
     ) as f:
         expected_tables = json.load(f)
 
-    auto_corpus = autoCORPus(
-        "configs/config_pmc.json",
-        base_dir="tests/data",
-        main_text="tests/data/PMC8885717.html",
+    auto_corpus = Autocorpus(
+        "autocorpus/configs/config_pmc_pre_oct_2024.json",
+        base_dir="tests/data/PMC/Pre-Oct-2024",
+        main_text="tests/data/PMC/Pre-Oct-2024/PMC8885717.html",
     )
 
     abbreviations = auto_corpus.abbreviations

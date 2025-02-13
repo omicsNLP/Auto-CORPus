@@ -5,7 +5,7 @@
   "infons": {},
   "documents": [
     {
-      "inputfile": "tests/data/PMC8885717.html",
+      "inputfile": "tests/data/PMC/Pre-Oct-2024/PMC8885717.html",
       "id": "1",
       "infons": {},
       "passages": [
@@ -784,7 +784,7 @@
       ]
     },
     {
-      "inputfile": "tests/data/PMC8885717.html",
+      "inputfile": "tests/data/PMC/Pre-Oct-2024/PMC8885717.html",
       "id": "2",
       "infons": {},
       "passages": [
@@ -1143,7 +1143,7 @@
       ]
     },
     {
-      "inputfile": "tests/data/PMC8885717.html",
+      "inputfile": "tests/data/PMC/Pre-Oct-2024/PMC8885717.html",
       "id": "3",
       "infons": {},
       "passages": [
@@ -1325,7 +1325,7 @@
       ]
     },
     {
-      "inputfile": "tests/data/PMC8885717.html",
+      "inputfile": "tests/data/PMC/Pre-Oct-2024/PMC8885717.html",
       "id": "4",
       "infons": {},
       "passages": [
