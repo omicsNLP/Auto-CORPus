@@ -8,7 +8,8 @@ abbreviations list	abbreviations section
 abbreviations used	abbreviations section
 abbreviations used in this paper	abbreviations section
 abstract	textual abstract section
-accession	numbers
+accession	availability section
+accession numbers	availability section
 acknowledgement	acknowledgements section
 acknowledgements	acknowledgements section
 acknowledgment	acknowledgements section
@@ -29,13 +30,14 @@ appendix a.  supplementary data	supplementary material section
 appendix a. supplementary data	supplementary material section
 appendix. authors	supplementary material section
 article highlights	highlights section
-article	information
+article	information	document part
 associated data	associated data section
+author contribution	author contributions section
 author contribution (in alphabetic order)	author contributions section
 author contributions	author contributions section
 author disclosure statement	disclosure section
 author present address	author information section
-author summary	
+author summary	highlights section
 authors contributions	author contributions section
 authors' contribution	author contributions section
 authors' contributions	author contributions section
@@ -51,9 +53,9 @@ background	introduction section
 background and summary	textual abstract section
 biographies	author information section
 central illustration	highlights section
-clinical applicability	
-comment	
-comments	
+clinical applicability	discussion section
+comment	document part
+comments	document part
 competing financial interests	conflict of interest section
 competing interests	conflict of interest section
 compliance with ethical standards	ethical approval section
@@ -68,13 +70,13 @@ conflict of interest	conflict of interest section
 conflict of interest statement	conflict of interest section
 conflict of interests	conflict of interest section
 conflicts of interest	conflict of interest section
-consent for publication	
+consent for publication	consent section
 consortia	funding source declaration section
 contributor information	author information section
 contributorship	author contributions section
 data	materials section
 data analysis	statistical analysis section
-data and methods	methods section / materials section 
+data and methods	materials section / methods section 
 data archiving	availability section
 data availability	availability section
 data availability and accession code availability	availability section
@@ -99,7 +101,9 @@ discussion	discussion section
 discussion and conclusions	discussion section / conclusion section
 discussions	discussion section
 duality of interest	conflict of interest section
-editor summary	textual abstract section
+editor summary	highlights section
+editor's summary	highlights section
+editor’s summary	highlights section
 electronic supplementary material	supplementary material section
 electronic supplementary materials	supplementary material section
 ethical approval	ethical approval section
@@ -110,22 +114,22 @@ ethics statement	ethical approval section
 etoc	textual abstract section
 etoc blurb	textual abstract section
 experimental	methods section
-experimental design	methods section / materials section
+experimental design	materials section / methods section
 experimental methods	methods section
 experimental procedures	methods section
 experimental section	methods section
 extended data	supplementary material section
-figures and tables	supplementary material section
+figures and tables	figures section / tables section
 financial support	funding source declaration section
 footnotes	footnote section
-formats:	
-full text	
+formats:	document part
+full text	document part
 funding	funding source declaration section
-funding and disclosure	funding source declaration section / conflict of interest section
+funding and disclosure	funding source declaration section / disclosure section
 funding information	funding source declaration section
 funding statement	funding source declaration section
 funding summary and acknowledgments	funding source declaration section / acknowledgements section
-future directions and conclusions	conclusion section / future directions section
+future directions and conclusions	future directions section / conclusion section
 glossary	abbreviations section
 grants	funding source declaration section
 graphical abstract	graphical abstract section
@@ -143,56 +147,55 @@ main authors by consortium and author contributions	author contributions section
 main text	introduction section
 material and method	materials section / methods section
 material and methods	materials section/ methods section
-material and methods sample collection and reagents	materials section/ methods section
+material and methods sample collection and reagents	materials section / methods section
 materials	materials section
-materials & methods	materials section/ methods section
-materials and method	materials section/ methods section
-materials and methods	materials section/ methods section
+materials & methods	materials section / methods section
+materials and method	materials section / methods section
+materials and methods	materials section / methods section
 method	methods section
 method validation	methods section
 methodology	methods section
 methods	methods section
-methods and design	methods section
+methods and design	methods section / materials section
 methods and materials	methods section / materials section
 methods and procedures	methods section
 methods and tools	methods section
 methods only references	references section
 methods summary	methods section
 methods-only references	references section
-methods/design	methods section
+methods/design	methods section / materials section
 non-standard abbreviations	abbreviations section
 nonstandard abbreviations	abbreviations section
 nonstandard abbreviations and acronyms	abbreviations section
 notes	notes section
-nutritional status	
+nutritional status	document part
 one sentence summary	highlights section
 online content	supplementary material section
 online methods	methods section
 online methods references	references section
 outlook	future directions section
-overview	introduction section
-participant and methods	methods section
-participant and methods	participants section
+overview	highlights section
+participant and methods	participants section / methods section
 participants	participants section
-participants and methods	methods section
 participants and methods	participants section / methods section
-patents	
+patents	patent section
 patient and methods	patients section / methods section
-patient consent for publication	patients section
-patient selection	participants section
+patient consent for publication	consent section
+patient selection	patients section
 patients and methods	patients section / methods section
 perspectives	conclusion section
 power calculation	statistical analysis section
 pre-publication history	pre-publication history section
 precis	textual abstract section
+publisher's note	notes section
 publisher’s note	notes section
 reference	references section
 reference list	references section
 references	references section
 references and notes	references section / notes section
-research design and methods	methods section
-research in context	textual abstract section
-research involving human participants	ethical approval section
+research design and methods	materials section / methods section
+research in context	highlights section
+research involving human participants	participants section / ethical approval section
 result and discussion	results section / discussion section
 results	results section
 results and discussion	results section / discussion section
@@ -200,10 +203,10 @@ role of the funding source	funding source declaration section
 role of the study sponsor	funding source declaration section 
 sample & methods	materials section / methods section
 selected references	references section
-share	
+share	document part
 significance	highlights section
 significance statement	highlights section
-simple ncbi directory	
+simple ncbi directory	document part
 sources of funding	funding source declaration section
 star methods	methods section
 statement of interest	conflict of interest section
@@ -211,17 +214,17 @@ statistical analysis	statistical analysis section
 statistical methods	statistical analysis section
 statistical methods and analysis	statistical analysis section
 statistics	statistical analysis section
-strengths and limitations	highlights section
+strengths and limitations	discussion section / study limitations section
 study design	methods section
-study design and methods	methods section 
+study design and methods	materials section / methods section 
 study funding	funding source declaration section
 study groups and methods	materials section / methods section
 study highlights	highlights section
-study limitations	
+study limitations	study limitations section
 study population	participants section
 study population and methods	participants section / methods section
-study strengths and limitations	highlights section
-subjects and methods	methods section
+study strengths and limitations	discussion section / study limitations section
+subjects and methods	participants section / methods section
 subjects	participants section
 summary	conclusion section
 summary and conclusion	conclusion section
@@ -235,17 +238,17 @@ supplementary information	supplementary material section
 supplementary material	supplementary material section
 supplementary material 1.	supplementary material section
 supplementary materials	supplementary material section
-supplementary materials figures	supplementary material section
+supplementary materials figures	supplementary material section / figures section
 supplementary materials figures and tables	supplementary material section
-supplementary materials table	supplementary material section
-supplementary materials tables	supplementary material section
+supplementary materials table	supplementary material section / tables section
+supplementary materials tables	supplementary material section / tables section
 supporting information	supplementary material section
 supporting information available	supplementary material section
 toc	textual abstract section
 toc image	graphical abstract section
 transparency document	availability section
 urls	references section
-version changes	
+version changes	version number section
 visual abstract	graphical abstract section
 web resources	references section
 web site references	references section

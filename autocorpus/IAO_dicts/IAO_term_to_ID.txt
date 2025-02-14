@@ -1,3 +1,5 @@
+version number section	IAO:0000129
+patent section	IAO:0000313
 document part	IAO:0000314
 textual abstract section	IAO:0000315
 graphical abstract section	IAO:0000315
@@ -36,3 +38,6 @@ related work section	IAO:0000639
 requirements section	IAO:0000641
 statistical analysis section	IAO:0000644
 tables section	IAO:0000645
+descriptive data section	IAO:0000701
+disclosure section	IAO:CUIless
+highlights section	IAO:CUIless
