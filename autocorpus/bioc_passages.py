@@ -47,6 +47,17 @@ class BioCPassage:
             passage_dict["infons"][f"iao_name_{counter}"] = section_type["iao_name"]
             passage_dict["infons"][f"iao_id_{counter}"] = section_type["iao_id"]
             counter += 1
+        if passage_dict["infons"]["iao_id_1"] == "IAO:0000305":
+            passage_dict["infons"]["type"] = "front"
+        else:
+            passage_dict["infons"]["type"] = "paragraph"
+            # TODO: make optional input to AutoCORPus to have section (sub)headers a separate passage in the document.
+            # section headers:
+            # passage_dict["infons"]["type"] = "title_1"
+            # subsection headers:
+            # passage_dict["infons"]["type"] = "title_2"
+            # subsubsection headers:
+            # passage_dict["infons"]["type"] = "title_3"
 
         return passage_dict
 
