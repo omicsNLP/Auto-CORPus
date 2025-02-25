@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h3>Auto-CORPus Config Creator</h3>
+
+  <div id="form-container">
+    <div class="field-container">
+      <label for="config-name">Config name</label>
+      <input id="config-name" type="text" placeholder="my_config"/>
+    </div>
+    <div class="field-container">
+      <label for="section-name">Article</label>
+      <input id="section-name" type="text" placeholder="//article"/>
+      <button id="highlight-article">Highlight</button>
+    </div>
+
+    <!-- Form fields will be added dynamically here -->
+  </div>
+  <br />
+  <button id="add-field">Add Section</button>
+  <button id="validate-config">Validate</button>
+  <button id="save-config">Save</button>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>
+
+<style>
+body {
+  background-color: white;
+}
+</style>

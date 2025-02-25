@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 5px;
+}
+
+.field-container {
+    display: block;
+    align-items: center;
+    padding: 20px 5px;
+}
+
+.field-container input {
+    flex: 1;
+    margin-right: 5px;
+}
+
+.field-container button {
+    padding: 5px 10px;
+}
+
+.field-container:hover {
+    background-color: rgb(236, 236, 236);
+}
+
+.config-creator-target {
+    transition-duration: 0.25s;
+    transition-property: box-shadow, padding;
+    padding: 10px;
+    box-shadow: rgba(110, 0, 149, 0.25) 0 54px 55px,
+    rgba(110, 0, 149, 0.12) 0 -12px 30px,
+    rgba(110, 0, 149, 0.12) 0 4px 6px,
+    rgba(110, 0, 149, 0.17) 0 12px 13px,
+    rgba(110, 0, 149, 0.09) 0 -3px 5px;
+    border: 3px solid purple;
+    z-index: 200;
+    position: relative;
+}
+
+.data-section {
+    display: table-row;
+}
+
+.data-section-label {
+    font-size: 14px;
+    padding: 5px;
+}
+
+.config-creator-validation-highlight {
+    outline: 3px solid red !important;
+    position: relative;
+}
+
+.config-creator-validation-label {
+    position: absolute;
+    background: yellow;
+    color: black;
+    font-size: 12px;
+    padding: 2px 5px;
+    border: 1px solid black;
+    z-index: 1000;
+    white-space: nowrap;
+    transform: translate(-100%, -100%);
+}

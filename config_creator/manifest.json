@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "Auto-CORPus Config Creator",
+    "version": "1.0",
+    "description": "Highlight HTML elements and generate XPath strings.",
+    "permissions": ["activeTab", "scripting", "tabs"],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "sidebar_action": {
+      "default_panel": "sidebar.html",
+      "default_title": "Auto-CORPus Config Creator"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "css": ["style.css"],
+        "js": ["content.js"]
+      }
+    ]
+  }
+  
