@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('add-field').addEventListener('click', addSection);
     document.getElementById('validate-config').addEventListener('click', validateConfig);
     document.getElementById('save-config').addEventListener('click', saveConfig);
-    document.getElementById('highlight-article').addEventListener('click', () => 
+    document.getElementById('highlight-article').addEventListener('click', () =>
         enableHighlightMode(document.getElementById('section-name'))
     );
     addSection();
