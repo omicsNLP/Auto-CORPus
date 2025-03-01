@@ -1,12 +1,38 @@
 body {
     font-family: Arial, sans-serif;
     padding: 5px;
+    background-color: rgb(236, 236, 236);
+}
+
+h3 {
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
 }
 
 .field-container {
     display: block;
     align-items: center;
     padding: 20px 5px;
+    width: 100%;
+    background-color: white;
+    margin-top: 5px;
+    box-shadow: rgba(141, 141, 141, 0.25) 0 54px 55px,
+    rgba(146, 146, 146, 0.12) 0 -12px 30px,
+    rgba(136, 136, 136, 0.12) 0 4px 6px,
+    rgba(141, 141, 141, 0.17) 0 12px 13px,
+    rgba(138, 138, 138, 0.09) 0 -3px 5px;
+    border: 1px solid rgb(0, 0, 0);
+    z-index: 200;
+    position: relative;
 }
 
 .field-container input {
@@ -16,10 +42,8 @@ body {
 
 .field-container button {
     padding: 5px 10px;
-}
-
-.field-container:hover {
-    background-color: rgb(236, 236, 236);
+    border: 1px solid black;
+    border-radius: 5px;;
 }
 
 .config-creator-target {
@@ -37,7 +61,12 @@ body {
 }
 
 .data-section {
-    display: table-row;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .data-section-label {
@@ -60,4 +89,24 @@ body {
     z-index: 1000;
     white-space: nowrap;
     transform: translate(-100%, -100%);
+}
+
+.save-menu-container {
+    display: block;
+    text-align: center;
+    align-items: center;
+    padding: 20px 5px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    margin-top: 3px;
+    box-shadow: rgba(141, 141, 141, 0.25) 0 54px 55px,
+    rgba(146, 146, 146, 0.12) 0 -12px 30px,
+    rgba(136, 136, 136, 0.12) 0 4px 6px,
+    rgba(141, 141, 141, 0.17) 0 12px 13px,
+    rgba(138, 138, 138, 0.09) 0 -3px 5px;
+    border: 1px solid rgb(0, 0, 0);
+    z-index: 200;
+    position: relative;
 }
