@@ -388,7 +388,7 @@ class TableImage:
         self.table_raw = []
         self.tables = {
             "source": "Auto-CORPus (tables)",
-            "date": f'{datetime.today().strftime("%Y%m%d")}',
+            "date": f"{datetime.today().strftime('%Y%m%d')}",
             "key": "autocorpus_tables.key",
             "infons": {},
             "documents": [],
