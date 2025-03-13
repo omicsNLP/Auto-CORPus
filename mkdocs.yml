@@ -47,3 +47,4 @@ nav:
   - Use of data elements: data_elements.md
   # defer to gen-files + literate-nav
   - Code Reference: reference/
+  - Package workflows: package_workflows.md
