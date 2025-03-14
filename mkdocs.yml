@@ -7,12 +7,20 @@ theme:
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+
 markdown_extensions:
   - admonition
   - pymdownx.snippets:
       check_paths: true
   - toc:
       permalink: ¤
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 plugins:
   - search
@@ -39,3 +47,4 @@ nav:
   - Use of data elements: data_elements.md
   # defer to gen-files + literate-nav
   - Code Reference: reference/
+  - Package workflows: package_workflows.md
