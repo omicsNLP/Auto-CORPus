@@ -140,16 +140,16 @@ def __add_IAO(section_heading, IAO_term):
 def extract_section_content(section, soup2, ori_title):
     # Extract the current section's title, or use the original title if none is found
     curren_title = section.find("title")
-    if curren_title == None:  # If no title is found, fall back to the original title
+    if curren_title is None:  # If no title is found, fall back to the original title
         curren_title = ori_title
 
     # If a title is available, attempt to locate it in the soup2 object
-    if curren_title != None:
+    if curren_title is not None:
         target_title = soup2.find(
             "title", string=f"{curren_title.text}"
         )  # Find the exact title in the soup2 object
 
-        if target_title != None:
+        if target_title is not None:
             # Find the hierarchy of parent titles for the current title
             parent_titles = find_parent_titles(target_title)
         else:
@@ -168,16 +168,16 @@ def extract_section_content(section, soup2, ori_title):
     if content:
         for i in range(len(content)):
             # Avoid adding duplicate or null content
-            if f"{content[i]}" not in text_list and content[i] != None:
+            if f"{content[i]}" not in text_list and content[i] is not None:
                 # If no parent titles are found, tag the content with 'Unknown'
-                if parent_titles == None:
+                if parent_titles is None:
                     tag_title.append(["Unknown"])
                 else:
                     # Otherwise, tag it with the identified parent titles
                     tag_title.append(parent_titles)
 
                 # Similarly, handle subtitle tagging
-                if curren_title == None:
+                if curren_title is None:
                     tag_subtitle.append("Unknown")
                 else:
                     tag_subtitle.append(f"{[curren_title.text]}")
@@ -215,7 +215,7 @@ def find_parent_titles(title_element):
 
 ######### INPUT #########
 
-### A directory contaning the path to the XML files to be processed, is a list of str
+### A directory containing the path to the XML files to be processed, is a list of str
 all_files = glob.glob("./xml_hackathon/*.xml")
 # all_files = glob.glob('./xml_hackathon/*.xml')
 # all_files = all_files[:10]
@@ -229,12 +229,12 @@ all_files = glob.glob("./xml_hackathon/*.xml")
 ### Need to be convert as a function
 ### Need to take an input path and output path as parameters
 
-# Initialize a int value that will record the number of files that were not correclty processed by the code
+# Initialize a int value that will record the number of files that were not correctly processed by the code
 fail_processing = 0
 
 # Iterate over the input list to processed all the documents, 'xyz' is a int, for the 1st human argument of the list xyz = 0
 for xyz in range(len(all_files)):
-    # Print the current document position currenlty in processing and the total number of documents to be process
+    # Print the current document position currently in processing and the total number of documents to be process
     print(f"{(xyz+1)} out of {len(all_files)}")
 
     # If there is a problem when processing the file, the variable fail_processing + 1, some XML file extension are HTML language, sometime the XML obtained has a different configuration that is currently not handle
@@ -275,7 +275,7 @@ for xyz in range(len(all_files)):
 
         # Check if an 'article-id' tag with the attribute 'pub-id-type' equal to 'pmid' exists in the soup
         ### no check for unicode or hexacode or XML tags
-        if soup.find("article-id", {"pub-id-type": "pmid"}) != None:
+        if soup.find("article-id", {"pub-id-type": "pmid"}) is not None:
             # Extract the text content of the 'article-id' tag with 'pub-id-type' set to 'pmid'
             pmid_xml = soup.find("article-id", {"pub-id-type": "pmid"}).text
         else:
@@ -284,7 +284,7 @@ for xyz in range(len(all_files)):
 
         # Check if an 'article-id' tag with the attribute 'pub-id-type' equal to 'pmcid' exists in the soup
         ### no check for unicode or hexacode or XML tags
-        if soup.find("article-id", {"pub-id-type": "pmcid"}) != None:
+        if soup.find("article-id", {"pub-id-type": "pmcid"}) is not None:
             # Extract the text content of the 'article-id' tag and prepend 'PMC' to it
             pmcid_xml = "PMC" + soup.find("article-id", {"pub-id-type": "pmcid"}).text
             # Old PMC files does not include PMC when the new ones include PMC
@@ -299,7 +299,7 @@ for xyz in range(len(all_files)):
 
         # Check if an 'article-id' tag with the attribute 'pub-id-type' equal to 'doi' exists in the soup
         ### no check for unicode or hexacode or XML tags
-        if soup.find("article-id", {"pub-id-type": "doi"}) != None:
+        if soup.find("article-id", {"pub-id-type": "doi"}) is not None:
             # Extract the text content of the 'article-id' tag with 'pub-id-type' set to 'doi'
             doi_xml = soup.find("article-id", {"pub-id-type": "doi"}).text
         else:
@@ -331,8 +331,8 @@ for xyz in range(len(all_files)):
 
         # Check if the 'accepted' date is found within 'date', and if it contains a 'year' tag
         ### no check for unicode or hexacode or XML tags
-        if soup.find("date", {"date-type": "accepted"}) != None:
-            if soup.find("date", {"date-type": "accepted"}).find("year") != None:
+        if soup.find("date", {"date-type": "accepted"}) is not None:
+            if soup.find("date", {"date-type": "accepted"}).find("year") is not None:
                 # Extract the text content of the 'year' tag if found
                 year_xml = (
                     soup.find("date", {"date-type": "accepted"}).find("year").text
@@ -371,7 +371,7 @@ for xyz in range(len(all_files)):
             tag_title.append(["keywords"])
             tag_subtitle.append(["keywords"])
             # Clean up the text by removing <ital> and <bol> tags from the keyword, the element [0] of the list is supposed to be the title, then element [1] is the keyword
-            # Convertion for special character is done later, unicode and hexacode check later
+            # Conversion for special character is done later, unicode and hexacode check later
             ### ERROR if not title is found than there is no element [1] as this become element [0] instead of 1
             text_list[1] = re.sub(
                 "</ital[^>]+>", "", re.sub("<ital[^>]+>", "", str(text_list[1]))
@@ -561,13 +561,13 @@ for xyz in range(len(all_files)):
             # Convert the <sec> element to a string for manipulation
             text_test = str(sec_elements[a])
 
-            # Find all the closing tags in the current <sec> element (e.g., </p>, </sec>, </title>), looking for opening is more dificult because of id and extra information never present in the closing, the logic is that each opening as a closing
+            # Find all the closing tags in the current <sec> element (e.g., </p>, </sec>, </title>), looking for opening is more difficult because of id and extra information never present in the closing, the logic is that each opening as a closing
             matches = re.findall(pattern, text_test)
 
             # Remove duplicate closing tags and create a list of unique matches
             good_matches = list(np.unique(matches))
 
-            # Remove unwanted tags such as </p>, </sec>, and </title> from the list of matches, we need to keep these tag for later parsing the document, this manupilation is done to remove xref, italic, bold, ... tags
+            # Remove unwanted tags such as </p>, </sec>, and </title> from the list of matches, we need to keep these tag for later parsing the document, this manipulation is done to remove xref, italic, bold, ... tags
             if "</p>" in good_matches:
                 good_matches.remove("</p>")
             if "</sec>" in good_matches:
@@ -598,8 +598,8 @@ for xyz in range(len(all_files)):
                 # If the <sec> element does not have a parent <sec>, find its title
                 ori_title = sec.find("title")
 
-                # Call the function extract_section_content defined above, passing the <sec> element that is composed as a block paragraph containg one or more passages, the soup2 object, and the title of the main <sec> but the function will refine the title search
-                ### Curent function is based on global variable, in the future we might want to pass the values as argument and unpack them again - will not provoke an error but could be improve
+                # Call the function extract_section_content defined above, passing the <sec> element that is composed as a block paragraph containing one or more passages, the soup2 object, and the title of the main <sec> but the function will refine the title search
+                ### Current function is based on global variable, in the future we might want to pass the values as argument and unpack them again - will not provoke an error but could be improve
                 extract_section_content(sec, soup2, ori_title)
 
         # Check if the text inside the <ack> (acknowledgement) tag, back to the main soup object, is not 'None' after removing anything present between < and >
@@ -947,7 +947,7 @@ for xyz in range(len(all_files)):
                 # unicode and hexa checked later
                 text_list_ref.append(content)
 
-                # can't be parsed beacuse we don't know the formats used
+                # can't be parsed because we don't know the formats used
                 source_list.append("")
                 year_list.append("")
                 volume_list.append("")
@@ -1372,7 +1372,7 @@ for xyz in range(len(all_files)):
         ######### END OUTPUT #########
 
     # If the code above, runs into an error then we handle the error by skipping the current document to be processed and increment the variable 'fail_processing' +1 if the document is not recognised as an HTML
-    except:
+    except Exception:
         # Get the file path for the current XML file from the list of all files
         path = all_files[xyz]
 
