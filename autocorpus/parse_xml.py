@@ -236,7 +236,7 @@ if __name__ == "__main__":
     # Iterate over the input list to processed all the documents, 'xyz' is a int, for the 1st human argument of the list xyz = 0
     for xyz in range(len(all_files)):
         # Print the current document position currently in processing and the total number of documents to be process
-        print(f"{(xyz+1)} out of {len(all_files)}")
+        print(f"{(xyz + 1)} out of {len(all_files)}")
 
         # If there is a problem when processing the file, the variable fail_processing + 1, some XML file extension are HTML language, sometime the XML obtained has a different configuration that is currently not handle
         try:
@@ -592,7 +592,7 @@ if __name__ == "__main__":
                 for b in range(len(good_matches)):
                     current_tag_remove = good_matches[b]  # Get the tag to remove
                     # Create the corresponding opening tag pattern to match in the content
-                    opening = f'<{current_tag_remove.split("</")[1][:-1]}[^>]*>'
+                    opening = f"<{current_tag_remove.split('</')[1][:-1]}[^>]*>"
 
                     # Remove both the opening and closing tags from the text
                     text_test = re.sub(opening, "", text_test)
@@ -1398,7 +1398,7 @@ if __name__ == "__main__":
             ######### OUTPUT #########
 
             with open(
-                f'./xml_hackathon/{all_files[xyz].split("/")[-1].split(".")[0]}.json',
+                f"./xml_hackathon/{all_files[xyz].split('/')[-1].split('.')[0]}.json",
                 "w",
                 encoding="utf-8",
             ) as fp:
