@@ -204,14 +204,13 @@ def main():
             base_dir = file_path.parent if not file_path.is_dir() else file_path
             try:
                 ac = Autocorpus(
-                    config,
                     base_dir=str(base_dir),
                     main_text=structure[key]["main_text"],
                     linked_tables=sorted(structure[key]["linked_tables"]),
                     table_images=sorted(structure[key]["table_images"]),
                     trained_data=trained_data,
                 )
-
+                ac.config = ac.read_config(config)
                 out_dir = Path(structure[key]["out_dir"])
                 if structure[key]["main_text"]:
                     key = key.replace("\\", "/")

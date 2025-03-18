@@ -13,12 +13,13 @@ from .section import Section
 from .table import Table
 from .tableimage import TableImage
 from .utils import handle_not_tables
+from .configs.default_config import DefaultConfig
 
 
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
-    def __read_config(self, config_path):
+    def read_config(self, config_path):
         config_path = Path(config_path)
         with config_path.open("r") as f:
             ## TODO: validate config file here if possible
@@ -195,12 +196,6 @@ class Autocorpus:
                     {"iao_name": "document part", "iao_id": "IAO:0000314"}
                 ]
 
-        # uniqueText = [x for x in uniqueText if x['section_heading']]
-        # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-        # for i, para in enumerate(uniqueText):
-        #     if para['section_heading'] in mapping_dict_with_DAG.keys():
-        #         if para['section_type'] == []:
-        #             uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
         return unique_text
 
     def __handle_html(self, file_path, config):
@@ -358,9 +353,27 @@ class Autocorpus:
         else:
             return
 
+    def process_files(self, output_path):
+        assert self.config, "A valid config file must be loaded."
+        # handle main_text
+        if self.file_path:
+            soup = self.__handle_html(self.file_path, self.config)
+            self.main_text = self.__extract_text(soup, self.config)
+            try:
+                self.abbreviations = Abbreviations(
+                    self.main_text, soup, self.config, self.file_path
+                ).to_dict()
+            except Exception as e:
+                print(e)
+        if self.linked_tables:
+            for table_file in self.linked_tables:
+                soup = self.__handle_html(table_file, self.config)
+        self.__merge_table_data()
+        if "documents" in self.tables and not self.tables["documents"] == []:
+            self.has_tables = True
+
     def __init__(
         self,
-        config_path,
         base_dir=None,
         main_text=None,
         linked_tables=None,
@@ -371,44 +384,25 @@ class Autocorpus:
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
 
         Args:
-            config_path (str): path to the config file to be used
             base_dir (str): base directory of the input HTML journal articles
             main_text (str): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
             table_images (list): list of table image file paths to be included in this run (JPEG or PNG files only)
             associated_data_path (str): currently unused
-            trained_data (str): currently unused, previously added for image processing
         """
-        # handle common
-        config = self.__read_config(config_path)
         self.base_dir = base_dir
         self.file_path = main_text
+        self.linked_tables = linked_tables
+        self.table_images = table_images
+        self.associated_data_path = associated_data_path
         self.main_text = {}
         self.empty_tables = {}
         self.tables = {}
         self.abbreviations = {}
         self.has_tables = False
+        self.config = {}
 
-        # handle main_text
-        if self.file_path:
-            soup = self.__handle_html(self.file_path, config)
-            self.main_text = self.__extract_text(soup, config)
-            try:
-                self.abbreviations = Abbreviations(
-                    self.main_text, soup, config, self.file_path
-                ).to_dict()
-            except Exception as e:
-                print(e)
-        if linked_tables:
-            for table_file in linked_tables:
-                soup = self.__handle_html(table_file, config)
-        if table_images:
-            self.tables = TableImage(
-                table_images, self.base_dir, trained_data=trained_data
-            ).to_dict()
-        self.__merge_table_data()
-        if "documents" in self.tables and not self.tables["documents"] == []:
-            self.has_tables = True
+
 
     def to_bioc(self):
         """Get the currently loaded bioc as a dict.
@@ -482,28 +476,3 @@ class Autocorpus:
             "abbreviations": self.abbreviations,
             "tables": self.tables,
         }
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-f", "--filepath", type=str, help="filepath of html file to be processed"
-    )
-    parser.add_argument(
-        "-t", "--target_dir", type=str, help="target directory for output"
-    )
-    parser.add_argument(
-        "-c", "--config", type=str, help="filepath for configuration JSON file"
-    )
-    parser.add_argument(
-        "-d", "--config_dir", type=str, help="directory of configuration JSON files"
-    )
-    parser.add_argument(
-        "-a", "--associated_data", type=str, help="directory of associated data"
-    )
-    args = parser.parse_args()
-    filepath = args.filepath
-    target_dir = args.target_dir
-    config_path = args.config
-
-    Autocorpus(config_path, filepath, target_dir).to_file(target_dir)
