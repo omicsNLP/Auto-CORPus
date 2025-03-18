@@ -16,7 +16,7 @@ flowchart TD
 
     A[Start]:::__main__ --> B[Parse Arguments]:::__main__
     B --> read_file_structure[read file structure]:::__main__
-    
+
     read_file_structure --> X[Read Config]:::Autocorpus
     X --> validate_config
 
@@ -25,7 +25,7 @@ flowchart TD
     AA -->|Valid| AB[Soupify Input File
     >Autocorpus:42]:::Autocorpus
     AA -->|Invalid| AC[Handle Error]:::Autocorpus
-    
+
     AB --> AJ[Handle HTML
     >Autocorpus:394]:::Autocorpus
           AJ --> ExtractText
@@ -44,7 +44,7 @@ flowchart TD
 
 
     ExtractText --> AL{Convert to BioC}:::Autocorpus
-    
+
     AL --> AM[Output BioC JSON]:::Autocorpus
     AL --> AN[Output BioC XML]:::Autocorpus
     AL --> AO[Output Tables to BioC JSON]:::Autocorpus
