@@ -214,10 +214,16 @@ def find_parent_titles(title_element):
 
 
 if __name__ == "__main__":
+    import sys
+
     ######### INPUT #########
 
     ### A directory containing the path to the XML files to be processed, is a list of str
-    all_files = glob.glob("./xml_hackathon/*.xml")
+    try:
+        dir_path = sys.argv[1]
+    except IndexError:
+        dir_path = "./xml_hackathon"
+    all_files = glob.glob(f"{dir_path}/*.xml")
     # all_files = glob.glob('./xml_hackathon/*.xml')
     # all_files = all_files[:10]
     # all_files = ['./PMC_original/PMC10001121.xml']
