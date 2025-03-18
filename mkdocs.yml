@@ -7,12 +7,20 @@ theme:
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+
 markdown_extensions:
   - admonition
   - pymdownx.snippets:
       check_paths: true
   - toc:
       permalink: ¤
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 plugins:
   - search
@@ -37,5 +45,6 @@ nav:
   - Auto-CORPus documentation: index.md
   - How to create/edit a config file: config_tutorial.md
   - Use of data elements: data_elements.md
+  - Package workflows: package_workflows.md
   # defer to gen-files + literate-nav
   - Code Reference: reference/
