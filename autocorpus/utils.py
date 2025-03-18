@@ -6,7 +6,6 @@ from importlib import resources
 from pathlib import Path
 
 import bs4
-import networkx as nx
 from bs4 import NavigableString
 from lxml import etree
 from lxml.html.soupparser import fromstring
@@ -32,43 +31,6 @@ def get_files(base_dir, pattern=r"(.*).html"):
         elif abs_path.is_dir() and "ipynb_checkpoints" not in str(abs_path):
             file_list += get_files(abs_path, pattern)
     return file_list
-
-
-def process_supsub(soup):
-    """Add underscore (_) before all superscript or subscript text.
-
-    Args:
-        soup: BeautifulSoup object of html
-
-    """
-    for sup in soup.find_all("sub"):
-        s = sup.get_text()
-        if sup.string is None:
-            sup.extract()
-        elif re.match("[_-]", s):
-            sup.string.replace_with(f"{s} ")
-        else:
-            sup.string.replace_with(f"_{s} ")
-    return soup
-
-
-def process_em(soup):
-    """Add a space to emphasised text.
-
-    Args:
-        soup: BeautifulSoup object
-
-    Returns:
-        soup: Altered BeautifulSoup object
-
-    """
-    for em in soup.find_all("em"):
-        s = em.get_text()
-        if em.string is None:
-            em.extract()
-        else:
-            em.string.replace_with(f"{s} ")
-    return soup
 
 
 def read_mapping_file():
@@ -417,91 +379,3 @@ def handle_tables(config, soup):
             response_addition = {"node": match}
             responses.append(response_addition)
     return responses
-
-
-def assign_heading_by_dag(paper):
-    """Assigns a matched heading using the DAG model (DAG_model.graphml) using the given paper.
-
-    Args:
-        paper (dict): Paper requiring headings to be assigned.
-
-    Returns:
-        (dict): Mapped paper with headings assigned using the DAG model.
-    """
-    g = nx.read_graphml(resources.files("autocorpus") / "DAG_model.graphml")
-    new_mapping_dict = {}
-    mapping_dict_with_dag = {}
-    iao_term_to_no_dict = read_iao_term_to_id_file()
-    for i, heading in enumerate(paper.keys()):
-        if not paper[heading]:
-            previous_mapped_heading_found = False
-            i2 = 1
-            while not previous_mapped_heading_found:
-                if i - i2 > len(list(paper.keys())):
-                    previous_mapped_heading_found = True
-                    previous_section = "Start of the article"
-                else:
-                    previous_heading = list(paper.keys())[i - i2]
-                    if paper[previous_heading]:
-                        previous_mapped_heading_found = True
-                        previous_section = paper[previous_heading]
-                    else:
-                        i2 += 1
-
-            next_mapped_heading_found = False
-            i2 = 1
-            while not next_mapped_heading_found:
-                if i + i2 >= len(list(paper.keys())):
-                    next_mapped_heading_found = True
-                    next_section = "End of the article"
-                else:
-                    next_heading = list(paper.keys())[i + i2]
-                    if paper[next_heading] != []:
-                        next_mapped_heading_found = True
-                        next_section = paper[next_heading]
-                    else:
-                        i2 += 1
-
-            if (
-                previous_section != "Start of the article"
-                and next_section != "End of the article"
-            ):
-                try:
-                    paths = nx.all_shortest_paths(
-                        g,
-                        paper[previous_heading][-1],
-                        paper[next_heading][0],
-                        weight="cost",
-                    )
-                    for path in paths:
-                        if len(path) <= 2:
-                            mapping_dict_with_dag.update({heading: [path[0]]})
-                        if len(path) > 2:
-                            mapping_dict_with_dag.update({heading: path[1:-1]})
-                except Exception:
-                    new_target = paper[list(paper.keys())[i + i2 + 1]][0]
-                    paths = nx.all_shortest_paths(
-                        g, paper[previous_heading][-1], new_target, weight="cost"
-                    )
-                    for path in paths:
-                        if len(path) == 2:
-                            mapping_dict_with_dag.update({heading: [path[0]]})
-                        if len(path) > 2:
-                            mapping_dict_with_dag.update({heading: path[1:-1]})
-
-            if next_section == "End of the article":
-                mapping_dict_with_dag.update({heading: [previous_section[-1]]})
-
-            for heading in mapping_dict_with_dag.keys():
-                new_sec_type = []
-                for secType in mapping_dict_with_dag[heading]:
-                    if secType in iao_term_to_no_dict.keys():
-                        mapping_result_id_version = iao_term_to_no_dict[secType]
-                    else:
-                        mapping_result_id_version = ""
-                    new_sec_type.append(
-                        {"iao_name": secType, "iao_id": mapping_result_id_version}
-                    )
-
-                new_mapping_dict[heading] = new_sec_type
-    return new_mapping_dict

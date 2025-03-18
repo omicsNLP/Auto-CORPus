@@ -105,83 +105,6 @@ class Table:
             re.match("[a-zA-Z]", next(iter(cleaned_row)))
         )
 
-    def __find_format(self, header):
-        """Determine if there exists a splittable pattern in the header cell.
-
-        Args:
-            header (str): single header str
-
-        Returns:
-            pattern (object): regex object
-
-        Raises:
-            KeyError: Raises an exception.
-
-        """
-        if header == "":
-            return None
-
-        a = re.split(r"[:|/,;]", header)
-        b = re.findall(r"[:|/,;]", header)
-        parts = []
-        for i in range(len(b)):
-            parts += [a[i], b[i]]
-        parts.append(a[-1])
-
-        # identify special character
-        special_char_idx = []
-        for idx, part in enumerate(parts):
-            if part in r":|\/,;":
-                special_char_idx.append(idx)
-
-        # generate regex pattern
-        if special_char_idx:
-            pattern = r""
-            for idx in range(len(parts)):
-                if idx in special_char_idx:
-                    char = parts[idx]
-                    pattern += f"({char})"
-                else:
-                    pattern += r"(\w+)"
-            pattern = re.compile(pattern)
-            return pattern
-        else:
-            return None
-
-    def __test_format(self, pattern, s):
-        """Check if the element conforms to the regex pattern.
-
-        Args:
-            pattern (str): single header str
-            s (str): element in string format
-
-        Returns:
-            (bool): True/False
-
-        Raises:
-            KeyError: Raises an exception.
-
-        """
-        if re.search(pattern, s):
-            return True
-        return False
-
-    def __split_format(self, pattern, s):
-        """Split s according to regex pattern.
-
-        Args:
-            pattern (object): regex object
-            s (str): element in string format
-
-        Returns:
-            (list): list of substrings
-
-        Raises:
-            KeyError: Raises an exception.
-
-        """
-        return [i for i in re.split(r"[:|/,;]", s) if i not in r":|\/,;"]
-
     def __get_headers(self, t, config):
         """Identify headers from a table.
 
@@ -208,23 +131,6 @@ class Table:
         # if no table headers found
         if idx_list == []:
             idx_list = [0]
-        return idx_list
-
-    def __get_superrows(self, t):
-        """Determine supperrows in a table.
-
-        Args:
-            t (bs4.BeautifulSoup): BeautifulSoup object of table
-
-        Returns:
-            (list): a list of superrow index
-
-        """
-        idx_list = []
-        for idx, row in enumerate(t):
-            if idx not in self.__get_headers(t):
-                if self.__check_superrow(row):
-                    idx_list.append(idx)
         return idx_list
 
     def __is_number(self, s):
