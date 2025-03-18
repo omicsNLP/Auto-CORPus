@@ -25,7 +25,6 @@ class DefaultConfig:
     PLOS_GENETICS = 3
     NATURE_GENETICS = 4
 
-
     @staticmethod
     def load_config(config):
         if config == DefaultConfig.LEGACY_PMC:
@@ -37,7 +36,9 @@ class DefaultConfig:
         elif config == DefaultConfig.NATURE_GENETICS:
             config_file = "config_nature_genetics.json"
         else:
-            raise Exception("A valid config was not provided. Please provide a valid DefaultConfig setting.")
+            raise Exception(
+                "A valid config was not provided. Please provide a valid DefaultConfig setting."
+            )
 
         config_path = Path(__file__).parent / config_file
         loaded_config = {}

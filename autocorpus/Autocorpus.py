@@ -399,8 +399,6 @@ class Autocorpus:
         self.has_tables = False
         self.config = {}
 
-
-
     def to_bioc(self):
         """Get the currently loaded bioc as a dict.
 
