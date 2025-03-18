@@ -217,7 +217,9 @@ def main():
                 if args.config:
                     ac.config = ac.read_config(config)
                 elif args.default_config:
-                    default_config = DefaultConfig.string_to_constant(args.default_config)
+                    default_config = DefaultConfig.string_to_constant(
+                        args.default_config
+                    )
                     ac.config = DefaultConfig.load_config(default_config)
                 out_dir = Path(structure[key]["out_dir"])
                 if structure[key]["main_text"]:

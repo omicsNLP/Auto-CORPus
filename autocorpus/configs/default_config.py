@@ -26,15 +26,16 @@ class DefaultConfig:
     NATURE_GENETICS = 4
 
     @staticmethod
-    def string_to_constant(config_name:str) -> int:
+    def string_to_constant(config_name: str) -> int:
         config_name = config_name.upper()
         if hasattr(DefaultConfig, config_name):
             return getattr(DefaultConfig, config_name)
-        raise ValueError(f"Invalid default config name: {config_name}. Please check documentation for a list of default configs")
-
+        raise ValueError(
+            f"Invalid default config name: {config_name}. Please check documentation for a list of default configs"
+        )
 
     @staticmethod
-    def load_config(config:int) -> dict:
+    def load_config(config: int) -> dict:
         if config == DefaultConfig.LEGACY_PMC:
             config_file = "config_pmc_pre_oct_2024.json"
         elif config == DefaultConfig.PMC:
