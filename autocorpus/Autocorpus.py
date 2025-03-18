@@ -350,7 +350,7 @@ class Autocorpus:
         else:
             return
 
-    def process_files(self, output_path=None):
+    def process_files(self):
         assert self.config, "A valid config file must be loaded."
         # handle main_text
         if self.file_path:

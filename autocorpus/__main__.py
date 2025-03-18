@@ -9,6 +9,7 @@ from filetype import is_image
 from tqdm import tqdm
 
 from autocorpus.Autocorpus import Autocorpus
+from autocorpus.configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -45,6 +46,9 @@ group.add_argument(
 )
 group.add_argument(
     "-d", "--config_dir", type=str, help="directory of configuration JSON files"
+)
+group.add_argument(
+    "-b", "--default_config", type=str, help="name of a default config file"
 )
 
 
@@ -160,7 +164,7 @@ def main():
     args = parser.parse_args()
     file_path = Path(args.filepath)
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
-    config = args.config
+    config = args.config if args.config else args.default_config
     config_dir = args.config_dir  # noqa: F841 ## TODO: Use this variable
     associated_data = args.associated_data  # noqa: F841 ## TODO: Use this variable
     output_format = args.output_format if args.output_format else "JSON"
@@ -210,7 +214,11 @@ def main():
                     table_images=sorted(structure[key]["table_images"]),
                     trained_data=trained_data,
                 )
-                ac.config = ac.read_config(config)
+                if args.config:
+                    ac.config = ac.read_config(config)
+                elif args.default_config:
+                    default_config = DefaultConfig.string_to_constant(args.default_config)
+                    ac.config = DefaultConfig.load_config(default_config)
                 out_dir = Path(structure[key]["out_dir"])
                 if structure[key]["main_text"]:
                     key = key.replace("\\", "/")
