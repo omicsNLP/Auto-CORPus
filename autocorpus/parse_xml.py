@@ -1209,7 +1209,6 @@ if __name__ == "__main__":
                                             __add_IAO(heading_list[i], IAO_term)
                                         )
                     else:
-                        h2 = ""
                         mapping_result = []
                     section_type = mapping_result
 
@@ -1254,7 +1253,6 @@ if __name__ == "__main__":
                                             __add_IAO(heading_list[i], IAO_term)
                                         )
                     else:
-                        h2 = ""
                         mapping_result = []
                     section_type = mapping_result
 
