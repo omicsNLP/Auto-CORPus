@@ -1,6 +1,5 @@
 """Auto-CORPus primary functions are called from this script, after initialisation with __main__.py."""
 
-import argparse
 import json
 from pathlib import Path
 
@@ -11,9 +10,7 @@ from .abbreviation import Abbreviations
 from .bioc_formatter import BiocFormatter
 from .section import Section
 from .table import Table
-from .tableimage import TableImage
 from .utils import handle_not_tables
-from .configs.default_config import DefaultConfig
 
 
 class Autocorpus:
@@ -353,7 +350,7 @@ class Autocorpus:
         else:
             return
 
-    def process_files(self, output_path):
+    def process_files(self, output_path=None):
         assert self.config, "A valid config file must be loaded."
         # handle main_text
         if self.file_path:
