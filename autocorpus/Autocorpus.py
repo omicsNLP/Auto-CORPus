@@ -1,6 +1,5 @@
 """Auto-CORPus primary functions are called from this script, after initialisation with __main__.py."""
 
-import argparse
 import json
 from pathlib import Path
 
@@ -469,28 +468,3 @@ class Autocorpus:
             "abbreviations": self.abbreviations,
             "tables": self.tables,
         }
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-f", "--filepath", type=str, help="filepath of html file to be processed"
-    )
-    parser.add_argument(
-        "-t", "--target_dir", type=str, help="target directory for output"
-    )
-    parser.add_argument(
-        "-c", "--config", type=str, help="filepath for configuration JSON file"
-    )
-    parser.add_argument(
-        "-d", "--config_dir", type=str, help="directory of configuration JSON files"
-    )
-    parser.add_argument(
-        "-a", "--associated_data", type=str, help="directory of associated data"
-    )
-    args = parser.parse_args()
-    filepath = args.filepath
-    target_dir = args.target_dir
-    config_path = args.config
-
-    Autocorpus(config_path, filepath, target_dir).to_file(target_dir)
