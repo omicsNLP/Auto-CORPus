@@ -18,29 +18,6 @@ from .utils import handle_not_tables, read_iao_term_to_id_file, read_mapping_fil
 class Section:
     """Class for processing section data."""
 
-    # def __get_section_header(self, soup_section):
-    #
-    # 	# if "sectionsNew" in config:
-    # 	h2 = ""
-    # 	h2_select_tag = self.config['heading']['name']
-    # 	h2_select_tag += ''.join(['[{}*={}]'.format(k, self.config['heading']['attrs'][k])
-    # 	                          for k in self.config['heading']['attrs'] if self.config['heading']['attrs'][k]])
-    # 	_h2 = soup_section.select(h2_select_tag)
-    # 	if _h2:
-    # 		h2 = _h2[0].get_text().strip('\n')
-    # 	return h2
-
-    # def __get_subsection_header(self, soup_section):
-    # 	h3_select_tag = self.config['heading2']['name']
-    # 	h3_select_tag += ''.join(['[{}*={}]'.format(k, self.config['heading2']['attrs'][k])
-    #                           for k in self.config['heading2']['attrs'] if self.config['heading2']['attrs'][k]])
-    # 	h3 = soup_section.select(h3_select_tag)
-    # 	if h3:
-    # 		h3 = h3[0].get_text().strip('\n')
-    # 	else:
-    # 		h3 = ''
-    # 	return h3
-
     def __add_paragraph(self, body):
         self.paragraphs.append(
             {
@@ -68,8 +45,7 @@ class Section:
                     if "headers" in subsec and not subsec["headers"] == ""
                     else ""
                 )
-        # elif soup_section in subsecNodes:
-        # 	self.subheader = self.__get_subsection_header(soup_section)
+
         try:
             children = soup_section.findChildren(recursive=False)
         except Exception as e:
@@ -97,8 +73,6 @@ class Section:
         mapping_dict = read_mapping_file()
         tokenized_section_heading = nltk.wordpunct_tokenize(self.section_heading)
         text = nltk.Text(tokenized_section_heading)
-        ## this .isalpha() should probably be removed as it;s stripping out &
-        # words = [w.lower() for w in text if w.isalpha()]
         words = [w.lower() for w in text]
         h2_tmp = " ".join(word for word in words)
 
@@ -138,10 +112,6 @@ class Section:
         paper = {}
         iao_term = iao_term
         paper.update({self.section_heading: iao_term})
-        # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-        #
-        # if self.section_heading in mapping_dict_with_DAG.keys():
-        # 	IAO_term = mapping_dict_with_DAG[self.section_heading]
 
         # map IAO terms to IAO IDs
         iao_term_to_no_dict = read_iao_term_to_id_file()
@@ -159,15 +129,11 @@ class Section:
         all_tables = [x["node"] for x in all_tables]
         all_figures = handle_not_tables(self.config["figures"], soup_section)
         all_figures = [x["node"] for x in all_figures]
-        # all_sub_sections = soup_section.find_all(self.config['subsections']['name'], self.config['subsections']['attrs'])
-        # all_paragraphs = soup_section.find_all(self.config['paragraphs']['name'])
-        # all_tables = soup_section.find_all(self.config['table-container']['name'], self.config['table-container']['attrs'])
         unwanted_paragraphs = []
         [
             unwanted_paragraphs.extend(capt.find_all("p", recursive=True))
             for capt in all_tables
         ]
-        # all_figures = soup_section.find_all(self.config["figure"]["name"], self.config['figure']['attrs'])
         [
             unwanted_paragraphs.extend(capt.find_all("p", recursive=True))
             for capt in all_figures
@@ -175,17 +141,6 @@ class Section:
         all_paragraphs = [
             para for para in all_paragraphs if para not in unwanted_paragraphs
         ]
-        # if self.config['paragraphs']['regex'] is not None:
-        # 	for para in all_paragraphs:
-        # 		success=True
-        # 		for rePattern in self.config['paragraphs']['regex']:
-        # 			if para.has_attr(rePattern['attrs']):
-        # 				if not re.match(rePattern['regex'], para.get(rePattern['attrs'])):
-        # 					success=False
-        # 			else:
-        # 				success=False
-        # 		if success:
-        # 			filtered_paragraphs.append(para)
         children = soup_section.findChildren(recursive=False)
         for child in children:
             self.__navigate_children(child, all_sub_sections, all_paragraphs)

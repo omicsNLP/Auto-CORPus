@@ -41,7 +41,6 @@ def process_supsub(soup):
         soup: BeautifulSoup object of html
 
     """
-    # for sup in soup.find_all(['sup', 'sub']):
     for sup in soup.find_all("sub"):
         s = sup.get_text()
         if sup.string is None:
@@ -406,7 +405,8 @@ def handle_tables(config, soup):
                                 value = ""
                                 for item in newMatch.contents:
                                     value += navigate_contents(item)
-                                    # clean the cell
+
+                                # clean the cell
                                 value = value.strip().replace("\u2009", " ")
                                 value = re.sub("<\\/?span[^>\n]*>?|<hr\\/>?", "", value)
                                 value = re.sub("\\n", "", value)

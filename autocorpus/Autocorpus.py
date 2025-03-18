@@ -149,13 +149,6 @@ class Autocorpus:
         result = {}
 
         # Tags of text body to be extracted are hard-coded as p (main text) and span (keywords and refs)
-
-        # Extract title
-        # try:
-        # 	h1 = soup.find(config['title']['name'],
-        # 	               config['title']['attrs']).get_text().strip('\n')
-        # except:
-        # 	h1 = ''
         result["title"] = self.__get_title(soup, config)
         maintext = (
             self.__get_keywords(soup, config)
@@ -163,9 +156,9 @@ class Autocorpus:
             else []
         )
         sections = self.__get_sections(soup, config)
-        # sections = [x['node'] for x in sections]
         for sec in sections:
             maintext.extend(Section(config, sec).to_list())
+
         # filter out the sections which do not contain any info
         filtered_text = []
         [filtered_text.append(x) for x in maintext if x]
@@ -195,12 +188,6 @@ class Autocorpus:
                     {"iao_name": "document part", "iao_id": "IAO:0000314"}
                 ]
 
-        # uniqueText = [x for x in uniqueText if x['section_heading']]
-        # mapping_dict_with_DAG = assgin_heading_by_DAG(paper)
-        # for i, para in enumerate(uniqueText):
-        #     if para['section_heading'] in mapping_dict_with_DAG.keys():
-        #         if para['section_type'] == []:
-        #             uniqueText[i]['section_type'] = mapping_dict_with_DAG[para['section_heading']]
         return unique_text
 
     def __handle_html(self, file_path, config):
