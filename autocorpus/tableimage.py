@@ -1,3 +1,8 @@
+"""This module contains the TableImage class.
+
+Which is used to extract tables from images and save them in a json format.
+"""
+
 from datetime import datetime
 from operator import itemgetter
 from pathlib import Path
@@ -7,10 +12,20 @@ import pytesseract
 
 
 class TableImage:
+    """Class to extract tables from images and save them in a json format."""
+
     def img2text(self, img, x, y, w, h):
-        """Function: translate image into texts
-        Input: original image, and location of text boxes
-        Output: extracted texts
+        """Translate an image into texts.
+
+        Args:
+            img: original image
+            x: The x position of the text boxes
+            y: The y position of the text boxes
+            w: The width of the text boxes
+            h: The height of the text boxes
+
+        Returns:
+            The extracted texts.
         """
         roi = img[y - 3 : (y + h + 6), x - 3 : (x + w + 6)]
 
@@ -22,9 +37,13 @@ class TableImage:
         return new_text
 
     def rm_lines(self, img):
-        """Function: remove all the horizontal and vertical lines in image and binary it
-        Input: original image
-        Output: image after preprocessing
+        """Remove all the horizontal and vertical lines in image and binary it.
+
+        Args:
+            img: The original image
+
+        Returns:
+            The image after preprocessing
         """
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         binary = cv2.adaptiveThreshold(
@@ -51,9 +70,13 @@ class TableImage:
         return after
 
     def find_cells(self, img):
-        """Function: find cells in table images and sort them from top-left to bottom-right
-        Input: original image
-        Output: ordered table cells, and processed image
+        """Find cells in table images and sort them from top-left to bottom-right.
+
+        Args:
+            img: The original image
+
+        Returns:
+            The ordered table cells, and processed image
         """
         added = cv2.copyMakeBorder(
             img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255]
@@ -111,9 +134,20 @@ class TableImage:
         return cells, added, thresh
 
     def cell2table(self, cells, added, thresh, target_dir, pmc):
-        """Function: save table texts in several rows
-        Input: ordered table cells, and processed image
-        Output: table text saved line by line
+        """Save table texts in several rows.
+
+        TODO: Two of the input arguments are not used and there is no distinction
+        between the `added` image and the `thresh` image.
+
+        Args:
+            cells: The ordered table cells
+            added: processed image
+            thresh: processed image
+            target_dir: unused
+            pmc: unused
+
+        Returns:
+            The table text saved line by line
         """
         # after sort, read cells line by line
         color = (0, 255, 0)  # box color
@@ -145,9 +179,12 @@ class TableImage:
         return table_row
 
     def text2json(self, table_row):
-        """Function: save table into a formatted json file
-        Input: table text saved line by line
-        Output: formatted json file of tables
+        """Save table into a formatted json file.
+
+        Args:
+            table_row: The table text saved line by line
+        Returns:
+            The formatted json file of tables
         """
         identifier = ""
         title = ""
@@ -319,6 +356,13 @@ class TableImage:
         return table_dict
 
     def __init__(self, table_images, base_dir, trained_data="eng"):
+        """Construct the TableImage object.
+
+        Args:
+            table_images: list of paths to table images
+            base_dir: the base directory
+            trained_data: The trained data language. Defaults to "eng".
+        """
         self.trainedData = trained_data
         self.table_raw = []
         self.tables = {
@@ -345,4 +389,9 @@ class TableImage:
             )
 
     def to_dict(self):
+        """Return the tables dictionary.
+
+        Returns:
+            The tables dictionary
+        """
         return self.tables
