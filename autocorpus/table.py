@@ -54,22 +54,14 @@ class Table:
                 # fill table data
                 rowspan = rowspans[col_idx] = int(cell.attrs["rowspan"])
                 colspan = int(cell.attrs["colspan"])
+
                 # next column is offset by the colspan
                 span_offset += colspan - 1
-                # value = ''.join(str(x) for x in cell.get_text())
                 c_cont = cell.contents
                 value = ""
                 for item in c_cont:
                     value += navigate_contents(item)
-                # if isinstance(item, bs4.element.NavigableString):
-                # 	value += item + " "
-                # if isinstance(item, bs4.element.Tag):
-                # 	if item.name == "sup" or item.name == "sub":
-                # 		value += "<" + item.name + ">"
-                # 		value += item.get_text()
-                # 		value += "</" + item.name + ">"
-                # 	else:
-                # 		value += item.get_text()
+
                 # clean the cell
                 value = value.strip().replace("\u2009", " ").replace("&#x000a0;", " ")
                 value = re.sub(r"\s", " ", value)
@@ -91,6 +83,7 @@ class Table:
                     except IndexError:
                         # rowspan or colspan outside the confines of the table
                         pass
+
             # update rowspan bookkeeping
             rowspans = {c: s - 1 for c, s in rowspans.items() if s > 1}
         return table
@@ -127,7 +120,7 @@ class Table:
         """
         if header == "":
             return None
-        #     parts = nltk.tokenize.word_tokenize(header)
+
         a = re.split(r"[:|/,;]", header)
         b = re.findall(r"[:|/,;]", header)
         parts = []

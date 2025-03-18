@@ -110,14 +110,11 @@ class Abbreviations:
                 start = start + len(candidate) - len(candidate.lstrip())
                 stop = stop - len(candidate) + len(candidate.rstrip())
                 candidate = sentence[start:stop]
-                # print (candidate)
 
                 if self.__conditions(candidate):
                     new_candidate = Candidate(candidate)
                     new_candidate.set_position(start, stop)
                     yield new_candidate
-
-    # elif LF_in_parentheses:
 
     def __get_definition(self, candidate, sentence):
         """Takes a candidate and a sentence and returns the definition candidate.The definition candidate is the set of tokens (in front of the candidate) that starts with a token starting with the first character of the candidate.
@@ -128,6 +125,7 @@ class Abbreviations:
         """
         # Take the tokens in front of the candidate
         tokens = re2.split(r"[\s\-]+", sentence[: candidate.start - 2].lower())
+
         # the char that we are looking for
         key = candidate[0].lower()
 
@@ -436,14 +434,11 @@ class Abbreviations:
             else:
                 abbrev_json[key] = {all_abbreviations[key]: ["fulltext"]}
 
-        # abbrev_json['abbreviations_section'] = author_provided_abbreviations
-        # abbrev_json['fulltext_algorithm'] = all_abbreviations
         return abbrev_json
 
     def __biocify_abbreviations(self, abbreviations, file_path):
         template = {
             "source": "Auto-CORPus (abbreviations)",
-            # "inputfile": file_path,
             "date": f"{datetime.today().strftime('%Y%m%d')}",
             "key": "autocorpus_abbreviations.key",
             "documents": [
