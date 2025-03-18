@@ -3,6 +3,8 @@
 import json
 from pathlib import Path
 
+from autocorpus.configs.default_config import DefaultConfig
+
 
 def test_autocorpus():
     """A regression test for the main autoCORPus class on the AutoCORPus Paper.
@@ -43,10 +45,13 @@ def test_autocorpus():
         expected_tables = json.load(f)
 
     auto_corpus = Autocorpus(
-        "autocorpus/configs/config_pmc_pre_oct_2024.json",
         base_dir="tests/data/PMC/Pre-Oct-2024",
         main_text="tests/data/PMC/Pre-Oct-2024/PMC8885717.html",
     )
+
+    auto_corpus.config = DefaultConfig.load_config(DefaultConfig.LEGACY_PMC)
+
+    auto_corpus.process_files()
 
     abbreviations = auto_corpus.abbreviations
     bioc = auto_corpus.to_bioc()
