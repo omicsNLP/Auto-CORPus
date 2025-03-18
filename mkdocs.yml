@@ -45,6 +45,6 @@ nav:
   - Auto-CORPus documentation: index.md
   - How to create/edit a config file: config_tutorial.md
   - Use of data elements: data_elements.md
+  - Package workflows: package_workflows.md
   # defer to gen-files + literate-nav
   - Code Reference: reference/
-  - Package workflows: package_workflows.md
