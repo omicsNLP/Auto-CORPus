@@ -1,4 +1,4 @@
-HTML Logic
+# HTML Logic
 
 ``` mermaid
 flowchart TD
