@@ -139,37 +139,39 @@ class Autocorpus:
             soup (bs4.BeautifulSoup): soup object
             config (dict): dict of the maintext
         """
-        if "tables" in config:
-            if self.tables == {}:
-                self.tables, self.empty_tables = Table(
-                    soup, config, file_path, self.base_dir
-                ).to_dict()
+        if "tables" not in config:
+            return
+
+        if not self.tables:
+            self.tables, self.empty_tables = Table(
+                soup, config, file_path, self.base_dir
+            ).to_dict()
+            return
+
+        seen_ids = set()
+        for tab in self.tables["documents"]:
+            if "." in tab["id"]:
+                seen_ids.add(tab["id"].split(".")[0])
             else:
-                seen_ids = set()
-                for tab in self.tables["documents"]:
-                    if "." in tab["id"]:
-                        seen_ids.add(tab["id"].split(".")[0])
-                    else:
-                        seen_ids.add(tab["id"])
-                tmp_tables, tmp_empty = Table(
-                    soup, config, file_path, self.base_dir
-                ).to_dict()
-                for tabl in tmp_tables["documents"]:
-                    if "." in tabl["id"]:
-                        tabl_id = tabl["id"].split(".")[0]
-                        tabl_pos = ".".join(tabl["id"].split(".")[1:])
-                    else:
-                        tabl_id = tabl["id"]
-                        tabl_pos = None
-                    if tabl_id in seen_ids:
-                        tabl_id = str(len(seen_ids) + 1)
-                        if tabl_pos:
-                            tabl["id"] = f"{tabl_id}.{tabl_pos}"
-                        else:
-                            tabl["id"] = tabl_id
-                    seen_ids.add(tabl_id)
-                self.tables["documents"].extend(tmp_tables["documents"])
-                self.empty_tables.extend(tmp_empty)
+                seen_ids.add(tab["id"])
+
+        tmp_tables, tmp_empty = Table(soup, config, file_path, self.base_dir).to_dict()
+        for tabl in tmp_tables["documents"]:
+            if "." in tabl["id"]:
+                tabl_id = tabl["id"].split(".")[0]
+                tabl_pos = ".".join(tabl["id"].split(".")[1:])
+            else:
+                tabl_id = tabl["id"]
+                tabl_pos = None
+            if tabl_id in seen_ids:
+                tabl_id = str(len(seen_ids) + 1)
+                if tabl_pos:
+                    tabl["id"] = f"{tabl_id}.{tabl_pos}"
+                else:
+                    tabl["id"] = tabl_id
+            seen_ids.add(tabl_id)
+        self.tables["documents"].extend(tmp_tables["documents"])
+        self.empty_tables.extend(tmp_empty)
 
     def __merge_table_data(self):
         if self.empty_tables == []:
