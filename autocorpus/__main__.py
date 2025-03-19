@@ -8,7 +8,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from . import add_file_logger, logger
-from .Autocorpus import Autocorpus
+from .autocorpus import Autocorpus
 from .configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")

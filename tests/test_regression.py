@@ -17,7 +17,7 @@ def test_autocorpus(data_path: Path):
     auto-corpus -b LEGACY_PMC -t tests/data/PMC/Pre-Oct-2024/ -f tests/data/PMC/Pre-Oct-2024/PMC8885717.html
     ```
     """
-    from autocorpus.Autocorpus import Autocorpus
+    from autocorpus.autocorpus import Autocorpus
 
     pmc_example_path = data_path / "PMC" / "Pre-Oct-2024"
     with open(
