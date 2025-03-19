@@ -48,20 +48,20 @@ class Autocorpus:
             return soup
 
     def __get_keywords(self, soup, config):
-        if "keywords" in config:
-            responses = handle_not_tables(config["keywords"], soup)
-            responses = " ".join([x["node"].get_text() for x in responses])
-            if not responses == "":
-                keyword_section = {
-                    "section_heading": "keywords",
-                    "subsection_heading": "",
-                    "body": responses,
-                    "section_type": [
-                        {"iao_name": "keywords section", "iao_id": "IAO:0000630"}
-                    ],
-                }
-                return [keyword_section]
-            return False
+        if "keywords" not in config:
+            return None
+
+        responses = handle_not_tables(config["keywords"], soup)
+        if not responses:
+            return None
+
+        responses = " ".join(x["node"].get_text() for x in responses)
+        return {
+            "section_heading": "keywords",
+            "subsection_heading": "",
+            "body": responses,
+            "section_type": [{"iao_name": "keywords section", "iao_id": "IAO:0000630"}],
+        }
 
     def __get_title(self, soup, config):
         if "title" in config:
@@ -93,11 +93,9 @@ class Autocorpus:
 
         # Tags of text body to be extracted are hard-coded as p (main text) and span (keywords and refs)
         result["title"] = self.__get_title(soup, config)
-        maintext = (
-            self.__get_keywords(soup, config)
-            if self.__get_keywords(soup, config)
-            else []
-        )
+        maintext = []
+        if keywords := self.__get_keywords(soup, config):
+            maintext.append(keywords)
         sections = self.__get_sections(soup, config)
         for sec in sections:
             maintext.extend(Section(config, sec).to_list())
