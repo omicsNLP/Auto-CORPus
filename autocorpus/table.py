@@ -654,7 +654,6 @@ class Table:
             r"((\d+.\d+)|(\d+))(\s{0,1})[eE](\s{0,1})([–−-])(\s{0,1})(\d+)"
         )
         self.tables = self.__main(soup, config)
-        pass
 
     def to_dict(self):
         """Return the built tables and empty tables as two dictionaries.
