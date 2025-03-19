@@ -118,16 +118,16 @@ class Autocorpus:
 
         return unique_text
 
-    def __handle_html(self, file_path, config):
-        """Handles common HTML processing elements across main_text and linked_tables (creates soup and parses tables).
+    def __handle_html_tables(self, file_path, soup, config):
+        """Parse HTML tables.
+
+        Used when processing main_text and linked_tables.
 
         Args:
             file_path (str): path to the main text file
+            soup (bs4.BeautifulSoup): soup object
             config (dict): dict of the maintext
-        Return:
-            (bs4.BeautifulSoup): soup object
         """
-        soup = self.__soupify_infile(file_path)
         if "tables" in config:
             if self.tables == {}:
                 self.tables, self.empty_tables = Table(
@@ -159,7 +159,6 @@ class Autocorpus:
                     seen_ids.add(tabl_id)
                 self.tables["documents"].extend(tmp_tables["documents"])
                 self.empty_tables.extend(tmp_empty)
-        return soup
 
     def __merge_table_data(self):
         if self.empty_tables == []:
@@ -304,7 +303,8 @@ class Autocorpus:
 
         # handle main_text
         if self.file_path:
-            soup = self.__handle_html(self.file_path, config)
+            soup = self.__soupify_infile(self.file_path)
+            self.__handle_html_tables(self.file_path, soup, config)
             self.main_text = self.__extract_text(soup, config)
             try:
                 self.abbreviations = Abbreviations(
@@ -314,7 +314,8 @@ class Autocorpus:
                 print(e)
         if linked_tables:
             for table_file in linked_tables:
-                soup = self.__handle_html(table_file, config)
+                soup = self.__soupify_infile(table_file)
+                self.__handle_html_tables(table_file, soup, config)
         if table_images:
             self.tables = TableImage(
                 table_images, self.base_dir, trained_data=trained_data
