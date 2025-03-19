@@ -378,7 +378,7 @@ class Table:
                             "iao_name_1": "document title",
                             "iao_id_1": "IAO:0000305",
                         },
-                        "text": table["title"],
+                        "text": ". ".join(table["title"]),
                     }
                 ],
             }
