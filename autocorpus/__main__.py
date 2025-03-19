@@ -8,7 +8,7 @@ from pathlib import Path
 from filetype import is_image
 from tqdm import tqdm
 
-from autocorpus.Autocorpus import Autocorpus
+from autocorpus.autocorpus import Autocorpus
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
