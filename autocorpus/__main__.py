@@ -161,8 +161,6 @@ def main():
     file_path = Path(args.filepath)
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
     config = args.config
-    config_dir = args.config_dir  # noqa: F841 ## TODO: Use this variable
-    associated_data = args.associated_data  # noqa: F841 ## TODO: Use this variable
     output_format = args.output_format if args.output_format else "JSON"
     trained_data = args.trained_data_set if args.output_format else "eng"
 
