@@ -64,20 +64,20 @@ class Autocorpus:
         }
 
     def __get_title(self, soup, config):
-        if "title" in config:
-            titles = handle_not_tables(config["title"], soup)
-            if len(titles) == 0:
-                return ""
-            else:
-                return titles[0]["node"].get_text()
-        else:
+        if "title" not in config:
             return ""
 
+        titles = handle_not_tables(config["title"], soup)
+        if not titles:
+            return ""
+
+        return titles[0]["node"].get_text()
+
     def __get_sections(self, soup, config):
-        if "sections" in config:
-            sections = handle_not_tables(config["sections"], soup)
-            return sections
-        return []
+        if "sections" not in config:
+            return []
+
+        return handle_not_tables(config["sections"], soup)
 
     def __extract_text(self, soup, config):
         """Convert beautiful soup object into a python dict object with cleaned main text body.
