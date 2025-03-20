@@ -1,0 +1,4 @@
+# Don't ignore output files in this folder as they are used for regression tests
+!*_abbreviations.json
+!*_bioc.json
+!*_tables.json
