@@ -189,9 +189,9 @@ def main():
         f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
         f"on {cdate.day}/{cdate.month}/{cdate.year}"
     )
-    logger.info(f"Input directory provided: {file_path}")
-    logger.info(f"Output directory provided: {target_dir}")
-    logger.info(f"Config provided: {config}")
+    logger.info(f"Input path: {file_path}")
+    logger.info(f"Output path: {target_dir}")
+    logger.info(f"Config: {config}")
     logger.info(f"Output format: {output_format}")
     success = []
     errors = []
