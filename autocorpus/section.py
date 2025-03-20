@@ -11,6 +11,7 @@ import re
 import nltk
 from fuzzywuzzy import fuzz
 
+from . import logger
 from .references import References
 from .utils import handle_not_tables, read_iao_term_to_id_file, read_mapping_file
 
@@ -49,7 +50,7 @@ class Section:
         try:
             children = soup_section.findChildren(recursive=False)
         except Exception as e:
-            print(e)
+            logger.warning(e)
             children = []
         for child in children:
             self.__navigate_children(child, all_sub_sections, filtered_paragraphs)

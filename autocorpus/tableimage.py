@@ -5,6 +5,8 @@ from pathlib import Path
 import cv2
 import pytesseract
 
+from . import logger
+
 
 class TableImage:
     def img2text(self, img, x, y, w, h):
@@ -224,7 +226,7 @@ class TableImage:
             return {}
         offset = 0
         if "title" not in table:
-            print("no title")
+            logger.warning("no title for table")
         table_dict = {
             "inputfile": self.file_name,
             "id": self.tableIdentifier,
