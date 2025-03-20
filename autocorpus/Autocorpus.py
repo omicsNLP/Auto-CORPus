@@ -6,6 +6,7 @@ from pathlib import Path
 from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
 
+from . import logger
 from .abbreviation import Abbreviations
 from .bioc_formatter import BiocFormatter
 from .section import Section
@@ -316,7 +317,7 @@ class Autocorpus:
                     self.main_text, soup, self.config, self.file_path
                 ).to_dict()
             except Exception as e:
-                print(e)
+                logger.error(e)
         if self.linked_tables:
             for table_file in self.linked_tables:
                 soup = self.__handle_html(table_file, self.config)

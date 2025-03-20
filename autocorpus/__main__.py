@@ -7,8 +7,9 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-from autocorpus.Autocorpus import Autocorpus
-from autocorpus.configs.default_config import DefaultConfig
+from . import logger
+from .Autocorpus import Autocorpus
+from .configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -61,7 +62,9 @@ def get_file_type(file_path: Path) -> str:
             return "linked_tables"
         return "main_text"
 
-    print(f"unable to identify file type for {file_path}, file will not be processed")
+    logger.warning(
+        f"unable to identify file type for {file_path}, file will not be processed"
+    )
     return ""
 
 
@@ -116,7 +119,7 @@ def read_file_structure(file_path: Path, target_dir: Path):
                 structure = fill_structure(structure, base_file, "linked_tables", fpath)
                 structure = fill_structure(structure, base_file, "out_dir", out_dir)
             elif not ftype:
-                print(
+                logger.warning(
                     f"cannot determine file type for {fpath}. "
                     "AC will not process this file"
                 )
@@ -250,7 +253,7 @@ def main():
         log_file.write("\n".join(success) + "\n")
         log_file.write("\n".join(errors) + "\n")
         if errors:
-            print(
+            logger.warning(
                 "Auto-CORPus has completed processing with some errors. "
                 "Please inspect the log file for further details."
             )
