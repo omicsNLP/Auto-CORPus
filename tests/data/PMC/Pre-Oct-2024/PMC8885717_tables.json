@@ -16,9 +16,7 @@
             "iao_name_1": "document title",
             "iao_id_1": "IAO:0000305"
           },
-          "text": [
-            "Table 1"
-          ]
+          "text": "Table 1"
         },
         {
           "offset": 1,
@@ -795,9 +793,7 @@
             "iao_name_1": "document title",
             "iao_id_1": "IAO:0000305"
           },
-          "text": [
-            "Table 2"
-          ]
+          "text": "Table 2"
         },
         {
           "offset": 1,
@@ -1154,9 +1150,7 @@
             "iao_name_1": "document title",
             "iao_id_1": "IAO:0000305"
           },
-          "text": [
-            "Table 3"
-          ]
+          "text": "Table 3"
         },
         {
           "offset": 1,
@@ -1336,9 +1330,7 @@
             "iao_name_1": "document title",
             "iao_id_1": "IAO:0000305"
           },
-          "text": [
-            "Table 4"
-          ]
+          "text": "Table 4"
         },
         {
           "offset": 1,
