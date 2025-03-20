@@ -101,8 +101,7 @@ class Autocorpus:
             maintext.extend(Section(config, sec).to_list())
 
         # filter out the sections which do not contain any info
-        filtered_text = []
-        [filtered_text.append(x) for x in maintext if x]
+        filtered_text = [x for x in maintext if x]
         unique_text = []
         seen_text = []
         for text in filtered_text:
