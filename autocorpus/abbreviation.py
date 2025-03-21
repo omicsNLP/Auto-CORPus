@@ -351,7 +351,7 @@ class Abbreviations:
     def __get_abbre_dict_given_by_author(self, soup_og):
         header = soup_og.find_all("h2", recursive=True)
         abbre_dict = {}
-        for number, element in enumerate(header):
+        for element in header:
             if re2.search("abbreviation", element.get_text(), re2.IGNORECASE):
                 nearest_down_tag = element.next_element
                 while nearest_down_tag:

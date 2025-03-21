@@ -104,9 +104,7 @@ class TableImage:
         thresh = cv2.copyMakeBorder(
             thresh, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255]
         )
-        contours, hierarchy = cv2.findContours(
-            eroded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
-        )
+        contours, _ = cv2.findContours(eroded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         # 'cells' save the location and sort
         cells = []
@@ -364,7 +362,6 @@ class TableImage:
             trained_data: The trained data language. Defaults to "eng".
         """
         self.trainedData = trained_data
-        self.table_raw = []
         self.tables = {
             "source": "Auto-CORPus (tables)",
             "date": f"{datetime.today().strftime('%Y%m%d')}",

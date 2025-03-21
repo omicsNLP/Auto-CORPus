@@ -18,9 +18,6 @@ parser.add_argument(
     "-t", "--target_dir", type=str, help="target directory"
 )  # default autoCORPusOutput
 parser.add_argument(
-    "-a", "--associated_data", type=str, help="directory of associated data"
-)
-parser.add_argument(
     "-o",
     "--output_format",
     type=str,
@@ -38,13 +35,8 @@ parser.add_argument(
         "expects for the lang argument, default eng"
     ),
 )
-
-group = parser.add_mutually_exclusive_group()
-group.add_argument(
+parser.add_argument(
     "-c", "--config", type=str, help="filepath for configuration JSON file"
-)
-group.add_argument(
-    "-d", "--config_dir", type=str, help="directory of configuration JSON files"
 )
 
 
@@ -161,8 +153,6 @@ def main():
     file_path = Path(args.filepath)
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
     config = args.config
-    config_dir = args.config_dir  # noqa: F841 ## TODO: Use this variable
-    associated_data = args.associated_data  # noqa: F841 ## TODO: Use this variable
     output_format = args.output_format if args.output_format else "JSON"
     trained_data = args.trained_data_set if args.output_format else "eng"
 
