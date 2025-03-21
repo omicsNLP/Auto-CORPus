@@ -18,9 +18,6 @@ parser.add_argument(
     "-t", "--target_dir", type=str, help="target directory"
 )  # default autoCORPusOutput
 parser.add_argument(
-    "-a", "--associated_data", type=str, help="directory of associated data"
-)
-parser.add_argument(
     "-o",
     "--output_format",
     type=str,
@@ -38,13 +35,8 @@ parser.add_argument(
         "expects for the lang argument, default eng"
     ),
 )
-
-group = parser.add_mutually_exclusive_group()
-group.add_argument(
+parser.add_argument(
     "-c", "--config", type=str, help="filepath for configuration JSON file"
-)
-group.add_argument(
-    "-d", "--config_dir", type=str, help="directory of configuration JSON files"
 )
 
 
