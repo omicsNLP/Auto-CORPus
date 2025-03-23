@@ -3,20 +3,22 @@ from pathlib import Path
 
 
 class DefaultConfig:
-    """
-    DefaultConfig class provides a way to initialize and load different configurations for the application.
+    """DefaultConfig class provides a way to initialize and load different configurations for the application.
+
     Attributes:
         LEGACY_PMC (int): Identifier for the legacy PMC configuration.
         PMC (int): Identifier for the PMC configuration.
         PLOS_GENETICS (int): Identifier for the PLOS Genetics configuration.
         NATURE_GENETICS (int): Identifier for the Nature Genetics configuration.
+
     Methods:
         string_to_constant(config_name: str) -> int:
                 config (str): The configuration name to load.
         load_config(config: int) -> dict:
             Loads the specified configuration file.
                 config (str): The constant id of the default configuration file to load.
-            Returns:
+
+    Returns:
                 dict: The loaded configuration as a dictionary.
     """
 
