@@ -351,7 +351,8 @@ class Autocorpus:
             return
 
     def process_files(self):
-        assert self.config, "A valid config file must be loaded."
+        if not self.config:
+            raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
             soup = self.__handle_html(self.file_path, self.config)
