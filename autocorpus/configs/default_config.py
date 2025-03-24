@@ -4,15 +4,16 @@ from enum import Enum
 
 
 class DefaultConfig(Enum):
-    """
-    DefaultConfig(Enum):
+    """DefaultConfig(Enum):
         An enumeration for default configuration files used in the Auto-CORPus project.
-        Attributes:
+
+    Attributes:
             LEGACY_PMC (dict): Legacy PMC configuration (pre-October 2024).
             PMC (dict): Current PMC configuration.
             PLOS_GENETICS (dict): PLOS Genetics configuration.
             NATURE_GENETICS (dict): Nature Genetics configuration.
     """
+
     LEGACY_PMC = "config_pmc_pre_oct_2024.json"
     PMC = "config_pmc.json"
     PLOS_GENETICS = "config_plos_genetics.json"

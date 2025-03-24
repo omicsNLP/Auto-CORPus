@@ -15,6 +15,7 @@ from .utils import handle_not_tables
 
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
+
     @staticmethod
     def read_config(config_path):
         config_path = Path(config_path)

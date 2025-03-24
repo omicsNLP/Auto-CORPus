@@ -207,7 +207,6 @@ def main():
             )
             base_dir = file_path.parent if not file_path.is_dir() else file_path
             try:
-
                 if args.config:
                     config = Autocorpus.read_config(args.config)
                 elif args.default_config:
