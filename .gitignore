@@ -1,3 +1,9 @@
+# Auto-CORPus output files
+autoCORPus-log-*
+*_abbreviations.json
+*_bioc.json
+*_tables.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
