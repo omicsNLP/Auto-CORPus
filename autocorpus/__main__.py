@@ -207,20 +207,28 @@ def main():
             )
             base_dir = file_path.parent if not file_path.is_dir() else file_path
             try:
+
+                if args.config:
+                    config = Autocorpus.read_config(args.config)
+                elif args.default_config:
+                    try:
+                        config = DefaultConfig[args.default_config]
+                    except KeyError:
+                        raise ValueError(
+                            f"{args.default_config} is not a valid default config."
+                        )
+
                 ac = Autocorpus(
                     base_dir=str(base_dir),
                     main_text=structure[key]["main_text"],
+                    config=config,
                     linked_tables=sorted(structure[key]["linked_tables"]),
                     table_images=sorted(structure[key]["table_images"]),
                     trained_data=trained_data,
                 )
-                if args.config:
-                    ac.config = ac.read_config(config)
-                elif args.default_config:
-                    default_config = DefaultConfig.string_to_constant(
-                        args.default_config
-                    )
-                    ac.config = DefaultConfig.load_config(default_config)
+
+                ac.process_files()
+
                 out_dir = Path(structure[key]["out_dir"])
                 if structure[key]["main_text"]:
                     key = key.replace("\\", "/")

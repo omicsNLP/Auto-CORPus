@@ -15,8 +15,8 @@ from .utils import handle_not_tables
 
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
-
-    def read_config(self, config_path):
+    @staticmethod
+    def read_config(config_path):
         config_path = Path(config_path)
         with config_path.open("r") as f:
             ## TODO: validate config file here if possible
@@ -371,6 +371,7 @@ class Autocorpus:
 
     def __init__(
         self,
+        config,
         base_dir=None,
         main_text=None,
         linked_tables=None,
@@ -381,6 +382,7 @@ class Autocorpus:
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
 
         Args:
+            config (dict): configuration file for the input HTML journal articles
             base_dir (str): base directory of the input HTML journal articles
             main_text (str): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
@@ -392,12 +394,12 @@ class Autocorpus:
         self.linked_tables = linked_tables
         self.table_images = table_images
         self.associated_data_path = associated_data_path
+        self.config = config
         self.main_text = {}
         self.empty_tables = {}
         self.tables = {}
         self.abbreviations = {}
         self.has_tables = False
-        self.config = {}
 
     def to_bioc(self):
         """Get the currently loaded bioc as a dict.

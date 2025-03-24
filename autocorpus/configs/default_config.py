@@ -1,56 +1,54 @@
+import importlib.resources as resources
 import json
-from pathlib import Path
+from enum import Enum
 
 
-class DefaultConfig:
+class DefaultConfig(Enum):
     """
-    DefaultConfig class provides a way to initialize and load different configurations for the application.
-    Attributes:
-        LEGACY_PMC (int): Identifier for the legacy PMC configuration.
-        PMC (int): Identifier for the PMC configuration.
-        PLOS_GENETICS (int): Identifier for the PLOS Genetics configuration.
-        NATURE_GENETICS (int): Identifier for the Nature Genetics configuration.
-    Methods:
-        string_to_constant(config_name: str) -> int:
-                config (str): The configuration name to load.
-        load_config(config: int) -> dict:
-            Loads the specified configuration file.
-                config (str): The constant id of the default configuration file to load.
-            Returns:
-                dict: The loaded configuration as a dictionary.
+    DefaultConfig(Enum):
+        An enumeration for default configuration files used in the Auto-CORPus project.
+        Attributes:
+            LEGACY_PMC (dict): Legacy PMC configuration (pre-October 2024).
+            PMC (dict): Current PMC configuration.
+            PLOS_GENETICS (dict): PLOS Genetics configuration.
+            NATURE_GENETICS (dict): Nature Genetics configuration.
     """
+    LEGACY_PMC = "config_pmc_pre_oct_2024.json"
+    PMC = "config_pmc.json"
+    PLOS_GENETICS = "config_plos_genetics.json"
+    NATURE_GENETICS = "config_nature_genetics.json"
 
-    LEGACY_PMC = 1
-    PMC = 2
-    PLOS_GENETICS = 3
-    NATURE_GENETICS = 4
+    def __init__(self, filename):
+        self._filename = filename
+        self._config = None  # Lazy-loaded cache
 
-    @staticmethod
-    def string_to_constant(config_name: str) -> int:
-        config_name = config_name.upper()
-        if hasattr(DefaultConfig, config_name):
-            return getattr(DefaultConfig, config_name)
-        raise ValueError(
-            f"Invalid default config name: {config_name}. Please check documentation for a list of default configs"
-        )
+    def _load_config(self):
+        """Loads the configuration file when first accessed."""
+        if self._config is None:
+            config_path = resources.files("autocorpus.configs") / self._filename
+            with config_path.open("r", encoding="utf-8") as f_in:
+                self._config = json.load(f_in)["config"]
+        return self._config
 
-    @staticmethod
-    def load_config(config: int) -> dict:
-        if config == DefaultConfig.LEGACY_PMC:
-            config_file = "config_pmc_pre_oct_2024.json"
-        elif config == DefaultConfig.PMC:
-            config_file = "config_pmc.json"
-        elif config == DefaultConfig.PLOS_GENETICS:
-            config_file = "config_plos_genetics.json"
-        elif config == DefaultConfig.NATURE_GENETICS:
-            config_file = "config_nature_genetics.json"
-        else:
-            raise Exception(
-                "A valid config was not provided. Please provide a valid DefaultConfig setting."
-            )
+    def __repr__(self):
+        """Make the enum return the loaded config when accessed."""
+        return repr(self._load_config())
 
-        config_path = Path(__file__).parent / config_file
-        loaded_config = {}
-        with open(config_path, encoding="utf-8") as f_in:
-            loaded_config = json.load(f_in)
-        return loaded_config["config"]
+    def __str__(self):
+        """Make print(DefaultConfig.PMC) return the JSON content."""
+        return str(self._load_config())
+
+    def __getitem__(self, key):
+        return self._load_config()[key]
+
+    def __iter__(self):
+        return iter(self._load_config())
+
+    def keys(self):
+        return self._load_config().keys()
+
+    def values(self):
+        return self._load_config().values()
+
+    def items(self):
+        return self._load_config().items()
