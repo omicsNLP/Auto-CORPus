@@ -38,21 +38,22 @@ class Abbreviations:
         :param candidate: candidate abbreviation
         :return: True if this is a good candidate
         """
-        viable = True
-        if re2.match(r"(\p{L}\.?\s?){2,}", candidate.lstrip()):
-            viable = True
-        if len(candidate) < 2 or len(candidate) > 10:
-            viable = False
-        if len(candidate.split()) > 2:
-            viable = False
-        if candidate.islower():  # customize function discard all lower case candidate
-            viable = False
-        if not re2.search(r"\p{L}", candidate):  # \p{L} = All Unicode letter
-            viable = False
-        if not candidate[0].isalnum():
-            viable = False
+        candidate = candidate.lstrip()
 
-        return viable
+        # First, check the main regex pattern
+        if not re2.match(r"(\p{L}\.?\s?){2,}", candidate):
+            return False
+
+        # Apply all other conditions in a single return statement
+        return (
+            2 <= len(candidate) <= 10
+            and len(candidate.split()) <= 2
+            and not candidate.islower()  # customize function discard all lower case candidate
+            and re2.search(
+                r"\p{L}", candidate
+            )  # \p{L} = At least one Unicode letter character
+            and candidate[0].isalnum()
+        )
 
     def __best_candidates(self, sentence):
         """Locates the best candidates for an abbreviation.
