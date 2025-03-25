@@ -6,8 +6,7 @@ from enum import Enum
 
 
 class DefaultConfig(Enum):
-    """DefaultConfig(Enum):
-        An enumeration representing different configuration files for various datasets.
+    """An enumeration representing different configuration files for various datasets.
 
     Attributes:
             LEGACY_PMC (str): Configuration file for legacy PMC data (pre-October 2024).
