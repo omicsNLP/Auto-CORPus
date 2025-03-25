@@ -171,7 +171,7 @@ def main():
 
     log_file_path = (
         target_dir / "autoCORPus-log-"
-        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}.log"
     )
 
     with log_file_path.open("w") as log_file:
