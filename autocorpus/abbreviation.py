@@ -51,7 +51,7 @@ class Abbreviations:
             and not candidate.islower()  # customize function discard all lower case candidate
             and re2.search(
                 r"\p{L}", candidate
-            )  # \p{L} = At least one Unicode letter character
+            )  # Must contain at least one Unicode letter character
             and candidate[0].isalnum()
         )
 
