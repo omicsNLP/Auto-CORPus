@@ -35,7 +35,9 @@ parser.add_argument(
         "expects for the lang argument, default eng"
     ),
 )
-parser.add_argument(
+
+group = parser.add_mutually_exclusive_group()
+group.add_argument(
     "-c", "--config", type=str, help="filepath for configuration JSON file"
 )
 
