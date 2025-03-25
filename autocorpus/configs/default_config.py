@@ -1,4 +1,5 @@
-"Contains a loader for default configuration files."
+"""Contains a loader for default configuration files."""
+
 import importlib.resources as resources
 import json
 from enum import Enum
@@ -20,7 +21,6 @@ class DefaultConfig(Enum):
                 The configuration is lazy-loaded and cached upon first access.
 
     """
-
 
     LEGACY_PMC = "config_pmc_pre_oct_2024.json"
     PMC = "config_pmc.json"
