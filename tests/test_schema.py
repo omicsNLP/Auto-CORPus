@@ -14,7 +14,7 @@ _SCHEMA_PATH = _REPO_PATH / "keyFiles" / "table_schema.json"
 @pytest.fixture
 def table_schema():
     """The parsed contents of the table schema JSON file."""
-    with _SCHEMA_PATH.open() as f:
+    with _SCHEMA_PATH.open(encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -32,6 +32,6 @@ def test_table_output_files_valid(table_schema):
 
     validator = Draft4Validator(table_schema)
     for file in files:
-        with open(file) as f:
+        with open(file, encoding="utf-8") as f:
             data = json.load(f)
         assert validator.is_valid(data)
