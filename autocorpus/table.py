@@ -284,7 +284,7 @@ class Table:
                             "iao_name_1": "document title",
                             "iao_id_1": "IAO:0000305",
                         },
-                        "text": table["title"],
+                        "text": ". ".join(table["title"]),
                     }
                 ],
             }
@@ -560,7 +560,6 @@ class Table:
             r"((\d+.\d+)|(\d+))(\s{0,1})[eE](\s{0,1})([–−-])(\s{0,1})(\d+)"
         )
         self.tables = self.__main(soup, config)
-        pass
 
     def to_dict(self):
         """Return the built tables and empty tables as two dictionaries.
