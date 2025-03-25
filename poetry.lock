@@ -397,6 +397,9 @@ files = [
     {file = "fuzzywuzzy-0.18.0.tar.gz", hash = "sha256:45016e92264780e58972dca1b3d939ac864b78437422beecebb3095f8efd00e8"},
 ]
 
+[package.dependencies]
+python-levenshtein = {version = ">=0.12", optional = true, markers = "extra == \"speedup\""}
+
 [package.extras]
 speedup = ["python-levenshtein (>=0.12)"]
 
@@ -1882,4 +1885,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4"
-content-hash = "098006eac26c91e983840d4da6f506973eba72f341fb0c05d2a08345ee74542e"
+content-hash = "d525469259d9a50bc30a90ed46b029a9507e4d2cd83ca63b74b59a15e377aa1f"
