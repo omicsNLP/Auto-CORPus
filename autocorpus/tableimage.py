@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+"""This module contains the TableImage class.
+
+Which is used to extract tables from images and save them in a json format.
+"""
 
 from datetime import datetime
 from operator import itemgetter
@@ -9,13 +12,23 @@ import pytesseract
 
 
 class TableImage:
+    """Class to extract tables from images and save them in a json format."""
+
     def img2text(self, img, x, y, w, h):
-        """Function: translate image into texts
-        Input: original image, and location of text boxes
-        Output: extracted texts
+        """Translate an image into texts.
+
+        Args:
+            img: original image
+            x: The x position of the text boxes
+            y: The y position of the text boxes
+            w: The width of the text boxes
+            h: The height of the text boxes
+
+        Returns:
+            The extracted texts.
         """
         roi = img[y - 3 : (y + h + 6), x - 3 : (x + w + 6)]
-        # pytesseract.pytesseract.tesseract_cmd = 'D:/Tesseract/tesseract.exe'
+
         # change the 'lang' here for different traineddata
         text = pytesseract.image_to_string(
             roi, lang=self.trainedData, config="--psm 6 --oem 3"
@@ -24,15 +37,18 @@ class TableImage:
         return new_text
 
     def rm_lines(self, img):
-        """Function: remove all the horizontal and vertical lines in image and binary it
-        Input: original image
-        Output: image after preprocessing
+        """Remove all the horizontal and vertical lines in image and binary it.
+
+        Args:
+            img: The original image
+
+        Returns:
+            The image after preprocessing
         """
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         binary = cv2.adaptiveThreshold(
             ~gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 35, -5
         )
-        # binary = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, -5)
         rows, cols = binary.shape
 
         # detect horizontal lines
@@ -49,50 +65,39 @@ class TableImage:
 
         # merge two groups of lines
         merge = cv2.add(dilatedcol, dilatedrow)
-        # comment the next line to save image with detected lines
-        # cv2.imwrite("lines.jpg", merge)
-
         after = cv2.add(gray, merge)
-        # comment the next line to save borderless table images
-        # cv2.imwrite("borderless.jpg", after)
 
         return after
 
     def find_cells(self, img):
-        """Function: find cells in table images and sort them from top-left to bottom-right
-        Input: original image
-        Output: ordered table cells, and processed image
+        """Find cells in table images and sort them from top-left to bottom-right.
+
+        Args:
+            img: The original image
+
+        Returns:
+            The ordered table cells, and processed image
         """
         added = cv2.copyMakeBorder(
             img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255]
         )
         size = added.shape
-        # print('added.shape: ', size)
-        size[0] * size[1]
-
-        # gray = cv2.cvtColor(added, cv2.COLOR_BGR2GRAY)
         gray = self.rm_lines(img)
         ret, thresh = cv2.threshold(gray, 190, 255, cv2.THRESH_BINARY)
-        # thresh2 = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,10,0)
-        # comment the next line to save binary tables
-        # cv2.imwrite("thresh.jpg", thresh)
 
         rows, cols = thresh.shape
         scale = 150  # the larger, the rectangles smaller
+
         # the second parameter of kernel and morphology iterations /
         # need to be fine-tuned according to the image size
         kernel = cv2.getStructuringElement(
             cv2.MORPH_RECT, (cols // scale, rows // scale + 2)
         )
+
         # Another method for erosion
-        # eroded = cv2.morphologyEx(thresh, cv2.MORPH_GRADIENT, kernel, iterations=3)
-        # eroded = cv2.bitwise_not(eroded)
         eroded = cv2.erode(thresh, kernel, iterations=3)
-        # comment the next line to save images after morphology processing
-        # cv2.imwrite(target_dir + '/' + "{}_eroded.jpg".format(pmc), eroded)
 
         # Add white borders before finding contours
-        # eroded = eroded[10:(rows - 10), 10:(cols - 10)]
         eroded = cv2.copyMakeBorder(
             eroded, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[255, 255, 255]
         )
@@ -116,13 +121,10 @@ class TableImage:
 
             # case 3: eliminate small boxes that could be noises
             area = cv2.contourArea(c)
-            # method 1: constant area. Does not work on images that are too large or too small
+            # Assume constant area. Does not work on images that are too large or too
+            # small
             if area < 250:
                 continue
-            # method 2: proportional area
-            # if area > 0:
-            #     if imgarea / area > 20000:
-            #         continue
 
             cells.append((x, y, w, h))
 
@@ -132,9 +134,20 @@ class TableImage:
         return cells, added, thresh
 
     def cell2table(self, cells, added, thresh, target_dir, pmc):
-        """Function: save table texts in several rows
-        Input: ordered table cells, and processed image
-        Output: table text saved line by line
+        """Save table texts in several rows.
+
+        TODO: Two of the input arguments are not used and there is no distinction
+        between the `added` image and the `thresh` image.
+
+        Args:
+            cells: The ordered table cells
+            added: processed image
+            thresh: processed image
+            target_dir: unused
+            pmc: unused
+
+        Returns:
+            The table text saved line by line
         """
         # after sort, read cells line by line
         color = (0, 255, 0)  # box color
@@ -142,7 +155,6 @@ class TableImage:
         row = []
 
         for i, (x, y, w, h) in enumerate(cells):
-            # print(x, y, w, h)
             cv2.rectangle(added, (x, y), (x + w, y + h), color, 1)
             row.append(cells[i])
 
@@ -159,51 +171,20 @@ class TableImage:
                 # save a new line
                 row = []
 
-        """
-        # The block (have not fully developed) is used to recognize section names in the left-most column
-
-        for row in table_row:
-            new_row = []
-            row.sort(key=lambda x: x[0])
-
-            # start = row[0]
-            # # row(i)[0][x]+[w] < row(i+1)[0][x] means the below cell is blank
-            # if prev[0] + prev[2] < start[0]:
-            # append to the above line
-
-            for (j, (x, y, w, h)) in enumerate(row):
-                # print(row)
-                # # if cells in the first column have all white pixels below, marked as section name
-                # # x<w ensures it is in the first column
-                # if j == 0 and x<w and eroded[x, y+2*h] > 0:
-                #     # append the first element row[0]
-                #     new_row.append(''.join(img2text(thresh, x, y, w, h)))
-                #     new_table.append(new_row)
-                #     new_row=[]
-                #     continue
-
-                new_row.append(img2text(thresh, x, y, w, h))
-
-                # comment to write OCR results directly in the image
-                # font = cv2.FONT_HERSHEY_SIMPLEX
-                # cv2.putText(added, text, (x, y - 10), font, 1, color, 1);
-
-            table_row.append(new_row)
-        """
-
         for row in table_row:
             row.sort(key=lambda x: x[0])
             for i, (x, y, w, h) in enumerate(row):
                 row[i] = self.img2text(thresh, x, y, w, h)
 
-        # cv2.imwrite(target_dir + '/' + "{}_result.jpg".format(pmc), added)
-
         return table_row
 
     def text2json(self, table_row):
-        """Function: save table into a formatted json file
-        Input: table text saved line by line
-        Output: formatted json file of tables
+        """Save table into a formatted json file.
+
+        Args:
+            table_row: The table text saved line by line
+        Returns:
+            The formatted json file of tables
         """
         identifier = ""
         title = ""
@@ -230,7 +211,6 @@ class TableImage:
                     footer = superline
 
         # remove titles and footers
-        # table_row = table_row[cnt1: len(table_row) - 1 - cnt2]
         table_row = table_row[cnt1 : len(table_row) - cnt2]
 
         table = {}
@@ -245,15 +225,9 @@ class TableImage:
         for i, row in enumerate(table_row):
             if i == 0:
                 cur_header = row
-            # elif is_column:
-            #     cur_header = row
             elif i != 0 and len(row) == 1:
                 if i != len(table_row) - 1:
                     cur_superrow = row
-
-            # # last line start with doi, retain?
-            # if ''.join(cells[i]).startswith('doi:'):
-            #     break
 
             # skip blank rows (rarely happen)
             if not any([i for i in row if i not in ["", "None"]]):
@@ -281,8 +255,6 @@ class TableImage:
 
                 pre_header = cur_header
                 pre_superrow = cur_superrow
-
-        # table_json = {'tables': table}
 
         return table
 
@@ -384,6 +356,13 @@ class TableImage:
         return table_dict
 
     def __init__(self, table_images, base_dir, trained_data="eng"):
+        """Construct the TableImage object.
+
+        Args:
+            table_images: list of paths to table images
+            base_dir: the base directory
+            trained_data: The trained data language. Defaults to "eng".
+        """
         self.trainedData = trained_data
         self.table_raw = []
         self.tables = {
@@ -410,4 +389,9 @@ class TableImage:
             )
 
     def to_dict(self):
+        """Return the tables dictionary.
+
+        Returns:
+            The tables dictionary
+        """
         return self.tables

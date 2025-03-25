@@ -17,7 +17,7 @@ keywords = [
     "text mining",
     "biomedical literature",
     "semantics",
-    "health data"
+    "health data",
 ]
 classifiers = ["Intended Audience :: Science/Research"]
 
@@ -38,14 +38,15 @@ pytesseract = "^0.3.13"
 lxml = "^5.3.0"
 networkx = "^3.4.2"
 opencv-contrib-python = "^4.10.0.84"
-python-levenshtein = "^0.26.1"
+python-levenshtein = ">=0.26.1,<0.28.0"
 filetype = "^1.2.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
 pytest-cov = ">=5,<7"
 pytest-mock = "^3.14.0"
-ruff = ">=0.7.1,<0.11.0"
+ruff = ">=0.7.1,<0.12.0"
+pre-commit = "^4.2.0"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.6.0"
@@ -68,6 +69,7 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = [
+    "D",   # pydocstyle
     "E",   # pycodestyle
     "F",   # Pyflakes
     "I",   # isort
@@ -80,3 +82,4 @@ ignore = [
     "RUF001", # ambiguous multiplication sign
     "RUF003", # ambiguous fullwidth colon
 ]
+pydocstyle.convention = "google"

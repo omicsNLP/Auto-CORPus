@@ -1,0 +1,36 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Auto-CORPus with PMC config",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "autocorpus",
+      "args": [
+        "-c",
+        "${workspaceFolder}/autocorpus/configs/config_pmc.json",
+        "-t",
+        "output",
+        "-f",
+        "${workspaceFolder}/tests/data/PMC/Current/PMC8885717.html"
+      ]
+    },
+    {
+      "name": "Run Auto-CORPus with legacy PMC config",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "autocorpus",
+      "args": [
+        "-c",
+        "${workspaceFolder}/autocorpus/configs/config_pmc_pre_oct_2024.json",
+        "-t",
+        "output",
+        "-f",
+        "${workspaceFolder}/tests/data/PMC/Pre-Oct-2024/PMC8885717.html"
+      ]
+    }
+  ]
+}
