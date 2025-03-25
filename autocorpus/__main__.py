@@ -211,7 +211,7 @@ def main():
                     config = Autocorpus.read_config(args.config)
                 elif args.default_config:
                     try:
-                        config = DefaultConfig[args.default_config]
+                        config = DefaultConfig[args.default_config].load_config()
                     except KeyError:
                         raise ValueError(
                             f"{args.default_config} is not a valid default config."

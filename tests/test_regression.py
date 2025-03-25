@@ -45,7 +45,7 @@ def test_autocorpus():
         expected_tables = json.load(f)
 
     auto_corpus = Autocorpus(
-        config=DefaultConfig.LEGACY_PMC,
+        config=DefaultConfig.LEGACY_PMC.load_config(),
         base_dir="tests/data/PMC/Pre-Oct-2024",
         main_text="tests/data/PMC/Pre-Oct-2024/PMC8885717.html",
     )
