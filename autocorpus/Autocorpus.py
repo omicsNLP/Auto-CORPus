@@ -362,12 +362,12 @@ class Autocorpus:
         This method performs the following steps:
         1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
         2. Handles the main text file:
-            - Parses the HTML content of the file.
-            - Extracts the main text from the parsed HTML.
-            - Attempts to extract abbreviations from the main text and HTML content.
+            - Parses the HTML/XML content of the file.
+            - Extracts the main text from the parsed HTML/XML.
+            - Attempts to extract abbreviations from the main text and HTML/XML content.
               If an error occurs during this process, it prints the error.
         3. Processes linked tables, if any:
-            - Parses the HTML content of each linked table file.
+            - Parses the HTML/XML content of each linked table file.
         4. Merges table data.
         5. Checks if there are any documents in the tables and sets the `has_tables` attribute accordingly.
 
@@ -378,17 +378,25 @@ class Autocorpus:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
-            soup = self.__handle_html(self.file_path, self.config)
-            self.main_text = self.__extract_text(soup, self.config)
-            try:
-                self.abbreviations = Abbreviations(
-                    self.main_text, soup, self.config, self.file_path
-                ).to_dict()
-            except Exception as e:
-                print(e)
+            file_extension = self.file_path.split(".")[-1]
+            if file_extension in ["html", "htm"]:
+                soup = self.__handle_html(self.file_path, self.config)
+                self.main_text = self.__extract_text(soup, self.config)
+                try:
+                    self.abbreviations = Abbreviations(
+                        self.main_text, soup, self.config, self.file_path
+                    ).to_dict()
+                except Exception as e:
+                    print(e)
+            elif file_extension == "xml":
+                pass  # TODO: implement XML handling
         if self.linked_tables:
             for table_file in self.linked_tables:
-                soup = self.__handle_html(table_file, self.config)
+                file_extension = table_file.split(".")[-1]
+                if file_extension in ["html", "htm"]:
+                    soup = self.__handle_html(table_file, self.config)
+                elif file_extension == "xml":
+                    pass  # TODO: implement XML handling
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
