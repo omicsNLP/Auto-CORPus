@@ -17,6 +17,7 @@ class DefaultConfig(Enum):
             load_config():
                 Loads and returns the configuration from the associated file.
                 The configuration is lazy-loaded and cached upon first access.
+
     """
 
     LEGACY_PMC = "config_pmc_pre_oct_2024.json"
