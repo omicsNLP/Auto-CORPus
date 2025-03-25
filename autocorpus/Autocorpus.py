@@ -333,7 +333,6 @@ class Autocorpus:
         base_dir=None,
         main_text=None,
         linked_tables=None,
-        table_images=None,
         trained_data=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
@@ -343,13 +342,11 @@ class Autocorpus:
             base_dir (str): base directory of the input HTML journal articles
             main_text (str): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
-            table_images (list): list of table image file paths to be included in this run (JPEG or PNG files only)
             trained_data (list): currently unused
         """
         self.base_dir = base_dir
         self.file_path = main_text
         self.linked_tables = linked_tables
-        self.table_images = table_images
         self.config = config
         self.trained_data = trained_data
         self.main_text = {}
