@@ -17,10 +17,8 @@ class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
     @staticmethod
-
     def read_config(config_path: str) -> dict:
-        """
-        Reads a configuration file and returns its content.
+        """Reads a configuration file and returns its content.
 
         Args:
             config_path (str): The path to the configuration file.
@@ -366,8 +364,7 @@ class Autocorpus:
             return
 
     def process_files(self):
-        """
-        Processes the files specified in the configuration.
+        """Processes the files specified in the configuration.
 
         This method performs the following steps:
         1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
