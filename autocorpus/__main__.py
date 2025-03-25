@@ -9,6 +9,7 @@ from filetype import is_image
 from tqdm import tqdm
 
 from autocorpus.Autocorpus import Autocorpus
+from autocorpus.configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -39,6 +40,9 @@ parser.add_argument(
 group = parser.add_mutually_exclusive_group()
 group.add_argument(
     "-c", "--config", type=str, help="filepath for configuration JSON file"
+)
+group.add_argument(
+    "-b", "--default_config", type=str, help="name of a default config file"
 )
 
 
@@ -154,7 +158,7 @@ def main():
     args = parser.parse_args()
     file_path = Path(args.filepath)
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
-    config = args.config
+    config = args.config if args.config else args.default_config
     output_format = args.output_format if args.output_format else "JSON"
     trained_data = args.trained_data_set if args.output_format else "eng"
 
@@ -195,14 +199,26 @@ def main():
             )
             base_dir = file_path.parent if not file_path.is_dir() else file_path
             try:
+                if args.config:
+                    config = Autocorpus.read_config(args.config)
+                elif args.default_config:
+                    try:
+                        config = DefaultConfig[args.default_config].load_config()
+                    except KeyError:
+                        raise ValueError(
+                            f"{args.default_config} is not a valid default config."
+                        )
+
                 ac = Autocorpus(
-                    config,
                     base_dir=str(base_dir),
                     main_text=structure[key]["main_text"],
+                    config=config,
                     linked_tables=sorted(structure[key]["linked_tables"]),
                     table_images=sorted(structure[key]["table_images"]),
                     trained_data=trained_data,
                 )
+
+                ac.process_files()
 
                 out_dir = Path(structure[key]["out_dir"])
                 if structure[key]["main_text"]:
