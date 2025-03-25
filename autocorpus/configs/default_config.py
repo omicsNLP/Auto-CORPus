@@ -4,15 +4,16 @@ from enum import Enum
 
 
 class DefaultConfig(Enum):
-    """
-    DefaultConfig(Enum):
+    """DefaultConfig(Enum):
         An enumeration representing different configuration files for various datasets.
-        Attributes:
+
+    Attributes:
             LEGACY_PMC (str): Configuration file for legacy PMC data (pre-October 2024).
             PMC (str): Configuration file for current PMC data.
             PLOS_GENETICS (str): Configuration file for PLOS Genetics data.
             NATURE_GENETICS (str): Configuration file for Nature Genetics data.
-        Methods:
+
+    Methods:
             load_config():
                 Loads and returns the configuration from the associated file.
                 The configuration is lazy-loaded and cached upon first access.
