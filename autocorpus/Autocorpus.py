@@ -379,7 +379,7 @@ class Autocorpus:
         # handle main_text
         if self.file_path:
             file_extension = self.file_path.split(".")[-1]
-            if file_extension in ["html", "htm"]:
+            if file_extension.lower() in ["html", "htm"]:
                 soup = self.__handle_html(self.file_path, self.config)
                 self.main_text = self.__extract_text(soup, self.config)
                 try:
@@ -393,7 +393,7 @@ class Autocorpus:
         if self.linked_tables:
             for table_file in self.linked_tables:
                 file_extension = table_file.split(".")[-1]
-                if file_extension in ["html", "htm"]:
+                if file_extension.lower() in ["html", "htm"]:
                     soup = self.__handle_html(table_file, self.config)
                 elif file_extension == "xml":
                     pass  # TODO: implement XML handling
