@@ -17,9 +17,23 @@ class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
     @staticmethod
-    def read_config(config_path):
-        config_path = Path(config_path)
-        with config_path.open("r") as f:
+
+    def read_config(config_path: str) -> dict:
+        """
+        Reads a configuration file and returns its content.
+
+        Args:
+            config_path (str): The path to the configuration file.
+
+        Returns:
+            dict: The content of the configuration file.
+
+        Raises:
+            FileNotFoundError: If the configuration file does not exist.
+            json.JSONDecodeError: If the configuration file is not a valid JSON.
+            KeyError: If the configuration file does not contain the expected "config" key.
+        """
+        with open(config_path, encoding="utf-8") as f:
             ## TODO: validate config file here if possible
             content = json.load(f)
             return content["config"]
@@ -352,6 +366,24 @@ class Autocorpus:
             return
 
     def process_files(self):
+        """
+        Processes the files specified in the configuration.
+
+        This method performs the following steps:
+        1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
+        2. Handles the main text file:
+            - Parses the HTML content of the file.
+            - Extracts the main text from the parsed HTML.
+            - Attempts to extract abbreviations from the main text and HTML content.
+              If an error occurs during this process, it prints the error.
+        3. Processes linked tables, if any:
+            - Parses the HTML content of each linked table file.
+        4. Merges table data.
+        5. Checks if there are any documents in the tables and sets the `has_tables` attribute accordingly.
+
+        Raises:
+            RuntimeError: If no valid configuration is loaded.
+        """
         if not self.config:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
@@ -390,6 +422,7 @@ class Autocorpus:
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
             table_images (list): list of table image file paths to be included in this run (JPEG or PNG files only)
             associated_data_path (str): currently unused
+            trained_data (list): currently unused
         """
         self.base_dir = base_dir
         self.file_path = main_text
@@ -397,6 +430,7 @@ class Autocorpus:
         self.table_images = table_images
         self.associated_data_path = associated_data_path
         self.config = config
+        self.trained_data = trained_data
         self.main_text = {}
         self.empty_tables = {}
         self.tables = {}

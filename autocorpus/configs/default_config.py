@@ -24,6 +24,11 @@ class DefaultConfig(Enum):
     NATURE_GENETICS = "config_nature_genetics.json"
 
     def __init__(self, filename):
+        """
+        Initializes the DefaultConfig enum with the given filename.
+        Args:
+            filename (str): The name of the configuration file to load.
+        """
         self._filename = filename
         self._config = None  # Lazy-loaded cache
 
