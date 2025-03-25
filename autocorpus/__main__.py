@@ -5,10 +5,10 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-from filetype import is_image
 from tqdm import tqdm
 
 from autocorpus.Autocorpus import Autocorpus
+from autocorpus.configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -17,9 +17,6 @@ parser.add_argument(
 parser.add_argument(
     "-t", "--target_dir", type=str, help="target directory"
 )  # default autoCORPusOutput
-parser.add_argument(
-    "-a", "--associated_data", type=str, help="directory of associated data"
-)
 parser.add_argument(
     "-o",
     "--output_format",
@@ -44,27 +41,26 @@ group.add_argument(
     "-c", "--config", type=str, help="filepath for configuration JSON file"
 )
 group.add_argument(
-    "-d", "--config_dir", type=str, help="directory of configuration JSON files"
+    "-b", "--default_config", type=str, help="name of a default config file"
 )
 
 
 def get_file_type(file_path: Path) -> str:
     """Identify the type of files present in the given path.
 
-    :param file_path: file path to be checked
-    :return: "directory", "main_text", "linked_table" or "table_image"
+    Args:
+        file_path: file path to be checked
+
+    Returns:
+        "directory", "main_text" or "linked_table"
     """
     if file_path.is_dir():
         return "directory"
-    elif file_path.suffix == ".html":
-        if re.search(r"table_\d+.html", file_path.name):
+    if file_path.suffix == ".html":
+        if file_path.name.startswith("table_"):
             return "linked_tables"
-        else:
-            return "main_text"
-    elif is_image(file_path):
-        # this should be tidied up to only include the image types which are supported
-        # by AC instead of any image files
-        return "table_images"
+        return "main_text"
+
     print(f"unable to identify file type for {file_path}, file will not be processed")
     return ""
 
@@ -72,18 +68,20 @@ def get_file_type(file_path: Path) -> str:
 def fill_structure(structure, key, ftype, fpath: Path):
     """Takes the structure dict, if key is not present then creates new entry with default vals and adds fpath to correct ftype if key is present then updates the dict with the new fpath only.
 
-    :param structure: structure dict
-    :param key: base file name
-    :param ftype: file type (main_text, linked_table, table_image
-    :param fpath: full path to the file
-    :return: updated structure dct
+    Args:
+        structure: structure dict
+        key: base file name
+        ftype: file type (main_text, linked_table)
+        fpath: full path to the file
+
+    Returns:
+        updated structure dct
     """
     if key not in structure:
         structure[key] = {
             "main_text": "",
             "out_dir": "",
             "linked_tables": [],
-            "table_images": [],
         }
     if ftype == "main_text" or ftype == "out_dir":
         structure[key][ftype] = str(fpath)
@@ -117,10 +115,6 @@ def read_file_structure(file_path: Path, target_dir: Path):
                 base_file = re.sub(r"_table_\d+\.html", "", str(fpath))
                 structure = fill_structure(structure, base_file, "linked_tables", fpath)
                 structure = fill_structure(structure, base_file, "out_dir", out_dir)
-            elif ftype == "table_images":
-                base_file = re.sub(r"_table_\d+\..*", "", str(fpath))
-                structure = fill_structure(structure, base_file, "table_images", fpath)
-                structure = fill_structure(structure, base_file, "out_dir", out_dir)
             elif not ftype:
                 print(
                     f"cannot determine file type for {fpath}. "
@@ -135,8 +129,6 @@ def read_file_structure(file_path: Path, target_dir: Path):
         base_file = re.sub(r"\.html", "", str(file_path)).split("/")[-1]
     if ftype == "linked_tables":
         base_file = re.sub(r"_table_\d+\.html", "", str(file_path)).split("/")[-1]
-    if ftype == "table_images":
-        base_file = re.sub(r"_table_\d+\..*", "", str(file_path)).split("/")[-1]
     if not ftype:
         raise OSError(
             f"cannot determine file type for {file_path}. AC will not process this file"
@@ -146,7 +138,6 @@ def read_file_structure(file_path: Path, target_dir: Path):
             "main_text": "",
             "out_dir": str(target_dir),
             "linked_tables": [],
-            "table_images": [],
         }
     }
     template[base_file][get_file_type(file_path)] = str(
@@ -160,9 +151,7 @@ def main():
     args = parser.parse_args()
     file_path = Path(args.filepath)
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
-    config = args.config
-    config_dir = args.config_dir  # noqa: F841 ## TODO: Use this variable
-    associated_data = args.associated_data  # noqa: F841 ## TODO: Use this variable
+    config = args.config if args.config else args.default_config
     output_format = args.output_format if args.output_format else "JSON"
     trained_data = args.trained_data_set if args.output_format else "eng"
 
@@ -198,19 +187,29 @@ def main():
                 {
                     "file": key + "*",
                     "linked_tables": len(structure[key]["linked_tables"]),
-                    "table_images": len(structure[key]["table_images"]),
                 }
             )
             base_dir = file_path.parent if not file_path.is_dir() else file_path
             try:
+                if args.config:
+                    config = Autocorpus.read_config(args.config)
+                elif args.default_config:
+                    try:
+                        config = DefaultConfig[args.default_config].load_config()
+                    except KeyError:
+                        raise ValueError(
+                            f"{args.default_config} is not a valid default config."
+                        )
+
                 ac = Autocorpus(
-                    config,
                     base_dir=str(base_dir),
                     main_text=structure[key]["main_text"],
+                    config=config,
                     linked_tables=sorted(structure[key]["linked_tables"]),
-                    table_images=sorted(structure[key]["table_images"]),
                     trained_data=trained_data,
                 )
+
+                ac.process_files()
 
                 out_dir = Path(structure[key]["out_dir"])
                 if structure[key]["main_text"]:

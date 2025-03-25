@@ -1,15 +1,31 @@
+"""A script for running an XML parser version of Auto-CORPus.
+
+This is still experimental and under development and is not part of the main too yet.
+
+To use it run:
+
+`python -m autocorpus.parse_xml <path_to_directory_containing_xml_files>`
+"""
+
 import glob
 import json
 import re
 from datetime import datetime
 
 import nltk
-import numpy as np
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString, ResultSet, Tag
 from fuzzywuzzy import fuzz
 
 
-def replace_spaces_and_newlines(input_string):
+def replace_spaces_and_newlines(input_string: str) -> str:
+    """Replace multiple spaces and newline characters in a string with a single space.
+
+    Args:
+        input_string: The input string.
+
+    Returns:
+        The updated string.
+    """
     # Replace multiple spaces (2 or more) with a single space
     input_string = re.sub(r" {2,}", " ", input_string)
 
@@ -20,7 +36,16 @@ def replace_spaces_and_newlines(input_string):
     return input_string
 
 
-def replace_match(match):
+def _replace_match(match: re.Match) -> str:
+    """Get the Unicode character corresponding to the escape sequence in a regex match.
+
+    Args:
+        match: The regular expression match object.
+            Must contain a Unicode escape sequence.
+
+    Returns:
+        The unicode character corresponding to the escape sequence.
+    """
     # Extract the Unicode escape sequence (e.g., \uXXXX)
     unicode_escape = match.group(0)
 
@@ -31,19 +56,32 @@ def replace_match(match):
     return unicode_char
 
 
-def replace_unicode_escape(input_string):
+def replace_unicode_escape(input_string: str):
+    """Find and replace unicode escape sequences with the actual characters in a string.
+
+    Args:
+        input_string: The input string containing Unicode escape sequences.
+
+    Returns:
+        The updated string with Unicode escape sequences replaced by actual characters.
+    """
     # Use a regular expression to find all Unicode escape sequences (e.g., \uXXXX)
     pattern = re.compile(r"\\u[0-9a-fA-F]{4}")
     # Replace Unicode escape sequences with actual characters
-    output_string = pattern.sub(replace_match, input_string)
+    output_string = pattern.sub(_replace_match, input_string)
 
     # Return the result
     return output_string
 
 
-def read_mapping_file():
+def read_mapping_file() -> dict:
+    """Read the IAO mapping file and create a dictionary of IAO terms and headings.
+
+    Returns:
+        A dictionary mapping IAO terms to their corresponding headings.
+    """
     # Initialize an empty dictionary to store the mapping between IAO terms and headings
-    mapping_dict = {}
+    mapping_dict: dict = {}
 
     # Open the mapping file in read mode
     with open("./data/IAO_FINAL_MAPPING.txt", encoding="utf-8") as f:
@@ -89,6 +127,11 @@ def read_mapping_file():
 
 
 def read_IAO_term_to_ID_file():
+    """Read the IAO term to ID mapping file and create a dictionary of IAO terms and IDs.
+
+    Returns:
+        A dictionary mapping IAO terms to their corresponding IDs.
+    """
     # Initialize an empty dictionary to store the mapping between IAO terms and their corresponding IDs
     IAO_term_to_no_dict = {}
 
@@ -137,7 +180,18 @@ def __add_IAO(section_heading, IAO_term):
     }
 
 
-def extract_section_content(section, soup2, ori_title):
+def extract_section_content(
+    section: ResultSet,
+    soup2: BeautifulSoup,
+    ori_title: str,
+):
+    """Extract the content of a section and its subsections recursively.
+
+    Args:
+        section: A BeautifulSoup ResultSet object representing a section of the document.
+        soup2: A BeautifulSoup object representing the entire document.
+        ori_title: The original title of the section.
+    """
     # Extract the current section's title, or use the original title if none is found
     curren_title = section.find("title")
     if curren_title is None:  # If no title is found, fall back to the original title
@@ -191,9 +245,18 @@ def extract_section_content(section, soup2, ori_title):
         extract_section_content(subsection, soup2, ori_title)
 
 
-def find_parent_titles(title_element):
+def find_parent_titles(title_element: Tag | NavigableString) -> list[str]:
+    """Find the parent titles of a given title element in the document hierarchy.
+
+    Args:
+        title_element: A BeautifulSoup Tag or NavigableString object representing a
+            title element.
+
+    Returns:
+        A list of parent titles in the document hierarchy.
+    """
     # Initialize an empty list to store parent titles
-    parent_titles = []
+    parent_titles: list[str] = []
 
     # Find the immediate parent <sec> element of the given title element
     parent = title_element.find_parent(["sec"])
@@ -584,7 +647,7 @@ if __name__ == "__main__":
                 matches = re.findall(pattern, text_test)
 
                 # Remove duplicate closing tags and create a list of unique matches
-                good_matches = list(np.unique(matches))
+                good_matches = list(dict.fromkeys(matches))
 
                 # Remove unwanted tags such as </p>, </sec>, and </title> from the list of matches, we need to keep these tag for later parsing the document, this manipulation is done to remove xref, italic, bold, ... tags
                 if "</p>" in good_matches:
@@ -1209,7 +1272,6 @@ if __name__ == "__main__":
                                             __add_IAO(heading_list[i], IAO_term)
                                         )
                     else:
-                        h2 = ""
                         mapping_result = []
                     section_type = mapping_result
 
@@ -1254,7 +1316,6 @@ if __name__ == "__main__":
                                             __add_IAO(heading_list[i], IAO_term)
                                         )
                     else:
-                        h2 = ""
                         mapping_result = []
                     section_type = mapping_result
 
