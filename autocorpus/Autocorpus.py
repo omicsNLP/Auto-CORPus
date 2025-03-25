@@ -1,6 +1,5 @@
 """Auto-CORPus primary functions are called from this script, after initialisation with __main__.py."""
 
-import argparse
 import json
 from pathlib import Path
 
@@ -11,16 +10,28 @@ from .abbreviation import Abbreviations
 from .bioc_formatter import BiocFormatter
 from .section import Section
 from .table import Table
-from .tableimage import TableImage
 from .utils import handle_not_tables
 
 
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
-    def __read_config(self, config_path):
-        config_path = Path(config_path)
-        with config_path.open("r") as f:
+    @staticmethod
+    def read_config(config_path: str) -> dict:
+        """Reads a configuration file and returns its content.
+
+        Args:
+            config_path (str): The path to the configuration file.
+
+        Returns:
+            dict: The content of the configuration file.
+
+        Raises:
+            FileNotFoundError: If the configuration file does not exist.
+            json.JSONDecodeError: If the configuration file is not a valid JSON.
+            KeyError: If the configuration file does not contain the expected "config" key.
+        """
+        with open(config_path, encoding="utf-8") as f:
             ## TODO: validate config file here if possible
             content = json.load(f)
             return content["config"]
@@ -345,9 +356,46 @@ class Autocorpus:
         else:
             return
 
+    def process_files(self):
+        """Processes the files specified in the configuration.
+
+        This method performs the following steps:
+        1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
+        2. Handles the main text file:
+            - Parses the HTML content of the file.
+            - Extracts the main text from the parsed HTML.
+            - Attempts to extract abbreviations from the main text and HTML content.
+              If an error occurs during this process, it prints the error.
+        3. Processes linked tables, if any:
+            - Parses the HTML content of each linked table file.
+        4. Merges table data.
+        5. Checks if there are any documents in the tables and sets the `has_tables` attribute accordingly.
+
+        Raises:
+            RuntimeError: If no valid configuration is loaded.
+        """
+        if not self.config:
+            raise RuntimeError("A valid config file must be loaded.")
+        # handle main_text
+        if self.file_path:
+            soup = self.__handle_html(self.file_path, self.config)
+            self.main_text = self.__extract_text(soup, self.config)
+            try:
+                self.abbreviations = Abbreviations(
+                    self.main_text, soup, self.config, self.file_path
+                ).to_dict()
+            except Exception as e:
+                print(e)
+        if self.linked_tables:
+            for table_file in self.linked_tables:
+                soup = self.__handle_html(table_file, self.config)
+        self.__merge_table_data()
+        if "documents" in self.tables and not self.tables["documents"] == []:
+            self.has_tables = True
+
     def __init__(
         self,
-        config_path,
+        config,
         base_dir=None,
         main_text=None,
         linked_tables=None,
@@ -358,44 +406,26 @@ class Autocorpus:
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
 
         Args:
-            config_path (str): path to the config file to be used
+            config (dict): configuration file for the input HTML journal articles
             base_dir (str): base directory of the input HTML journal articles
             main_text (str): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
             table_images (list): list of table image file paths to be included in this run (JPEG or PNG files only)
             associated_data_path (str): currently unused
-            trained_data (str): currently unused, previously added for image processing
+            trained_data (list): currently unused
         """
-        # handle common
-        config = self.__read_config(config_path)
         self.base_dir = base_dir
         self.file_path = main_text
+        self.linked_tables = linked_tables
+        self.table_images = table_images
+        self.associated_data_path = associated_data_path
+        self.config = config
+        self.trained_data = trained_data
         self.main_text = {}
         self.empty_tables = {}
         self.tables = {}
         self.abbreviations = {}
         self.has_tables = False
-
-        # handle main_text
-        if self.file_path:
-            soup = self.__handle_html(self.file_path, config)
-            self.main_text = self.__extract_text(soup, config)
-            try:
-                self.abbreviations = Abbreviations(
-                    self.main_text, soup, config, self.file_path
-                ).to_dict()
-            except Exception as e:
-                print(e)
-        if linked_tables:
-            for table_file in linked_tables:
-                soup = self.__handle_html(table_file, config)
-        if table_images:
-            self.tables = TableImage(
-                table_images, self.base_dir, trained_data=trained_data
-            ).to_dict()
-        self.__merge_table_data()
-        if "documents" in self.tables and not self.tables["documents"] == []:
-            self.has_tables = True
 
     def to_bioc(self):
         """Get the currently loaded bioc as a dict.
@@ -469,28 +499,3 @@ class Autocorpus:
             "abbreviations": self.abbreviations,
             "tables": self.tables,
         }
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-f", "--filepath", type=str, help="filepath of html file to be processed"
-    )
-    parser.add_argument(
-        "-t", "--target_dir", type=str, help="target directory for output"
-    )
-    parser.add_argument(
-        "-c", "--config", type=str, help="filepath for configuration JSON file"
-    )
-    parser.add_argument(
-        "-d", "--config_dir", type=str, help="directory of configuration JSON files"
-    )
-    parser.add_argument(
-        "-a", "--associated_data", type=str, help="directory of associated data"
-    )
-    args = parser.parse_args()
-    filepath = args.filepath
-    target_dir = args.target_dir
-    config_path = args.config
-
-    Autocorpus(config_path, filepath, target_dir).to_file(target_dir)

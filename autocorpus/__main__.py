@@ -9,6 +9,7 @@ from filetype import is_image
 from tqdm import tqdm
 
 from autocorpus.Autocorpus import Autocorpus
+from autocorpus.configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -45,6 +46,9 @@ group.add_argument(
 )
 group.add_argument(
     "-d", "--config_dir", type=str, help="directory of configuration JSON files"
+)
+group.add_argument(
+    "-b", "--default_config", type=str, help="name of a default config file"
 )
 
 
@@ -160,7 +164,7 @@ def main():
     args = parser.parse_args()
     file_path = Path(args.filepath)
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
-    config = args.config
+    config = args.config if args.config else args.default_config
     config_dir = args.config_dir  # noqa: F841 ## TODO: Use this variable
     associated_data = args.associated_data  # noqa: F841 ## TODO: Use this variable
     output_format = args.output_format if args.output_format else "JSON"
@@ -203,14 +207,26 @@ def main():
             )
             base_dir = file_path.parent if not file_path.is_dir() else file_path
             try:
+                if args.config:
+                    config = Autocorpus.read_config(args.config)
+                elif args.default_config:
+                    try:
+                        config = DefaultConfig[args.default_config].load_config()
+                    except KeyError:
+                        raise ValueError(
+                            f"{args.default_config} is not a valid default config."
+                        )
+
                 ac = Autocorpus(
-                    config,
                     base_dir=str(base_dir),
                     main_text=structure[key]["main_text"],
+                    config=config,
                     linked_tables=sorted(structure[key]["linked_tables"]),
                     table_images=sorted(structure[key]["table_images"]),
                     trained_data=trained_data,
                 )
+
+                ac.process_files()
 
                 out_dir = Path(structure[key]["out_dir"])
                 if structure[key]["main_text"]:
