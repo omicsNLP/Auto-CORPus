@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 
 from bioc import biocjson, biocxml
-from bioc.biocxml.decoder import etree
 from bs4 import BeautifulSoup
 
 from .abbreviation import Abbreviations
