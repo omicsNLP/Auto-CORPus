@@ -36,20 +36,6 @@ class Autocorpus:
             content = json.load(f)
             return content["config"]
 
-    def __import_file(self, file_path):
-        file_path = Path(file_path)
-        with file_path.open("r") as f:
-            return f.read(), file_path
-
-    def __handle_target_dir(self, target_dir):
-        target_dir = Path(target_dir)
-        if not target_dir.exists():
-            target_dir.mkdir(parents=True)
-        return
-
-    def __validate_infile(self):
-        pass
-
     def __soupify_infile(self, fpath):
         fpath = Path(fpath)
         try:
@@ -62,58 +48,6 @@ class Autocorpus:
                 return soup
         except Exception as e:
             print(e)
-
-    def __clean_text(self, result: dict) -> dict:
-        r"""Clean the main text body output of extract_text().
-
-        - removes duplicated texts from each section (assuming the text from html file has hierarchy up to h3, i.e. no subsubsections)
-        - removes items with empty bodies.
-
-        Args:
-            result (dict): dict of the maintext
-
-
-        Return:
-            (dict): cleaned dict result input
-
-        """
-        # Remove duplicated contents from the 'result' output of extract_text()
-
-        # Identify unique section headings and the index of their first appearance
-        idx_section = []
-        section_headings = set([i["section_heading"] for i in result["paragraphs"]])
-
-        for i in range(len(section_headings)):
-            try:
-                if idx_section[i + 1] - idx_section[i] <= 1:  # if only one subsection
-                    continue
-                idx_section_last = idx_section[i + 1]
-            except IndexError:
-                idx_section_last = len(result["paragraphs"])
-
-            p = result["paragraphs"][idx_section[i] + 1]["body"]
-            for idx_subsection in range(idx_section[i] + 1, idx_section_last):
-                if (
-                    result["paragraphs"][idx_subsection]["body"]
-                    in result["paragraphs"][idx_section[i]]["body"]
-                ):
-                    result["paragraphs"][idx_section[i]]["body"] = result["paragraphs"][
-                        idx_section[i]
-                    ]["body"].replace(result["paragraphs"][idx_subsection]["body"], "")
-
-                if (idx_section[i] + 1 != idx_subsection) and (
-                    p in result["paragraphs"][idx_subsection]["body"]
-                ):
-                    result["paragraphs"][idx_subsection]["body"] = result["paragraphs"][
-                        idx_subsection
-                    ]["body"].replace(p, "")
-            for idx_subsection in range(idx_section[i] + 1, idx_section_last):
-                if (
-                    result["paragraphs"][idx_subsection]["subsection_heading"]
-                    == result["paragraphs"][idx_section[i]]["subsection_heading"]
-                ):
-                    result["paragraphs"][idx_section[i]]["subsection_heading"] = ""
-        return result
 
     def __get_keywords(self, soup, config):
         if "keywords" in config:
@@ -413,8 +347,6 @@ class Autocorpus:
         base_dir=None,
         main_text=None,
         linked_tables=None,
-        table_images=None,
-        associated_data_path=None,
         trained_data=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
@@ -424,15 +356,11 @@ class Autocorpus:
             base_dir (str): base directory of the input HTML journal articles
             main_text (str): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
-            table_images (list): list of table image file paths to be included in this run (JPEG or PNG files only)
-            associated_data_path (str): currently unused
             trained_data (list): currently unused
         """
         self.base_dir = base_dir
         self.file_path = main_text
         self.linked_tables = linked_tables
-        self.table_images = table_images
-        self.associated_data_path = associated_data_path
         self.config = config
         self.trained_data = trained_data
         self.main_text = {}

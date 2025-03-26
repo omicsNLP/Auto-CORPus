@@ -13,7 +13,6 @@ import re
 from datetime import datetime
 
 import nltk
-import numpy as np
 from bs4 import BeautifulSoup, NavigableString, ResultSet, Tag
 from fuzzywuzzy import fuzz
 
@@ -648,7 +647,7 @@ if __name__ == "__main__":
                 matches = re.findall(pattern, text_test)
 
                 # Remove duplicate closing tags and create a list of unique matches
-                good_matches = list(np.unique(matches))
+                good_matches = list(dict.fromkeys(matches))
 
                 # Remove unwanted tags such as </p>, </sec>, and </title> from the list of matches, we need to keep these tag for later parsing the document, this manipulation is done to remove xref, italic, bold, ... tags
                 if "</p>" in good_matches:
@@ -1273,7 +1272,6 @@ if __name__ == "__main__":
                                             __add_IAO(heading_list[i], IAO_term)
                                         )
                     else:
-                        h2 = ""
                         mapping_result = []
                     section_type = mapping_result
 
@@ -1318,7 +1316,6 @@ if __name__ == "__main__":
                                             __add_IAO(heading_list[i], IAO_term)
                                         )
                     else:
-                        h2 = ""
                         mapping_result = []
                     section_type = mapping_result
 
