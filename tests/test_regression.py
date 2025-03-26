@@ -10,7 +10,8 @@ from autocorpus.configs.default_config import DefaultConfig
 def test_pmc_autocorpus():
     """A regression test for the main autoCORPus class, using the current PMC config on the AutoCORPus Paper.
 
-    The test data output is built using `run_app.py` with the following arguments:
+    The test data output is built by running Auto-CORPus from the root of the repo with the
+    following arguments
     ```
     auto-corpus -b "PMC" -t "tests/data/PMC/Current/" -f "tests/data/PMC/Current/PMC8885717.html"
     ```
