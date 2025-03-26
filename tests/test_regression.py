@@ -7,11 +7,13 @@ from autocorpus.configs.default_config import DefaultConfig
 
 
 def test_autocorpus():
-    """A regression test for the main autoCORPus class on the AutoCORPus Paper.
+    """A regression test for the main Auto-CORPus class on the Auto-CORPus paper.
 
-    The test data output is built using `run_app.py` with the following arguments:
+    The test data output is built by running Auto-CORPus from the root of the repo with the
+    following arguments:
+
     ```
-    python run_app.py -c "configs/config_pmc.json" -t "tests/data" -f tests/data/PMC8885717.html -o JSON
+    auto-corpus -b LEGACY_PMC -t tests/data/PMC/Pre-Oct-2024/ -f tests/data/PMC/Pre-Oct-2024/PMC8885717.html
     ```
     """
     from autocorpus.Autocorpus import Autocorpus
