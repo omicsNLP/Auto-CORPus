@@ -7,7 +7,6 @@ from typing import Any
 from autocorpus.configs.default_config import DefaultConfig
 
 
-
 def test_pmc_autocorpus():
     """A regression test for the main autoCORPus class, using the current PMC config on the AutoCORPus Paper.
 
