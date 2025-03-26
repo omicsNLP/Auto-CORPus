@@ -57,6 +57,16 @@ mkdocs-material = "^9.5.42"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.mypy]
+disallow_any_generics = true
+warn_unreachable = true
+warn_unused_ignores = true
+# disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
 [tool.pytest.ini_options]
 addopts = "-v -p no:warnings --cov=autocorpus --cov-report=html --doctest-modules --ignore=docs/ --ignore=site/"
 
