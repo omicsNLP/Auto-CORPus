@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+from typing import Any
 
 from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
@@ -17,7 +18,7 @@ class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
     @staticmethod
-    def read_config(config_path: str) -> dict:
+    def read_config(config_path: str) -> dict[str, Any]:
         """Reads a configuration file and returns its content.
 
         Args:

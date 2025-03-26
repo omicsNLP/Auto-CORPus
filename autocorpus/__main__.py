@@ -4,6 +4,7 @@ import argparse
 import re
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 from tqdm import tqdm
 
@@ -90,7 +91,7 @@ def fill_structure(structure, key, ftype, fpath: Path):
     return structure
 
 
-def read_file_structure(file_path: Path, target_dir: Path):
+def read_file_structure(file_path: Path, target_dir: Path) -> dict[str, Any]:
     """Takes in any file structure (flat or nested) and groups files, returns a dict of files which are all related and the paths to each related file.
 
     :param file_path:
@@ -98,13 +99,13 @@ def read_file_structure(file_path: Path, target_dir: Path):
     :return: list of dicts
     """
     if file_path.is_dir():
-        structure = {}
+        structure: dict[str, Any] = {}
         all_fpaths = file_path.rglob("*")
         for fpath in all_fpaths:
             tmp_out = fpath.relative_to(file_path).parent
             out_dir = target_dir / tmp_out
             ftype = get_file_type(fpath)
-            base_file = None
+            base_file = ""
             if ftype == "directory":
                 continue
             elif ftype == "main_text":
