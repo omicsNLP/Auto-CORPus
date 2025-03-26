@@ -18,13 +18,9 @@ def test_pmc_autocorpus():
     """
     from autocorpus.Autocorpus import Autocorpus
 
+    pmc_example_path = data_path / "PMC" / "Current"
     with open(
-        Path(__file__).parent
-        / "data"
-        / "PMC"
-        / "Current"
-        / "PMC8885717_abbreviations.json",
-        encoding="utf-8",
+        pmc_example_path / "PMC8885717_abbreviations.json",
     ) as f:
         expected_abbreviations = json.load(f)
     with open(
