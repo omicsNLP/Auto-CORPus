@@ -50,8 +50,7 @@
                                                 "iao_id_\\d+": {
                                                     "type": "string"
                                                 }
-                                            },
-                                            "required": []
+                                            }
                                         },
                                         "column_headings": {
                                             "type": "array",
