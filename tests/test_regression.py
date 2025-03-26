@@ -6,8 +6,61 @@ from pathlib import Path
 from autocorpus.configs.default_config import DefaultConfig
 
 
-def test_autocorpus():
-    """A regression test for the main autoCORPus class on the AutoCORPus Paper.
+def test_pmc_autocorpus():
+    """A regression test for the main autoCORPus class, using the current PMC config on the AutoCORPus Paper.
+
+    The test data output is built using `run_app.py` with the following arguments:
+    ```
+    python run_app.py -c "configs/config_pmc.json" -t "tests/data" -f tests/data/PMC8885717.html -o JSON
+    ```
+    """
+    from autocorpus.Autocorpus import Autocorpus
+
+    with open(
+        Path(__file__).parent
+        / "data"
+        / "PMC"
+        / "Current"
+        / "PMC8885717_abbreviations.json",
+        encoding="utf-8",
+    ) as f:
+        expected_abbreviations = json.load(f)
+    with open(
+        Path(__file__).parent / "data" / "PMC" / "Current" / "PMC8885717_bioc.json",
+        encoding="utf-8",
+    ) as f:
+        expected_bioc = json.load(f)
+    with open(
+        Path(__file__).parent / "data" / "PMC" / "Current" / "PMC8885717_tables.json",
+        encoding="utf-8",
+    ) as f:
+        expected_tables = json.load(f)
+
+    auto_corpus = Autocorpus(
+        config=DefaultConfig.PMC.load_config(),
+        base_dir="tests/data/PMC/Current",
+        main_text="tests/data/PMC/Current/PMC8885717.html",
+    )
+
+    auto_corpus.process_files()
+
+    abbreviations = auto_corpus.abbreviations
+    bioc = auto_corpus.to_bioc()
+    tables = auto_corpus.tables
+
+    abbreviations.pop("date")
+    expected_abbreviations.pop("date")
+    assert abbreviations == expected_abbreviations
+    bioc.pop("date")
+    expected_bioc.pop("date")
+    assert bioc == expected_bioc
+    tables.pop("date")
+    expected_tables.pop("date")
+    assert tables == expected_tables
+
+
+def test_legacy_pmc_autocorpus():
+    """A regression test for the main autoCORPus class, using the legacy PMC config on the AutoCORPus Paper.
 
     The test data output is built using `run_app.py` with the following arguments:
     ```
