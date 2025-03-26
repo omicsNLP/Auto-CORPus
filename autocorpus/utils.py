@@ -12,6 +12,50 @@ from lxml import etree
 from lxml.html.soupparser import fromstring
 
 
+def check_file_type(file_path: Path) -> str:
+    """Determines the type of a file based on its content and extension.
+
+    This function checks whether the given file is an HTML or XML file by
+    attempting to parse it using appropriate parsers. If the file cannot
+    be parsed as either HTML or XML, it is classified as "other".
+
+    Args:
+        file_path (Path): The path to the file to be checked.
+
+    Returns:
+        str: A string indicating the file type:
+             - "html" if the file is determined to be an HTML file.
+             - "xml" if the file is determined to be an XML file.
+             - "other" if the file type cannot be determined as HTML or XML.
+    """
+    is_html, is_xml = False, False
+    file_extension = file_path.suffix.lower()
+    if file_extension in [".html", ".htm"]:
+        try:
+            etree.parse(file_path, etree.HTMLParser())
+            is_html = True
+        except etree.ParseError:
+            etree.parse(file_path, etree.XMLParser())
+            is_xml = True
+        except Exception as ex:
+            print(f"Error parsing file {file_path}: {ex}")
+    elif file_extension == ".xml":
+        try:
+            etree.parse(file_path, etree.XMLParser())
+            is_xml = True
+        except etree.ParseError:
+            etree.parse(file_path, etree.HTMLParser())
+            is_html = True
+        except Exception as ex:
+            print(f"Error parsing file {file_path}: {ex}")
+    if is_html:
+        return "html"
+    elif is_xml:
+        return "xml"
+    else:
+        return "other"
+
+
 def get_files(base_dir, pattern=r"(.*).html"):
     """Recursively retrieve all PMC.html files from the directory.
 

@@ -4,13 +4,14 @@ import json
 from pathlib import Path
 
 from bioc import biocjson, biocxml
+from bioc.biocxml.decoder import etree
 from bs4 import BeautifulSoup
 
 from .abbreviation import Abbreviations
 from .bioc_formatter import BiocFormatter
 from .section import Section
 from .table import Table
-from .utils import handle_not_tables
+from .utils import check_file_type, handle_not_tables
 
 
 class Autocorpus:
@@ -378,8 +379,11 @@ class Autocorpus:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
-            file_extension = self.file_path.split(".")[-1].lower()
-            if file_extension in ["html", "htm"]:
+            file_type = check_file_type(Path(self.file_path))
+            if file_type == "other":
+                raise RuntimeError("Main text file must be an HTML or XML file.")
+
+            if file_type == "html":
                 soup = self.__handle_html(self.file_path, self.config)
                 self.main_text = self.__extract_text(soup, self.config)
                 try:
@@ -388,14 +392,17 @@ class Autocorpus:
                     ).to_dict()
                 except Exception as e:
                     print(e)
-            elif file_extension == "xml":
+            else:
                 pass  # TODO: implement XML handling
+
         if self.linked_tables:
             for table_file in self.linked_tables:
-                file_extension = table_file.split(".")[-1].lower()
-                if file_extension in ["html", "htm"]:
+                file_type = check_file_type(Path(table_file))
+                if file_type == "other":
+                    raise RuntimeError("Linked table files must be HTML or XML files.")
+                if file_type == "html":
                     soup = self.__handle_html(table_file, self.config)
-                elif file_extension == "xml":
+                else:
                     pass  # TODO: implement XML handling
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
