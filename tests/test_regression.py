@@ -60,7 +60,7 @@ def test_pmc_autocorpus():
     assert tables == expected_tables
 
 
-def test_legacy_pmc_autocorpus():
+def test_legacy_pmc_autocorpus(data_path: Path):
     """A regression test for the main autoCORPus class, using the legacy PMC config on the AutoCORPus Paper.
 
     The test data output is built by running Auto-CORPus from the root of the repo with the
