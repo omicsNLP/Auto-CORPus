@@ -49,11 +49,11 @@ class Autocorpus:
 
     def __get_keywords(self, soup, config):
         if "keywords" not in config:
-            return None
+            return {}
 
         responses = handle_not_tables(config["keywords"], soup)
         if not responses:
-            return None
+            return {}
 
         responses = " ".join(x["node"].get_text() for x in responses)
         return {
