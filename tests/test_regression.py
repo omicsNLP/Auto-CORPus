@@ -45,7 +45,6 @@ def test_autocorpus(data_path: Path, input_file: Path, config: dict):
 
     auto_corpus = Autocorpus(
         config=config,
-        base_dir=str(pmc_example_path),
         main_text=str(pmc_example_path),
     )
 
