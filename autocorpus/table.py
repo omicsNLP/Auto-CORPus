@@ -4,6 +4,7 @@ import re
 from datetime import datetime
 from itertools import pairwise, product
 from pathlib import Path
+from typing import Any
 
 from .utils import get_data_element_node, handle_tables, navigate_contents
 
@@ -559,11 +560,11 @@ class Table:
         )
         self.tables = self.__main(soup, config)
 
-    def to_dict(self):
+    def to_dict(self) -> tuple[dict[str, Any], list]:
         """Return the built tables and empty tables as two dictionaries.
 
         Returns:
             (dict): Tables-JSON
-            (dict): Empty tables
+            (list): Empty tables
         """
         return self.tables, self.empty_tables

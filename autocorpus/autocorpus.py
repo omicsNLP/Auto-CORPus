@@ -142,8 +142,7 @@ class Autocorpus:
             return
 
         if not self.tables:
-            self.tables, empty_tables = Table(soup, config, file_path).to_dict()
-            self.empty_tables = [empty_tables]
+            self.tables, self.empty_tables = Table(soup, config, file_path).to_dict()
             return
 
         seen_ids = set()
