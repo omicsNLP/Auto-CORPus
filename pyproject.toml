@@ -43,6 +43,12 @@ pytest-mock = "^3.14.0"
 ruff = ">=0.7.1,<0.12.0"
 pre-commit = "^4.2.0"
 jsonschema = "^4.23.0"
+mypy = "^1.15.0"
+types-beautifulsoup4 = "^4.12.0.20250204"
+types-regex = "^2024.11.6.20250318"
+lxml-stubs = "^0.5.1"
+types-tqdm = "^4.67.0.20250319"
+types-jsonschema = "^4.23.0.20241208"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.6.0"
@@ -62,10 +68,15 @@ disallow_any_generics = true
 warn_unreachable = true
 warn_unused_ignores = true
 # disallow_untyped_defs = true
+exclude = [".venv/", "docs/", "autocorpus/parse_xml.py"]
 
 [[tool.mypy.overrides]]
 module = "tests.*"
 disallow_untyped_defs = false
+
+[[tool.mypy.overrides]]
+module = ["nltk.*", "fuzzywuzzy.*", "bioc.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = "-v -p no:warnings --cov=autocorpus --cov-report=html --doctest-modules --ignore=docs/ --ignore=site/"
