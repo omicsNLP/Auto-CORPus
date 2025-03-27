@@ -27,15 +27,6 @@ parser.add_argument(
         "Does not effect tables or abbreviations"
     ),
 )
-parser.add_argument(
-    "-s",
-    "--trained_data_set",
-    type=str,
-    help=(
-        "trained dataset to use with pytesseract, must be in the form pytesseract "
-        "expects for the lang argument, default eng"
-    ),
-)
 
 group = parser.add_mutually_exclusive_group()
 group.add_argument(
@@ -156,7 +147,6 @@ def main():
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
     config = args.config if args.config else args.default_config
     output_format = args.output_format if args.output_format else "JSON"
-    trained_data = args.trained_data_set if args.output_format else "eng"
 
     if not file_path.exists():
         raise FileNotFoundError(f"{file_path} does not exist")
@@ -207,7 +197,6 @@ def main():
                 config=config,
                 main_text=structure[key]["main_text"],
                 linked_tables=sorted(structure[key]["linked_tables"]),
-                trained_data=trained_data,
             )
 
             ac.process_files()

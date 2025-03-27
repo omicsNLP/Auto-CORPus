@@ -308,7 +308,6 @@ class Autocorpus:
         config,
         main_text,
         linked_tables=None,
-        trained_data=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
 
@@ -316,12 +315,10 @@ class Autocorpus:
             config (dict): configuration file for the input HTML journal articles
             main_text (str): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
-            trained_data (list): currently unused
         """
         self.file_path = main_text
         self.linked_tables = linked_tables
         self.config = config
-        self.trained_data = trained_data
         self.main_text = {}
         self.empty_tables = {}
         self.tables = {}
