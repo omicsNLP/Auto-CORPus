@@ -173,116 +173,98 @@ class Autocorpus:
         self.empty_tables.extend(tmp_empty)
 
     def __merge_table_data(self):
-        if self.empty_tables == []:
+        if not self.empty_tables:
             return
-        if "documents" in self.tables:
-            if self.tables["documents"] == []:
-                return
-            else:
-                seen_ids = {}
-                for i, table in enumerate(self.tables["documents"]):
-                    if "id" in table:
-                        seen_ids[str(i)] = f"Table {table['id']}."
-                for table in self.empty_tables:
-                    for seenID in seen_ids.keys():
-                        if table["title"].startswith(seen_ids[seenID]):
-                            if "title" in table and not table["title"] == "":
-                                set_new = False
-                                for passage in self.tables["documents"][int(seenID)][
-                                    "passages"
-                                ]:
-                                    if (
-                                        passage["infons"]["section_type"][0][
-                                            "section_name"
-                                        ]
-                                        == "table_title"
-                                    ):
-                                        passage["text"] = table["title"]
-                                        set_new = True
-                                if not set_new:
-                                    self.tables["documents"][int(seenID)][
-                                        "passages"
-                                    ].append(
-                                        {
-                                            "offset": 0,
-                                            "infons": {
-                                                "section_type": [
-                                                    {
-                                                        "section_name": "table_title",
-                                                        "iao_name": "document title",
-                                                        "iao_id": "IAO:0000305",
-                                                    }
-                                                ]
-                                            },
-                                            "text": table["title"],
-                                        }
-                                    )
-                                pass
-                            if "caption" in table and not table["caption"] == "":
-                                set_new = False
-                                for passage in self.tables["documents"][int(seenID)][
-                                    "passages"
-                                ]:
-                                    if (
-                                        passage["infons"]["section_type"][0][
-                                            "section_name"
-                                        ]
-                                        == "table_caption"
-                                    ):
-                                        passage["text"] = table["caption"]
-                                        set_new = True
-                                if not set_new:
-                                    self.tables["documents"][int(seenID)][
-                                        "passages"
-                                    ].append(
-                                        {
-                                            "offset": 0,
-                                            "infons": {
-                                                "section_type": [
-                                                    {
-                                                        "section_name": "table_caption",
-                                                        "iao_name": "caption",
-                                                        "iao_id": "IAO:0000304",
-                                                    }
-                                                ]
-                                            },
-                                            "text": table["caption"],
-                                        }
-                                    )
-                                pass
-                            if "footer" in table and not table["footer"] == "":
-                                set_new = False
-                                for passage in self.tables["documents"][int(seenID)][
-                                    "passages"
-                                ]:
-                                    if (
-                                        passage["infons"]["section_type"][0][
-                                            "section_name"
-                                        ]
-                                        == "table_footer"
-                                    ):
-                                        passage["text"] = table["footer"]
-                                        set_new = True
-                                if not set_new:
-                                    self.tables["documents"][int(seenID)][
-                                        "passages"
-                                    ].append(
-                                        {
-                                            "offset": 0,
-                                            "infons": {
-                                                "section_type": [
-                                                    {
-                                                        "section_name": "table_footer",
-                                                        "iao_name": "caption",
-                                                        "iao_id": "IAO:0000304",
-                                                    }
-                                                ]
-                                            },
-                                            "text": table["footer"],
-                                        }
-                                    )
-        else:
+
+        documents = self.tables.get("documents", None)
+        if not documents:
             return
+
+        seen_ids = {}
+        for i, table in enumerate(documents):
+            if "id" in table:
+                seen_ids[str(i)] = f"Table {table['id']}."
+
+        for table in self.empty_tables:
+            for seenID in seen_ids.keys():
+                if not table["title"].startswith(seen_ids[seenID]):
+                    continue
+
+                if "title" in table and not table["title"] == "":
+                    set_new = False
+                    for passage in documents[int(seenID)]["passages"]:
+                        if (
+                            passage["infons"]["section_type"][0]["section_name"]
+                            == "table_title"
+                        ):
+                            passage["text"] = table["title"]
+                            set_new = True
+                    if not set_new:
+                        documents[int(seenID)]["passages"].append(
+                            {
+                                "offset": 0,
+                                "infons": {
+                                    "section_type": [
+                                        {
+                                            "section_name": "table_title",
+                                            "iao_name": "document title",
+                                            "iao_id": "IAO:0000305",
+                                        }
+                                    ]
+                                },
+                                "text": table["title"],
+                            }
+                        )
+                if "caption" in table and not table["caption"] == "":
+                    set_new = False
+                    for passage in documents[int(seenID)]["passages"]:
+                        if (
+                            passage["infons"]["section_type"][0]["section_name"]
+                            == "table_caption"
+                        ):
+                            passage["text"] = table["caption"]
+                            set_new = True
+                    if not set_new:
+                        documents[int(seenID)]["passages"].append(
+                            {
+                                "offset": 0,
+                                "infons": {
+                                    "section_type": [
+                                        {
+                                            "section_name": "table_caption",
+                                            "iao_name": "caption",
+                                            "iao_id": "IAO:0000304",
+                                        }
+                                    ]
+                                },
+                                "text": table["caption"],
+                            }
+                        )
+                if "footer" in table and not table["footer"] == "":
+                    set_new = False
+                    for passage in documents[int(seenID)]["passages"]:
+                        if (
+                            passage["infons"]["section_type"][0]["section_name"]
+                            == "table_footer"
+                        ):
+                            passage["text"] = table["footer"]
+                            set_new = True
+                    if not set_new:
+                        documents[int(seenID)]["passages"].append(
+                            {
+                                "offset": 0,
+                                "infons": {
+                                    "section_type": [
+                                        {
+                                            "section_name": "table_footer",
+                                            "iao_name": "caption",
+                                            "iao_id": "IAO:0000304",
+                                        }
+                                    ]
+                                },
+                                "text": table["footer"],
+                            }
+                        )
 
     def process_files(self):
         """Processes the files specified in the configuration.
