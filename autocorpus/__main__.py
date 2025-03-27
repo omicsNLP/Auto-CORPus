@@ -8,8 +8,9 @@ from typing import Any
 
 from tqdm import tqdm
 
-from autocorpus.Autocorpus import Autocorpus
-from autocorpus.configs.default_config import DefaultConfig
+from . import add_file_logger, logger
+from .Autocorpus import Autocorpus
+from .configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -62,7 +63,9 @@ def get_file_type(file_path: Path) -> str:
             return "linked_tables"
         return "main_text"
 
-    print(f"unable to identify file type for {file_path}, file will not be processed")
+    logger.warning(
+        f"unable to identify file type for {file_path}, file will not be processed"
+    )
     return ""
 
 
@@ -117,7 +120,7 @@ def read_file_structure(file_path: Path, target_dir: Path) -> dict[str, Any]:
                 structure = fill_structure(structure, base_file, "linked_tables", fpath)
                 structure = fill_structure(structure, base_file, "out_dir", out_dir)
             elif not ftype:
-                print(
+                logger.warning(
                     f"cannot determine file type for {fpath}. "
                     "AC will not process this file"
                 )
@@ -169,92 +172,96 @@ def main():
 
     log_file_path = (
         target_dir / "autoCORPus-log-"
-        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}.log"
     )
+    add_file_logger(log_file_path)
 
-    with log_file_path.open("w") as log_file:
-        log_file.write(
-            f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
-            f"on {cdate.day}/{cdate.month}/{cdate.year}\n"
+    logger.info(
+        f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
+        f"on {cdate.day}/{cdate.month}/{cdate.year}"
+    )
+    logger.info(f"Input path: {file_path}")
+    logger.info(f"Output path: {target_dir}")
+    logger.info(f"Config: {config}")
+    logger.info(f"Output format: {output_format}")
+    success = []
+    errors = []
+    for key in pbar:
+        pbar.set_postfix(
+            {
+                "file": key + "*",
+                "linked_tables": len(structure[key]["linked_tables"]),
+            }
         )
-        log_file.write(f"Input directory provided: {file_path}\n")
-        log_file.write(f"Output directory provided: {target_dir}\n")
-        log_file.write(f"Config provided: {config}\n")
-        log_file.write(f"Output format: {output_format}\n")
-        success = []
-        errors = []
-        for key in pbar:
-            pbar.set_postfix(
-                {
-                    "file": key + "*",
-                    "linked_tables": len(structure[key]["linked_tables"]),
-                }
+        base_dir = file_path.parent if not file_path.is_dir() else file_path
+        try:
+            if args.config:
+                config = Autocorpus.read_config(args.config)
+            elif args.default_config:
+                try:
+                    config = DefaultConfig[args.default_config].load_config()
+                except KeyError:
+                    raise ValueError(
+                        f"{args.default_config} is not a valid default config."
+                    )
+
+            ac = Autocorpus(
+                base_dir=str(base_dir),
+                main_text=structure[key]["main_text"],
+                config=config,
+                linked_tables=sorted(structure[key]["linked_tables"]),
+                trained_data=trained_data,
             )
-            base_dir = file_path.parent if not file_path.is_dir() else file_path
-            try:
-                if args.config:
-                    config = Autocorpus.read_config(args.config)
-                elif args.default_config:
-                    try:
-                        config = DefaultConfig[args.default_config].load_config()
-                    except KeyError:
-                        raise ValueError(
-                            f"{args.default_config} is not a valid default config."
-                        )
 
-                ac = Autocorpus(
-                    base_dir=str(base_dir),
-                    main_text=structure[key]["main_text"],
-                    config=config,
-                    linked_tables=sorted(structure[key]["linked_tables"]),
-                    trained_data=trained_data,
-                )
+            ac.process_files()
 
-                ac.process_files()
-
-                out_dir = Path(structure[key]["out_dir"])
-                if structure[key]["main_text"]:
-                    key = key.replace("\\", "/")
-                    if output_format.lower() == "json":
-                        with open(
-                            out_dir / f"{Path(key).name}_bioc.json",
-                            "w",
-                            encoding="utf-8",
-                        ) as outfp:
-                            outfp.write(ac.main_text_to_bioc_json())
-                    else:
-                        with open(
-                            out_dir / f"{Path(key).name}_bioc.xml",
-                            "w",
-                            encoding="utf-8",
-                        ) as outfp:
-                            outfp.write(ac.main_text_to_bioc_xml())
+            out_dir = Path(structure[key]["out_dir"])
+            if structure[key]["main_text"]:
+                key = key.replace("\\", "/")
+                if output_format.lower() == "json":
                     with open(
-                        out_dir / f"{Path(key).name}_abbreviations.json",
+                        out_dir / f"{Path(key).name}_bioc.json",
                         "w",
                         encoding="utf-8",
                     ) as outfp:
-                        outfp.write(ac.abbreviations_to_bioc_json())
-
-                # AC does not support the conversion of tables or abbreviations to XML
-                if ac.has_tables:
+                        outfp.write(ac.main_text_to_bioc_json())
+                else:
                     with open(
-                        out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
+                        out_dir / f"{Path(key).name}_bioc.xml",
+                        "w",
+                        encoding="utf-8",
                     ) as outfp:
-                        outfp.write(ac.tables_to_bioc_json())
-                success.append(f"{key} was processed successfully.")
-            except Exception as e:
-                errors.append(f"{key} failed due to {e}.")
+                        outfp.write(ac.main_text_to_bioc_xml())
+                with open(
+                    out_dir / f"{Path(key).name}_abbreviations.json",
+                    "w",
+                    encoding="utf-8",
+                ) as outfp:
+                    outfp.write(ac.abbreviations_to_bioc_json())
 
-        log_file.write(f"{len(success)} files processed.\n")
-        log_file.write(f"{len(errors)} files not processed due to errors.\n\n\n")
-        log_file.write("\n".join(success) + "\n")
-        log_file.write("\n".join(errors) + "\n")
-        if errors:
-            print(
-                "Auto-CORPus has completed processing with some errors. "
-                "Please inspect the log file for further details."
-            )
+            # AC does not support the conversion of tables or abbreviations to XML
+            if ac.has_tables:
+                with open(
+                    out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
+                ) as outfp:
+                    outfp.write(ac.tables_to_bioc_json())
+            success.append(f"{key} was processed successfully.")
+        except Exception as e:
+            errors.append(f"{key} failed due to {e}.")
+
+    logger.info(f"{len(success)} files processed.")
+    if errors:
+        logger.error(f"{len(errors)} files not processed due to errors.")
+    for msg in success:
+        logger.info(msg)
+    for msg in errors:
+        logger.error(errors)
+
+    if errors:
+        logger.warning(
+            "Auto-CORPus has completed processing with some errors. "
+            "Please inspect the log file for further details."
+        )
 
 
 if __name__ == "__main__":
