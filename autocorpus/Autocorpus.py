@@ -6,6 +6,7 @@ from pathlib import Path
 from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
 
+from . import logger
 from .abbreviation import Abbreviations
 from .bioc_formatter import BiocFormatter
 from .section import Section
@@ -38,16 +39,13 @@ class Autocorpus:
 
     def __soupify_infile(self, fpath):
         fpath = Path(fpath)
-        try:
-            with open(fpath, encoding="utf-8") as fp:
-                soup = BeautifulSoup(fp.read(), "html.parser")
-                for e in soup.find_all(
-                    attrs={"style": ["display:none", "visibility:hidden"]}
-                ):
-                    e.extract()
-                return soup
-        except Exception as e:
-            print(e)
+        with fpath.open(encoding="utf-8") as fp:
+            soup = BeautifulSoup(fp.read(), "html.parser")
+            for e in soup.find_all(
+                attrs={"style": ["display:none", "visibility:hidden"]}
+            ):
+                e.extract()
+            return soup
 
     def __get_keywords(self, soup, config):
         if "keywords" in config:
@@ -319,7 +317,7 @@ class Autocorpus:
                     self.main_text, soup, self.config, self.file_path
                 ).to_dict()
             except Exception as e:
-                print(e)
+                logger.error(e)
         if self.linked_tables:
             for table_file in self.linked_tables:
                 soup = self.__handle_html(table_file, self.config)

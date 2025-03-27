@@ -8,12 +8,13 @@ modules used:
 - regex: regular expression matching/replacing
 """
 
-import logging
 from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 
 import regex as re2
+
+from . import logger
 
 
 class Abbreviations:
@@ -270,7 +271,7 @@ class Abbreviations:
                     try:
                         definition = self.__get_definition(candidate, clean_sentence)
                     except (ValueError, IndexError) as e:
-                        self.log.debug(
+                        logger.debug(
                             f"{i} Omitting candidate {candidate}. Reason: {e.args[0]}"
                         )
                         omit += 1
@@ -278,7 +279,7 @@ class Abbreviations:
                         try:
                             definition = self.__select_definition(definition, candidate)
                         except (ValueError, IndexError) as e:
-                            self.log.debug(
+                            logger.debug(
                                 f"{i} Omitting definition {definition} for candidate {candidate}. Reason: {e.args[0]}"
                             )
                             omit += 1
@@ -291,8 +292,8 @@ class Abbreviations:
                                 abbrev_map[candidate] = definition
                             written += 1
             except (ValueError, IndexError) as e:
-                self.log.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
-        self.log.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
+                logger.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
+        logger.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
 
         # Return most common definition for each term
         if collect_definitions:
@@ -471,15 +472,9 @@ class Abbreviations:
             config (dict): AC configuration rules
             file_path (str): Input file path
         """
-        logging.basicConfig(
-            format="%(asctime)s : %(levelname)s : %(message)s", level=logging.INFO
-        )
-        self.log = logging.getLogger(__name__)
-
         self.abbreviations = self.__biocify_abbreviations(
             self.__get_abbreviations(main_text, soup, config), file_path
         )
-        pass
 
     def to_dict(self):
         """Retrieves abbreviations BioC dict.
