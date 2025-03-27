@@ -1233,7 +1233,7 @@ if __name__ == "__main__":
 
             mapping_dict = read_mapping_file()
 
-            # Main body IAO allocation 
+            # Main body IAO allocation
             iao_list = []
 
             for y in range(len(corrected_section)):
@@ -1278,25 +1278,27 @@ if __name__ == "__main__":
 
                     # if condition to add the default value 'document part' for passages without IAO
                     if mapping_result == []:
-                        section_type = [{
-                            "iao_name": 'document part', # Name of the IAO term
-                            "iao_id": 'IAO:0000314'  # ID associated with the IAO term, or empty if not found
-                        }]
+                        section_type = [
+                            {
+                                "iao_name": "document part",  # Name of the IAO term
+                                "iao_id": "IAO:0000314",  # ID associated with the IAO term, or empty if not found
+                            }
+                        ]
                     else:
                         section_type = mapping_result
 
-                iao_list.append(
-                    list({v["iao_id"]: v for v in section_type}.values())
-                )
+                iao_list.append(list({v["iao_id"]: v for v in section_type}.values()))
 
-            # References IAO allocation 
+            # References IAO allocation
             iao_list_ref = []
-            
+
             for y in range(len(tag_title_ref)):
-                section_type = [{
-                    "iao_name": 'References', # Name of the IAO term
-                    "iao_id": 'IAO:0000320'  # ID associated with the IAO term, or empty if not found
-                }]
+                section_type = [
+                    {
+                        "iao_name": "References",  # Name of the IAO term
+                        "iao_id": "IAO:0000320",  # ID associated with the IAO term, or empty if not found
+                    }
+                ]
 
                 iao_list_ref.append(
                     list({v["iao_id"]: v for v in section_type}.values())

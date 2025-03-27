@@ -108,10 +108,7 @@ class Section:
         else:
             mapping_result = []
         if mapping_result == []:
-            self.section_type = [{
-                                    "iao_name": 'document part',      
-                                    "iao_id": 'IAO:0000314'
-                                }]
+            self.section_type = [{"iao_name": "document part", "iao_id": "IAO:0000314"}]
         else:
             self.section_type = mapping_result
 
