@@ -7,13 +7,128 @@ Modules used:
 """
 
 import re
+from importlib import resources
+from typing import Any
 
 import nltk
 from fuzzywuzzy import fuzz
 
 from . import logger
 from .references import References
-from .utils import handle_not_tables, read_iao_term_to_id_file, read_mapping_file
+from .utils import handle_not_tables
+
+
+def read_mapping_file() -> dict[str, list[str]]:
+    """Reads the IAO mapping file and parses it into a dictionary.
+
+    Returns:
+        The parsed IAO mappings
+    """
+    mapping_dict: dict[str, list[str]] = {}
+    mapping_path = resources.files("autocorpus.IAO_dicts") / "IAO_FINAL_MAPPING.txt"
+    with mapping_path.open(encoding="utf-8") as f:
+        lines = f.readlines()
+        for line in lines:
+            heading = line.split("\t")[0].lower().strip("\n")
+            iao_term = line.split("\t")[1].lower().strip("\n")
+            if iao_term != "":
+                if "/" in iao_term:
+                    iao_term_1 = iao_term.split("/")[0].strip(" ")
+                    iao_term_2 = iao_term.split("/")[1].strip(" ")
+                    if iao_term_1 in mapping_dict.keys():
+                        mapping_dict[iao_term_1].append(heading)
+                    else:
+                        mapping_dict.update({iao_term_1: [heading]})
+
+                    if iao_term_2 in mapping_dict.keys():
+                        mapping_dict[iao_term_2].append(heading)
+                    else:
+                        mapping_dict.update({iao_term_2: [heading]})
+
+                else:
+                    if iao_term in mapping_dict.keys():
+                        mapping_dict[iao_term].append(heading)
+                    else:
+                        mapping_dict.update({iao_term: [heading]})
+    return mapping_dict
+
+
+def read_iao_term_to_id_file() -> dict[str, str]:
+    """Parses the IAO_term_to_ID.txt file.
+
+    Returns:
+        Parsed IAO ids as a dictionary
+    """
+    iao_term_to_no_dict = {}
+    id_path = resources.files("autocorpus.IAO_dicts") / "IAO_term_to_ID.txt"
+    with id_path.open(encoding="utf-8") as f:
+        lines = f.readlines()
+        for line in lines:
+            iao_term = line.split("\t")[0]
+            iao_no = line.split("\t")[1].strip("\n")
+            iao_term_to_no_dict.update({iao_term: iao_no})
+    return iao_term_to_no_dict
+
+
+def get_iao_term_mapping(section_heading: str) -> list[dict[str, str]]:
+    """Get the IAO term mapping for a given section heading.
+
+    Args:
+        section_heading: The name of the section heading.
+
+    Returns:
+        The IAO term mapping for the section heading.
+    """
+    mapping_dict = read_mapping_file()
+    tokenized_section_heading = nltk.wordpunct_tokenize(section_heading)
+    text = nltk.Text(tokenized_section_heading)
+    words = [w.lower() for w in text]
+    h2_tmp = " ".join(word for word in words)
+
+    # TODO: check for best match, not the first
+    if h2_tmp != "":
+        if any(x in h2_tmp for x in [" and ", "&", "/"]):
+            mapping_result = []
+            h2_parts = re.split(r" and |\s?/\s?|\s?&\s?", h2_tmp)
+            for h2_part in h2_parts:
+                h2_part = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_part)
+                pass
+                for IAO_term, heading_list in mapping_dict.items():
+                    if any(
+                        [fuzz.ratio(h2_part, heading) >= 80 for heading in heading_list]
+                    ):
+                        mapping_result.append(get_iao_term_to_id_mapping(IAO_term))
+                        break
+
+        else:
+            for IAO_term, heading_list in mapping_dict.items():
+                h2_tmp = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_tmp)
+                if any([fuzz.ratio(h2_tmp, heading) > 80 for heading in heading_list]):
+                    mapping_result = [get_iao_term_to_id_mapping(IAO_term)]
+                    break
+                else:
+                    mapping_result = []
+    else:
+        mapping_result = []
+
+    if mapping_result == []:
+        return [{"iao_name": "document part", "iao_id": "IAO:0000314"}]
+
+    return mapping_result
+
+
+def get_iao_term_to_id_mapping(iao_term: str) -> dict[str, str]:
+    """Map IAO terms to IAO IDs.
+
+    Args:
+        iao_term: IAO term to map to an IAO ID.
+
+    Returns:
+        A dictionary containing the IAO term and its corresponding ID
+    """
+    mapping_result_id_version = read_iao_term_to_id_file().get(iao_term, "")
+
+    return {"iao_name": iao_term, "iao_id": mapping_result_id_version}
 
 
 class Section:
@@ -70,61 +185,6 @@ class Section:
                 abbreviations = {}
             self.__add_paragraph(str(abbreviations))
 
-    def __set_iao(self):
-        mapping_dict = read_mapping_file()
-        tokenized_section_heading = nltk.wordpunct_tokenize(self.section_heading)
-        text = nltk.Text(tokenized_section_heading)
-        words = [w.lower() for w in text]
-        h2_tmp = " ".join(word for word in words)
-
-        # TODO: check for best match, not the first
-        if h2_tmp != "":
-            if any(x in h2_tmp for x in [" and ", "&", "/"]):
-                mapping_result = []
-                h2_parts = re.split(r" and |\s?/\s?|\s?&\s?", h2_tmp)
-                for h2_part in h2_parts:
-                    h2_part = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_part)
-                    pass
-                    for IAO_term, heading_list in mapping_dict.items():
-                        if any(
-                            [
-                                fuzz.ratio(h2_part, heading) >= 80
-                                for heading in heading_list
-                            ]
-                        ):
-                            mapping_result.append(self.__add_iao(IAO_term))
-                            break
-
-            else:
-                for IAO_term, heading_list in mapping_dict.items():
-                    h2_tmp = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_tmp)
-                    if any(
-                        [fuzz.ratio(h2_tmp, heading) > 80 for heading in heading_list]
-                    ):
-                        mapping_result = [self.__add_iao(IAO_term)]
-                        break
-                    else:
-                        mapping_result = []
-        else:
-            mapping_result = []
-        if mapping_result == []:
-            self.section_type = [{"iao_name": "document part", "iao_id": "IAO:0000314"}]
-        else:
-            self.section_type = mapping_result
-
-    def __add_iao(self, iao_term):
-        paper = {}
-        iao_term = iao_term
-        paper.update({self.section_heading: iao_term})
-
-        # map IAO terms to IAO IDs
-        iao_term_to_no_dict = read_iao_term_to_id_file()
-        if iao_term in iao_term_to_no_dict.keys():
-            mapping_result_id_version = iao_term_to_no_dict[iao_term]
-        else:
-            mapping_result_id_version = ""
-        return {"iao_name": iao_term, "iao_id": mapping_result_id_version}
-
     def __get_section(self, soup_section):
         all_sub_sections = handle_not_tables(self.config["sub-sections"], soup_section)
         all_paragraphs = handle_not_tables(self.config["paragraphs"], soup_section)
@@ -161,22 +221,18 @@ class Section:
                 References(ref, self.config, self.section_heading).to_dict()
             )
 
-    def __init__(self, config, section_dict):
+    def __init__(self, config: dict[str, Any], section_dict: dict[str, Any]) -> None:
         """Identifies a section using the provided configuration.
 
         Args:
-            config (Object): AC configuration object.
-            section_dict (dict): Article section dictionary.
+            config: AC configuration object.
+            section_dict: Article section dictionary.
         """
         self.config = config
-        self.section_heading = (
-            section_dict["headers"][0]
-            if "headers" in section_dict and not section_dict["headers"] == ""
-            else ""
-        )
-        self.__set_iao()
+        self.section_heading = section_dict.get("headers", [""])[0]
+        self.section_type = get_iao_term_mapping(self.section_heading)
         self.subheader = ""
-        self.paragraphs = []
+        self.paragraphs: list[dict[str, str]] = []
         if self.section_heading == "Abbreviations":
             self.__get_abbreviations(section_dict["node"])
         elif {
@@ -187,11 +243,10 @@ class Section:
         else:
             self.__get_section(section_dict["node"])
 
-    def to_list(self):
+    def to_list(self) -> list[dict[str, str]]:
         """Retrieve a list of section paragraphs.
 
         Returns:
-             (list): section paragraphs
-
+                The section paragraphs
         """
         return self.paragraphs if self.paragraphs else []
