@@ -107,7 +107,13 @@ class Section:
                         mapping_result = []
         else:
             mapping_result = []
-        self.section_type = mapping_result
+        if mapping_result == []:
+            self.section_type = [{
+                                    "iao_name": 'document part',      
+                                    "iao_id": 'IAO:0000314'
+                                }]
+        else:
+            self.section_type = mapping_result
 
     def __add_iao(self, iao_term):
         paper = {}
