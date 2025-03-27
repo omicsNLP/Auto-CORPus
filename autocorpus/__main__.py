@@ -9,7 +9,7 @@ from typing import Any
 from tqdm import tqdm
 
 from . import add_file_logger, logger
-from .Autocorpus import Autocorpus
+from .autocorpus import Autocorpus
 from .configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")
@@ -26,15 +26,6 @@ parser.add_argument(
     help=(
         "output format for main text, can be either JSON or XML. "
         "Does not effect tables or abbreviations"
-    ),
-)
-parser.add_argument(
-    "-s",
-    "--trained_data_set",
-    type=str,
-    help=(
-        "trained dataset to use with pytesseract, must be in the form pytesseract "
-        "expects for the lang argument, default eng"
     ),
 )
 
@@ -157,7 +148,6 @@ def main():
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
     config = args.config if args.config else args.default_config
     output_format = args.output_format if args.output_format else "JSON"
-    trained_data = args.trained_data_set if args.output_format else "eng"
 
     if not file_path.exists():
         raise FileNotFoundError(f"{file_path} does not exist")
@@ -193,7 +183,6 @@ def main():
                 "linked_tables": len(structure[key]["linked_tables"]),
             }
         )
-        base_dir = file_path.parent if not file_path.is_dir() else file_path
         try:
             if args.config:
                 config = Autocorpus.read_config(args.config)
@@ -206,11 +195,9 @@ def main():
                     )
 
             ac = Autocorpus(
-                base_dir=str(base_dir),
-                main_text=structure[key]["main_text"],
                 config=config,
+                main_text=structure[key]["main_text"],
                 linked_tables=sorted(structure[key]["linked_tables"]),
-                trained_data=trained_data,
             )
 
             ac.process_files()
