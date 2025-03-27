@@ -560,7 +560,7 @@ class Table:
         )
         self.tables = self.__main(soup, config)
 
-    def to_dict(self) -> tuple[dict[str, Any], list]:
+    def to_dict(self) -> tuple[dict[str, Any], list[dict[str, str]]]:
         """Return the built tables and empty tables as two dictionaries.
 
         Returns:
