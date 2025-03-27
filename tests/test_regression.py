@@ -4,63 +4,20 @@ import json
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from autocorpus.configs.default_config import DefaultConfig
 
 
-def test_pmc_autocorpus(data_path: Path):
-    """A regression test for the main autoCORPus class, using the current PMC config on the AutoCORPus Paper.
-
-    The test data output is built by running Auto-CORPus from the root of the repo with the
-    following arguments
-    ```
-    auto-corpus -b "PMC" -t "tests/data/PMC/Current/" -f "tests/data/PMC/Current/PMC8885717.html"
-    ```
-    """
-    from autocorpus.Autocorpus import Autocorpus
-
-    pmc_example_path = data_path / "PMC" / "Current"
-    with open(
-        pmc_example_path / "PMC8885717_abbreviations.json",
-    ) as f:
-        expected_abbreviations = json.load(f)
-    with open(
-        pmc_example_path / "PMC8885717_bioc.json",
-        encoding="utf-8",
-    ) as f:
-        expected_bioc = json.load(f)
-    with open(
-        pmc_example_path / "PMC8885717_tables.json",
-        encoding="utf-8",
-    ) as f:
-        expected_tables = json.load(f)
-
-    auto_corpus = Autocorpus(
-        config=DefaultConfig.PMC.load_config(),
-        base_dir=str(pmc_example_path),
-        main_text=str(pmc_example_path / "PMC8885717.html"),
-    )
-
-    auto_corpus.process_files()
-
-    abbreviations = auto_corpus.abbreviations
-    bioc = auto_corpus.to_bioc()
-    tables = auto_corpus.tables
-
-    _make_reproducible(
-        abbreviations,
-        expected_abbreviations,
-        bioc,
-        expected_bioc,
-        tables,
-        expected_tables,
-    )
-    assert abbreviations == expected_abbreviations
-    assert bioc == expected_bioc
-    assert tables == expected_tables
-
-
-def test_legacy_pmc_autocorpus(data_path: Path):
-    """A regression test for the main autoCORPus class, using the legacy PMC config on the AutoCORPus Paper.
+@pytest.mark.parametrize(
+    "input_file, config",
+    [
+        ("PMC/Pre-Oct-2024/PMC8885717.html", DefaultConfig.LEGACY_PMC.load_config()),
+        ("PMC/Current/PMC8885717.html", DefaultConfig.PMC.load_config()),
+    ],
+)
+def test_autocorpus(data_path: Path, input_file: Path, config: dict):
+    """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper.
 
     The test data output is built by running Auto-CORPus from the root of the repo with the
     following arguments:
@@ -70,26 +27,26 @@ def test_legacy_pmc_autocorpus(data_path: Path):
     """
     from autocorpus.Autocorpus import Autocorpus
 
-    pmc_example_path = data_path / "PMC" / "Pre-Oct-2024"
+    pmc_example_path = data_path / input_file
     with open(
-        pmc_example_path / "PMC8885717_abbreviations.json",
+        str(pmc_example_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
     ) as f:
         expected_abbreviations = json.load(f)
     with open(
-        pmc_example_path / "PMC8885717_bioc.json",
+        str(pmc_example_path).replace(".html", "_bioc.json"),
         encoding="utf-8",
     ) as f:
         expected_bioc = json.load(f)
     with open(
-        pmc_example_path / "PMC8885717_tables.json",
+        str(pmc_example_path).replace(".html", "_tables.json"),
         encoding="utf-8",
     ) as f:
         expected_tables = json.load(f)
 
     auto_corpus = Autocorpus(
-        config=DefaultConfig.LEGACY_PMC.load_config(),
+        config=config,
         base_dir=str(pmc_example_path),
-        main_text=str(pmc_example_path / "PMC8885717.html"),
+        main_text=str(pmc_example_path),
     )
 
     auto_corpus.process_files()
