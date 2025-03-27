@@ -538,19 +538,17 @@ class Table:
         table_json = self.__reformat_table_json(table_json)
         return table_json
 
-    def __init__(self, soup, config, file_name, base_dir):
+    def __init__(self, soup, config, file_name):
         """Parses provided article data into Tables-JSON format.
 
         Args:
             soup (bs4.BeautifulSoup): BeautifulSoup object containing article data.
             config (dict): AC configuration dictionary.
             file_name (str): Input file name.
-            base_dir (str): Base directory input files.
         """
         self.file_path = file_name
         file_name = Path(file_name).name
         self.tableIdentifier = None
-        self.base_dir = base_dir
         if re.search(r"_table_\d+\.html", file_name):
             self.tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
         self.pval_regex = (

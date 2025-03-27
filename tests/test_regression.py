@@ -37,7 +37,6 @@ def test_autocorpus(data_path: Path):
 
     auto_corpus = Autocorpus(
         config=DefaultConfig.LEGACY_PMC.load_config(),
-        base_dir=str(pmc_example_path),
         main_text=str(pmc_example_path / "PMC8885717.html"),
     )
 

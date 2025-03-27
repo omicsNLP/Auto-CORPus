@@ -192,7 +192,6 @@ def main():
                 "linked_tables": len(structure[key]["linked_tables"]),
             }
         )
-        base_dir = file_path.parent if not file_path.is_dir() else file_path
         try:
             if args.config:
                 config = Autocorpus.read_config(args.config)
@@ -205,9 +204,8 @@ def main():
                     )
 
             ac = Autocorpus(
-                base_dir=str(base_dir),
-                main_text=structure[key]["main_text"],
                 config=config,
+                main_text=structure[key]["main_text"],
                 linked_tables=sorted(structure[key]["linked_tables"]),
                 trained_data=trained_data,
             )

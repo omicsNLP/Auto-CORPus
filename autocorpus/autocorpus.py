@@ -142,9 +142,7 @@ class Autocorpus:
             return
 
         if not self.tables:
-            self.tables, self.empty_tables = Table(
-                soup, config, file_path, self.base_dir
-            ).to_dict()
+            self.tables, self.empty_tables = Table(soup, config, file_path).to_dict()
             return
 
         seen_ids = set()
@@ -154,7 +152,7 @@ class Autocorpus:
             else:
                 seen_ids.add(tab["id"])
 
-        tmp_tables, tmp_empty = Table(soup, config, file_path, self.base_dir).to_dict()
+        tmp_tables, tmp_empty = Table(soup, config, file_path).to_dict()
         for tabl in tmp_tables["documents"]:
             if "." in tabl["id"]:
                 tabl_id = tabl["id"].split(".")[0]
@@ -308,7 +306,6 @@ class Autocorpus:
     def __init__(
         self,
         config,
-        base_dir=None,
         main_text=None,
         linked_tables=None,
         trained_data=None,
@@ -317,12 +314,10 @@ class Autocorpus:
 
         Args:
             config (dict): configuration file for the input HTML journal articles
-            base_dir (str): base directory of the input HTML journal articles
             main_text (str): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
             trained_data (list): currently unused
         """
-        self.base_dir = base_dir
         self.file_path = main_text
         self.linked_tables = linked_tables
         self.config = config
