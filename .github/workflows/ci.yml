@@ -27,3 +27,5 @@ jobs:
         run: poetry run pytest
       - name: Check docs build
         run: poetry run mkdocs build
+      - name: Check types
+        run: poetry run mypy .
