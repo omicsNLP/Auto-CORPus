@@ -13,16 +13,23 @@ def create_logger():
 
     # create console handler
     ch = logging.StreamHandler()
-
-    # create formatter and add it to the handlers
-    formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
-    ch.setFormatter(formatter)
+    ch.setFormatter(_log_formatter)
 
     # add the handlers to the logger
     logger.addHandler(ch)
 
     return logger
 
+
+def add_file_logger(file_path):
+    """Add a log handler to write log messages to file."""
+    # same format as used for console
+    fh = logging.FileHandler(file_path)
+    fh.setFormatter(_log_formatter)
+    logger.addHandler(fh)
+
+
+_log_formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
 
 logger = create_logger()
 """The logger for the Auto-CORPus module and command-line program."""

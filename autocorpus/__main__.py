@@ -1,14 +1,13 @@
 """Main entry script for the autocorpus CLI."""
 
 import argparse
-import logging
 import re
 from datetime import datetime
 from pathlib import Path
 
 from tqdm import tqdm
 
-from . import logger
+from . import add_file_logger, logger
 from .Autocorpus import Autocorpus
 from .configs.default_config import DefaultConfig
 
@@ -148,15 +147,6 @@ def read_file_structure(file_path: Path, target_dir: Path):
         file_path if get_file_type(file_path) == "main_text" else [file_path]
     )
     return template
-
-
-def add_file_logger(file_path):
-    """Add a log handler to write log messages to file."""
-    # same format as used for console
-    formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
-    fh = logging.FileHandler(file_path)
-    fh.setFormatter(formatter)
-    logger.addHandler(fh)
 
 
 def main():
