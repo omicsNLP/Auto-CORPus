@@ -297,7 +297,7 @@ class Autocorpus:
                 logger.error(e)
         if self.linked_tables:
             for table_file in self.linked_tables:
-                soup = self.__soupify_infile(self.file_path)
+                soup = self.__soupify_infile(table_file)
                 self.__process_html_tables(table_file, soup, self.config)
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
