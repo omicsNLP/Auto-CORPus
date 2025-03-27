@@ -306,7 +306,7 @@ class Autocorpus:
     def __init__(
         self,
         config,
-        main_text=None,
+        main_text,
         linked_tables=None,
         trained_data=None,
     ):
