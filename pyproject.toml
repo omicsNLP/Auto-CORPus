@@ -96,7 +96,6 @@ select = [
 ]
 ignore = [
     "E501",   # line too long
-    "RUF001", # ambiguous multiplication sign
-    "RUF003", # ambiguous fullwidth colon
+    "RUF001", # ambiguous multiplication/minus/en dash sign
 ]
 pydocstyle.convention = "google"
