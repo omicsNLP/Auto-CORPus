@@ -16,15 +16,8 @@ from autocorpus.configs.default_config import DefaultConfig
         ("PMC/Current/PMC8885717.html", DefaultConfig.PMC.load_config()),
     ],
 )
-def test_autocorpus(data_path: Path, input_file: Path, config: dict[str, Any]) -> None:
-    """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper.
-
-    The test data output is built by running Auto-CORPus from the root of the repo with the
-    following arguments:
-    ```
-    auto-corpus -b "LEGACY_PMC" -t "tests/data/PMC/Pre-Oct-2024/" -f "tests/data/PMC/Pre-Oct-2024/PMC8885717.html"
-    ```
-    """
+def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
+    """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper."""
     from autocorpus.autocorpus import Autocorpus
 
     pmc_example_path = data_path / input_file
