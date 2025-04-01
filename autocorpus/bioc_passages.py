@@ -38,11 +38,9 @@ class BioCPassage:
             infons["section_title_1"] = passage["section_heading"]
         if passage["subsection_heading"] != "":
             infons["section_title_2"] = passage["subsection_heading"]
-        counter = 1
-        for section_type in passage["section_type"]:
-            infons[f"iao_name_{counter}"] = section_type["iao_name"]
-            infons[f"iao_id_{counter}"] = section_type["iao_id"]
-            counter += 1
+        for i, section_type in enumerate(passage["section_type"]):
+            infons[f"iao_name_{i + 1}"] = section_type["iao_name"]
+            infons[f"iao_id_{i + 1}"] = section_type["iao_id"]
 
         return {
             "offset": offset,
