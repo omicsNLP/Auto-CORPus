@@ -29,32 +29,29 @@ class BioCPassage:
         defaultkeys = set(
             ("section_heading", "subsection_heading", "body", "section_type")
         )
-        passage_dict = {
-            "offset": offset,
-            "infons": {},
-            "text": passage["body"],
-            "sentences": [],
-            "annotations": [],
-            "relations": [],
-        }
-        passage_dict["infons"] = {
-            k: v for k, v in passage.items() if k not in defaultkeys
-        }
+        infons = {k: v for k, v in passage.items() if k not in defaultkeys}
 
         # TODO: currently assumes section_heading and subsection_heading will always
         # exist, should ideally check for existence. Also doesn't account for
         # subsubsection headings which might exist
         if passage["section_heading"] != "":
-            passage_dict["infons"]["section_title_1"] = passage["section_heading"]
+            infons["section_title_1"] = passage["section_heading"]
         if passage["subsection_heading"] != "":
-            passage_dict["infons"]["section_title_2"] = passage["subsection_heading"]
+            infons["section_title_2"] = passage["subsection_heading"]
         counter = 1
         for section_type in passage["section_type"]:
-            passage_dict["infons"][f"iao_name_{counter}"] = section_type["iao_name"]
-            passage_dict["infons"][f"iao_id_{counter}"] = section_type["iao_id"]
+            infons[f"iao_name_{counter}"] = section_type["iao_name"]
+            infons[f"iao_id_{counter}"] = section_type["iao_id"]
             counter += 1
 
-        return passage_dict
+        return {
+            "offset": offset,
+            "infons": infons,
+            "text": passage["body"],
+            "sentences": [],
+            "annotations": [],
+            "relations": [],
+        }
 
     def __init__(self, passage, offset):
         """Construct a passage object from the provided passage dict and offset.
