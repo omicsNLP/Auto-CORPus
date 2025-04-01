@@ -57,7 +57,6 @@ class BioCPassage:
             passage (dict): Article passage dictionary
             offset (int): Passage offset to use
         """
-        self.offset = 0
         self.passage = self.__build_passage(passage, offset)
 
     def as_dict(self):
