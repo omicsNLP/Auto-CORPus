@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from .bioc_passages import BioCPassage
+from .bioc_passage import BioCPassage
 
 
 class BiocDocument:
