@@ -23,7 +23,7 @@ class BiocDocument:
             offset = len(data_store.main_text["title"])
             seen_headings.append(data_store.main_text["title"])
         for passage in data_store.main_text["paragraphs"]:
-            passage_obj = BioCPassage(passage, offset)
+            passage_obj = BioCPassage.from_dict(passage, offset)
             passages.append(passage_obj.as_dict())
             offset += len(passage["body"])
             if passage["subsection_heading"] not in seen_headings:

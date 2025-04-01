@@ -1,35 +1,33 @@
 """BioC Passage builder script."""
 
+from __future__ import annotations
+
+from dataclasses import asdict, dataclass
 from typing import Any
 
+_DEFAULT_KEYS = set(("section_heading", "subsection_heading", "body", "section_type"))
 
+
+@dataclass(frozen=True)
 class BioCPassage:
-    """BioC Passage builder class."""
+    """Represents a BioC passage."""
+
+    offset: int
+    infons: dict[str, Any]
+    text: str
 
     @classmethod
-    def from_title(cls, title, offset):
-        """Creates a BioCPassage object from a title.
+    def from_dict(cls, passage: dict[str, Any], offset: int) -> BioCPassage:
+        """Create a BioCPassage from a passage dict and an offset.
 
         Args:
-            title (str): Passage title
-            offset (int): Passage offset
+            passage: dict containing info about passage
+            offset: Passage offset
 
         Returns:
-            (dict): BioCPassage object
+            BioCPassage object
         """
-        title_passage = {
-            "section_heading": "",
-            "subsection_heading": "",
-            "body": title,
-            "section_type": [{"iao_name": "document title", "iao_id": "IAO:0000305"}],
-        }
-        return cls(title_passage, offset)
-
-    def __build_passage(self, passage: dict[str, Any], offset: int):
-        defaultkeys = set(
-            ("section_heading", "subsection_heading", "body", "section_type")
-        )
-        infons = {k: v for k, v in passage.items() if k not in defaultkeys}
+        infons = {k: v for k, v in passage.items() if k not in _DEFAULT_KEYS}
 
         # TODO: currently assumes section_heading and subsection_heading will always
         # exist, should ideally check for existence. Also doesn't account for
@@ -42,28 +40,31 @@ class BioCPassage:
             infons[f"iao_name_{i + 1}"] = section_type["iao_name"]
             infons[f"iao_id_{i + 1}"] = section_type["iao_id"]
 
-        return {
-            "offset": offset,
-            "infons": infons,
-            "text": passage["body"],
+        return cls(offset, infons, passage["body"])
+
+    @classmethod
+    def from_title(cls, title: str, offset: int) -> BioCPassage:
+        """Create a BioCPassage from a title and offset.
+
+        Args:
+            title: Passage title
+            offset: Passage offset
+
+        Returns:
+            BioCPassage object
+        """
+        title_passage = {
+            "section_heading": "",
+            "subsection_heading": "",
+            "body": title,
+            "section_type": [{"iao_name": "document title", "iao_id": "IAO:0000305"}],
+        }
+        return cls.from_dict(title_passage, offset)
+
+    def as_dict(self) -> dict[str, Any]:
+        """Convert this class to a dict."""
+        return asdict(self) | {
             "sentences": [],
             "annotations": [],
             "relations": [],
         }
-
-    def __init__(self, passage, offset):
-        """Construct a passage object from the provided passage dict and offset.
-
-        Args:
-            passage (dict): Article passage dictionary
-            offset (int): Passage offset to use
-        """
-        self.passage = self.__build_passage(passage, offset)
-
-    def as_dict(self):
-        """Returns a dictionary representation of the passage.
-
-        Returns:
-            (dict): Dictionary representation of the passage
-        """
-        return self.passage
