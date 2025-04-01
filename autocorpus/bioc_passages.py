@@ -1,5 +1,7 @@
 """BioC Passage builder script."""
 
+from typing import Any
+
 
 class BioCPassage:
     """BioC Passage builder class."""
@@ -23,8 +25,10 @@ class BioCPassage:
         }
         return cls(title_passage, offset)
 
-    def __build_passage(self, passage, offset):
-        defaultkeys = ["section_heading", "subsection_heading", "body", "section_type"]
+    def __build_passage(self, passage: dict[str, Any], offset: int):
+        defaultkeys = set(
+            ("section_heading", "subsection_heading", "body", "section_type")
+        )
         passage_dict = {
             "offset": offset,
             "infons": {},
