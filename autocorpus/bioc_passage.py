@@ -29,13 +29,11 @@ class BioCPassage:
         """
         infons = {k: v for k, v in passage.items() if k not in _DEFAULT_KEYS}
 
-        # TODO: currently assumes section_heading and subsection_heading will always
-        # exist, should ideally check for existence. Also doesn't account for
-        # subsubsection headings which might exist
-        if passage["section_heading"] != "":
-            infons["section_title_1"] = passage["section_heading"]
-        if passage["subsection_heading"] != "":
-            infons["section_title_2"] = passage["subsection_heading"]
+        # TODO: Doesn't account for subsubsection headings which might exist
+        if heading := passage.get("section_heading", None):
+            infons["section_title_1"] = heading
+        if subheading := passage.get("subsection_heading", None):
+            infons["section_title_2"] = subheading
         for i, section_type in enumerate(passage["section_type"]):
             infons[f"iao_name_{i + 1}"] = section_type["iao_name"]
             infons[f"iao_id_{i + 1}"] = section_type["iao_id"]
