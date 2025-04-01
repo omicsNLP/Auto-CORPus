@@ -53,13 +53,8 @@ class BioCPassage:
         Returns:
             BioCPassage object
         """
-        title_passage = {
-            "section_heading": "",
-            "subsection_heading": "",
-            "body": title,
-            "section_type": [{"iao_name": "document title", "iao_id": "IAO:0000305"}],
-        }
-        return cls.from_dict(title_passage, offset)
+        infons = {"iao_name_1": "document title", "iao_id_1": "IAO:0000305"}
+        return cls(offset, infons, title)
 
     def as_dict(self) -> dict[str, Any]:
         """Convert this class to a dict."""
