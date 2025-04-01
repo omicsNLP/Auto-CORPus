@@ -59,7 +59,6 @@ class BioCPassage:
         """
         self.offset = 0
         self.passage = self.__build_passage(passage, offset)
-        pass
 
     def as_dict(self):
         """Returns a dictionary representation of the passage.
