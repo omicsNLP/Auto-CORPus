@@ -7,6 +7,7 @@ Modules used:
 """
 
 import re
+from functools import lru_cache
 from importlib import resources
 from typing import Any
 
@@ -18,6 +19,7 @@ from .references import References
 from .utils import handle_not_tables
 
 
+@lru_cache
 def read_mapping_file() -> dict[str, list[str]]:
     """Reads the IAO mapping file and parses it into a dictionary.
 
@@ -52,6 +54,7 @@ def read_mapping_file() -> dict[str, list[str]]:
     return mapping_dict
 
 
+@lru_cache
 def read_iao_term_to_id_file() -> dict[str, str]:
     """Parses the IAO_term_to_ID.txt file.
 
@@ -84,9 +87,9 @@ def get_iao_term_mapping(section_heading: str) -> list[dict[str, str]]:
     h2_tmp = " ".join(word for word in words)
 
     # TODO: check for best match, not the first
+    mapping_result = []
     if h2_tmp != "":
         if any(x in h2_tmp for x in [" and ", "&", "/"]):
-            mapping_result = []
             h2_parts = re.split(r" and |\s?/\s?|\s?&\s?", h2_tmp)
             for h2_part in h2_parts:
                 h2_part = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_part)
@@ -103,10 +106,6 @@ def get_iao_term_mapping(section_heading: str) -> list[dict[str, str]]:
                 if any([fuzz.ratio(h2_tmp, heading) > 80 for heading in heading_list]):
                     mapping_result = [get_iao_term_to_id_mapping(IAO_term)]
                     break
-                else:
-                    mapping_result = []
-    else:
-        mapping_result = []
 
     if mapping_result == []:
         return [{"iao_name": "document part", "iao_id": "IAO:0000314"}]
