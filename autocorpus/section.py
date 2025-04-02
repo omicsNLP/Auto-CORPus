@@ -29,8 +29,7 @@ def read_mapping_file() -> dict[str, list[str]]:
     with mapping_path.open(encoding="utf-8") as f:
         lines = f.readlines()
         for line in lines:
-            heading = line.split("\t")[0].lower().strip("\n")
-            iao_term = line.split("\t")[1].lower().strip("\n")
+            heading, _, iao_term = line.rstrip("\n").lower().partition("\t")
             if iao_term != "":
                 if "/" in iao_term:
                     iao_term_1 = iao_term.split("/")[0].strip(" ")
@@ -64,8 +63,7 @@ def read_iao_term_to_id_file() -> dict[str, str]:
     with id_path.open(encoding="utf-8") as f:
         lines = f.readlines()
         for line in lines:
-            iao_term = line.split("\t")[0]
-            iao_no = line.split("\t")[1].strip("\n")
+            iao_term, _, iao_no = line.rstrip("\n").partition("\t")
             iao_term_to_no_dict.update({iao_term: iao_no})
     return iao_term_to_no_dict
 
@@ -92,10 +90,9 @@ def get_iao_term_mapping(section_heading: str) -> list[dict[str, str]]:
             h2_parts = re.split(r" and |\s?/\s?|\s?&\s?", h2_tmp)
             for h2_part in h2_parts:
                 h2_part = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_part)
-                pass
                 for IAO_term, heading_list in mapping_dict.items():
                     if any(
-                        [fuzz.ratio(h2_part, heading) >= 80 for heading in heading_list]
+                        fuzz.ratio(h2_part, heading) >= 80 for heading in heading_list
                     ):
                         mapping_result.append(get_iao_term_to_id_mapping(IAO_term))
                         break
@@ -249,4 +246,4 @@ class Section:
         Returns:
                 The section paragraphs
         """
-        return self.paragraphs if self.paragraphs else []
+        return self.paragraphs
