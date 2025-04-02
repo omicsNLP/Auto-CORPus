@@ -3,7 +3,7 @@
 import json
 from datetime import datetime
 
-from .bioc_documents import BiocDocument
+from .bioc_documents import get_formatted_bioc_document
 
 
 class BiocFormatter:
@@ -23,7 +23,7 @@ class BiocFormatter:
             "date": f"{datetime.today().strftime('%Y%m%d')}",
             "key": "autocorpus_fulltext.key",
             "infons": {},
-            "documents": [BiocDocument(input_vals).as_dict()],
+            "documents": [get_formatted_bioc_document(input_vals)],
         }
 
     def __init__(self, input_vals):
