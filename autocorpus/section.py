@@ -15,7 +15,7 @@ import nltk
 from fuzzywuzzy import fuzz
 
 from . import logger
-from .references import References
+from .references import get_reference
 from .utils import handle_not_tables
 
 
@@ -213,9 +213,7 @@ class Section:
         """
         all_references = handle_not_tables(self.config["references"], soup_section)
         for ref in all_references:
-            self.paragraphs.append(
-                References(ref, self.config, self.section_heading).to_dict()
-            )
+            self.paragraphs.append(get_reference(ref, self.section_heading))
 
     def __init__(self, config: dict[str, Any], section_dict: dict[str, Any]) -> None:
         """Identifies a section using the provided configuration.
