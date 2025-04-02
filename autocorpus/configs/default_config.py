@@ -37,7 +37,11 @@ class DefaultConfig(Enum):
         self._config = None  # Lazy-loaded cache
 
     def load_config(self) -> dict[str, Any]:
-        """Loads the configuration file when first accessed."""
+        """Loads the configuration file when first accessed.
+
+        Returns:
+            The configuration file as a dictionary.
+        """
         if self._config is None:
             config_path = resources.files("autocorpus.configs") / self._filename
             with config_path.open("r", encoding="utf-8") as f_in:
