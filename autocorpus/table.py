@@ -1,12 +1,12 @@
 """Tables-JSON top-level builder script."""
 
-import re
 from datetime import datetime
 from itertools import pairwise, product
 from pathlib import Path
-from typing import Any
+import re
+from typing import Any, Optional
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 from .utils import get_data_element_node, handle_tables, navigate_contents
 
@@ -14,7 +14,7 @@ pval_regex = r"((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d
 pval_scientific_regex = r"((\d+.\d+)|(\d+))(\s{0,1})[eE](\s{0,1})([–−-])(\s{0,1})(\d+)"
 
 
-def __table_to_2d(t: BeautifulSoup):
+def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
     """Transform tables from nested lists to JSON.
 
     Args:
@@ -25,7 +25,7 @@ def __table_to_2d(t: BeautifulSoup):
 
     """
     # https://stackoverflow.com/questions/48393253/how-to-parse-table-with-rowspan-and-colspan
-    rows = t.find_all("tr")
+    rows: list[Tag] = t.find_all("tr")
     # fill colspan and rowspan
     for row in rows:
         for col in row.findAll(["th", "td"]):
@@ -35,15 +35,25 @@ def __table_to_2d(t: BeautifulSoup):
                 col.attrs["rowspan"] = 1
 
     # first scan, see how many columns we need
-    n_cols = sum([int(i.attrs["colspan"]) for i in t.find("tr").findAll(["th", "td"])])
+    temp_row: Tag | NavigableString | None = t.find("tr")
+    if not temp_row:
+        return None
+    temp_cells: list[Tag] = (
+        temp_row.findAll(["th", "td"]) if isinstance(temp_row, Tag) else []
+    )
+    n_cols: int = (
+        sum([int(i.attrs["colspan"]) for i in temp_cells]) if temp_cells else 0
+    )
 
     # build an empty matrix for all possible cells
-    table = [[""] * n_cols for row in rows]
+    table: list[list[str]] = [[""] * n_cols for row in rows]
 
     # fill matrix from row data
-    rowspans = {}  # track pending rowspans, column number mapping to count
+    rowspans: dict[
+        int, int
+    ] = {}  # track pending rowspans, column number mapping to count
     for row_idx, row in enumerate(rows):
-        span_offset = 0  # how many columns are skipped due to row and colspans
+        span_offset: int = 0  # how many columns are skipped due to row and colspans
         for col_idx, cell in enumerate(row.findAll(["td", "th"])):
             # adjust for preceding row and colspans
             col_idx += span_offset
@@ -52,14 +62,14 @@ def __table_to_2d(t: BeautifulSoup):
                 col_idx += 1
 
             # fill table data
-            rowspan = rowspans[col_idx] = int(cell.attrs["rowspan"])
-            colspan = int(cell.attrs["colspan"])
+            rowspan = int(cell.attrs["rowspan"])
+            rowspans[col_idx] = rowspan
+            colspan: int = int(cell.attrs["colspan"])
 
             # next column is offset by the colspan
             span_offset += colspan - 1
-            c_cont = cell.contents
-            value = ""
-            for item in c_cont:
+            value: str = ""
+            for item in cell.contents:
                 value += navigate_contents(item)
 
             # clean the cell
@@ -89,7 +99,7 @@ def __table_to_2d(t: BeautifulSoup):
     return table
 
 
-def __check_superrow(row):
+def __check_superrow(row: list[str]) -> bool:
     """Check if the current row is a superrow.
 
     Args:
@@ -99,13 +109,13 @@ def __check_superrow(row):
         True/False
 
     """
-    cleaned_row = set(
+    cleaned_row: set[str] = set(
         i for i in row if (str(i) != "") & (str(i) != "\n") & (str(i) != "None")
     )
     return len(cleaned_row) == 1 and bool(re.match("[a-zA-Z]", next(iter(cleaned_row))))
 
 
-def __get_headers(t, config):
+def __get_headers(t: BeautifulSoup, config: dict[str, Any]) -> list[int]:
     """Identify headers from a table.
 
     Args:
@@ -119,7 +129,7 @@ def __get_headers(t, config):
         KeyError: Raises an exception.
 
     """
-    idx_list = []
+    idx_list: list[int] = []
     for idx, row in enumerate(
         get_data_element_node(config["tables"]["data"]["table-row"], t)
     ):
@@ -134,7 +144,7 @@ def __get_headers(t, config):
     return idx_list
 
 
-def __is_number(s):
+def __is_number(s: str) -> bool:
     """Check if input string is a number.
 
     Args:
@@ -151,7 +161,7 @@ def __is_number(s):
         return False
 
 
-def __is_mix(s):
+def __is_mix(s: str) -> bool:
     """Check if input string is a mix of number and text.
 
     Args:
@@ -167,7 +177,7 @@ def __is_mix(s):
     return False
 
 
-def __is_text(s):
+def __is_text(s: str) -> bool:
     """Check if input string is all text.
 
     Args:
@@ -388,17 +398,17 @@ def get_table_json(
     5. Converts the processed table data into a JSON-compatible format.
     6. Merges headers and formats the final table data for output.
     """
-    soup_tables = handle_tables(config["tables"], soup)
+    soup_tables: list[dict[str, Any]] = handle_tables(config["tables"], soup)
 
-    file_path = file_name
+    file_path: str = file_name
     file_name = Path(file_name).name
-    tableIdentifier = None
+    tableIdentifier: Optional[str] = None
     if re.search(r"_table_\d+\.html", file_name):
         tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
 
     # remove empty table and other table classes
-    pop_list = []
-    empty_tables = []
+    pop_list: list[int] = []
+    empty_tables: list[dict[str, str]] = []
 
     for i, table in enumerate(soup_tables):
         if "class" in table["node"].attrs:
@@ -428,10 +438,12 @@ def get_table_json(
         if table["node"].find("td", "thead-hr"):
             table["node"].find("td", "thead-hr").parent.extract()
 
-        header_idx = __get_headers(table["node"], config)
+        header_idx: list[int] = __get_headers(table["node"], config)
 
         # span table to single-cells
-        table_2d = __table_to_2d(table["node"])
+        table_2d: Optional[list[list[Any]]] = __table_to_2d(table["node"])
+        if table_2d is None:
+            continue
 
         # find superrows
         superrow_idx = []
@@ -493,7 +505,7 @@ def get_table_json(
                 col_type.append("txt")
             else:
                 col_type.append("mix")
-        subheader_idx = []
+        subheader_idx: list[int] = []
         for row_idx in value_idx:
             cur_row = table_2d[row_idx]
             unmatch_cnt = 0
@@ -514,15 +526,15 @@ def get_table_json(
                 subheader_idx.append(row_idx)
         header_idx += subheader_idx
 
-        subheader_idx = []
-        tmp = [header_idx[0]]
+        new_subheader_idx: list[list[int]] = []
+        tmp: list[int] = [header_idx[0]]
         for i, j in pairwise(header_idx):
             if j == i + 1:
                 tmp.append(j)
             else:
-                subheader_idx.append(tmp)
+                new_subheader_idx.append(tmp)
                 tmp = [j]
-        subheader_idx.append(tmp)
+        new_subheader_idx.append(tmp)
 
         # convert to float
         for row in table_2d:
@@ -537,7 +549,7 @@ def get_table_json(
         cur_table = __table2json(
             table_2d,
             header_idx,
-            subheader_idx,
+            new_subheader_idx,
             superrow_idx,
             table_num,
             table["title"],
