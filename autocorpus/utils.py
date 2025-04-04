@@ -2,7 +2,6 @@
 
 import re
 import unicodedata
-from importlib import resources
 from pathlib import Path
 
 import bs4
@@ -31,58 +30,6 @@ def get_files(base_dir, pattern=r"(.*).html"):
         elif abs_path.is_dir() and "ipynb_checkpoints" not in str(abs_path):
             file_list += get_files(abs_path, pattern)
     return file_list
-
-
-def read_mapping_file():
-    """Reads the IAO mapping file and parses it into a dictionary.
-
-    Returns:
-        (dict): parsed IAO mappings
-    """
-    mapping_dict = {}
-    mapping_path = resources.files("autocorpus.IAO_dicts") / "IAO_FINAL_MAPPING.txt"
-    with mapping_path.open(encoding="utf-8") as f:
-        lines = f.readlines()
-        for line in lines:
-            heading = line.split("\t")[0].lower().strip("\n")
-            iao_term = line.split("\t")[1].lower().strip("\n")
-            if iao_term != "":
-                if "/" in iao_term:
-                    iao_term_1 = iao_term.split("/")[0].strip(" ")
-                    iao_term_2 = iao_term.split("/")[1].strip(" ")
-                    if iao_term_1 in mapping_dict.keys():
-                        mapping_dict[iao_term_1].append(heading)
-                    else:
-                        mapping_dict.update({iao_term_1: [heading]})
-
-                    if iao_term_2 in mapping_dict.keys():
-                        mapping_dict[iao_term_2].append(heading)
-                    else:
-                        mapping_dict.update({iao_term_2: [heading]})
-
-                else:
-                    if iao_term in mapping_dict.keys():
-                        mapping_dict[iao_term].append(heading)
-                    else:
-                        mapping_dict.update({iao_term: [heading]})
-    return mapping_dict
-
-
-def read_iao_term_to_id_file():
-    """Parses the IAO_term_to_ID.txt file.
-
-    Returns:
-        (dict): parsed IAO ids as a dictionary
-    """
-    iao_term_to_no_dict = {}
-    id_path = resources.files("autocorpus.IAO_dicts") / "IAO_term_to_ID.txt"
-    with id_path.open(encoding="utf-8") as f:
-        lines = f.readlines()
-        for line in lines:
-            iao_term = line.split("\t")[0]
-            iao_no = line.split("\t")[1].strip("\n")
-            iao_term_to_no_dict.update({iao_term: iao_no})
-    return iao_term_to_no_dict
 
 
 def config_anchors(value):
