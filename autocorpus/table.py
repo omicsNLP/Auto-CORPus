@@ -1,10 +1,10 @@
 """Tables-JSON top-level builder script."""
 
+import re
 from datetime import datetime
 from itertools import pairwise, product
 from pathlib import Path
-import re
-from typing import Any, Optional
+from typing import Any
 
 from bs4 import BeautifulSoup, NavigableString, Tag
 
@@ -402,7 +402,7 @@ def get_table_json(
 
     file_path: str = file_name
     file_name = Path(file_name).name
-    tableIdentifier: Optional[str] = None
+    tableIdentifier: str | None = None
     if re.search(r"_table_\d+\.html", file_name):
         tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
 
@@ -441,7 +441,7 @@ def get_table_json(
         header_idx: list[int] = __get_headers(table["node"], config)
 
         # span table to single-cells
-        table_2d: Optional[list[list[Any]]] = __table_to_2d(table["node"])
+        table_2d: list[list[Any]] | None = __table_to_2d(table["node"])
         if table_2d is None:
             continue
 
