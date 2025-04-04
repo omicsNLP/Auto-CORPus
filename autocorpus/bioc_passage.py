@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from typing import Any
 
 _DEFAULT_KEYS = set(("section_heading", "subsection_heading", "body", "section_type"))
@@ -15,6 +15,11 @@ class BioCPassage:
     offset: int
     infons: dict[str, Any]
     text: str
+    sentences: list[str] = field(default_factory=list)
+    annotations: list[str] = field(default_factory=list)
+    relations: list[str] = field(default_factory=list)
+
+    as_dict = asdict
 
     @classmethod
     def from_dict(cls, passage: dict[str, Any], offset: int) -> BioCPassage:
@@ -53,11 +58,3 @@ class BioCPassage:
         """
         infons = {"iao_name_1": "document title", "iao_id_1": "IAO:0000305"}
         return cls(offset, infons, title)
-
-    def as_dict(self) -> dict[str, Any]:
-        """Convert this class to a dict."""
-        return asdict(self) | {
-            "sentences": [],
-            "annotations": [],
-            "relations": [],
-        }
