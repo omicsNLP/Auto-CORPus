@@ -2079,14 +2079,14 @@ referencing = "*"
 
 [[package]]
 name = "types-regex"
-version = "2024.11.6.20250318"
+version = "2024.11.6.20250403"
 description = "Typing stubs for regex"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "types_regex-2024.11.6.20250318-py3-none-any.whl", hash = "sha256:9309fe5918ee7ffe859c04c18040697655fade366c4dc844bbebe86976a9980b"},
-    {file = "types_regex-2024.11.6.20250318.tar.gz", hash = "sha256:6d472d0acf37b138cb32f67bd5ab1e7a200e94da8c1aa93ca3625a63e2efe1f3"},
+    {file = "types_regex-2024.11.6.20250403-py3-none-any.whl", hash = "sha256:e22c0f67d73f4b4af6086a340f387b6f7d03bed8a0bb306224b75c51a29b0001"},
+    {file = "types_regex-2024.11.6.20250403.tar.gz", hash = "sha256:3fdf2a70bbf830de4b3a28e9649a52d43dabb57cdb18fbfe2252eefb53666665"},
 ]
 
 [[package]]
