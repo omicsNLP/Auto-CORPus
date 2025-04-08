@@ -439,11 +439,9 @@ def get_table_json(
 
         # find superrows
         superrow_idx = []
-        if table_2d is not None:
-            for row_idx, row in enumerate(table_2d):
-                if row_idx not in header_idx:
-                    if __check_superrow(row):
-                        superrow_idx.append(row_idx)
+        for row_idx, row in enumerate(table_2d):
+            if row_idx not in header_idx and __check_superrow(row):
+                superrow_idx.append(row_idx)
 
         # identify section names in index column
         if superrow_idx == []:
