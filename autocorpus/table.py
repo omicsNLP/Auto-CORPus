@@ -50,7 +50,7 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
 
     # fill matrix from row data
     # track pending rowspans, column number mapping to count
-    rowspans: dict[int, int] = {}  
+    rowspans: dict[int, int] = {}
     for row_idx, row in enumerate(rows):
         span_offset: int = 0  # how many columns are skipped due to row and colspans
         for col_idx, cell in enumerate(row.findAll(["td", "th"])):
