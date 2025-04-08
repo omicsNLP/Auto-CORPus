@@ -427,8 +427,8 @@ def get_table_json(
     tables = []
     for table_num, table in enumerate(soup_tables):
         # remove empty table header
-        if table["node"].find("td", "thead-hr"):
-            table["node"].find("td", "thead-hr").parent.extract()
+        if header := table["node"].find("td", "thead-hr"):
+            header.parent.extract()
 
         header_idx: list[int] = __get_headers(table["node"], config)
 
