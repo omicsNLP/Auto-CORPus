@@ -3,9 +3,10 @@
 import re
 import unicodedata
 from pathlib import Path
+from typing import Any
 
 import bs4
-from bs4 import NavigableString
+from bs4 import BeautifulSoup, NavigableString
 from lxml import etree
 from lxml.html.soupparser import fromstring
 
@@ -199,15 +200,17 @@ def handle_defined_by(config, soup):
     return matches
 
 
-def handle_not_tables(config, soup):
+def handle_not_tables(
+    config: dict[str, Any], soup: BeautifulSoup
+) -> list[dict[str, NavigableString]]:
     """Executes a search on non-table bs4 soup objects based on provided config rules.
 
     Args:
-        config (dict): Parsed config rules to be used
-        soup (bs4.BeautifulSoup): BeautifulSoup object containing the input text to search
+        config: Parsed config rules to be used
+        soup: BeautifulSoup object containing the input text to search
 
     Returns:
-        (list): Matches for the provided config rules
+        Matches for the provided config rules
     """
     responses = []
     matches = handle_defined_by(config, soup)
@@ -215,7 +218,7 @@ def handle_not_tables(config, soup):
         for match in matches:
             response_addition = {"node": match}
             for ele in config["data"]:
-                seen_text = set()
+                seen_text = set()  # type: ignore
                 for definition in config["data"][ele]:
                     bs_attrs = parse_configs(definition)
                     new_matches = match.find_all(
@@ -225,7 +228,7 @@ def handle_not_tables(config, soup):
                     if new_matches:
                         response_addition[ele] = []
                     for newMatch in new_matches:
-                        if newMatch.get_text() in seen_text:
+                        if newMatch.get_text() in seen_text:  # This can never happen?
                             continue
                         else:
                             response_addition[ele].append(newMatch.get_text())

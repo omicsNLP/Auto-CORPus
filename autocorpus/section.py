@@ -7,6 +7,7 @@ Modules used:
 """
 
 import re
+from dataclasses import asdict, dataclass
 from functools import lru_cache
 from importlib import resources
 from typing import Any
@@ -127,17 +128,26 @@ def get_iao_term_to_id_mapping(iao_term: str) -> dict[str, str]:
     return {"iao_name": iao_term, "iao_id": mapping_result_id_version}
 
 
+@dataclass
+class Paragraph:
+    """A paragraph for a section of the article."""
+
+    section_heading: str
+    subsection_heading: str
+    body: str
+    section_type: str
+
+    dict = asdict
+
+
 class Section:
     """Class for processing section data."""
 
     def __add_paragraph(self, body):
         self.paragraphs.append(
-            {
-                "section_heading": self.section_heading,
-                "subsection_heading": self.subheader,
-                "body": body,
-                "section_type": self.section_type,
-            }
+            Paragraph(
+                self.section_heading, self.subheader, body, self.section_type
+            ).dict()
         )
 
     def __navigate_children(self, soup_section, all_sub_sections, filtered_paragraphs):
@@ -179,7 +189,8 @@ class Section:
                     abbreviations[short_form] = long_form
             except Exception:
                 abbreviations = {}
-            self.__add_paragraph(str(abbreviations))
+
+            return str(abbreviations)
 
     def __get_section(self, soup_section):
         all_sub_sections = handle_not_tables(self.config["sub-sections"], soup_section)
@@ -217,7 +228,9 @@ class Section:
                 References(ref, self.config, self.section_heading).to_dict()
             )
 
-    def __init__(self, config: dict[str, Any], section_dict: dict[str, Any]) -> None:
+    def __init__(
+        self, config: dict[str, dict[str, Any]], section_dict: dict[str, Any]
+    ) -> None:
         """Identifies a section using the provided configuration.
 
         Args:
@@ -229,15 +242,19 @@ class Section:
         self.section_type = get_iao_term_mapping(self.section_heading)
         self.subheader = ""
         self.paragraphs: list[dict[str, str]] = []
+
+        # Different processing for abbreviations and references section types
         if self.section_heading == "Abbreviations":
-            self.__get_abbreviations(section_dict["node"])
-        elif {
+            abbreviations = self.__get_abbreviations(section_dict["node"])
+            self.__add_paragraph(abbreviations)
+            return
+        if {
             "iao_name": "references section",
             "iao_id": "IAO:0000320",
         } in self.section_type:
             self.__get_references(section_dict["node"])
-        else:
-            self.__get_section(section_dict["node"])
+            return
+        self.__get_section(section_dict["node"])
 
     def to_list(self) -> list[dict[str, str]]:
         """Retrieve a list of section paragraphs.
