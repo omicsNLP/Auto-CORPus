@@ -183,9 +183,7 @@ def __is_text(s: str) -> bool:
         True/False
 
     """
-    if any(char.isdigit() for char in s):
-        return False
-    return True
+    return not any(char.isdigit() for char in s)
 
 
 def __table2json(
