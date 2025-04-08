@@ -18,7 +18,7 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
     """Transform tables from nested lists to JSON.
 
     Args:
-        t: html table, beautiful soup object
+        t: HTML table
 
     Returns:
         Table structure as a nested list
@@ -116,15 +116,14 @@ def __get_headers(t: BeautifulSoup, config: dict[str, Any]) -> list[int]:
     """Identify headers from a table.
 
     Args:
-        t (bs4.BeautifulSoup): BeautifulSoup object of table
-        config (dict): configuration dictionary
+        t: BeautifulSoup object of table
+        config: Configuration dictionary
 
     Returns:
-        (list): a list of header index
+        List of header indexes
 
     Raises:
-        KeyError: Raises an exception.
-
+        KeyError: Missing element
     """
     idx_list: list[int] = []
     for idx, row in enumerate(
@@ -456,7 +455,7 @@ def get_table_json(
             first_col_vals = [
                 i for i in first_col if first_col.index(i) not in header_idx
             ]
-            unique_vals = set([i for i in first_col_vals if i not in ["", "None"]])
+            unique_vals = set(i for i in first_col_vals if i not in ("", "None"))
             if len(unique_vals) <= len(first_col_vals) / 2:
                 section_names = list(unique_vals)
                 for i in section_names:
