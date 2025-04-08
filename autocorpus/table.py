@@ -376,15 +376,6 @@ def get_table_json(
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Extracts and processes tables from an HTML document using BeautifulSoup and a configuration dictionary.
 
-    Args:
-        soup (BeautifulSoup): A BeautifulSoup object representing the parsed HTML document.
-        config (dict[str, Any]): A dictionary containing configuration options for table processing.
-        file_name (str): The file name or path of the HTML document being processed.
-
-    Returns:
-        dict[str, Any]: A dictionary containing the processed table data in JSON format.
-        list[dict[str, Any]]: A list of dictionaries representing empty tables.
-
     The function performs the following steps:
     1. Extracts tables from the HTML document based on the provided configuration.
     2. Removes empty tables and tables with specific classes (e.g., "table-group").
@@ -392,6 +383,14 @@ def get_table_json(
     4. Converts tables into a 2D format and processes cell data types (e.g., numeric, text, mixed).
     5. Converts the processed table data into a JSON-compatible format.
     6. Merges headers and formats the final table data for output.
+
+    Args:
+        soup: A BeautifulSoup object representing the parsed HTML document.
+        config: A dictionary containing configuration options for table processing.
+        file_name: The file name or path of the HTML document being processed.
+
+    Returns:
+        A dictionary containing the processed table data in JSON format and a list of dictionaries representing empty tables.
     """
     soup_tables: list[dict[str, Any]] = handle_tables(config["tables"], soup)
 
