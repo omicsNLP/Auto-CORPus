@@ -168,8 +168,7 @@ def __is_mix(s: str) -> bool:
 
     """
     if any(char.isdigit() for char in s):
-        if any(char for char in s if not char.isdigit()):
-            return True
+        return any(not char.isdigit() for char in s)
     return False
 
 
@@ -262,7 +261,7 @@ def __table2json(
     return tables
 
 
-def __format_table_bioc(table_json, tableIdentifier, file_path):
+def __format_table_bioc(table_json, table_identifier, file_path):
     bioc_format = {
         "source": "Auto-CORPus (tables)",
         "date": f"{datetime.today().strftime('%Y%m%d')}",
@@ -271,20 +270,19 @@ def __format_table_bioc(table_json, tableIdentifier, file_path):
         "documents": [],
     }
     for table in table_json["tables"]:
-        if "." in table["identifier"] and tableIdentifier:
-            table_identifier = (
-                tableIdentifier + "_" + table["identifier"].split(".")[-1]
+        if "." in table["identifier"] and table_identifier:
+            formatted_identifier = (
+                table_identifier + "_" + table["identifier"].split(".")[-1]
             )
         else:
-            if tableIdentifier:
-                table_identifier = tableIdentifier
+            if table_identifier:
+                formatted_identifier = table_identifier
             else:
-                table_identifier = table["identifier"].replace(".", "_")
-        identifier = table_identifier
+                formatted_identifier = table["identifier"].replace(".", "_")
         offset = 0
         table_dict = {
             "inputfile": file_path,
-            "id": f"{identifier}",
+            "id": f"{formatted_identifier}",
             "infons": {},
             "passages": [
                 {
@@ -327,7 +325,7 @@ def __format_table_bioc(table_json, tableIdentifier, file_path):
                     rrow = []
                     for result in resultrow:
                         result_dict = {
-                            "cell_id": f"{identifier}.{row_id}.{col_id}",
+                            "cell_id": f"{formatted_identifier}.{row_id}.{col_id}",
                             "cell_text": result,
                         }
                         col_id += 1
@@ -340,7 +338,10 @@ def __format_table_bioc(table_json, tableIdentifier, file_path):
             columns = []
             for i, column in enumerate(table.get("columns", [])):
                 columns.append(
-                    {"cell_id": f"{identifier}.1.{i + 1}", "cell_text": column}
+                    {
+                        "cell_id": f"{formatted_identifier}.1.{i + 1}",
+                        "cell_text": column,
+                    }
                 )
             table_dict["passages"].append(
                 {
@@ -398,9 +399,9 @@ def get_table_json(
 
     file_path: str = file_name
     file_name = Path(file_name).name
-    tableIdentifier: str | None = None
+    table_identifier: str | None = None
     if re.search(r"_table_\d+\.html", file_name):
-        tableIdentifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
+        table_identifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
 
     # remove empty table and other table classes
     pop_list: list[int] = []
@@ -570,7 +571,7 @@ def get_table_json(
         tables += cur_table
 
     table_json = {"tables": tables}
-    table_json = __format_table_bioc(table_json, tableIdentifier, file_path)
+    table_json = __format_table_bioc(table_json, table_identifier, file_path)
     return table_json, empty_tables
 
 
