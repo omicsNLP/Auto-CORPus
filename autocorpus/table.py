@@ -414,10 +414,8 @@ def get_table_json(
     soup_tables = [table for i, table in enumerate(soup_tables) if i not in pop_list]
     empty_tables = []
     for etable in empty_tables:
-        if etable["node"].find("table"):
-            pass
         # has a table element, not empty
-        else:
+        if not etable["node"].find("table"):
             et_dict = {
                 "title": " ".join(etable["title"]),
                 "caption": " ".join(etable["caption"]),
