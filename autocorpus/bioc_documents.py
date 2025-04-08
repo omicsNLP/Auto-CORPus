@@ -6,7 +6,7 @@ from typing import Any
 from .bioc_passages import BioCPassage
 
 
-def get_formatted_bioc_document(data_store: "Autocorpus") -> dict[str, Any]:
+def get_formatted_bioc_document(data_store) -> dict[str, Any]:
     """Constructs the BioC document template using the provided data store.
 
     Args:
