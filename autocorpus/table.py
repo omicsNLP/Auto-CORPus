@@ -98,18 +98,14 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
     return table
 
 
-def __check_superrow(row: list[str]) -> bool:
+def __check_superrow(cells: list[str]) -> bool:
     """Check if the current row is a superrow.
 
     Args:
-        row (list): list of cells
-
-    Return:
-        True/False
-
+        cells: Cells in row
     """
     cleaned_row: set[str] = set(
-        i for i in row if (str(i) != "") & (str(i) != "\n") & (str(i) != "None")
+        cell for cell in cells if cell not in ("", "\n", "None")
     )
     return len(cleaned_row) == 1 and bool(re.match("[a-zA-Z]", next(iter(cleaned_row))))
 
