@@ -1,15 +1,12 @@
 """Top-level BioC collection builder script."""
 
-import json
 from datetime import datetime
 from typing import Any
 
 from .bioc_documents import BiocDocument
 
 
-def get_formatted_bioc_collection(
-    input_vals: object, json_format=False
-) -> dict[str, Any] | str:
+def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any] | str:
     """Constructs a BioC collection from input document-level data.
 
     Args:
@@ -26,7 +23,4 @@ def get_formatted_bioc_collection(
         "infons": {},
         "documents": [BiocDocument(input_vals).as_dict()],
     }
-
-    if json_format:
-        return json.dumps(bioc_collection, indent=2, ensure_ascii=False)
     return bioc_collection
