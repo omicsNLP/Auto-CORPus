@@ -571,13 +571,3 @@ def get_table_json(
     table_json = {"tables": tables}
     table_json = __format_table_bioc(table_json, table_identifier, file_path)
     return table_json, empty_tables
-
-
-# def to_dict(self) -> tuple[dict[str, Any], list[dict[str, str]]]:
-#     """Return the built tables and empty tables as two dictionaries.
-
-#     Returns:
-#         (dict): Tables-JSON
-#         (list): Empty tables
-#     """
-#     return tables, empty_tables
