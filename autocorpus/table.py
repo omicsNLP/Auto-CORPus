@@ -413,7 +413,7 @@ def get_table_json(
         if table["node"].find_all("tbody") == []:
             pop_list.append(i)
             empty_tables.append(table)
-    soup_tables = [soup_tables[i] for i in range(len(soup_tables)) if i not in pop_list]
+    soup_tables = [table for i, table in enumerate(soup_tables) if i not in pop_list]
     empty_tables = []
     for etable in empty_tables:
         if etable["node"].find("table"):
