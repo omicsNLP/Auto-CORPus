@@ -113,15 +113,14 @@ def __get_headers(t: BeautifulSoup, config: dict[str, Any]) -> list[int]:
     """Identify headers from a table.
 
     Args:
-        t (bs4.BeautifulSoup): BeautifulSoup object of table
-        config (dict): configuration dictionary
+        t: BeautifulSoup object of table
+        config: Configuration dictionary
 
     Returns:
-        (list): a list of header index
+        List of header indexes
 
     Raises:
-        KeyError: Raises an exception.
-
+        KeyError: Missing element
     """
     idx_list: list[int] = []
     for idx, row in enumerate(
