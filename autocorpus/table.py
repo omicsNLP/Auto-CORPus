@@ -182,9 +182,7 @@ def __is_text(s: str) -> bool:
         True/False
 
     """
-    if any(char.isdigit() for char in s):
-        return False
-    return True
+    return not any(char.isdigit() for char in s)
 
 
 def __table2json(
@@ -223,7 +221,7 @@ def __table2json(
     cur_header = ""
     cur_superrow = ""
     for row_idx, row in enumerate(table_2d):
-        if not any([i for i in row if i not in ["", "None"]]):
+        if not any(i for i in row if i not in ("", "None")):
             continue
         if row_idx in header_idx:
             cur_header = [
@@ -414,7 +412,7 @@ def get_table_json(
         if table["node"].find_all("tbody") == []:
             pop_list.append(i)
             empty_tables.append(table)
-    soup_tables = [soup_tables[i] for i in range(len(soup_tables)) if i not in pop_list]
+    soup_tables = [table for i, table in enumerate(soup_tables) if i not in pop_list]
     empty_tables = []
     for etable in empty_tables:
         if etable["node"].find("table"):
