@@ -8,8 +8,10 @@ def get_reference(reference: dict[str, Any], section_heading: str) -> dict[str, 
     """Retrieve a structured reference dictionary from a BeautifulSoup object and section heading.
 
     Args:
-        reference (BeautifulSoup): BeautifulSoup object
-        section_heading (str): Section heading string
+        reference: BeautifulSoup object
+        section_heading: Section heading string
+    Returns:
+        A dictionary containing the structured reference information.
     """
     text = reference["node"].get_text().replace("Go to:", "").replace("\n", "")
     text = re.sub(r"\s{2,}", " ", text)
