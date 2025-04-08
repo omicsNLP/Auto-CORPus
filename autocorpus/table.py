@@ -101,6 +101,8 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
 def __check_superrow(cells: list[str]) -> bool:
     """Check if the current row is a superrow.
 
+    Superrows contain cells that are split and contain more values than other cells on the same row.
+
     Args:
         cells: Cells in row
     """
