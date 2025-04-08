@@ -452,7 +452,7 @@ def get_table_json(
             first_col_vals = [
                 i for i in first_col if first_col.index(i) not in header_idx
             ]
-            unique_vals = set([i for i in first_col_vals if i not in ["", "None"]])
+            unique_vals = set(i for i in first_col_vals if i not in ("", "None"))
             if len(unique_vals) <= len(first_col_vals) / 2:
                 section_names = list(unique_vals)
                 for i in section_names:
