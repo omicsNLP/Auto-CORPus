@@ -505,8 +505,8 @@ def get_table_json(
         for row_idx in value_idx:
             cur_row = table_2d[row_idx]
             unmatch_cnt = 0
-            for col_idx in range(len(cur_row)):
-                cell = str(cur_row[col_idx]).lower()
+            for col_idx, cell in enumerate(cur_row):
+                cell = str(cell).lower()
                 if (
                     __is_text(cell)
                     and col_type[col_idx] != "txt"
