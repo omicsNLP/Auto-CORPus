@@ -222,7 +222,7 @@ def __table2json(
     cur_header = ""
     cur_superrow = ""
     for row_idx, row in enumerate(table_2d):
-        if not any([i for i in row if i not in ["", "None"]]):
+        if not any(i for i in row if i not in ("", "None")):
             continue
         if row_idx in header_idx:
             cur_header = [
