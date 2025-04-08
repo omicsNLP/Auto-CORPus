@@ -6,7 +6,7 @@ from typing import Any
 from .bioc_documents import BiocDocument
 
 
-def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any] | str:
+def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any]:
     """Constructs a BioC collection from input document-level data.
 
     Args:
