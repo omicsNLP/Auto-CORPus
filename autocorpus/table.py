@@ -18,10 +18,10 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
     """Transform tables from nested lists to JSON.
 
     Args:
-        t (bs4.BeautifulSoup): html table, beautiful soup object
+        t: html table, beautiful soup object
 
     Returns:
-        (list): table in JSON format
+        Table structure as a nested list
 
     """
     # https://stackoverflow.com/questions/48393253/how-to-parse-table-with-rowspan-and-colspan
