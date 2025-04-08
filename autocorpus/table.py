@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 
 from .utils import get_data_element_node, handle_tables, navigate_contents
 
-pval_regex = r"((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d+)"
-pval_scientific_regex = r"((\d+.\d+)|(\d+))(\s{0,1})[eE](\s{0,1})([–−-])(\s{0,1})(\d+)"
+PVAL_REGEX = r"((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d+)"
+PVAL_SCIENTIFIC_REGEX = r"((\d+.\d+)|(\d+))(\s{0,1})[eE](\s{0,1})([–−-])(\s{0,1})(\d+)"
 
 
 def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
@@ -49,9 +49,8 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
     table: list[list[str]] = [[""] * n_cols for row in rows]
 
     # fill matrix from row data
-    rowspans: dict[
-        int, int
-    ] = {}  # track pending rowspans, column number mapping to count
+    # track pending rowspans, column number mapping to count
+    rowspans: dict[int, int] = {}
     for row_idx, row in enumerate(rows):
         span_offset: int = 0  # how many columns are skipped due to row and colspans
         for col_idx, cell in enumerate(row.findAll(["td", "th"])):
@@ -79,11 +78,11 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
             value = re.sub("\\n", "", value)
             if value.startswith("(") and value.endswith(")"):
                 value = value[1:-1]
-            if re.match(pval_regex, value):
+            if re.match(PVAL_REGEX, value):
                 value = re.sub(
                     r"(\s{0,1})[*××xX](\s{0,1})10(_{0,1})", "e", value
                 ).replace("−", "-")
-            if re.match(pval_scientific_regex, value):
+            if re.match(PVAL_SCIENTIFIC_REGEX, value):
                 value = re.sub(r"(\s{0,1})[–−-](\s{0,1})", "-", value)
                 value = re.sub(r"(\s{0,1})[eE]", "e", value)
             for drow, dcol in product(range(rowspan), range(colspan)):
