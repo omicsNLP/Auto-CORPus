@@ -17,7 +17,7 @@ def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any]:
     """
     bioc_collection = {
         "source": "Auto-CORPus (full-text)",
-        "date": f"{datetime.today().strftime('%Y%m%d')}",
+        "date": datetime.today().strftime("%Y%m%d"),
         "key": "autocorpus_fulltext.key",
         "infons": {},
         "documents": [BiocDocument(input_vals).as_dict()],
