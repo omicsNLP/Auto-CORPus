@@ -6,7 +6,7 @@ from itertools import pairwise, product
 from pathlib import Path
 from typing import Any
 
-from bs4 import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup, Tag
 
 from .utils import get_data_element_node, handle_tables, navigate_contents
 
@@ -14,7 +14,7 @@ PVAL_REGEX = r"((\d+\.\d+)|(\d+))(\s?)[*××xX](\s{0,1})10[_]{0,1}([–−-])(\d
 PVAL_SCIENTIFIC_REGEX = r"((\d+.\d+)|(\d+))(\s{0,1})[eE](\s{0,1})([–−-])(\s{0,1})(\d+)"
 
 
-def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
+def __table_to_2d(t: BeautifulSoup) -> list[list[str]]:
     """Transform tables from nested lists to JSON.
 
     Args:
@@ -35,9 +35,9 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]] | None:
                 col.attrs["rowspan"] = 1
 
     # first scan, see how many columns we need
-    temp_row: Tag | NavigableString | None = t.find("tr")
+    temp_row = t.find("tr")
     if not temp_row:
-        return None
+        return []
     temp_cells: list[Tag] = (
         temp_row.findAll(["th", "td"]) if isinstance(temp_row, Tag) else []
     )
