@@ -3,8 +3,6 @@
 from datetime import datetime
 from typing import Any
 
-from .bioc_documents import get_formatted_bioc_document
-
 
 def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any]:
     """Constructs a BioC collection from input document-level data.
@@ -23,4 +21,3 @@ def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any]:
         "documents": [BiocDocument(input_vals).as_dict()],
     }
     return bioc_collection
-  
