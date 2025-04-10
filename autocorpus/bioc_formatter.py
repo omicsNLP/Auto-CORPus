@@ -11,10 +11,9 @@ def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any]:
 
     Args:
         input_vals (object): Input document-level data.
-        json_format (bool): If True, returns the collection as a JSON string.
 
     Returns:
-        (dict | str): BioC collection
+        (dict): BioC collection
     """
     bioc_collection = {
         "source": "Auto-CORPus (full-text)",
