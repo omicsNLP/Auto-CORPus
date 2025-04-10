@@ -3,6 +3,8 @@
 from datetime import datetime
 from typing import Any
 
+from autocorpus.bioc_documents import get_formatted_bioc_document
+
 
 def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any]:
     """Constructs a BioC collection from input document-level data.
@@ -18,6 +20,6 @@ def get_formatted_bioc_collection(input_vals: object) -> dict[str, Any]:
         "date": datetime.today().strftime("%Y%m%d"),
         "key": "autocorpus_fulltext.key",
         "infons": {},
-        "documents": [BiocDocument(input_vals).as_dict()],
+        "documents": [get_formatted_bioc_document(input_vals)],
     }
     return bioc_collection
