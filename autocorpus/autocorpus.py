@@ -11,7 +11,7 @@ from . import logger
 from .abbreviation import Abbreviations
 from .bioc_formatter import get_formatted_bioc_collection
 from .section import Section
-from .table import Table
+from .table import get_table_json
 from .utils import handle_not_tables
 
 
@@ -143,7 +143,7 @@ class Autocorpus:
             return
 
         if not self.tables:
-            self.tables, self.empty_tables = Table(soup, config, file_path).to_dict()
+            self.tables, self.empty_tables = get_table_json(soup, config, file_path)
             return
 
         seen_ids = set()
@@ -153,7 +153,7 @@ class Autocorpus:
             else:
                 seen_ids.add(tab["id"])
 
-        tmp_tables, tmp_empty = Table(soup, config, file_path).to_dict()
+        tmp_tables, tmp_empty = get_table_json(soup, config, file_path)
         for tabl in tmp_tables["documents"]:
             if "." in tabl["id"]:
                 tabl_id = tabl["id"].split(".")[0]
