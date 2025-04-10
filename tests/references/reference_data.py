@@ -1,3 +1,10 @@
+"""This module contains example reference data for testing purposes.
+
+It includes:
+- `example_pmc_reference`: A string representation of a reference section in XML format.
+- `example_pmc_correct_reference`: A dictionary representation of the parsed reference data.
+"""
+
 example_pmc_reference = """
     <section id="ref-list1" class="ref-list"><h2 class="pmc_sec_title">References</h2>
 <section id="ref-list1_sec2"><ul class="ref-list font-sm" style="list-style-type:none">
