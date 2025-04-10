@@ -343,7 +343,9 @@ class Autocorpus:
         Returns:
             (str): main text as BioC JSON
         """
-        return get_formatted_bioc_collection(self, json_format=True)
+        return json.dumps(
+            get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
+        )
 
     def main_text_to_bioc_xml(self):
         """Get the currently loaded main text as BioC XML.
@@ -352,7 +354,9 @@ class Autocorpus:
             (str): main text as BioC XML
         """
         collection = biocjson.loads(
-            get_formatted_bioc_collection(self, json_format=True)
+            json.dumps(
+                get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
+            )
         )
         return biocxml.dumps(collection)
 
