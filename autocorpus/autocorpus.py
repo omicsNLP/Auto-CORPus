@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 from . import logger
 from .abbreviation import Abbreviations
-from .bioc_formatter import BiocFormatter
+from .bioc_formatter import get_formatted_bioc_collection
 from .section import Section
 from .table import get_table_json
 from .utils import handle_not_tables
@@ -335,9 +335,9 @@ class Autocorpus:
         Returns:
             (dict): bioc as a dict
         """
-        return BiocFormatter(self).to_dict()
+        return get_formatted_bioc_collection(self)
 
-    def main_text_to_bioc_json(self, indent=2):
+    def main_text_to_bioc_json(self):
         """Get the currently loaded main text as BioC JSON.
 
         Args:
@@ -346,7 +346,9 @@ class Autocorpus:
         Returns:
             (str): main text as BioC JSON
         """
-        return BiocFormatter(self).to_json(indent)
+        return json.dumps(
+            get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
+        )
 
     def main_text_to_bioc_xml(self):
         """Get the currently loaded main text as BioC XML.
@@ -354,7 +356,11 @@ class Autocorpus:
         Returns:
             (str): main text as BioC XML
         """
-        collection = biocjson.loads(BiocFormatter(self).to_json(2))
+        collection = biocjson.loads(
+            json.dumps(
+                get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
+            )
+        )
         return biocxml.dumps(collection)
 
     def tables_to_bioc_json(self, indent=2):
