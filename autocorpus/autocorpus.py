@@ -265,6 +265,9 @@ class Autocorpus:
                             }
                         )
 
+    def process_supplementary_files(self):
+        pass
+
     def process_files(self):
         """Processes the files specified in the configuration.
 
