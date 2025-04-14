@@ -4,12 +4,13 @@ import argparse
 import re
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
-from filetype import is_image
 from tqdm import tqdm
 
-from autocorpus.Autocorpus import Autocorpus
-from autocorpus.configs.default_config import DefaultConfig
+from . import add_file_logger, logger
+from .autocorpus import Autocorpus
+from .configs.default_config import DefaultConfig
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -19,9 +20,6 @@ parser.add_argument(
     "-t", "--target_dir", type=str, help="target directory"
 )  # default autoCORPusOutput
 parser.add_argument(
-    "-a", "--associated_data", type=str, help="directory of associated data"
-)
-parser.add_argument(
     "-o",
     "--output_format",
     type=str,
@@ -30,22 +28,10 @@ parser.add_argument(
         "Does not effect tables or abbreviations"
     ),
 )
-parser.add_argument(
-    "-s",
-    "--trained_data_set",
-    type=str,
-    help=(
-        "trained dataset to use with pytesseract, must be in the form pytesseract "
-        "expects for the lang argument, default eng"
-    ),
-)
 
 group = parser.add_mutually_exclusive_group()
 group.add_argument(
     "-c", "--config", type=str, help="filepath for configuration JSON file"
-)
-group.add_argument(
-    "-d", "--config_dir", type=str, help="directory of configuration JSON files"
 )
 group.add_argument(
     "-b", "--default_config", type=str, help="name of a default config file"
@@ -55,39 +41,42 @@ group.add_argument(
 def get_file_type(file_path: Path) -> str:
     """Identify the type of files present in the given path.
 
-    :param file_path: file path to be checked
-    :return: "directory", "main_text", "linked_table" or "table_image"
+    Args:
+        file_path: file path to be checked
+
+    Returns:
+        "directory", "main_text" or "linked_table"
     """
     if file_path.is_dir():
         return "directory"
-    elif file_path.suffix == ".html":
-        if re.search(r"table_\d+.html", file_path.name):
+    if file_path.suffix == ".html":
+        if file_path.name.startswith("table_"):
             return "linked_tables"
-        else:
-            return "main_text"
-    elif is_image(file_path):
-        # this should be tidied up to only include the image types which are supported
-        # by AC instead of any image files
-        return "table_images"
-    print(f"unable to identify file type for {file_path}, file will not be processed")
+        return "main_text"
+
+    logger.warning(
+        f"unable to identify file type for {file_path}, file will not be processed"
+    )
     return ""
 
 
 def fill_structure(structure, key, ftype, fpath: Path):
     """Takes the structure dict, if key is not present then creates new entry with default vals and adds fpath to correct ftype if key is present then updates the dict with the new fpath only.
 
-    :param structure: structure dict
-    :param key: base file name
-    :param ftype: file type (main_text, linked_table, table_image
-    :param fpath: full path to the file
-    :return: updated structure dct
+    Args:
+        structure: structure dict
+        key: base file name
+        ftype: file type (main_text, linked_table)
+        fpath: full path to the file
+
+    Returns:
+        updated structure dct
     """
     if key not in structure:
         structure[key] = {
             "main_text": "",
             "out_dir": "",
             "linked_tables": [],
-            "table_images": [],
         }
     if ftype == "main_text" or ftype == "out_dir":
         structure[key][ftype] = str(fpath)
@@ -96,7 +85,7 @@ def fill_structure(structure, key, ftype, fpath: Path):
     return structure
 
 
-def read_file_structure(file_path: Path, target_dir: Path):
+def read_file_structure(file_path: Path, target_dir: Path) -> dict[str, Any]:
     """Takes in any file structure (flat or nested) and groups files, returns a dict of files which are all related and the paths to each related file.
 
     :param file_path:
@@ -104,13 +93,13 @@ def read_file_structure(file_path: Path, target_dir: Path):
     :return: list of dicts
     """
     if file_path.is_dir():
-        structure = {}
+        structure: dict[str, Any] = {}
         all_fpaths = file_path.rglob("*")
         for fpath in all_fpaths:
             tmp_out = fpath.relative_to(file_path).parent
             out_dir = target_dir / tmp_out
             ftype = get_file_type(fpath)
-            base_file = None
+            base_file = ""
             if ftype == "directory":
                 continue
             elif ftype == "main_text":
@@ -121,12 +110,8 @@ def read_file_structure(file_path: Path, target_dir: Path):
                 base_file = re.sub(r"_table_\d+\.html", "", str(fpath))
                 structure = fill_structure(structure, base_file, "linked_tables", fpath)
                 structure = fill_structure(structure, base_file, "out_dir", out_dir)
-            elif ftype == "table_images":
-                base_file = re.sub(r"_table_\d+\..*", "", str(fpath))
-                structure = fill_structure(structure, base_file, "table_images", fpath)
-                structure = fill_structure(structure, base_file, "out_dir", out_dir)
             elif not ftype:
-                print(
+                logger.warning(
                     f"cannot determine file type for {fpath}. "
                     "AC will not process this file"
                 )
@@ -139,8 +124,6 @@ def read_file_structure(file_path: Path, target_dir: Path):
         base_file = re.sub(r"\.html", "", str(file_path)).split("/")[-1]
     if ftype == "linked_tables":
         base_file = re.sub(r"_table_\d+\.html", "", str(file_path)).split("/")[-1]
-    if ftype == "table_images":
-        base_file = re.sub(r"_table_\d+\..*", "", str(file_path)).split("/")[-1]
     if not ftype:
         raise OSError(
             f"cannot determine file type for {file_path}. AC will not process this file"
@@ -150,7 +133,6 @@ def read_file_structure(file_path: Path, target_dir: Path):
             "main_text": "",
             "out_dir": str(target_dir),
             "linked_tables": [],
-            "table_images": [],
         }
     }
     template[base_file][get_file_type(file_path)] = str(
@@ -165,10 +147,7 @@ def main():
     file_path = Path(args.filepath)
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
     config = args.config if args.config else args.default_config
-    config_dir = args.config_dir  # noqa: F841 ## TODO: Use this variable
-    associated_data = args.associated_data  # noqa: F841 ## TODO: Use this variable
     output_format = args.output_format if args.output_format else "JSON"
-    trained_data = args.trained_data_set if args.output_format else "eng"
 
     if not file_path.exists():
         raise FileNotFoundError(f"{file_path} does not exist")
@@ -183,94 +162,93 @@ def main():
 
     log_file_path = (
         target_dir / "autoCORPus-log-"
-        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}"
+        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}.log"
     )
+    add_file_logger(log_file_path)
 
-    with log_file_path.open("w") as log_file:
-        log_file.write(
-            f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
-            f"on {cdate.day}/{cdate.month}/{cdate.year}\n"
+    logger.info(
+        f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
+        f"on {cdate.day}/{cdate.month}/{cdate.year}"
+    )
+    logger.info(f"Input path: {file_path}")
+    logger.info(f"Output path: {target_dir}")
+    logger.info(f"Config: {config}")
+    logger.info(f"Output format: {output_format}")
+    success = []
+    errors = []
+    for key in pbar:
+        pbar.set_postfix(
+            {
+                "file": key + "*",
+                "linked_tables": len(structure[key]["linked_tables"]),
+            }
         )
-        log_file.write(f"Input directory provided: {file_path}\n")
-        log_file.write(f"Output directory provided: {target_dir}\n")
-        log_file.write(f"Config provided: {config}\n")
-        log_file.write(f"Output format: {output_format}\n")
-        success = []
-        errors = []
-        for key in pbar:
-            pbar.set_postfix(
-                {
-                    "file": key + "*",
-                    "linked_tables": len(structure[key]["linked_tables"]),
-                    "table_images": len(structure[key]["table_images"]),
-                }
+        try:
+            if args.config:
+                config = Autocorpus.read_config(args.config)
+            elif args.default_config:
+                try:
+                    config = DefaultConfig[args.default_config].load_config()
+                except KeyError:
+                    raise ValueError(
+                        f"{args.default_config} is not a valid default config."
+                    )
+
+            ac = Autocorpus(
+                config=config,
+                main_text=structure[key]["main_text"],
+                linked_tables=sorted(structure[key]["linked_tables"]),
             )
-            base_dir = file_path.parent if not file_path.is_dir() else file_path
-            try:
-                if args.config:
-                    config = Autocorpus.read_config(args.config)
-                elif args.default_config:
-                    try:
-                        config = DefaultConfig[args.default_config].load_config()
-                    except KeyError:
-                        raise ValueError(
-                            f"{args.default_config} is not a valid default config."
-                        )
 
-                ac = Autocorpus(
-                    base_dir=str(base_dir),
-                    main_text=structure[key]["main_text"],
-                    config=config,
-                    linked_tables=sorted(structure[key]["linked_tables"]),
-                    table_images=sorted(structure[key]["table_images"]),
-                    trained_data=trained_data,
-                )
+            ac.process_files()
 
-                ac.process_files()
-
-                out_dir = Path(structure[key]["out_dir"])
-                if structure[key]["main_text"]:
-                    key = key.replace("\\", "/")
-                    if output_format.lower() == "json":
-                        with open(
-                            out_dir / f"{Path(key).name}_bioc.json",
-                            "w",
-                            encoding="utf-8",
-                        ) as outfp:
-                            outfp.write(ac.main_text_to_bioc_json())
-                    else:
-                        with open(
-                            out_dir / f"{Path(key).name}_bioc.xml",
-                            "w",
-                            encoding="utf-8",
-                        ) as outfp:
-                            outfp.write(ac.main_text_to_bioc_xml())
+            out_dir = Path(structure[key]["out_dir"])
+            if structure[key]["main_text"]:
+                key = key.replace("\\", "/")
+                if output_format.lower() == "json":
                     with open(
-                        out_dir / f"{Path(key).name}_abbreviations.json",
+                        out_dir / f"{Path(key).name}_bioc.json",
                         "w",
                         encoding="utf-8",
                     ) as outfp:
-                        outfp.write(ac.abbreviations_to_bioc_json())
-
-                # AC does not support the conversion of tables or abbreviations to XML
-                if ac.has_tables:
+                        outfp.write(ac.main_text_to_bioc_json())
+                else:
                     with open(
-                        out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
+                        out_dir / f"{Path(key).name}_bioc.xml",
+                        "w",
+                        encoding="utf-8",
                     ) as outfp:
-                        outfp.write(ac.tables_to_bioc_json())
-                success.append(f"{key} was processed successfully.")
-            except Exception as e:
-                errors.append(f"{key} failed due to {e}.")
+                        outfp.write(ac.main_text_to_bioc_xml())
+                with open(
+                    out_dir / f"{Path(key).name}_abbreviations.json",
+                    "w",
+                    encoding="utf-8",
+                ) as outfp:
+                    outfp.write(ac.abbreviations_to_bioc_json())
 
-        log_file.write(f"{len(success)} files processed.\n")
-        log_file.write(f"{len(errors)} files not processed due to errors.\n\n\n")
-        log_file.write("\n".join(success) + "\n")
-        log_file.write("\n".join(errors) + "\n")
-        if errors:
-            print(
-                "Auto-CORPus has completed processing with some errors. "
-                "Please inspect the log file for further details."
-            )
+            # AC does not support the conversion of tables or abbreviations to XML
+            if ac.has_tables:
+                with open(
+                    out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
+                ) as outfp:
+                    outfp.write(ac.tables_to_bioc_json())
+            success.append(f"{key} was processed successfully.")
+        except Exception as e:
+            errors.append(f"{key} failed due to {e}.")
+
+    logger.info(f"{len(success)} files processed.")
+    if errors:
+        logger.error(f"{len(errors)} files not processed due to errors.")
+    for msg in success:
+        logger.info(msg)
+    for msg in errors:
+        logger.error(errors)
+
+    if errors:
+        logger.warning(
+            "Auto-CORPus has completed processing with some errors. "
+            "Please inspect the log file for further details."
+        )
 
 
 if __name__ == "__main__":
