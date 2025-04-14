@@ -11,16 +11,21 @@ from pathlib import Path
 from docx import Document
 from FAIRClinicalWorkflow.BioC_Utilities import apply_sentence_splitting
 
-logging.basicConfig(filename="WordExtractor.log", level=logging.ERROR, format="%(asctime)s - %(levelname)s - %("
-                                                                              "message)s")
+logging.basicConfig(
+    filename="WordExtractor.log",
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
 
 filename = ""
 args = None
+
 
 def set_args():
     global args
     parser = argparse.ArgumentParser()
     args, _ = parser.parse_known_args()
+
 
 def replace_unicode(text):
     """Replaces specific Unicode characters in a given text.
@@ -42,14 +47,22 @@ def replace_unicode(text):
         for t in text:
             if t and type(t) is str:
                 clean_texts.append(
-                    t.replace('\u00a0', ' ').replace('\u00ad', '-').replace('\u2010', '-').replace('\u00d7', 'x'))
+                    t.replace("\u00a0", " ")
+                    .replace("\u00ad", "-")
+                    .replace("\u2010", "-")
+                    .replace("\u00d7", "x")
+                )
             else:
                 clean_texts.append(t)
         return clean_texts
     else:
         if type(text) is str:
-            clean_text = text.replace('\u00a0', ' ').replace('\u00ad', '-').replace('\u2010', '-').replace('\u00d7',
-                                                                                                           'x')
+            clean_text = (
+                text.replace("\u00a0", " ")
+                .replace("\u00ad", "-")
+                .replace("\u2010", "-")
+                .replace("\u00d7", "x")
+            )
         else:
             clean_text = text
         return clean_text
@@ -103,24 +116,22 @@ class BioCText:
             iao_name = "supplementary material section"
             iao_id = "IAO:0000326"
         # Create a passage object and add it to the passages list
-        passages.append({
-            "offset": offset,
-            "infons": {
-                "iao_name_1": iao_name,
-                "iao_id_1": iao_id
-            },
-            "text": line,
-            "sentences": [],
-            "annotations": [],
-            "relations": []
-        })
+        passages.append(
+            {
+                "offset": offset,
+                "infons": {"iao_name_1": iao_name, "iao_id_1": iao_id},
+                "text": line,
+                "sentences": [],
+                "annotations": [],
+                "relations": [],
+            }
+        )
         offset += len(line)
         return passages
 
 
 class BioCTable:
-    """Converts tables from nested lists into a BioC table object.
-    """
+    """Converts tables from nested lists into a BioC table object."""
 
     def __init__(self, input_file, table_id, table_data):
         self.inputfile = input_file
@@ -154,33 +165,23 @@ class BioCTable:
             "infons": {
                 "section_title_1": "table_content",
                 "iao_name_1": "table",
-                "iao_id_1": "IAO:0000306"
+                "iao_id_1": "IAO:0000306",
             },
             "column_headings": [],
-            "data_section": [
-                {
-                    "table_section_title_1": "",
-                    "data_rows": [
-
-                    ]
-                }
-            ]
+            "data_section": [{"table_section_title_1": "", "data_rows": []}],
         }
         # Process the column headings of the table
         for i, col in enumerate(table_data[0]):
             passage["column_headings"].append(
-                {
-                    "cell_id": self.id + F".1.{i + 1}",
-                    "cell_text": col
-                }
+                {"cell_id": self.id + f".1.{i + 1}", "cell_text": col}
             )
         # Process the data rows of the table
         for row_idx, row in enumerate(table_data[1:]):
             new_row = []
             for cell_idx, cell in enumerate(row):
                 new_cell = {
-                    "cell_id": F"{self.id}.{row_idx + 2}.{cell_idx + 1}",
-                    "cell_text": F"{cell}"
+                    "cell_id": f"{self.id}.{row_idx + 2}.{cell_idx + 1}",
+                    "cell_text": f"{cell}",
                 }
                 new_row.append(new_cell)
             passage["data_section"][0]["data_rows"].append(new_row)
@@ -220,12 +221,14 @@ def get_tables_bioc(tables, filename, textsource="Auto-CORPus"):
                 "infons": {},
                 "passages": [],
                 "annotations": [],
-                "relations": []
+                "relations": [],
             }
-        ]
+        ],
     }
     for i, x in enumerate(tables):
-        bioc["documents"][0]["passages"].append(BioCTable(filename, i + 1, x).get_table())
+        bioc["documents"][0]["passages"].append(
+            BioCTable(filename, i + 1, x).get_table()
+        )
     return bioc
 
 
@@ -242,9 +245,13 @@ def get_text_bioc(paragraphs, filename, textsource="Auto-CORPus"):
         paragraphs = ["This is the first paragraph.", "This is the second paragraph."]
         bioc_xml = get_text_bioc(paragraphs)
     """
-    passages = [p for sublist in
-                [BioCText(text=replace_unicode(x)).__dict__["passages"] for x in paragraphs] for p in
-                sublist]
+    passages = [
+        p
+        for sublist in [
+            BioCText(text=replace_unicode(x)).__dict__["passages"] for x in paragraphs
+        ]
+        for p in sublist
+    ]
     offset = 0
     for p in passages:
         p["offset"] = offset
@@ -263,9 +270,9 @@ def get_text_bioc(paragraphs, filename, textsource="Auto-CORPus"):
                 "infons": {},
                 "passages": passages,
                 "annotations": [],
-                "relations": []
+                "relations": [],
             }
-        ]
+        ],
     }
     return bioc
 
@@ -303,6 +310,7 @@ def convert_older_doc_file(file, output_dir):
     docx_path = file.replace(".doc", ".docx")
     if operating_system == "Windows":
         import win32com.client
+
         word = None
         try:
             docx_path = file + ".docx"
@@ -319,7 +327,15 @@ def convert_older_doc_file(file, output_dir):
     elif operating_system == "linux":
         # Convert .doc to .docx using LibreOffice
         subprocess.run(
-            ["soffice", "--headless", "--convert-to", "docx", "--outdir", output_dir, file],
+            [
+                "soffice",
+                "--headless",
+                "--convert-to",
+                "docx",
+                "--outdir",
+                output_dir,
+                file,
+            ],
             check=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -344,8 +360,7 @@ def convert_older_doc_file(file, output_dir):
 
 
 def extract_text_from_doc(file_path):
-    """Extracts text from a .doc file by converting it to .docx and processing with python-docx.
-    """
+    """Extracts text from a .doc file by converting it to .docx and processing with python-docx."""
     if not file_path.endswith(".doc"):
         raise ValueError("Input file must be a .doc file.")
     try:
@@ -355,13 +370,26 @@ def extract_text_from_doc(file_path):
         # Extract text from the resulting .docx file
         doc = Document(docx_path)
         tables = extract_tables(doc)
-        text_sizes = set([int(x.style.font.size) for x in doc.paragraphs if x.style.font.size])
-        paragraphs = [(x.text, True if text_sizes and x.style.font.size and int(x.style.font.size) > min(
-            text_sizes) else False) for x in doc.paragraphs]
+        text_sizes = set(
+            [int(x.style.font.size) for x in doc.paragraphs if x.style.font.size]
+        )
+        paragraphs = [
+            (
+                x.text,
+                True
+                if text_sizes
+                and x.style.font.size
+                and int(x.style.font.size) > min(text_sizes)
+                else False,
+            )
+            for x in doc.paragraphs
+        ]
         os.unlink(docx_path)
         return paragraphs, tables
     except FileNotFoundError:
-        print("LibreOffice 'soffice' command not found. Ensure it is installed and in your PATH.")
+        print(
+            "LibreOffice 'soffice' command not found. Ensure it is installed and in your PATH."
+        )
         return None, None
     except Exception as e:
         print(f"Error processing file {file_path}: {e}")
@@ -388,28 +416,41 @@ def process_word_document(file):
         try:
             doc = Document(file)
             tables = extract_tables(doc)
-            text_sizes = set([int(x.style.font.size) for x in doc.paragraphs if x.style.font.size])
-            paragraphs = [(x.text, True if text_sizes and x.style.font.size and int(x.style.font.size) > min(
-                text_sizes) else False) for x in doc.paragraphs]
+            text_sizes = set(
+                [int(x.style.font.size) for x in doc.paragraphs if x.style.font.size]
+            )
+            paragraphs = [
+                (
+                    x.text,
+                    True
+                    if text_sizes
+                    and x.style.font.size
+                    and int(x.style.font.size) > min(text_sizes)
+                    else False,
+                )
+                for x in doc.paragraphs
+            ]
         except ValueError:
             try:
                 if not file.lower().endswith(".docx"):
                     paragraphs, tables = extract_text_from_doc(file)
                     if paragraphs:
                         logging.info(
-                            F"File {file} was converted to .docx as a copy within the same directory for processing.")
+                            f"File {file} was converted to .docx as a copy within the same directory for processing."
+                        )
                     else:
                         logging.info(
-                            F"File {file} could not be processed correctly. It is likely a pre-2007 word document or problematic.")
+                            f"File {file} could not be processed correctly. It is likely a pre-2007 word document or problematic."
+                        )
                         return False
                 else:
-                    logging.info(F"File {file} could not be processed correctly.")
+                    logging.info(f"File {file} could not be processed correctly.")
                     return False
             except ValueError as ve:
-                logging.info(F"File {file} raised the error:\n{ve}")
+                logging.info(f"File {file} raised the error:\n{ve}")
                 return False
         except Exception as ex:
-            logging.info(F"File {file} raised the error:\n{ex}")
+            logging.info(f"File {file} raised the error:\n{ex}")
             return False
     else:
         return False
@@ -418,7 +459,7 @@ def process_word_document(file):
     if tables:
         if not Path(output_path).exists():
             Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-        with open(F"{output_path}_tables.json", "w+", encoding="utf-8") as f_out:
+        with open(f"{output_path}_tables.json", "w+", encoding="utf-8") as f_out:
             json.dump(get_tables_bioc(tables, Path(file).name), f_out)
 
     # Save paragraphs as a JSON file
@@ -427,7 +468,7 @@ def process_word_document(file):
         if not Path(output_path).exists():
             Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         global args
-        with open(F"{output_path}_bioc.json", "w+", encoding="utf-8") as f_out:
+        with open(f"{output_path}_bioc.json", "w+", encoding="utf-8") as f_out:
             # TODO: Test if datatype causes a problem
             text = get_text_bioc(paragraphs, Path(file).name)
             if args.sentence_splitter:

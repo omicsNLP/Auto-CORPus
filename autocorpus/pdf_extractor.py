@@ -6,10 +6,8 @@ extracted from PDFs, and converting them into structured BioC objects.
 
 import datetime
 from pathlib import Path
-from typing import Any
 
 from bioc import BioCCollection, BioCDocument, BioCPassage
-from pandas import DataFrame
 
 
 def get_pdf_passages(text: list[str] | str) -> list[BioCPassage] | list[str]:
