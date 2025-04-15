@@ -10,6 +10,44 @@ from lxml import etree
 from lxml.html.soupparser import fromstring
 
 
+def replace_unicode(text: str | list[str]) -> str | list[str]:
+    """Replaces specific Unicode characters in a given text.
+
+    Args:
+        text: The input text to be processed.
+
+    Returns:
+        The processed text with the specified Unicode characters replaced.
+
+    Examples:
+        replace_unicode('\u00a0Hello\u00adWorld\u2010')  # ' Hello-World-'
+        replace_unicode(['\u00a0Hello', '\u00adWorld'])  # [' Hello', 'World']
+    """
+    if not text:
+        raise ValueError("Input text is empty or None.")
+    if isinstance(text, list):
+        clean_texts = []
+        for t in text:
+            if t and isinstance(t, str):
+                clean_texts.append(
+                    t.replace("\u00a0", " ")
+                    .replace("\u00ad", "-")
+                    .replace("\u2010", "-")
+                    .replace("\u00d7", "x")
+                )
+            else:
+                clean_texts.append(t)
+        return clean_texts
+    elif isinstance(text, str):
+        clean_text = (
+            text.replace("\u00a0", " ")
+            .replace("\u00ad", "-")
+            .replace("\u2010", "-")
+            .replace("\u00d7", "x")
+        )
+        return clean_text
+
+
 def get_files(base_dir, pattern=r"(.*).html"):
     """Recursively retrieve all PMC.html files from the directory.
 
