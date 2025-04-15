@@ -392,7 +392,7 @@ class Autocorpus:
                 except Exception as e:
                     print(e)
             else:
-                pass  # TODO: implement XML handling
+                raise NotImplementedError("XML processing is not yet implemented for Auto-CORPus")
 
         if self.linked_tables:
             for table_file in self.linked_tables:
