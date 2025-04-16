@@ -13,7 +13,6 @@ import re
 from datetime import datetime
 
 import nltk
-import numpy as np
 from bs4 import BeautifulSoup, NavigableString, ResultSet, Tag
 from fuzzywuzzy import fuzz
 
@@ -648,7 +647,7 @@ if __name__ == "__main__":
                 matches = re.findall(pattern, text_test)
 
                 # Remove duplicate closing tags and create a list of unique matches
-                good_matches = list(np.unique(matches))
+                good_matches = list(dict.fromkeys(matches))
 
                 # Remove unwanted tags such as </p>, </sec>, and </title> from the list of matches, we need to keep these tag for later parsing the document, this manipulation is done to remove xref, italic, bold, ... tags
                 if "</p>" in good_matches:
@@ -1233,6 +1232,8 @@ if __name__ == "__main__":
             ######### FROM AC MAIN LIBRARY #########
 
             mapping_dict = read_mapping_file()
+
+            # Main body IAO allocation
             iao_list = []
 
             for y in range(len(corrected_section)):
@@ -1273,54 +1274,31 @@ if __name__ == "__main__":
                                             __add_IAO(heading_list[i], IAO_term)
                                         )
                     else:
-                        h2 = ""
                         mapping_result = []
-                    section_type = mapping_result
+
+                    # if condition to add the default value 'document part' for passages without IAO
+                    if mapping_result == []:
+                        section_type = [
+                            {
+                                "iao_name": "document part",  # Name of the IAO term
+                                "iao_id": "IAO:0000314",  # ID associated with the IAO term, or empty if not found
+                            }
+                        ]
+                    else:
+                        section_type = mapping_result
 
                 iao_list.append(list({v["iao_id"]: v for v in section_type}.values()))
 
+            # References IAO allocation
             iao_list_ref = []
+
             for y in range(len(tag_title_ref)):
-                if tag_title_ref[y][0] == "document title":
-                    section_type = [
-                        {"iao_name": "document title", "iao_id": "IAO:0000305"}
-                    ]
-                else:
-                    tokenized_section_heading = nltk.wordpunct_tokenize(
-                        tag_title_ref[y][0]
-                    )
-                    text = nltk.Text(tokenized_section_heading)
-                    words = [w.lower() for w in text]
-                    h2_tmp = " ".join(word for word in words)
-
-                    # TODO: check for best match, not the first
-                    if h2_tmp != "":
-                        if any(x in h2_tmp for x in [" and ", "&", "/"]):
-                            mapping_result = []
-                            h2_parts = re.split(r" and |\s?/\s?|\s?&\s?", h2_tmp)
-                            for h2_part in h2_parts:
-                                h2_part = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_part)
-                                pass
-                                for IAO_term, heading_list in mapping_dict.items():
-                                    for i in range(len(heading_list)):
-                                        if fuzz.ratio(h2_part, heading_list[i]) > 80:
-                                            mapping_result.append(
-                                                __add_IAO(heading_list[i], IAO_term)
-                                            )
-
-                        else:
-                            mapping_result = []
-                            for IAO_term, heading_list in mapping_dict.items():
-                                h2_tmp = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_tmp)
-                                for i in range(len(heading_list)):
-                                    if fuzz.ratio(h2_tmp, heading_list[i]) > 80:
-                                        mapping_result.append(
-                                            __add_IAO(heading_list[i], IAO_term)
-                                        )
-                    else:
-                        h2 = ""
-                        mapping_result = []
-                    section_type = mapping_result
+                section_type = [
+                    {
+                        "iao_name": "References",  # Name of the IAO term
+                        "iao_id": "IAO:0000320",  # ID associated with the IAO term, or empty if not found
+                    }
+                ]
 
                 iao_list_ref.append(
                     list({v["iao_id"]: v for v in section_type}.values())

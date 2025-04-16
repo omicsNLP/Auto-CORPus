@@ -3,6 +3,7 @@
 import importlib.resources as resources
 import json
 from enum import Enum
+from typing import Any
 
 
 class DefaultConfig(Enum):
@@ -35,8 +36,12 @@ class DefaultConfig(Enum):
         self._filename = filename
         self._config = None  # Lazy-loaded cache
 
-    def load_config(self):
-        """Loads the configuration file when first accessed."""
+    def load_config(self) -> dict[str, Any]:
+        """Loads the configuration file when first accessed.
+
+        Returns:
+            The configuration file as a dictionary.
+        """
         if self._config is None:
             config_path = resources.files("autocorpus.configs") / self._filename
             with config_path.open("r", encoding="utf-8") as f_in:
