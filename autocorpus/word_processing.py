@@ -6,13 +6,18 @@ management for unprocessed files.
 """
 
 import datetime
+import json
+import os
+import platform
 import re
+import subprocess
 from pathlib import Path
 
+import docx
 import pandas as pd
 from bioc import BioCCollection, BioCDocument, BioCPassage
 from BioCTable import get_tables_bioc
-from docx import Document
+from docx.document import Document
 
 from autocorpus.utils import replace_unicode
 
@@ -94,6 +99,39 @@ def extract_table_from_text(text: str) -> tuple[list[str], list[pd.DataFrame]]:
         df = pd.DataFrame(rows[1:], columns=rows[0])
         tables_output.append(df)
     return text_output, tables_output
+
+
+def get_word_paragraphs(doc: Document) -> list[tuple[str, bool]]:
+    """Extracts paragraphs from a Word document and identifies headers.
+
+    Args:
+        doc (Document): The Word document object.
+
+    Returns:
+        list[tuple[str, bool]]: A list of tuples where each tuple contains the paragraph text
+        and a boolean indicating if it is a header.
+    """
+    text_sizes = set(
+        [
+            int(x.style.font.size)
+            for x in doc.paragraphs
+            if x.style and x.style.font and x.style.font.size
+        ]
+    )
+    paragraphs = [
+        (
+            x.text,
+            True
+            if text_sizes
+            and x.style
+            and x.style.font
+            and x.style.font.size
+            and int(x.style.font.size) > min(text_sizes)
+            else False,
+        )
+        for x in doc.paragraphs
+    ]
+    return paragraphs
 
 
 def get_bioc_passages(text: list[str] | str) -> list[BioCPassage] | list[str]:
@@ -289,92 +327,6 @@ class BioCTable:
         return self.passage
 
 
-def get_tables_bioc(tables, filename, textsource="Auto-CORPus"):
-    """Generates a BioC XML structure containing tables.
-
-    Args:
-        tables (list): A list of tables to be included in the BioC structure.
-                       Each table should be represented as a nested list, where each inner list
-                       corresponds to a row, and each element in the inner list corresponds to the
-                       text content of a cell in the row.
-
-    Returns:
-        dict: A dictionary representing the generated BioC XML structure.
-
-    Example:
-        tables = [[["A", "B"], ["1", "2"]], [["X", "Y"], ["3", "4"]]]
-        bioc_xml = get_tables_bioc(tables)
-    """
-    # Create a BioC JSON structure dictionary
-    bioc = {
-        "source": "Auto-CORPus (supplementary)",
-        "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "autocorpus_supplementary.key",
-        "infons": {},
-        "documents": [
-            {
-                "id": 1,
-                "inputfile": filename,
-                "textsource": textsource,
-                "infons": {},
-                "passages": [],
-                "annotations": [],
-                "relations": [],
-            }
-        ],
-    }
-    for i, x in enumerate(tables):
-        bioc["documents"][0]["passages"].append(
-            BioCTable(filename, i + 1, x).get_table()
-        )
-    return bioc
-
-
-def get_text_bioc(paragraphs, filename, textsource="Auto-CORPus"):
-    """Generates a BioC JSON structure containing text paragraphs.
-
-    Args:
-        paragraphs (list): A list of paragraphs to be included in the BioC structure.
-
-    Returns:
-        dict: A dictionary representing the generated BioC XML structure.
-
-    Example:
-        paragraphs = ["This is the first paragraph.", "This is the second paragraph."]
-        bioc_xml = get_text_bioc(paragraphs)
-    """
-    passages = [
-        p
-        for sublist in [
-            BioCText(text=replace_unicode(x)).__dict__["passages"] for x in paragraphs
-        ]
-        for p in sublist
-    ]
-    offset = 0
-    for p in passages:
-        p["offset"] = offset
-        offset += len(p["text"])
-    # Create a BioC XML structure dictionary
-    bioc = {
-        "source": "Auto-CORPus (supplementary)",
-        "date": str(datetime.date.today().strftime("%Y%m%d")),
-        "key": "autocorpus_supplementary.key",
-        "infons": {},
-        "documents": [
-            {
-                "id": 1,
-                "inputfile": filename,
-                "textsource": textsource,
-                "infons": {},
-                "passages": passages,
-                "annotations": [],
-                "relations": [],
-            }
-        ],
-    }
-    return bioc
-
-
 def extract_tables(doc):
     """Extracts tables from a .docx document.
 
@@ -403,25 +355,34 @@ def extract_tables(doc):
     return tables
 
 
-def convert_older_doc_file(file, output_dir):
+def convert_older_doc_file(file: Path, output_dir: Path) -> Path | bool:
+    """Converts an older .doc file to .docx format.
+
+    Args:
+        file (str): The path to the .doc file to be converted.
+        output_dir (str): The directory where the converted .docx file will be saved.
+
+    Returns:
+        str: The path to the converted .docx file, or an empty string if the conversion fails.
+    """
     operating_system = platform.system()
-    docx_path = file.replace(".doc", ".docx")
+    docx_path = Path(str(file) + ".docx")
     if operating_system == "Windows":
         import win32com.client
 
         word = None
         try:
-            docx_path = file + ".docx"
             word = win32com.client.DispatchEx("Word.Application")
             doc = word.Documents.Open(file)
-            doc.SaveAs(file + ".docx", 16)
+            doc.SaveAs(docx_path, 16)
             doc.Close()
             word.Quit()
             return docx_path
         except Exception:
             return False
         finally:
-            word.Quit()
+            if word:
+                word.Quit()
     elif operating_system == "linux":
         # Convert .doc to .docx using LibreOffice
         subprocess.run(
@@ -435,8 +396,7 @@ def convert_older_doc_file(file, output_dir):
                 file,
             ],
             check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            capture_output=True,
         )
         return docx_path
     elif operating_system == "Darwin":  # macOS
@@ -457,80 +417,73 @@ def convert_older_doc_file(file, output_dir):
         return False
 
 
-def extract_text_from_doc(file_path):
-    """Extracts text from a .doc file by converting it to .docx and processing with python-docx."""
-    if not file_path.endswith(".doc"):
+def extract_text_from_doc(
+    file_path: Path,
+) -> tuple[list[tuple[str, bool]], list[pd.DataFrame]]:
+    """Extracts text and tables from a .doc file.
+
+    Converts older .doc files to .docx format if necessary, then extracts text and tables.
+    Deletes the temporary .docx file after processing.
+
+    Args:
+        file_path (str): The path to the .doc file.
+
+    Returns:
+        tuple: A tuple containing a list of paragraphs and a list of tables extracted from the document.
+
+    Raises:
+        ValueError: If the input file is not a .doc file.
+        FileNotFoundError: If LibreOffice 'soffice' command is not found on Linux.
+        Exception: For other errors during file processing.
+    """
+    if not file_path.suffix.lower() == ".doc":
         raise ValueError("Input file must be a .doc file.")
     try:
-        output_dir = str(Path(file_path).parent.absolute())
+        output_dir = file_path.parent
         docx_path = convert_older_doc_file(file_path, output_dir)
-
-        # Extract text from the resulting .docx file
-        doc = Document(docx_path)
-        tables = extract_tables(doc)
-        text_sizes = set(
-            [int(x.style.font.size) for x in doc.paragraphs if x.style.font.size]
-        )
-        paragraphs = [
-            (
-                x.text,
-                True
-                if text_sizes
-                and x.style.font.size
-                and int(x.style.font.size) > min(text_sizes)
-                else False,
-            )
-            for x in doc.paragraphs
-        ]
-        os.unlink(docx_path)
-        return paragraphs, tables
+        if isinstance(docx_path, Path):
+            # Extract text from the resulting .docx file
+            doc = docx.Document(str(docx_path.absolute()))
+            tables = extract_tables(doc)
+            paragraphs = get_word_paragraphs(doc)
+            os.unlink(docx_path)
+            return paragraphs, tables
+        else:
+            logger.info("Failed to convert .doc file to .docx.")
+            return [], []
     except FileNotFoundError:
         print(
             "LibreOffice 'soffice' command not found. Ensure it is installed and in your PATH."
         )
-        return None, None
+        logger.warning(
+            "LibreOffice 'soffice' command not found. Ensure it is installed and in your PATH."
+        )
+        return [], []
     except Exception as e:
-        print(f"Error processing file {file_path}: {e}")
-        return None, None
+        logger.error(f"Error processing file {file_path}: {e}")
+        return [], []
 
 
-def process_word_document(file):
-    """Processes a Word document file, extracting tables and paragraphs, and saving them as JSON files.
+def process_word_document(file: Path, output_location: Path):
+    """Processes a Word document to extract tables and paragraphs.
 
     Args:
-        file (str): The path to the Word document file.
+        file (Path): The path to the Word document file to be processed.
+        output_location (Path): The directory where the extracted data will be saved.
 
     Returns:
-        None
-
-    Example:
-        file_path = "/path/to/document.docx"
-        process_word_document(file_path)
+        bool: True if the document was processed successfully, False otherwise.
     """
     tables, paragraphs = [], []
-    output_path = file.replace("Raw", "Processed")
     # Check if the file has a ".doc" or ".docx" extension
-    if file.lower().endswith(".doc") or file.lower().endswith(".docx"):
+    if file.suffix.lower() in [".doc", ".docx"]:
         try:
-            doc = Document(file)
+            doc = docx.Document(str(file))
             tables = extract_tables(doc)
-            text_sizes = set(
-                [int(x.style.font.size) for x in doc.paragraphs if x.style.font.size]
-            )
-            paragraphs = [
-                (
-                    x.text,
-                    True
-                    if text_sizes
-                    and x.style.font.size
-                    and int(x.style.font.size) > min(text_sizes)
-                    else False,
-                )
-                for x in doc.paragraphs
-            ]
+            paragraphs = get_word_paragraphs(doc)
         except ValueError:
             try:
-                if not file.lower().endswith(".docx"):
+                if not file.suffix.lower() == ".docx":
                     paragraphs, tables = extract_text_from_doc(file)
                     if paragraphs:
                         logger.info(
@@ -555,18 +508,17 @@ def process_word_document(file):
 
     # Save tables as a JSON file
     if tables:
-        if not Path(output_path).exists():
-            Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-        with open(f"{output_path}_tables.json", "w+", encoding="utf-8") as f_out:
-            json.dump(get_tables_bioc(tables, Path(file).name), f_out)
+        if not output_location.exists():
+            output_location.mkdir(parents=True, exist_ok=True)
+        with open(f"{output_location}_tables.json", "w+", encoding="utf-8") as f_out:
+            json.dump(get_tables_bioc(tables), f_out)
 
     # Save paragraphs as a JSON file
     if paragraphs:
         paragraphs = [x for x in paragraphs if x[0]]
-        if not Path(output_path).exists():
-            Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-        global args
-        with open(f"{output_path}_bioc.json", "w+", encoding="utf-8") as f_out:
+        if not output_location.exists():
+            output_location.mkdir(parents=True, exist_ok=True)
+        with open(f"{output_location}_bioc.json", "w+", encoding="utf-8") as f_out:
             # TODO: Test if datatype causes a problem
             text = get_text_bioc(paragraphs, Path(file).name)
             json.dump(text, f_out, indent=4)
