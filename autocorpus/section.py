@@ -7,6 +7,7 @@ Modules used:
 """
 
 import re
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from functools import lru_cache
 from importlib import resources
@@ -157,6 +158,21 @@ def _get_abbreviations(
     return str(abbreviations)
 
 
+def _get_references(
+    config: dict[str, Any], section_heading: str, soup_section: BeautifulSoup
+) -> Iterable[dict[str, Any]]:
+    """Constructs the article references using the provided configuration file.
+
+    Args:
+        config: HTML config rules
+        section_heading: Current section heading
+        soup_section: Article section containing references
+    """
+    all_references = handle_not_tables(config["references"], soup_section)
+    for ref in all_references:
+        yield References(ref, config, section_heading).to_dict()
+
+
 class Section:
     """Class for processing section data."""
 
@@ -217,18 +233,6 @@ class Section:
         for child in children:
             self.__navigate_children(child, all_sub_sections, all_paragraphs)
 
-    def __get_references(self, soup_section):
-        """Constructs the article references using the provided configuration file.
-
-        Args:
-            soup_section (bs4.BeautifulSoup): article section containing references
-        """
-        all_references = handle_not_tables(self.config["references"], soup_section)
-        for ref in all_references:
-            self.paragraphs.append(
-                References(ref, self.config, self.section_heading).to_dict()
-            )
-
     def __init__(
         self, config: dict[str, dict[str, Any]], section_dict: dict[str, Any]
     ) -> None:
@@ -257,8 +261,11 @@ class Section:
             "iao_name": "references section",
             "iao_id": "IAO:0000320",
         } in self.section_type:
-            self.__get_references(section_dict["node"])
+            self.paragraphs.extend(
+                _get_references(config, self.section_heading, section_dict["node"])
+            )
             return
+
         self.__get_section(section_dict["node"])
 
     def to_list(self) -> list[dict[str, str]]:
