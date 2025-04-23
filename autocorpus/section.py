@@ -137,7 +137,7 @@ class Paragraph:
     section_heading: str
     subsection_heading: str
     body: str
-    section_type: str
+    section_type: list[dict[str, str]]
 
     as_dict = asdict
 
