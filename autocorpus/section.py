@@ -14,7 +14,7 @@ from importlib import resources
 from typing import Any
 
 import nltk
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from fuzzywuzzy import fuzz
 
 from . import logger
@@ -173,29 +173,34 @@ def _get_references(
         yield References(ref, config, section_heading).to_dict()
 
 
-class Section:
-    """Class for processing section data."""
+@dataclass(frozen=True)
+class SectionChild:
+    """A child node in the section."""
 
-    def __add_paragraph(self, body):
-        self.paragraphs.append(
-            Paragraph(
-                self.section_heading, self.subheader, body, self.section_type
-            ).as_dict()
-        )
+    subheading: str
+    body: str
 
-    def __navigate_children(self, soup_section, all_sub_sections, filtered_paragraphs):
-        if soup_section in filtered_paragraphs:
-            if soup_section.previous_sibling and soup_section.previous_sibling.name in (
+
+def _navigate_children(
+    subheading: str,
+    soup_sections: list[Tag],
+    subsections: list[dict[str, Any]],
+    paragraphs: list[Tag],
+) -> Iterable[SectionChild]:
+    for soup_section in soup_sections:
+        if soup_section in paragraphs:
+            if soup_section.previous_sibling and soup_section.previous_sibling.name in (  # type: ignore[attr-defined]
                 "h3",
                 "h4",
                 "h5",
             ):
-                self.subheader = soup_section.previous_sibling.get_text()
-            self.__add_paragraph(soup_section.get_text())
-            return
-        for subsec in all_sub_sections:
+                subheading = soup_section.previous_sibling.get_text()
+            yield SectionChild(subheading, soup_section.get_text())
+            continue
+
+        for subsec in subsections:
             if subsec["node"] == soup_section:
-                self.subheader = (
+                subheading = (
                     subsec["headers"][0]
                     if "headers" in subsec and not subsec["headers"] == ""
                     else ""
@@ -205,9 +210,17 @@ class Section:
             children = soup_section.findChildren(recursive=False)
         except Exception as e:
             logger.warning(e)
-            children = []
-        for child in children:
-            self.__navigate_children(child, all_sub_sections, filtered_paragraphs)
+            continue
+
+        for output in _navigate_children(subheading, children, subsections, paragraphs):
+            # We keep the last known subheading in case the next child doesn't define
+            # their own
+            subheading = output.subheading
+            yield output
+
+
+class Section:
+    """Class for processing section data."""
 
     def __get_section(self, soup_section):
         all_sub_sections = handle_not_tables(self.config["sub-sections"], soup_section)
@@ -230,8 +243,17 @@ class Section:
             para for para in all_paragraphs if para not in unwanted_paragraphs
         ]
         children = soup_section.findChildren(recursive=False)
-        for child in children:
-            self.__navigate_children(child, all_sub_sections, all_paragraphs)
+        for output in _navigate_children(
+            "", children, all_sub_sections, all_paragraphs
+        ):
+            self.paragraphs.append(
+                Paragraph(
+                    self.section_heading,
+                    output.subheading,
+                    output.body,
+                    self.section_type,
+                ).as_dict()
+            )
 
     def __init__(
         self, config: dict[str, dict[str, Any]], section_dict: dict[str, Any]
@@ -245,7 +267,6 @@ class Section:
         self.config = config
         self.section_heading = section_dict.get("headers", [""])[0]
         self.section_type = get_iao_term_mapping(self.section_heading)
-        self.subheader = ""
         self.paragraphs: list[dict[str, Any]] = []
 
         # Different processing for abbreviations and references section types
@@ -254,7 +275,12 @@ class Section:
                 abbreviations = _get_abbreviations(
                     abbreviations_config, section_dict["node"]
                 )
-                self.__add_paragraph(abbreviations)
+                self.paragraphs.extend(
+                    Paragraph(
+                        self.section_heading, "", body, self.section_type
+                    ).as_dict()
+                    for body in abbreviations
+                )
                 return
 
         if {
