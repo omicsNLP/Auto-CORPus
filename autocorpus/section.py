@@ -137,7 +137,7 @@ class Paragraph:
     body: str
     section_type: str
 
-    dict = asdict
+    as_dict = asdict
 
 
 class Section:
@@ -147,7 +147,7 @@ class Section:
         self.paragraphs.append(
             Paragraph(
                 self.section_heading, self.subheader, body, self.section_type
-            ).dict()
+            ).as_dict()
         )
 
     def __navigate_children(self, soup_section, all_sub_sections, filtered_paragraphs):
