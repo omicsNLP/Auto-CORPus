@@ -202,7 +202,7 @@ def handle_defined_by(config, soup):
 
 def handle_not_tables(
     config: dict[str, Any], soup: BeautifulSoup
-) -> list[dict[str, NavigableString]]:
+) -> list[dict[str, Any]]:
     """Executes a search on non-table bs4 soup objects based on provided config rules.
 
     Args:
