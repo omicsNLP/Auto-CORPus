@@ -13,6 +13,7 @@ from importlib import resources
 from typing import Any
 
 import nltk
+from bs4 import BeautifulSoup
 from fuzzywuzzy import fuzz
 
 from . import logger
@@ -140,6 +141,22 @@ class Paragraph:
     as_dict = asdict
 
 
+def _get_abbreviations(
+    abbreviations_config: dict[str, Any], soup_section: BeautifulSoup
+) -> str:
+    try:
+        abbreviations_tables = handle_not_tables(abbreviations_config, soup_section)
+        node = abbreviations_tables[0]["node"]
+        abbreviations = {}
+        for tr in node.find_all("tr"):
+            short_form, long_form = (td.get_text() for td in tr.find_all("td"))
+            abbreviations[short_form] = long_form
+    except Exception:
+        abbreviations = {}
+
+    return str(abbreviations)
+
+
 class Section:
     """Class for processing section data."""
 
@@ -175,22 +192,6 @@ class Section:
             children = []
         for child in children:
             self.__navigate_children(child, all_sub_sections, filtered_paragraphs)
-
-    def __get_abbreviations(self, soup_section):
-        if "abbreviations-table" in self.config:
-            try:
-                abbreviations_tables = handle_not_tables(
-                    self.config["abbreviations-table"], soup_section
-                )
-                abbreviations_tables = abbreviations_tables[0]["node"]
-                abbreviations = {}
-                for tr in abbreviations_tables.find_all("tr"):
-                    short_form, long_form = (td.get_text() for td in tr.find_all("td"))
-                    abbreviations[short_form] = long_form
-            except Exception:
-                abbreviations = {}
-
-            return str(abbreviations)
 
     def __get_section(self, soup_section):
         all_sub_sections = handle_not_tables(self.config["sub-sections"], soup_section)
@@ -245,9 +246,13 @@ class Section:
 
         # Different processing for abbreviations and references section types
         if self.section_heading == "Abbreviations":
-            abbreviations = self.__get_abbreviations(section_dict["node"])
-            self.__add_paragraph(abbreviations)
-            return
+            if abbreviations_config := config.get("abbreviations-table", None):
+                abbreviations = _get_abbreviations(
+                    abbreviations_config, section_dict["node"]
+                )
+                self.__add_paragraph(abbreviations)
+                return
+
         if {
             "iao_name": "references section",
             "iao_id": "IAO:0000320",
