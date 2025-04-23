@@ -242,7 +242,7 @@ class Section:
         self.section_heading = section_dict.get("headers", [""])[0]
         self.section_type = get_iao_term_mapping(self.section_heading)
         self.subheader = ""
-        self.paragraphs: list[dict[str, str]] = []
+        self.paragraphs: list[dict[str, Any]] = []
 
         # Different processing for abbreviations and references section types
         if self.section_heading == "Abbreviations":
