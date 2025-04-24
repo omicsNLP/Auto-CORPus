@@ -218,7 +218,7 @@ def handle_not_tables(
         for match in matches:
             response_addition = {"node": match}
             for ele in config["data"]:
-                seen_text = set()  # type: ignore
+                seen_text = set()
                 for definition in config["data"][ele]:
                     bs_attrs = parse_configs(definition)
                     new_matches = match.find_all(
@@ -227,11 +227,12 @@ def handle_not_tables(
                     )
                     if new_matches:
                         response_addition[ele] = []
-                    for newMatch in new_matches:
-                        if newMatch.get_text() in seen_text:  # This can never happen?
+                    for new_match in new_matches:
+                        text = new_match.get_text()
+                        if text in seen_text:
                             continue
-                        else:
-                            response_addition[ele].append(newMatch.get_text())
+                        seen_text.add(text)
+                        response_addition[ele].append(text)
             responses.append(response_addition)
     else:
         for match in matches:
