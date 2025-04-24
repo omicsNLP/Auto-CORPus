@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from . import logger
 from .abbreviation import Abbreviations
 from .bioc_formatter import get_formatted_bioc_collection
-from .section import Section
+from .section import get_section
 from .table import get_table_json
 from .utils import handle_not_tables
 
@@ -99,7 +99,7 @@ class Autocorpus:
             maintext.append(keywords)
         sections = self.__get_sections(soup, config)
         for sec in sections:
-            maintext.extend(Section(config, sec).to_list())
+            maintext.extend(get_section(config, sec))
 
         # filter out the sections which do not contain any info
         filtered_text = [x for x in maintext if x]

@@ -243,60 +243,39 @@ def _get_section(
     return _navigate_children("", children, subsections, paragraphs)
 
 
-class Section:
-    """Class for processing section data."""
+def get_section(
+    config: dict[str, dict[str, Any]], section_dict: dict[str, Any]
+) -> Iterable[dict[str, Any]]:
+    """Identifies a section using the provided configuration.
 
-    def __init__(
-        self, config: dict[str, dict[str, Any]], section_dict: dict[str, Any]
-    ) -> None:
-        """Identifies a section using the provided configuration.
+    Args:
+        config: AC configuration object.
+        section_dict: Article section dictionary.
+    """
+    section_heading = section_dict.get("headers", [""])[0]
+    section_type = get_iao_term_mapping(section_heading)
 
-        Args:
-            config: AC configuration object.
-            section_dict: Article section dictionary.
-        """
-        self.config = config
-        self.section_heading = section_dict.get("headers", [""])[0]
-        self.section_type = get_iao_term_mapping(self.section_heading)
-        self.paragraphs: list[dict[str, Any]] = []
-
-        # Different processing for abbreviations and references section types
-        if self.section_heading == "Abbreviations":
-            if abbreviations_config := config.get("abbreviations-table", None):
-                abbreviations = _get_abbreviations(
-                    abbreviations_config, section_dict["node"]
-                )
-                self.paragraphs.extend(
-                    Paragraph(
-                        self.section_heading, "", body, self.section_type
-                    ).as_dict()
-                    for body in abbreviations
-                )
-                return
-
-        if {
-            "iao_name": "references section",
-            "iao_id": "IAO:0000320",
-        } in self.section_type:
-            self.paragraphs.extend(
-                _get_references(config, self.section_heading, section_dict["node"])
+    # Different processing for abbreviations and references section types
+    if section_heading == "Abbreviations":
+        if abbreviations_config := config.get("abbreviations-table", None):
+            abbreviations = _get_abbreviations(
+                abbreviations_config, section_dict["node"]
             )
+            for body in abbreviations:
+                yield Paragraph(section_heading, "", body, section_type).as_dict()
             return
 
-        for child in _get_section(config, section_dict["node"]):
-            self.paragraphs.append(
-                Paragraph(
-                    self.section_heading,
-                    child.subheading,
-                    child.body,
-                    self.section_type,
-                ).as_dict()
-            )
+    if {
+        "iao_name": "references section",
+        "iao_id": "IAO:0000320",
+    } in section_type:
+        yield from _get_references(config, section_heading, section_dict["node"])
+        return
 
-    def to_list(self) -> list[dict[str, str]]:
-        """Retrieve a list of section paragraphs.
-
-        Returns:
-                The section paragraphs
-        """
-        return self.paragraphs
+    for child in _get_section(config, section_dict["node"]):
+        yield Paragraph(
+            section_heading,
+            child.subheading,
+            child.body,
+            section_type,
+        ).as_dict()
