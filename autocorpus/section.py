@@ -11,6 +11,7 @@ from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from functools import lru_cache
 from importlib import resources
+from itertools import chain
 from typing import Any
 
 import nltk
@@ -219,41 +220,31 @@ def _navigate_children(
             yield output
 
 
+def _get_section(
+    config: dict[str, Any], soup_section: BeautifulSoup
+) -> Iterable[SectionChild]:
+    subsections = handle_not_tables(config["sub-sections"], soup_section)
+    paragraphs = [
+        para["node"] for para in handle_not_tables(config["paragraphs"], soup_section)
+    ]
+    tables = [
+        table["node"] for table in handle_not_tables(config["tables"], soup_section)
+    ]
+    figures = [
+        figure["node"] for figure in handle_not_tables(config["figures"], soup_section)
+    ]
+    unwanted_paragraphs = list(
+        chain.from_iterable(
+            capt.find_all("p", recursive=True) for capt in chain(tables, figures)
+        )
+    )
+    paragraphs = [para for para in paragraphs if para not in unwanted_paragraphs]
+    children = soup_section.findChildren(recursive=False)
+    return _navigate_children("", children, subsections, paragraphs)
+
+
 class Section:
     """Class for processing section data."""
-
-    def __get_section(self, soup_section):
-        all_sub_sections = handle_not_tables(self.config["sub-sections"], soup_section)
-        all_paragraphs = handle_not_tables(self.config["paragraphs"], soup_section)
-        all_paragraphs = [x["node"] for x in all_paragraphs]
-        all_tables = handle_not_tables(self.config["tables"], soup_section)
-        all_tables = [x["node"] for x in all_tables]
-        all_figures = handle_not_tables(self.config["figures"], soup_section)
-        all_figures = [x["node"] for x in all_figures]
-        unwanted_paragraphs = []
-        [
-            unwanted_paragraphs.extend(capt.find_all("p", recursive=True))
-            for capt in all_tables
-        ]
-        [
-            unwanted_paragraphs.extend(capt.find_all("p", recursive=True))
-            for capt in all_figures
-        ]
-        all_paragraphs = [
-            para for para in all_paragraphs if para not in unwanted_paragraphs
-        ]
-        children = soup_section.findChildren(recursive=False)
-        for output in _navigate_children(
-            "", children, all_sub_sections, all_paragraphs
-        ):
-            self.paragraphs.append(
-                Paragraph(
-                    self.section_heading,
-                    output.subheading,
-                    output.body,
-                    self.section_type,
-                ).as_dict()
-            )
 
     def __init__(
         self, config: dict[str, dict[str, Any]], section_dict: dict[str, Any]
@@ -292,7 +283,15 @@ class Section:
             )
             return
 
-        self.__get_section(section_dict["node"])
+        for child in _get_section(config, section_dict["node"]):
+            self.paragraphs.append(
+                Paragraph(
+                    self.section_heading,
+                    child.subheading,
+                    child.body,
+                    self.section_type,
+                ).as_dict()
+            )
 
     def to_list(self) -> list[dict[str, str]]:
         """Retrieve a list of section paragraphs.
