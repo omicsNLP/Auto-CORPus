@@ -139,11 +139,11 @@ To get started:
 1. Run the main app for a single file example:
 
    ```sh
-   python -m autocorpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+   auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
    ```
 
 1. Run the main app for a directory of files example
 
    ```sh
-   python -m autocorpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+   auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
    ```
