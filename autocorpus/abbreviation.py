@@ -1,7 +1,6 @@
 """Handles the processing of abbreviations.
 
 modules used:
-- logging: log errors/status messages
 - collections: used for counting the most common occurrences
 - datetime: datetime stamping
 - pathlib: OS-agnostic pathing
