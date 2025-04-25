@@ -12,6 +12,8 @@ The Automated pipeline for Consistent Outputs from Research Publications (Auto-C
 
 We present a JSON format for sharing table content and metadata that is based on the BioC format. The [JSON schema](keyFiles/table_schema.json) for the tables JSON can be found within the [keyfiles](keyFiles) directory.
 
+The documentation for Auto-CORPus is available on our [GitHub Pages site](https://omicsnlp.github.io/Auto-CORPus/).
+
 ## Installation
 
 Install with pip
