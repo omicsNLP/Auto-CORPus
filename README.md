@@ -43,12 +43,12 @@ auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/dire
 
 ### Available arguments
 
-| Flag | Name | Description |
-| -------- | ------- | ------- |
-| `-f` | Input File Path | File or directory to run Auto-CORPus on |
+| Flag | Name             | Description                                               |
+|------|------------------|-----------------------------------------------------------|
+| `-f` | Input File Path  | File or directory to run Auto-CORPus on                   |
 | `-t` | Output File Path | Directory path where Auto-CORPus should save output files |
-| `-c` | Config | Which config file to use |
-| `-o` | Output Format | Either `JSON` or `XML` (defaults to `JSON`) |
+| `-c` | Config           | Which config file to use                                  |
+| `-o` | Output Format    | Either `JSON` or `XML` (defaults to `JSON`)               |
 
 ## Config files
 
