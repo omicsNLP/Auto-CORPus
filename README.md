@@ -135,5 +135,3 @@ To get started:
    ```sh
    python -m autocorpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
    ```
-
-**Note:** The `auto-corpus` commandline script is also available and will behave the same as `python -m autocorpus`
