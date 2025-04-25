@@ -56,8 +56,6 @@ Auto-CORPus is able to parse HTML from different publishers, which utilise diffe
 - Full text HTML documents covering the entire article
 - HTML files which describe a single table
 
-Current work in progress is extending this to include images of tables. See the [Alpha Testing](#alpha-testing) section below.
-
 Auto-CORPus does not provide functionality to retrieve input files directly from the publisher. Input file retrieval must be completed by the user in a way which the publisher permits.
 
 Auto-CORPus relies on a standard naming convention to recognise the files and identify the correct order of tables. The naming convention can be seen below:
@@ -139,26 +137,3 @@ To get started:
    ```
 
 **Note:** The `auto-corpus` commandline script is also available and will behave the same as `python -m autocorpus`
-
-## Alpha testing
-
-We are developing an Auto-CORPus plugin to process images of tables and we include an alpha version of this
-functionality. Table image files can be processed in either .png or .jpeg/jpg formats. We are working on improving the accuracy of both the table layout and character recognition aspects, and we will update this repo as the plugin advances.
-
-We utilise [opencv](https://pypi.org/project/opencv-python/) for cell detection and [tesseract](https://github.com/tesseract-ocr/tesseract) for optical character recognition. Tesseract will need to be installed separately onto your system for the table image recognition aspect of Auto-CORPus to work. Please follow the guidance given by tesseract on how to do this.
-
-We have made trained datasets available for use with this feature, but we will continue to train these datasets to
-increase their accuracy, and it is very likely that the trained datasets we offer will be updated frequently during
-active development periods.
-
-As with HTML input files, the image input files should be retrieved by the user in a way which the publisher permits. The naming convention is:
-
-Table image file: {any_name_you_want}_table_X.png/jpg/jpeg
-
-- {any_name_you_want} must be identical to the name given to the full text file followed by_table_X where X is the table number
-
-### Additional argument
-
-| Flag | Name | Description |
-| -------- | ------- | ------- |
-| `-s` | Trained Dataset | Trained dataset to use for pytesseract OCR. Value should be given in a format recognised by pytesseract with a "+" between each datafile, such as "eng+all" |
