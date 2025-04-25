@@ -8,11 +8,16 @@
 
 *Requires Python 3.10+* <!-- markdownlint-disable-line MD036 -->
 
-The Automated pipeline for Consistent Outputs from Research Publications (Auto-CORPus) is a tool for the standardisation and conversion of publication HTML to three convenient machine-interpretable outputs to support biomedical text analytics. Firstly, Auto-CORPus can be configured to convert HTML from various publication sources to [BioC format](http://bioc.sourceforge.net/). Secondly, Auto-CORPus transforms publication tables to a JSON format to store, exchange and annotate table data between text analytics systems. Finally, Auto-CORPus extracts abbreviations declared within publication text and provides an abbreviations JSON output that relates an abbreviation with the full definition.
+The Automated pipeline for Consistent Outputs from Research Publications (Auto-CORPus) is a tool for the standardisation and conversion of publication HTML to three convenient machine-interpretable outputs to support biomedical text analytics. Firstly, Auto-CORPus can be configured to convert HTML from various publication sources to [BioC format]. Secondly, Auto-CORPus transforms publication tables to a JSON format to store, exchange and annotate table data between text analytics systems. Finally, Auto-CORPus extracts abbreviations declared within publication text and provides an abbreviations JSON output that relates an abbreviation with the full definition.
 
-We present a JSON format for sharing table content and metadata that is based on the BioC format. The [JSON schema](keyFiles/table_schema.json) for the tables JSON can be found within the [keyfiles](keyFiles) directory.
+We present a JSON format for sharing table content and metadata that is based on the BioC format. The [JSON schema] for the tables JSON can be found within the [keyFiles] directory.
 
-The documentation for Auto-CORPus is available on our [GitHub Pages site](https://omicsnlp.github.io/Auto-CORPus/).
+The documentation for Auto-CORPus is available on our [GitHub Pages site].
+
+[BioC format]: http://bioc.sourceforge.net/
+[JSON schema]: https://github.com/omicsNLP/Auto-CORPus/blob/main/keyFiles/table_schema.json
+[keyFiles]: https://github.com/omicsNLP/Auto-CORPus/tree/main/keyFiles
+[GitHub Pages site]: https://omicsnlp.github.io/Auto-CORPus/
 
 ## Installation
 
@@ -47,9 +52,9 @@ auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/dire
 
 ## Config files
 
-If you wish to contribute or edit a config file then please follow the instructions in the [config guide](docs/config_tutorial.md).
+If you wish to contribute or edit a config file then please follow the instructions in the [config guide].
 
-Auto-CORPus is able to parse HTML from different publishers, which utilise different HTML structures and naming conventions. This is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied a config template along with example config files for [PubMed Central](autocorpus/configs/config_pmc.json), [Plos Genetics](autocorpus/configs/config_plos_genetics.json) and [Nature Genetics](autocorpus/configs/config_nature_genetics.json) in the [configs](autocorpus/configs) directory. Users of Auto-CORPus can submit their own config files for different sources via the [issues](https://github.com/omicsNLP/Auto-CORPus/issues) tab.
+Auto-CORPus is able to parse HTML from different publishers, which utilise different HTML structures and naming conventions. This is made possible by the inclusion of config files which tell Auto-CORPus how to identify specific sections of the article/table within the source HTML. We have supplied a config template along with example config files for [PubMed Central], [PLOS Genetics] and [Nature Genetics] in the [configs] directory. Users of Auto-CORPus can submit their own config files for different sources via the [issues] tab.
 
 **Auto-CORPus recognises 2 types of input file which are:**
 
@@ -94,6 +99,13 @@ PMC1_tables.json (contains table 1 & 2 and any tables described within the main 
 
 A log file is produced in the output directory providing details of the day/time Auto-CORPus was run,
 the arguments used and information about which files were successfully/unsuccessfully processed with a relevant error message.
+
+[config guide]: https://omicsnlp.github.io/Auto-CORPus/config_tutorial/
+[PubMed Central]: https://github.com/omicsNLP/Auto-CORPus/blob/main/autocorpus/configs/config_pmc.json
+[PLOS Genetics]: https://github.com/omicsNLP/Auto-CORPus/blob/main/autocorpus/configs/config_plos_genetics.json
+[Nature Genetics]: https://github.com/omicsNLP/Auto-CORPus/blob/main/autocorpus/configs/config_nature_genetics.json
+[configs]: https://github.com/omicsNLP/Auto-CORPus/tree/main/autocorpus/configs
+[issues]: https://github.com/omicsNLP/Auto-CORPus/issues
 
 ## For developers
 
