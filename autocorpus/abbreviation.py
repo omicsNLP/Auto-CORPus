@@ -135,44 +135,43 @@ class Abbreviations:
         definition_freq = first_chars.count(key)
         candidate_freq = candidate.lower().count(key)
 
-        # Look for the list of tokens in front of candidate that
-        # have a sufficient number of tokens starting with key
-        if candidate_freq <= definition_freq:
-            # we should at least have a good number of starts
-            count = 0
-            start = 0
-            start_index = len(first_chars) - 1
-            while count < candidate_freq:
-                if abs(start) > len(first_chars):
-                    raise ValueError(f"candidate {candidate} not found")
-                start -= 1
-                # Look up key in the definition
-                try:
-                    start_index = first_chars.index(key, len(first_chars) + start)
-                except ValueError:
-                    pass
-
-                # Count the number of keys in definition
-                count = first_chars[start_index:].count(key)
-
-            # We found enough keys in the definition so return the definition as a definition candidate
-            start = len(" ".join(tokens[:start_index]))
-            stop = candidate.start - 1
-            candidate = sentence[start:stop]
-
-            # Remove whitespace
-            start = start + len(candidate) - len(candidate.lstrip())
-            stop = stop - len(candidate) + len(candidate.rstrip())
-            candidate = sentence[start:stop]
-
-            new_candidate = Candidate(candidate)
-            new_candidate.set_position(start, stop)
-            return new_candidate
-
-        else:
+        if candidate_freq > definition_freq:
             raise ValueError(
                 "There are less keys in the tokens in front of candidate than there are in the candidate"
             )
+
+        # Look for the list of tokens in front of candidate that
+        # have a sufficient number of tokens starting with key
+        # we should at least have a good number of starts
+        count = 0
+        start = 0
+        start_index = len(first_chars) - 1
+        while count < candidate_freq:
+            if abs(start) > len(first_chars):
+                raise ValueError(f"candidate {candidate} not found")
+            start -= 1
+            # Look up key in the definition
+            try:
+                start_index = first_chars.index(key, len(first_chars) + start)
+            except ValueError:
+                pass
+
+            # Count the number of keys in definition
+            count = first_chars[start_index:].count(key)
+
+        # We found enough keys in the definition so return the definition as a definition candidate
+        start = len(" ".join(tokens[:start_index]))
+        stop = candidate.start - 1
+        candidate = sentence[start:stop]
+
+        # Remove whitespace
+        start = start + len(candidate) - len(candidate.lstrip())
+        stop = stop - len(candidate) + len(candidate.rstrip())
+        candidate = sentence[start:stop]
+
+        new_candidate = Candidate(candidate)
+        new_candidate.set_position(start, stop)
+        return new_candidate
 
     def __select_definition(self, definition, abbrev):
         """Takes a definition candidate and an abbreviation candidate and returns True if the chars in the abbreviation occur in the definition.
