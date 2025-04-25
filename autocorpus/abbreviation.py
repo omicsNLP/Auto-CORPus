@@ -221,9 +221,7 @@ class Abbreviations:
                 else:
                     l_index -= 1
 
-        new_candidate = Candidate(definition[l_index : len(definition)])
-        new_candidate.set_position(definition.start, definition.stop)
-        definition = new_candidate
+        definition = definition[l_index:]
 
         tokens = len(definition.split())
         length = len(abbrev)
