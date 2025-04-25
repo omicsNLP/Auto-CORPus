@@ -78,7 +78,7 @@ Auto-CORPus will first group files based on common elements in their file name {
 
 **Input:**
 
-```sh
+```txt
 PMC1.html
 PMC1_table_1.html
 PMC1_table_2.html
@@ -89,7 +89,7 @@ PMC1_table_2.html
 
 **Output:**
 
-```sh
+```txt
 PMC1_bioc.json
 PMC1_abbreviations.json
 PMC1_tables.json (contains table 1 & 2 and any tables described within the main text)
