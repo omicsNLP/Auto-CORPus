@@ -193,11 +193,7 @@ class Abbreviations:
         l_index = -1
 
         while 1:
-            try:
-                long_char = definition[l_index].lower()
-            except IndexError:
-                raise
-
+            long_char = definition[l_index].lower()
             short_char = abbrev[s_index].lower()
 
             if not short_char.isalnum():
