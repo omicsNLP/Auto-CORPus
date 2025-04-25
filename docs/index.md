@@ -1,1 +1,2 @@
---8<-- "README.md" <!-- markdownlint-disable-line MD041 -->
+<!-- markdownlint-disable-next-line MD041 -->
+--8<-- "README.md"
