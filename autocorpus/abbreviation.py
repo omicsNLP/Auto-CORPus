@@ -31,39 +31,47 @@ def _remove_quotes(text: str) -> str:
     return re2.sub(r'([(])[\'"\p{Pi}]|[\'"\p{Pf}]([);:])', r"\1\2", text)
 
 
+def _is_abbreviation(candidate: str) -> bool:
+    r"""Check whether input string is an abbreviation.
+
+    Based on Schwartz&Hearst.
+
+    2 <= len(str) <= 10
+    len(tokens) <= 2
+    re.search(r'\p{L}', str)
+    str[0].isalnum()
+
+    and extra:
+    if it matches (\p{L}\.?\s?){2,}
+    it is a good candidate.
+
+    Args:
+        candidate: Candidate abbreviation
+
+    Returns:
+        True if this is a good candidate
+    """
+    viable = True
+
+    # Broken: See https://github.com/omicsNLP/Auto-CORPus/issues/144
+    # if re2.match(r"(\p{L}\.?\s?){2,}", candidate.lstrip()):
+    #     viable = True
+    if len(candidate) < 2 or len(candidate) > 10:
+        viable = False
+    if len(candidate.split()) > 2:
+        viable = False
+    if candidate.islower():  # customize function discard all lower case candidate
+        viable = False
+    if not re2.search(r"\p{L}", candidate):  # \p{L} = All Unicode letter
+        viable = False
+    if not candidate[0].isalnum():
+        viable = False
+
+    return viable
+
+
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
-
-    def __conditions(self, candidate):
-        r"""Based on Schwartz&Hearst.
-
-        2 <= len(str) <= 10
-        len(tokens) <= 2
-        re.search(r'\p{L}', str)
-        str[0].isalnum()
-
-        and extra:
-        if it matches (\p{L}\.?\s?){2,}
-        it is a good candidate.
-
-        :param candidate: candidate abbreviation
-        :return: True if this is a good candidate
-        """
-        viable = True
-        if re2.match(r"(\p{L}\.?\s?){2,}", candidate.lstrip()):
-            viable = True
-        if len(candidate) < 2 or len(candidate) > 10:
-            viable = False
-        if len(candidate.split()) > 2:
-            viable = False
-        if candidate.islower():  # customize function discard all lower case candidate
-            viable = False
-        if not re2.search(r"\p{L}", candidate):  # \p{L} = All Unicode letter
-            viable = False
-        if not candidate[0].isalnum():
-            viable = False
-
-        return viable
 
     def __best_candidates(self, sentence: str):
         """Locates the best candidates for an abbreviation.
@@ -127,7 +135,7 @@ class Abbreviations:
             stop = stop - len(candidate) + len(candidate.rstrip())
             candidate = sentence[start:stop]
 
-            if self.__conditions(candidate):
+            if _is_abbreviation(candidate):
                 yield Candidate(sentence, start, stop)
 
     def __select_definition(self, definition, abbrev):
