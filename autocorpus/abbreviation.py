@@ -266,34 +266,34 @@ def _get_best_candidates(sentence: str) -> Iterable[tuple[str, str] | None]:
                 yield candidate, definition
 
 
+def _extract_abbreviation_definition_pairs(
+    doc_text: str,
+) -> dict[str, str]:
+    abbrev_map = defaultdict(list)
+    omit = 0
+    written = 0
+
+    for i, sentence in enumerate(_iter_sentences(doc_text)):
+        try:
+            for candidate in _get_best_candidates(sentence):
+                if not candidate:
+                    # A parsing error occurred
+                    omit += 1
+                    continue
+
+                # Append the current definition to the list of previous definitions
+                abbrev, definition = candidate
+                abbrev_map[abbrev].append(definition)
+        except (ValueError, IndexError) as e:
+            logger.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
+    logger.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
+
+    # Return the most common definition for each term
+    return {k: Counter(v).most_common(1)[0][0] for k, v in abbrev_map.items()}
+
+
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
-
-    def __extract_abbreviation_definition_pairs(
-        self,
-        doc_text,
-    ):
-        abbrev_map = defaultdict(list)
-        omit = 0
-        written = 0
-
-        for i, sentence in enumerate(_iter_sentences(doc_text)):
-            try:
-                for candidate in _get_best_candidates(sentence):
-                    if not candidate:
-                        # A parsing error occurred
-                        omit += 1
-                        continue
-
-                    # Append the current definition to the list of previous definitions
-                    abbrev, definition = candidate
-                    abbrev_map[abbrev].append(definition)
-            except (ValueError, IndexError) as e:
-                logger.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
-        logger.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
-
-        # Return the most common definition for each term
-        return {k: Counter(v).most_common(1)[0][0] for k, v in abbrev_map.items()}
 
     def __list_to_dict(self, lst):
         op = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
@@ -390,7 +390,7 @@ class Abbreviations:
         paragraphs = main_text["paragraphs"]
         all_abbreviations = {}
         for paragraph in paragraphs:
-            all_abbreviations |= self.__extract_abbreviation_definition_pairs(
+            all_abbreviations |= _extract_abbreviation_definition_pairs(
                 paragraph["body"]
             )
         author_provided_abbreviations = self.__get_abbre_dict_given_by_author(soup)
