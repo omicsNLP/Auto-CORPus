@@ -120,6 +120,69 @@ def _get_definition(candidate: str, preceding: str) -> str:
     return preceding[start:].strip()
 
 
+def _validate_definition(abbrev: str, definition: str) -> None:
+    """Checks whether the chars in abbrev appear in the candidate definition.
+
+    Based on:
+        A simple algorithm for identifying abbreviation definitions in biomedical texts,
+        Schwartz & Hearst
+
+    Args:
+        abbrev: Candidate abbreviation
+        definition: Candidate definition
+    """
+    if len(definition) < len(abbrev):
+        raise ValueError("Abbreviation is longer than definition")
+
+    if abbrev in definition.split():
+        raise ValueError("Abbreviation is full word of definition")
+
+    s_index = -1
+    l_index = -1
+
+    while 1:
+        long_char = definition[l_index].lower()
+        short_char = abbrev[s_index].lower()
+
+        if not short_char.isalnum():
+            s_index -= 1
+
+        if s_index == -1 * len(abbrev):
+            if short_char == long_char:
+                if (
+                    l_index == -1 * len(definition)
+                    or not definition[l_index - 1].isalnum()
+                ):
+                    break
+                else:
+                    l_index -= 1
+            else:
+                l_index -= 1
+                if l_index == -1 * (len(definition) + 1):
+                    raise ValueError(
+                        f"definition {abbrev} was not found in {definition}"
+                    )
+
+        else:
+            if short_char == long_char:
+                s_index -= 1
+                l_index -= 1
+            else:
+                l_index -= 1
+
+    definition = definition[l_index:]
+
+    tokens = len(definition.split())
+    length = len(abbrev)
+
+    if tokens > min([length + 5, length * 2]):
+        raise ValueError("did not meet min(|A|+5, |A|*2) constraint")
+
+    # Do not return definitions that contain unbalanced parentheses
+    if definition.count("(") != definition.count(")"):
+        raise ValueError("Unbalanced parentheses not allowed in a definition")
+
+
 def _get_best_candidates(sentence: str) -> Iterable[tuple[str, str] | None]:
     """Get the best candidate abbreviations in sentence with definitions.
 
@@ -199,68 +262,6 @@ def _get_best_candidates(sentence: str) -> Iterable[tuple[str, str] | None]:
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
 
-    def __select_definition(self, definition, abbrev):
-        """Takes a definition candidate and an abbreviation candidate and returns True if the chars in the abbreviation occur in the definition.
-
-        Based on
-        A simple algorithm for identifying abbreviation definitions in biomedical texts, Schwartz & Hearst
-        :param definition: candidate definition
-        :param abbrev: candidate abbreviation
-        :return:
-        """
-        if len(definition) < len(abbrev):
-            raise ValueError("Abbreviation is longer than definition")
-
-        if abbrev in definition.split():
-            raise ValueError("Abbreviation is full word of definition")
-
-        s_index = -1
-        l_index = -1
-
-        while 1:
-            long_char = definition[l_index].lower()
-            short_char = abbrev[s_index].lower()
-
-            if not short_char.isalnum():
-                s_index -= 1
-
-            if s_index == -1 * len(abbrev):
-                if short_char == long_char:
-                    if (
-                        l_index == -1 * len(definition)
-                        or not definition[l_index - 1].isalnum()
-                    ):
-                        break
-                    else:
-                        l_index -= 1
-                else:
-                    l_index -= 1
-                    if l_index == -1 * (len(definition) + 1):
-                        raise ValueError(
-                            f"definition {abbrev} was not found in {definition}"
-                        )
-
-            else:
-                if short_char == long_char:
-                    s_index -= 1
-                    l_index -= 1
-                else:
-                    l_index -= 1
-
-        definition = definition[l_index:]
-
-        tokens = len(definition.split())
-        length = len(abbrev)
-
-        if tokens > min([length + 5, length * 2]):
-            raise ValueError("did not meet min(|A|+5, |A|*2) constraint")
-
-        # Do not return definitions that contain unbalanced parentheses
-        if definition.count("(") != definition.count(")"):
-            raise ValueError("Unbalanced parentheses not allowed in a definition")
-
-        return definition
-
     def __extract_abbreviation_definition_pairs(
         self,
         doc_text,
@@ -278,7 +279,7 @@ class Abbreviations:
 
                     abbrev, definition = candidate
                     try:
-                        definition = self.__select_definition(definition, abbrev)
+                        _validate_definition(abbrev, definition)
                     except (ValueError, IndexError) as e:
                         logger.debug(
                             f"{i} Omitting definition {definition} for candidate {abbrev}. Reason: {e.args[0]}"
