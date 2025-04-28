@@ -72,14 +72,62 @@ def _is_abbreviation(candidate: str) -> bool:
     return viable
 
 
-def _get_best_candidates(sentence: str) -> Iterable[Candidate]:
-    """Locates the best candidates for an abbreviation.
+def _get_definition(candidate: str, preceding: str) -> str:
+    """Return the definition for the given candidate.
+
+    The definition is the set of tokens (in front of the candidate) that starts with
+    a token starting with the first character of the candidate.
+    """
+    # Take the tokens in front of the candidate
+    tokens = re2.split(r"[\s\-]+", preceding[:-1].lower())
+
+    # the char that we are looking for
+    key = candidate[0].lower()
+
+    # Count the number of tokens that start with the same character as the candidate
+    first_chars = [t[0] for t in filter(None, tokens)]
+
+    definition_freq = first_chars.count(key)
+    candidate_freq = candidate.lower().count(key)
+
+    if candidate_freq > definition_freq:
+        raise ValueError(
+            "There are less keys in the tokens in front of candidate than there are in the candidate"
+        )
+
+    # Look for the list of tokens in front of candidate that
+    # have a sufficient number of tokens starting with key
+    # we should at least have a good number of starts
+    count = 0
+    start = 0
+    start_index = len(first_chars) - 1
+    while count < candidate_freq:
+        if abs(start) > len(first_chars):
+            raise ValueError(f"Candidate {candidate} not found")
+        start -= 1
+        # Look up key in the definition
+        try:
+            start_index = first_chars.index(key, len(first_chars) + start)
+        except ValueError:
+            pass
+
+        # Count the number of keys in definition
+        count = first_chars[start_index:].count(key)
+
+    # We found enough keys in the definition so return the definition as a definition candidate
+    start = len(" ".join(tokens[:start_index]))
+
+    return preceding[start:].strip()
+
+
+def _get_best_candidates(sentence: str) -> Iterable[tuple[str, str] | None]:
+    """Get the best candidate abbreviations in sentence with definitions.
 
     Args:
         sentence: Sentence which may contain candidate abbreviations and definitions
 
     Returns:
-        An iterator of Candidates
+        An iterator of abbreviation/definition pairs or None for parsing errors
     """
     if "(" not in sentence:
         return
@@ -139,7 +187,13 @@ def _get_best_candidates(sentence: str) -> Iterable[Candidate]:
         candidate = sentence[start:stop]
 
         if _is_abbreviation(candidate):
-            yield Candidate(sentence, start, stop)
+            try:
+                definition = _get_definition(candidate, sentence[: start - 1])
+            except (ValueError, IndexError) as e:
+                logger.debug(f"Omitting candidate {candidate}. Reason: {e.args[0]}")
+                yield None
+            else:
+                yield candidate, definition
 
 
 class Abbreviations:
@@ -218,26 +272,21 @@ class Abbreviations:
         for i, sentence in enumerate(_iter_sentences(doc_text)):
             try:
                 for candidate in _get_best_candidates(sentence):
+                    if not candidate:
+                        omit += 1
+                        continue
+
+                    abbrev, definition = candidate
                     try:
-                        definition = candidate.get_definition()
+                        definition = self.__select_definition(definition, abbrev)
                     except (ValueError, IndexError) as e:
                         logger.debug(
-                            f"{i} Omitting candidate {candidate}. Reason: {e.args[0]}"
+                            f"{i} Omitting definition {definition} for candidate {abbrev}. Reason: {e.args[0]}"
                         )
                         omit += 1
                     else:
-                        try:
-                            definition = self.__select_definition(
-                                definition, candidate.value
-                            )
-                        except (ValueError, IndexError) as e:
-                            logger.debug(
-                                f"{i} Omitting definition {definition} for candidate {candidate}. Reason: {e.args[0]}"
-                            )
-                            omit += 1
-                        else:
-                            # Append the current definition to the list of previous definitions
-                            abbrev_map[candidate.value].append(definition)
+                        # Append the current definition to the list of previous definitions
+                        abbrev_map[abbrev].append(definition)
             except (ValueError, IndexError) as e:
                 logger.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
         logger.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
@@ -407,71 +456,3 @@ class Abbreviations:
         Returns (dict): abbreviations BioC dict.
         """
         return self.abbreviations
-
-
-class Candidate:
-    """Candidate string."""
-
-    def __init__(self, sentence: str, start: int, stop: int) -> None:
-        """Create a new Candidate.
-
-        Args:
-            sentence: The sentence in which the candidate was found
-            start: The start position of the candidate
-            stop: The end position of the candidate
-        """
-        self._sentence = sentence
-        self._start = start
-        self.value = sentence[start:stop]
-
-    def __str__(self) -> str:
-        """Convert to string."""
-        return self.value
-
-    def get_definition(self) -> str:
-        """Return the definition for this candidate.
-
-        The definition is the set of tokens (in front of the candidate) that starts with
-        a token starting with the first character of the candidate.
-        """
-        # Take the tokens in front of the candidate
-        tokens = re2.split(r"[\s\-]+", self._sentence[: self._start - 2].lower())
-
-        # the char that we are looking for
-        key = self.value[0].lower()
-
-        # Count the number of tokens that start with the same character as the candidate
-        first_chars = [t[0] for t in filter(None, tokens)]
-
-        definition_freq = first_chars.count(key)
-        candidate_freq = self.value.lower().count(key)
-
-        if candidate_freq > definition_freq:
-            raise ValueError(
-                "There are less keys in the tokens in front of candidate than there are in the candidate"
-            )
-
-        # Look for the list of tokens in front of candidate that
-        # have a sufficient number of tokens starting with key
-        # we should at least have a good number of starts
-        count = 0
-        start = 0
-        start_index = len(first_chars) - 1
-        while count < candidate_freq:
-            if abs(start) > len(first_chars):
-                raise ValueError(f"candidate {self} not found")
-            start -= 1
-            # Look up key in the definition
-            try:
-                start_index = first_chars.index(key, len(first_chars) + start)
-            except ValueError:
-                pass
-
-            # Count the number of keys in definition
-            count = first_chars[start_index:].count(key)
-
-        # We found enough keys in the definition so return the definition as a definition candidate
-        start = len(" ".join(tokens[:start_index]))
-        stop = self._start - 1
-
-        return self._sentence[start:stop].strip()
