@@ -209,20 +209,11 @@ class Abbreviations:
 
     def __extract_abbreviation_definition_pairs(
         self,
-        doc_text=None,
-        most_common_definition=False,
-        first_definition=False,
-        all_definition=True,
+        doc_text,
     ):
-        abbrev_map = dict()
-        list_abbrev_map = defaultdict(list)
-        counter_abbrev_map = dict()
+        abbrev_map = defaultdict(list)
         omit = 0
         written = 0
-
-        collect_definitions = False
-        if most_common_definition or first_definition or all_definition:
-            collect_definitions = True
 
         for i, sentence in enumerate(_iter_sentences(doc_text)):
             try:
@@ -245,41 +236,14 @@ class Abbreviations:
                             )
                             omit += 1
                         else:
-                            # Either append the current definition to the list of previous definitions ...
-                            if collect_definitions:
-                                list_abbrev_map[candidate.value].append(definition)
-                            else:
-                                # Or update the abbreviations map with the current definition
-                                abbrev_map[candidate.value] = definition
-                            written += 1
+                            # Append the current definition to the list of previous definitions
+                            abbrev_map[candidate.value].append(definition)
             except (ValueError, IndexError) as e:
                 logger.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
         logger.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
 
-        # Return most common definition for each term
-        if collect_definitions:
-            if most_common_definition:
-                # Return the most common definition for each term
-                for k, v in list_abbrev_map.items():
-                    counter_abbrev_map[k] = Counter(v).most_common(1)[0][0]
-            elif first_definition:
-                # Return the first definition for each term
-                for k, v in list_abbrev_map.items():
-                    counter_abbrev_map[k] = v
-            elif all_definition:
-                for k, v in list_abbrev_map.items():
-                    counter_abbrev_map[k] = v
-            return counter_abbrev_map
-
-        # Or return the last encountered definition for each term
-        return abbrev_map
-
-    def __extract_abbreviation(self, main_text):
-        pairs = self.__extract_abbreviation_definition_pairs(
-            doc_text=main_text, most_common_definition=True
-        )
-
-        return pairs
+        # Return the most common definition for each term
+        return {k: Counter(v).most_common(1)[0][0] for k, v in abbrev_map.items()}
 
     def __list_to_dict(self, lst):
         op = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
@@ -376,9 +340,9 @@ class Abbreviations:
         paragraphs = main_text["paragraphs"]
         all_abbreviations = {}
         for paragraph in paragraphs:
-            maintext = paragraph["body"]
-            pairs = self.__extract_abbreviation(maintext)
-            all_abbreviations.update(pairs)
+            all_abbreviations |= self.__extract_abbreviation_definition_pairs(
+                paragraph["body"]
+            )
         author_provided_abbreviations = self.__get_abbre_dict_given_by_author(soup)
 
         abbrev_json = {}
