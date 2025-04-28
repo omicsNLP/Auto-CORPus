@@ -8,6 +8,7 @@ modules used:
 """
 
 from collections import Counter, defaultdict
+from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
 
@@ -16,12 +17,22 @@ import regex as re2
 from . import logger
 
 
+def _iter_sentences(text: str) -> Iterable[str]:
+    """Iterate over sentences in text.
+
+    The string is split at full stops and trailing whitespace is removed.
+    """
+    for sentence in text.split("."):
+        yield sentence.strip()
+
+
+def _remove_quotes(text: str) -> str:
+    """Remove any quotes around potential candidate terms."""
+    return re2.sub(r'([(])[\'"\p{Pi}]|[\'"\p{Pf}]([);:])', r"\1\2", text)
+
+
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
-
-    def __yield_lines_from_doc(self, doc_text):
-        for line in doc_text.split("."):
-            yield line.strip()
 
     def __conditions(self, candidate):
         r"""Based on Schwartz&Hearst.
@@ -67,6 +78,9 @@ class Abbreviations:
 
             if sentence.find("(") > sentence.find(")"):
                 raise ValueError(f"First parentheses is right: {sentence}")
+
+            # Remove quotes around candidate definition
+            sentence = _remove_quotes(sentence)
 
             close_index = -1
             while 1:
@@ -188,19 +202,14 @@ class Abbreviations:
         counter_abbrev_map = dict()
         omit = 0
         written = 0
-        sentence_iterator = enumerate(self.__yield_lines_from_doc(doc_text))
 
         collect_definitions = False
         if most_common_definition or first_definition or all_definition:
             collect_definitions = True
 
-        for i, sentence in sentence_iterator:
-            # Remove any quotes around potential candidate terms
-            clean_sentence = re2.sub(
-                r'([(])[\'"\p{Pi}]|[\'"\p{Pf}]([);:])', r"\1\2", sentence
-            )
+        for i, sentence in enumerate(_iter_sentences(doc_text)):
             try:
-                for candidate in self.__best_candidates(clean_sentence):
+                for candidate in self.__best_candidates(sentence):
                     try:
                         definition = candidate.get_definition()
                     except (ValueError, IndexError) as e:
