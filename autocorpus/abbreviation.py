@@ -65,68 +65,70 @@ class Abbreviations:
 
         return viable
 
-    def __best_candidates(self, sentence):
+    def __best_candidates(self, sentence: str):
         """Locates the best candidates for an abbreviation.
 
         :param sentence: line read from input file
         :return: a Candidate iterator
         """
-        if "(" in sentence:
-            # Check some things first
-            if sentence.count("(") != sentence.count(")"):
-                raise ValueError(f"Unbalanced parentheses: {sentence}")
+        if "(" not in sentence:
+            return
 
-            if sentence.find("(") > sentence.find(")"):
-                raise ValueError(f"First parentheses is right: {sentence}")
+        # Check some things first
+        if sentence.count("(") != sentence.count(")"):
+            raise ValueError(f"Unbalanced parentheses: {sentence}")
 
-            # Remove quotes around candidate definition
-            sentence = _remove_quotes(sentence)
+        if sentence.find("(") > sentence.find(")"):
+            raise ValueError(f"First parentheses is right: {sentence}")
 
-            close_index = -1
-            while 1:
-                # Look for open parenthesis. Need leading whitespace to avoid matching mathematical and chemical formulae
-                open_index = sentence.find(" (", close_index + 1)
+        # Remove quotes around candidate definition
+        sentence = _remove_quotes(sentence)
 
-                if open_index == -1:
+        close_index = -1
+        while 1:
+            # Look for open parenthesis. Need leading whitespace to avoid matching mathematical and chemical formulae
+            open_index = sentence.find(" (", close_index + 1)
+
+            if open_index == -1:
+                break
+
+            # Advance beyond whitespace
+            open_index += 1
+
+            # Look for closing parentheses
+            close_index = open_index + 1
+            open_count = 1
+            skip = False
+            while open_count:
+                try:
+                    char = sentence[close_index]
+                except IndexError:
+                    # We found an opening bracket but no associated closing bracket
+                    # Skip the opening bracket
+                    skip = True
                     break
+                if char == "(":
+                    open_count += 1
+                elif char in [")", ";", ":"]:
+                    open_count -= 1
+                close_index += 1
 
-                # Advance beyond whitespace
-                open_index += 1
-
-                # Look for closing parentheses
+            if skip:
                 close_index = open_index + 1
-                open_count = 1
-                skip = False
-                while open_count:
-                    try:
-                        char = sentence[close_index]
-                    except IndexError:
-                        # We found an opening bracket but no associated closing bracket
-                        # Skip the opening bracket
-                        skip = True
-                        break
-                    if char == "(":
-                        open_count += 1
-                    elif char in [")", ";", ":"]:
-                        open_count -= 1
-                    close_index += 1
+                continue
 
-                if skip:
-                    close_index = open_index + 1
-                    continue
+            # Output if conditions are met
+            start = open_index + 1
+            stop = close_index - 1
+            candidate = sentence[start:stop]
 
-                # Output if conditions are met
-                start = open_index + 1
-                stop = close_index - 1
-                candidate = sentence[start:stop]
+            # Take into account whitespace that should be removed
+            start = start + len(candidate) - len(candidate.lstrip())
+            stop = stop - len(candidate) + len(candidate.rstrip())
+            candidate = sentence[start:stop]
 
-                # Take into account whitespace that should be removed
-                start = start + len(candidate) - len(candidate.lstrip())
-                stop = stop - len(candidate) + len(candidate.rstrip())
-                candidate = sentence[start:stop]
-
-                if self.__conditions(candidate):
-                    yield Candidate(sentence, start, stop)
+            if self.__conditions(candidate):
+                yield Candidate(sentence, start, stop)
 
     def __select_definition(self, definition, abbrev):
         """Takes a definition candidate and an abbreviation candidate and returns True if the chars in the abbreviation occur in the definition.
