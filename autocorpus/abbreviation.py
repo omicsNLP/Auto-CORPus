@@ -117,7 +117,12 @@ def _get_definition(candidate: str, preceding: str) -> str:
     # We found enough keys in the definition so return the definition as a definition candidate
     start = len(" ".join(tokens[:start_index]))
 
-    return preceding[start:].strip()
+    definition = preceding[start:].strip()
+
+    # Extra sanity checks
+    _validate_definition(candidate, definition)
+
+    return definition
 
 
 def _validate_definition(abbrev: str, definition: str) -> None:
@@ -160,7 +165,7 @@ def _validate_definition(abbrev: str, definition: str) -> None:
                 l_index -= 1
                 if l_index == -1 * (len(definition) + 1):
                     raise ValueError(
-                        f"definition {abbrev} was not found in {definition}"
+                        f"Definition for {abbrev} was not found in {definition}"
                     )
 
         else:
@@ -176,7 +181,9 @@ def _validate_definition(abbrev: str, definition: str) -> None:
     length = len(abbrev)
 
     if tokens > min([length + 5, length * 2]):
-        raise ValueError("did not meet min(|A|+5, |A|*2) constraint")
+        raise ValueError(
+            f'Definition "{definition}" did not meet min(|A|+5, |A|*2) constraint'
+        )
 
     # Do not return definitions that contain unbalanced parentheses
     if definition.count("(") != definition.count(")"):
@@ -274,20 +281,13 @@ class Abbreviations:
             try:
                 for candidate in _get_best_candidates(sentence):
                     if not candidate:
+                        # A parsing error occurred
                         omit += 1
                         continue
 
+                    # Append the current definition to the list of previous definitions
                     abbrev, definition = candidate
-                    try:
-                        _validate_definition(abbrev, definition)
-                    except (ValueError, IndexError) as e:
-                        logger.debug(
-                            f"{i} Omitting definition {definition} for candidate {abbrev}. Reason: {e.args[0]}"
-                        )
-                        omit += 1
-                    else:
-                        # Append the current definition to the list of previous definitions
-                        abbrev_map[abbrev].append(definition)
+                    abbrev_map[abbrev].append(definition)
             except (ValueError, IndexError) as e:
                 logger.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
         logger.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
