@@ -286,6 +286,7 @@ def _extract_abbreviation_definition_pairs(
                 abbrev_map[abbrev].append(definition)
         except (ValueError, IndexError) as e:
             logger.debug(f"{i} Error processing sentence {sentence}: {e.args[0]}")
+            omit += 1
     logger.debug(f"{written} abbreviations detected and kept ({omit} omitted)")
 
     # Return the most common definition for each term
