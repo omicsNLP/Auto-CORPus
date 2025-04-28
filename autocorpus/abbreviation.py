@@ -7,6 +7,8 @@ modules used:
 - regex: regular expression matching/replacing
 """
 
+from __future__ import annotations
+
 from collections import Counter, defaultdict
 from collections.abc import Iterable
 from datetime import datetime
@@ -70,73 +72,78 @@ def _is_abbreviation(candidate: str) -> bool:
     return viable
 
 
+def _get_best_candidates(sentence: str) -> Iterable[Candidate]:
+    """Locates the best candidates for an abbreviation.
+
+    Args:
+        sentence: Sentence which may contain candidate abbreviations and definitions
+
+    Returns:
+        An iterator of Candidates
+    """
+    if "(" not in sentence:
+        return
+
+    # Check some things first
+    if sentence.count("(") != sentence.count(")"):
+        raise ValueError(f"Unbalanced parentheses: {sentence}")
+
+    if sentence.find("(") > sentence.find(")"):
+        raise ValueError(f"First parentheses is right: {sentence}")
+
+    # Remove quotes around candidate definition
+    sentence = _remove_quotes(sentence)
+
+    close_index = -1
+    while True:
+        # Look for open parenthesis. Need leading whitespace to avoid matching
+        # mathematical and chemical formulae
+        open_index = sentence.find(" (", close_index + 1)
+
+        if open_index == -1:
+            break
+
+        # Advance beyond whitespace
+        open_index += 1
+
+        # Look for closing parentheses
+        close_index = open_index + 1
+        open_count = 1
+        skip = False
+        while open_count:
+            try:
+                char = sentence[close_index]
+            except IndexError:
+                # We found an opening bracket but no associated closing bracket
+                # Skip the opening bracket
+                skip = True
+                break
+            if char == "(":
+                open_count += 1
+            elif char in [")", ";", ":"]:
+                open_count -= 1
+            close_index += 1
+
+        if skip:
+            close_index = open_index + 1
+            continue
+
+        # Output if conditions are met
+        start = open_index + 1
+        stop = close_index - 1
+        candidate = sentence[start:stop]
+
+        # Take into account whitespace that should be removed
+        start = start + len(candidate) - len(candidate.lstrip())
+        stop = stop - len(candidate) + len(candidate.rstrip())
+        candidate = sentence[start:stop]
+
+        if _is_abbreviation(candidate):
+            yield Candidate(sentence, start, stop)
+
+
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
-
-    def __best_candidates(self, sentence: str):
-        """Locates the best candidates for an abbreviation.
-
-        :param sentence: line read from input file
-        :return: a Candidate iterator
-        """
-        if "(" not in sentence:
-            return
-
-        # Check some things first
-        if sentence.count("(") != sentence.count(")"):
-            raise ValueError(f"Unbalanced parentheses: {sentence}")
-
-        if sentence.find("(") > sentence.find(")"):
-            raise ValueError(f"First parentheses is right: {sentence}")
-
-        # Remove quotes around candidate definition
-        sentence = _remove_quotes(sentence)
-
-        close_index = -1
-        while 1:
-            # Look for open parenthesis. Need leading whitespace to avoid matching mathematical and chemical formulae
-            open_index = sentence.find(" (", close_index + 1)
-
-            if open_index == -1:
-                break
-
-            # Advance beyond whitespace
-            open_index += 1
-
-            # Look for closing parentheses
-            close_index = open_index + 1
-            open_count = 1
-            skip = False
-            while open_count:
-                try:
-                    char = sentence[close_index]
-                except IndexError:
-                    # We found an opening bracket but no associated closing bracket
-                    # Skip the opening bracket
-                    skip = True
-                    break
-                if char == "(":
-                    open_count += 1
-                elif char in [")", ";", ":"]:
-                    open_count -= 1
-                close_index += 1
-
-            if skip:
-                close_index = open_index + 1
-                continue
-
-            # Output if conditions are met
-            start = open_index + 1
-            stop = close_index - 1
-            candidate = sentence[start:stop]
-
-            # Take into account whitespace that should be removed
-            start = start + len(candidate) - len(candidate.lstrip())
-            stop = stop - len(candidate) + len(candidate.rstrip())
-            candidate = sentence[start:stop]
-
-            if _is_abbreviation(candidate):
-                yield Candidate(sentence, start, stop)
 
     def __select_definition(self, definition, abbrev):
         """Takes a definition candidate and an abbreviation candidate and returns True if the chars in the abbreviation occur in the definition.
@@ -219,7 +226,7 @@ class Abbreviations:
 
         for i, sentence in enumerate(_iter_sentences(doc_text)):
             try:
-                for candidate in self.__best_candidates(sentence):
+                for candidate in _get_best_candidates(sentence):
                     try:
                         definition = candidate.get_definition()
                     except (ValueError, IndexError) as e:
