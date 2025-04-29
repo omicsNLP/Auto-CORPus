@@ -372,7 +372,7 @@ def _get_abbre_dict_given_by_author(soup: BeautifulSoup) -> dict[str, str]:
 _AbbreviationsDict = dict[str, dict[str, list[str]]]
 
 
-def _get_abbreviations(
+def _extract_abbreviations(
     main_text: dict[str, Any], soup: BeautifulSoup
 ) -> _AbbreviationsDict:
     paragraphs = main_text["paragraphs"]
@@ -424,24 +424,17 @@ def _biocify_abbreviations(
     }
 
 
-class Abbreviations:
-    """Class for processing abbreviations using Auto-CORPus configurations."""
+def get_abbreviations(
+    main_text: dict[str, Any], soup: BeautifulSoup, file_path: str
+) -> dict[str, Any]:
+    """Extract abbreviations from the input main text.
 
-    def __init__(self, main_text, soup, file_path):
-        """Extract abbreviations from the input main text, using the provided soup and config objects.
+    Args:
+        main_text: Article main text data
+        soup: Article as a BeautifulSoup object
+        file_path: Input file path
 
-        Args:
-            main_text (str): Article main text data
-            soup (bs4.BeautifulSoup): Article as a BeautifulSoup object
-            file_path (str): Input file path
-        """
-        self.abbreviations = _biocify_abbreviations(
-            _get_abbreviations(main_text, soup), file_path
-        )
-
-    def to_dict(self):
-        """Retrieves abbreviations BioC dict.
-
-        Returns (dict): abbreviations BioC dict.
-        """
-        return self.abbreviations
+    Returns:
+        Abbreviations in BioC format.
+    """
+    return _biocify_abbreviations(_extract_abbreviations(main_text, soup), file_path)

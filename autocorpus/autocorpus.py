@@ -8,7 +8,7 @@ from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
 
 from . import logger
-from .abbreviation import Abbreviations
+from .abbreviation import get_abbreviations
 from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
 from .table import get_table_json
@@ -291,9 +291,9 @@ class Autocorpus:
             self.__process_html_tables(self.file_path, soup, self.config)
             self.main_text = self.__extract_text(soup, self.config)
             try:
-                self.abbreviations = Abbreviations(
+                self.abbreviations = get_abbreviations(
                     self.main_text, soup, self.file_path
-                ).to_dict()
+                )
             except Exception as e:
                 logger.error(e)
         if self.linked_tables:
