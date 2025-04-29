@@ -398,30 +398,28 @@ class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
 
     def __biocify_abbreviations(self, abbreviations, file_path):
-        template = {
+        passages = []
+        for short, long in abbreviations.items():
+            counter = 1
+            short_template = {"text_short": short}
+            for definition, kinds in long.items():
+                short_template[f"text_long_{counter}"] = definition.replace("\n", " ")
+                short_template[f"extraction_algorithm_{counter}"] = ", ".join(kinds)
+                counter += 1
+            passages.append(short_template)
+
+        return {
             "source": "Auto-CORPus (abbreviations)",
-            "date": f"{datetime.today().strftime('%Y%m%d')}",
+            "date": datetime.today().strftime("%Y%m%d"),
             "key": "autocorpus_abbreviations.key",
             "documents": [
                 {
-                    "id": Path(file_path).name.split(".")[0],
+                    "id": Path(file_path).name.partition(".")[0],
                     "inputfile": file_path,
-                    "passages": [],
+                    "passages": passages,
                 }
             ],
         }
-        passages = template["documents"][0]["passages"]
-        for short in abbreviations.keys():
-            counter = 1
-            short_template = {"text_short": short}
-            for long in abbreviations[short].keys():
-                short_template[f"text_long_{counter}"] = long.replace("\n", " ")
-                short_template[f"extraction_algorithm_{counter}"] = ", ".join(
-                    abbreviations[short][long]
-                )
-                counter += 1
-            passages.append(short_template)
-        return template
 
     def __init__(self, main_text, soup, file_path):
         """Extract abbreviations from the input main text, using the provided soup and config objects.
