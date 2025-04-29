@@ -369,16 +369,19 @@ def _get_abbre_dict_given_by_author(soup: BeautifulSoup) -> dict[str, str]:
     return {}
 
 
+_AbbreviationsDict = dict[str, dict[str, list[str]]]
+
+
 def _get_abbreviations(
     main_text: dict[str, Any], soup: BeautifulSoup
-) -> dict[str, dict[str, list[str]]]:
+) -> _AbbreviationsDict:
     paragraphs = main_text["paragraphs"]
     all_abbreviations: dict[str, str] = {}
     for paragraph in paragraphs:
         all_abbreviations |= _extract_abbreviation_definition_pairs(paragraph["body"])
     author_provided_abbreviations = _get_abbre_dict_given_by_author(soup)
 
-    abbrev_json: dict[str, dict[str, list[str]]] = {}
+    abbrev_json: _AbbreviationsDict = {}
 
     for k, v in author_provided_abbreviations.items():
         abbrev_json[k] = {v: ["abbreviations section"]}
@@ -394,32 +397,35 @@ def _get_abbreviations(
     return abbrev_json
 
 
+def _biocify_abbreviations(
+    abbreviations: _AbbreviationsDict, file_path: str
+) -> dict[str, Any]:
+    passages = []
+    for short, long in abbreviations.items():
+        counter = 1
+        short_template = {"text_short": short}
+        for definition, kinds in long.items():
+            short_template[f"text_long_{counter}"] = definition.replace("\n", " ")
+            short_template[f"extraction_algorithm_{counter}"] = ", ".join(kinds)
+            counter += 1
+        passages.append(short_template)
+
+    return {
+        "source": "Auto-CORPus (abbreviations)",
+        "date": datetime.today().strftime("%Y%m%d"),
+        "key": "autocorpus_abbreviations.key",
+        "documents": [
+            {
+                "id": Path(file_path).name.partition(".")[0],
+                "inputfile": file_path,
+                "passages": passages,
+            }
+        ],
+    }
+
+
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
-
-    def __biocify_abbreviations(self, abbreviations, file_path):
-        passages = []
-        for short, long in abbreviations.items():
-            counter = 1
-            short_template = {"text_short": short}
-            for definition, kinds in long.items():
-                short_template[f"text_long_{counter}"] = definition.replace("\n", " ")
-                short_template[f"extraction_algorithm_{counter}"] = ", ".join(kinds)
-                counter += 1
-            passages.append(short_template)
-
-        return {
-            "source": "Auto-CORPus (abbreviations)",
-            "date": datetime.today().strftime("%Y%m%d"),
-            "key": "autocorpus_abbreviations.key",
-            "documents": [
-                {
-                    "id": Path(file_path).name.partition(".")[0],
-                    "inputfile": file_path,
-                    "passages": passages,
-                }
-            ],
-        }
 
     def __init__(self, main_text, soup, file_path):
         """Extract abbreviations from the input main text, using the provided soup and config objects.
@@ -429,7 +435,7 @@ class Abbreviations:
             soup (bs4.BeautifulSoup): Article as a BeautifulSoup object
             file_path (str): Input file path
         """
-        self.abbreviations = self.__biocify_abbreviations(
+        self.abbreviations = _biocify_abbreviations(
             _get_abbreviations(main_text, soup), file_path
         )
 
