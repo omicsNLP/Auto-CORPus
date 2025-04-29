@@ -48,7 +48,6 @@ jsonschema = "^4.23.0"
 mypy = "^1.15.0"
 types-beautifulsoup4 = "^4.12.0.20250204"
 types-regex = "^2024.11.6.20250318"
-lxml-stubs = "^0.5.1"
 types-tqdm = "^4.67.0.20250319"
 types-jsonschema = "^4.23.0.20241208"
 

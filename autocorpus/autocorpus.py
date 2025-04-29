@@ -6,9 +6,9 @@ from typing import Any
 
 from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
-from marker.converters.pdf import PdfConverter  # type: ignore[import-untyped]
-from marker.models import create_model_dict  # type: ignore[import-untyped]
-from marker.output import text_from_rendered  # type: ignore[import-untyped]
+from marker.converters.pdf import PdfConverter  # type: ignore
+from marker.models import create_model_dict  # type: ignore
+from marker.output import text_from_rendered  # type: ignore
 
 from autocorpus.bioc_supplementary import (
     BioCTableConverter,
@@ -371,15 +371,15 @@ class Autocorpus:
 
     def __init__(
         self,
-        config,
-        main_text,
+        config: dict[str, Any],
+        main_text: Path,
         linked_tables=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
 
         Args:
             config (dict): configuration file for the input HTML journal articles
-            main_text (str): path to the main text of the article (HTML files only)
+            main_text (Path): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
         """
         self.file_path = main_text
