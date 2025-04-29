@@ -15,7 +15,7 @@ from datetime import datetime
 from pathlib import Path
 
 import regex as re2
-from bs4 import Tag
+from bs4 import BeautifulSoup, Tag
 
 from . import logger
 
@@ -323,50 +323,53 @@ def _get_abbre_plain_text(t: Tag) -> list[str]:
     return t.get_text().split(";")
 
 
+def _get_abbre_dict_given_by_author(soup: BeautifulSoup) -> dict[str, str]:
+    header = soup.find_all("h2", recursive=True)
+    for element in header:
+        if not re2.search("abbreviation", element.get_text(), re2.IGNORECASE):
+            continue
+
+        nearest_down_tag = element.next_element
+        while nearest_down_tag:
+            tag_name = nearest_down_tag.name
+
+            match tag_name:
+                # when abbre is table
+                case "table":
+                    return _abbre_table_to_dict(nearest_down_tag)
+
+                # when abbre is list
+                case "dl":
+                    return _abbre_list_to_dict(nearest_down_tag)
+
+                # when abbre is plain text
+                case "p":
+                    abbre_list = _get_abbre_plain_text(nearest_down_tag)
+                    if len(abbre_list) <= 2:
+                        nearest_down_tag = nearest_down_tag.next_element
+                        continue
+
+                    abbre_dict = {}
+                    for abbre_pair in abbre_list:
+                        for sep in ":, ":
+                            if abbre_pair.count(sep) == 1:
+                                k, _, v = abbre_pair.partition(sep)
+                                abbre_dict[k] = v
+                                break
+                    return abbre_dict
+
+                # search until next h2
+                case "h2":
+                    break
+
+                # move on to next tag
+                case _:
+                    nearest_down_tag = nearest_down_tag.next_element
+    return {}
+
+
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
-
-    def __get_abbre_dict_given_by_author(self, soup_og):
-        header = soup_og.find_all("h2", recursive=True)
-        for element in header:
-            if not re2.search("abbreviation", element.get_text(), re2.IGNORECASE):
-                continue
-
-            nearest_down_tag = element.next_element
-            while nearest_down_tag:
-                tag_name = nearest_down_tag.name
-
-                match tag_name:
-                    # when abbre is table
-                    case "table":
-                        return _abbre_table_to_dict(nearest_down_tag)
-
-                    # when abbre is list
-                    case "dl":
-                        return _abbre_list_to_dict(nearest_down_tag)
-
-                    # when abbre is plain text
-                    case "p":
-                        abbre_list = _get_abbre_plain_text(nearest_down_tag)
-                        if len(abbre_list) <= 2:
-                            nearest_down_tag = nearest_down_tag.next_element
-                            continue
-
-                        abbre_dict = {}
-                        for abbre_pair in abbre_list:
-                            for sep in ":, ":
-                                if abbre_pair.count(sep) == 1:
-                                    k, _, v = abbre_pair.partition(sep)
-                                    abbre_dict[k] = v
-                                    break
-                        return abbre_dict
-
-                    # search until next h2
-                    case "h2":
-                        break
-                    case _:
-                        nearest_down_tag = nearest_down_tag.next_element
-        return {}
 
     def __get_abbreviations(self, main_text, soup, config):
         paragraphs = main_text["paragraphs"]
@@ -375,7 +378,7 @@ class Abbreviations:
             all_abbreviations |= _extract_abbreviation_definition_pairs(
                 paragraph["body"]
             )
-        author_provided_abbreviations = self.__get_abbre_dict_given_by_author(soup)
+        author_provided_abbreviations = _get_abbre_dict_given_by_author(soup)
 
         abbrev_json = {}
 
