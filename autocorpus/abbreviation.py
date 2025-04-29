@@ -328,63 +328,52 @@ class Abbreviations:
 
     def __get_abbre_dict_given_by_author(self, soup_og):
         header = soup_og.find_all("h2", recursive=True)
-        abbre_dict = {}
         for element in header:
-            if re2.search("abbreviation", element.get_text(), re2.IGNORECASE):
-                nearest_down_tag = element.next_element
-                while nearest_down_tag:
-                    tag_name = nearest_down_tag.name
+            if not re2.search("abbreviation", element.get_text(), re2.IGNORECASE):
+                continue
 
+            nearest_down_tag = element.next_element
+            while nearest_down_tag:
+                tag_name = nearest_down_tag.name
+
+                match tag_name:
                     # when abbre is table
-                    if tag_name == "table":
-                        abbre_dict = _abbre_table_to_dict(nearest_down_tag)
-                        break
+                    case "table":
+                        return _abbre_table_to_dict(nearest_down_tag)
 
                     # when abbre is list
-                    elif tag_name == "dl":
-                        abbre_dict = _abbre_list_to_dict(nearest_down_tag)
-                        break
+                    case "dl":
+                        return _abbre_list_to_dict(nearest_down_tag)
 
                     # when abbre is plain text
-                    elif tag_name == "p":
+                    case "p":
                         abbre_list = _get_abbre_plain_text(nearest_down_tag)
                         if len(abbre_list) <= 2:
                             nearest_down_tag = nearest_down_tag.next_element
                             continue
-                        else:
-                            for abbre_pair in abbre_list:
-                                if len(abbre_pair.split(":")) == 2:
-                                    abbre_dict.update(
-                                        {
-                                            abbre_pair.split(":")[0]: abbre_pair.split(
-                                                ":"
-                                            )[1]
-                                        }
-                                    )
-                                elif len(abbre_pair.split(",")) == 2:
-                                    abbre_dict.update(
-                                        {
-                                            abbre_pair.split(",")[0]: abbre_pair.split(
-                                                ","
-                                            )[1]
-                                        }
-                                    )
-                                elif len(abbre_pair.split(" ")) == 2:
-                                    abbre_dict.update(
-                                        {
-                                            abbre_pair.split(" ")[0]: abbre_pair.split(
-                                                " "
-                                            )[1]
-                                        }
-                                    )
-                            break
+
+                        abbre_dict = {}
+                        for abbre_pair in abbre_list:
+                            if len(abbre_pair.split(":")) == 2:
+                                abbre_dict.update(
+                                    {abbre_pair.split(":")[0]: abbre_pair.split(":")[1]}
+                                )
+                            elif len(abbre_pair.split(",")) == 2:
+                                abbre_dict.update(
+                                    {abbre_pair.split(",")[0]: abbre_pair.split(",")[1]}
+                                )
+                            elif len(abbre_pair.split(" ")) == 2:
+                                abbre_dict.update(
+                                    {abbre_pair.split(" ")[0]: abbre_pair.split(" ")[1]}
+                                )
+                        return abbre_dict
 
                     # search until next h2
-                    elif tag_name == "h2":
+                    case "h2":
                         break
-                    else:
+                    case _:
                         nearest_down_tag = nearest_down_tag.next_element
-        return abbre_dict
+        return {}
 
     def __get_abbreviations(self, main_text, soup, config):
         paragraphs = main_text["paragraphs"]
