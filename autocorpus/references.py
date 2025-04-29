@@ -22,9 +22,6 @@ def get_reference(reference: dict[str, Any], section_heading: str) -> dict[str, 
         "section_type": [{"iao_name": "references section", "iao_id": "IAO:0000320"}],
     }
 
-    for sub_sec in reference:
-        if sub_sec == "node":
-            continue
-        ref_section[sub_sec] = ". ".join(reference[sub_sec])
+    ref_section |= {k: ". ".join(v) for k, v in reference.items() if k != "node"}
 
     return ref_section
