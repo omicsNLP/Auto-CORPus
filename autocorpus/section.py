@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup, Tag
 from fuzzywuzzy import fuzz
 
 from . import logger
-from .references import get_references
+from .reference import get_references
 from .utils import handle_not_tables
 
 

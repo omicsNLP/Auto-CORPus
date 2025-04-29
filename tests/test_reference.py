@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 
 def test_references() -> None:
     """A regression test for the references section of the PMC example."""
-    from autocorpus.references import get_references
+    from autocorpus.reference import get_references
 
     node = MagicMock()
     node.get_text.return_value = "NODE  TEXT\n"
