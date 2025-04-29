@@ -354,18 +354,11 @@ class Abbreviations:
 
                         abbre_dict = {}
                         for abbre_pair in abbre_list:
-                            if len(abbre_pair.split(":")) == 2:
-                                abbre_dict.update(
-                                    {abbre_pair.split(":")[0]: abbre_pair.split(":")[1]}
-                                )
-                            elif len(abbre_pair.split(",")) == 2:
-                                abbre_dict.update(
-                                    {abbre_pair.split(",")[0]: abbre_pair.split(",")[1]}
-                                )
-                            elif len(abbre_pair.split(" ")) == 2:
-                                abbre_dict.update(
-                                    {abbre_pair.split(" ")[0]: abbre_pair.split(" ")[1]}
-                                )
+                            for sep in ":, ":
+                                if abbre_pair.count(sep) == 1:
+                                    k, _, v = abbre_pair.partition(sep)
+                                    abbre_dict[k] = v
+                                    break
                         return abbre_dict
 
                     # search until next h2
