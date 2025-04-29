@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup, Tag
 from fuzzywuzzy import fuzz
 
 from . import logger
-from .references import get_reference
+from .references import get_references
 from .utils import handle_not_tables
 
 
@@ -171,7 +171,7 @@ def _get_references(
     """
     all_references = handle_not_tables(config["references"], soup_section)
     for ref in all_references:
-        yield get_reference(ref, section_heading)
+        yield get_references(ref, section_heading)
 
 
 @dataclass(frozen=True)

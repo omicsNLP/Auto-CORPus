@@ -4,7 +4,7 @@ import re
 from typing import Any
 
 
-def get_reference(reference: dict[str, Any], section_heading: str) -> dict[str, Any]:
+def get_references(reference: dict[str, Any], section_heading: str) -> dict[str, Any]:
     """Retrieve a structured reference dictionary from a BeautifulSoup object and section heading.
 
     Args:
