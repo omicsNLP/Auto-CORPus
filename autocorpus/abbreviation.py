@@ -15,6 +15,7 @@ from datetime import datetime
 from pathlib import Path
 
 import regex as re2
+from bs4 import Tag
 
 from . import logger
 
@@ -293,35 +294,37 @@ def _extract_abbreviation_definition_pairs(
     return {k: Counter(v).most_common(1)[0][0] for k, v in abbrev_map.items()}
 
 
+def _list_to_dict(lst: list[str]) -> dict[str, str]:
+    return {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
+
+
+def _abbre_table_to_dict(t: Tag) -> dict[str, str]:
+    abbre_list = []
+    rows = t.findAll("tr")
+    for i in rows:
+        elements = i.findAll(["td", "th"])
+        vals = [j.get_text() for j in elements]
+        if len(vals) > 1:
+            abbre_list += vals
+
+    return _list_to_dict(abbre_list)
+
+
+def _abbre_list_to_dict(t: Tag) -> dict[str, str]:
+    sf = t.findAll("dt")
+    sf_list = [SF_word.get_text() for SF_word in sf]
+    lf = t.findAll("dd")
+    lf_list = [LF_word.get_text() for LF_word in lf]
+
+    return dict(zip(sf_list, lf_list))
+
+
+def _get_abbre_plain_text(t: Tag) -> list[str]:
+    return t.get_text().split(";")
+
+
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
-
-    def __list_to_dict(self, lst):
-        op = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
-        return op
-
-    def __abbre_table_to_dict(self, t):
-        abbre_list = []
-        rows = t.findAll("tr")
-        for i in rows:
-            elements = i.findAll(["td", "th"])
-            vals = [j.get_text() for j in elements]
-            if len(vals) > 1:
-                abbre_list += vals
-        abbre_dict = self.__list_to_dict(abbre_list)
-        return abbre_dict
-
-    def __abbre_list_to_dict(self, t):
-        sf = t.findAll("dt")
-        sf_list = [SF_word.get_text() for SF_word in sf]
-        lf = t.findAll("dd")
-        lf_list = [LF_word.get_text() for LF_word in lf]
-        abbre_dict = dict(zip(sf_list, lf_list))
-        return abbre_dict
-
-    def __get_abbre_plain_text(self, soup_og):
-        abbre_text = soup_og.get_text()
-        return abbre_text.split(";")
 
     def __get_abbre_dict_given_by_author(self, soup_og):
         header = soup_og.find_all("h2", recursive=True)
@@ -334,17 +337,17 @@ class Abbreviations:
 
                     # when abbre is table
                     if tag_name == "table":
-                        abbre_dict = self.__abbre_table_to_dict(nearest_down_tag)
+                        abbre_dict = _abbre_table_to_dict(nearest_down_tag)
                         break
 
                     # when abbre is list
                     elif tag_name == "dl":
-                        abbre_dict = self.__abbre_list_to_dict(nearest_down_tag)
+                        abbre_dict = _abbre_list_to_dict(nearest_down_tag)
                         break
 
                     # when abbre is plain text
                     elif tag_name == "p":
-                        abbre_list = self.__get_abbre_plain_text(nearest_down_tag)
+                        abbre_list = _get_abbre_plain_text(nearest_down_tag)
                         if len(abbre_list) <= 2:
                             nearest_down_tag = nearest_down_tag.next_element
                             continue
