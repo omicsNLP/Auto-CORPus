@@ -38,10 +38,10 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
 
     auto_corpus = Autocorpus(
         config=config,
-        main_text=str(pmc_example_path),
+        main_text=pmc_example_path,
     )
 
-    auto_corpus.process_files()
+    auto_corpus.process_file()
 
     abbreviations = auto_corpus.abbreviations
     bioc = auto_corpus.to_bioc()
@@ -85,7 +85,7 @@ def test_pdf_to_bioc(data_path: Path, input_file: str) -> None:
 
     auto_corpus = Autocorpus(
         config=DefaultConfig.PMC.load_config(),
-        main_text=str(pdf_path.parent.absolute()),
+        main_text=pdf_path.parent.parent.resolve(),
     )
 
     auto_corpus.process_files()

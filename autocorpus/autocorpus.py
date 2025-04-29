@@ -57,8 +57,7 @@ class Autocorpus:
             content = json.load(f)
             return content["config"]
 
-    def __soupify_infile(self, fpath):
-        fpath = Path(fpath)
+    def __soupify_infile(self, fpath: Path):
         with fpath.open(encoding="utf-8") as fp:
             soup = BeautifulSoup(fp.read(), "html.parser")
             for e in soup.find_all(
@@ -180,6 +179,17 @@ class Autocorpus:
                 ]
 
         return unique_text
+
+    def __process_html_article(self, file: Path):
+        soup = self.__soupify_infile(file)
+        self.__process_html_tables(file, soup, self.config)
+        self.main_text = self.__extract_text(soup, self.config)
+        try:
+            self.abbreviations = Abbreviations(
+                self.main_text, soup, self.config, file
+            ).to_dict()
+        except Exception as e:
+            logger.error(e)
 
     def __process_html_tables(self, file_path, soup, config):
         """Extract data from tables in the HTML file.
@@ -315,8 +325,8 @@ class Autocorpus:
                             }
                         )
 
-    def process_files(self):
-        """Processes the files specified in the configuration.
+    def process_file(self):
+        """Processes the file specified in the configuration.
 
         This method performs the following steps:
         1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
@@ -337,15 +347,45 @@ class Autocorpus:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
-            soup = self.__soupify_infile(self.file_path)
-            self.__process_html_tables(self.file_path, soup, self.config)
-            self.main_text = self.__extract_text(soup, self.config)
-            try:
-                self.abbreviations = Abbreviations(
-                    self.main_text, soup, self.config, self.file_path
-                ).to_dict()
-            except Exception as e:
-                logger.error(e)
+            if not self.file_path.is_file():
+                logger.error(f"The provided path is not a file: {self.file_path}")
+                raise FileNotFoundError("Provided path is not a file.")
+            self.__process_html_article(self.file_path)
+
+        if self.linked_tables:
+            for table_file in self.linked_tables:
+                table_file = Path(table_file)
+                soup = self.__soupify_infile(table_file)
+                self.__process_html_tables(table_file, soup, self.config)
+        self.__merge_table_data()
+        if "documents" in self.tables and not self.tables["documents"] == []:
+            self.has_tables = True
+
+    def process_files(self, files: list[Path | str] = [], dir_path: Path | str = ""):
+        """Processes the files specified in the configuration.
+
+        This method performs the following steps:
+        1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
+        2. Handles the main text file:
+            - Parses the HTML content of the file.
+            - Extracts the main text from the parsed HTML.
+            - Attempts to extract abbreviations from the main text and HTML content.
+              If an error occurs during this process, it prints the error.
+        3. Processes linked tables, if any:
+            - Parses the HTML content of each linked table file.
+        4. Merges table data.
+        5. Checks if there are any documents in the tables and sets the `has_tables` attribute accordingly.
+
+        Raises:
+            RuntimeError: If no valid configuration is loaded.
+        """
+        if not self.config:
+            raise RuntimeError("A valid config file must be loaded.")
+        # individual file paths provided
+        if files:
+            if self.file_path.is_dir():
+                for file in self.file_path.iterdir():
+                    self.__process_html_article(file)
             # check and process files nested in folders as supplementary files.
             input_path = Path(self.file_path)
             if input_path.is_dir():
@@ -357,12 +397,15 @@ class Autocorpus:
                         # rglob should filter for only processable file extensions.
                         for sub_file in file.rglob(".pdf"):
                             if sub_file.suffix == ".pdf":
-                                bioc_text, bioc_tables = self.__extract_pdf_content(
-                                    sub_file
-                                )
+                                is_extracted = self.__extract_pdf_content(sub_file)
+                                if not is_extracted:
+                                    logger.info(
+                                        f"Unable to extract text/tables from {file.name}"
+                                    )
 
         if self.linked_tables:
             for table_file in self.linked_tables:
+                table_file = Path(table_file)
                 soup = self.__soupify_infile(table_file)
                 self.__process_html_tables(table_file, soup, self.config)
         self.__merge_table_data()

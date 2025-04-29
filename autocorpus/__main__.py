@@ -200,7 +200,7 @@ def main():
                 linked_tables=sorted(structure[key]["linked_tables"]),
             )
 
-            ac.process_files()
+            ac.process_file()
 
             out_dir = Path(structure[key]["out_dir"])
             if structure[key]["main_text"]:
