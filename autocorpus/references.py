@@ -1,47 +1,27 @@
 """Use regular expression for searching/replacing reference strings."""
 
 import re
+from typing import Any
 
 
-class References:
-    """Class for processing references using an input soup object and references config."""
+def get_reference(reference: dict[str, Any], section_heading: str) -> dict[str, Any]:
+    """Retrieve a structured reference dictionary from a BeautifulSoup object and section heading.
 
-    def __create_reference_block(self, reference):
-        text = reference["node"].get_text().replace("Go to:", "").replace("\n", "")
-        text = re.sub(r"\s{2,}", " ", text)
-        ref_section = {
-            "section_heading": self.section_heading,
-            "subsection_heading": "",
-            "body": text,
-            "section_type": [
-                {"iao_name": "references section", "iao_id": "IAO:0000320"}
-            ],
-        }
+    Args:
+        reference: dictionary containing the references node
+        section_heading: Section heading string
+    Returns:
+        A dictionary containing the structured reference information.
+    """
+    text = reference["node"].get_text().replace("Go to:", "").replace("\n", "")
+    text = re.sub(r"\s{2,}", " ", text)
+    ref_section = {
+        "section_heading": section_heading,
+        "subsection_heading": "",
+        "body": text,
+        "section_type": [{"iao_name": "references section", "iao_id": "IAO:0000320"}],
+    }
 
-        for sub_sec in reference:
-            if sub_sec == "node":
-                continue
-            ref_section[sub_sec] = ". ".join(reference[sub_sec])
+    ref_section |= {k: ". ".join(v) for k, v in reference.items() if k != "node"}
 
-        return ref_section
-
-    def __init__(self, soup, config, section_heading):
-        """References constructor using provided AC config rules and input soup article data.
-
-        Args:
-            soup (BeautifulSoup): BeautifulSoup object
-            config (Object): AutoCorpus configuration references object
-            section_heading (str): Section heading string
-        """
-        self.config = config
-        self.section_heading = section_heading
-
-        self.reference = self.__create_reference_block(soup)
-
-    def to_dict(self):
-        """Return the reference BioC dictionary block.
-
-        Returns:
-             (dict): Reference BioC dictionary.
-        """
-        return self.reference
+    return ref_section
