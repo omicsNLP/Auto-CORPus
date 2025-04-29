@@ -292,7 +292,7 @@ class Autocorpus:
             self.main_text = self.__extract_text(soup, self.config)
             try:
                 self.abbreviations = Abbreviations(
-                    self.main_text, soup, self.config, self.file_path
+                    self.main_text, soup, self.file_path
                 ).to_dict()
             except Exception as e:
                 logger.error(e)

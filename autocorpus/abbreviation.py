@@ -371,7 +371,7 @@ def _get_abbre_dict_given_by_author(soup: BeautifulSoup) -> dict[str, str]:
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
 
-    def __get_abbreviations(self, main_text, soup, config):
+    def __get_abbreviations(self, main_text, soup):
         paragraphs = main_text["paragraphs"]
         all_abbreviations = {}
         for paragraph in paragraphs:
@@ -382,18 +382,16 @@ class Abbreviations:
 
         abbrev_json = {}
 
-        for key in author_provided_abbreviations.keys():
-            abbrev_json[key] = {
-                author_provided_abbreviations[key]: ["abbreviations section"]
-            }
-        for key in all_abbreviations:
-            if key in abbrev_json:
-                if all_abbreviations[key] in abbrev_json[key].keys():
-                    abbrev_json[key][all_abbreviations[key]].append("fulltext")
-                else:
-                    abbrev_json[key][all_abbreviations[key]] = ["fulltext"]
-            else:
-                abbrev_json[key] = {all_abbreviations[key]: ["fulltext"]}
+        for k, v in author_provided_abbreviations.items():
+            abbrev_json[k] = {v: ["abbreviations section"]}
+
+        for k, v in all_abbreviations.items():
+            if k not in abbrev_json:
+                abbrev_json[k] = {}
+            if v not in abbrev_json[k]:
+                abbrev_json[k][v] = []
+
+            abbrev_json[k][v].append("fulltext")
 
         return abbrev_json
 
@@ -423,17 +421,16 @@ class Abbreviations:
             passages.append(short_template)
         return template
 
-    def __init__(self, main_text, soup, config, file_path):
+    def __init__(self, main_text, soup, file_path):
         """Extract abbreviations from the input main text, using the provided soup and config objects.
 
         Args:
             main_text (str): Article main text data
             soup (bs4.BeautifulSoup): Article as a BeautifulSoup object
-            config (dict): AC configuration rules
             file_path (str): Input file path
         """
         self.abbreviations = self.__biocify_abbreviations(
-            self.__get_abbreviations(main_text, soup, config), file_path
+            self.__get_abbreviations(main_text, soup), file_path
         )
 
     def to_dict(self):
