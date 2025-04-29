@@ -321,9 +321,7 @@ class Abbreviations:
 
     def __get_abbre_plain_text(self, soup_og):
         abbre_text = soup_og.get_text()
-        abbre_list = abbre_text.split(";")
-        list_length = len(abbre_list)
-        return abbre_list, list_length
+        return abbre_text.split(";")
 
     def __get_abbre_dict_given_by_author(self, soup_og):
         header = soup_og.find_all("h2", recursive=True)
@@ -346,10 +344,8 @@ class Abbreviations:
 
                     # when abbre is plain text
                     elif tag_name == "p":
-                        abbre_list, list_length = self.__get_abbre_plain_text(
-                            nearest_down_tag
-                        )
-                        if list_length <= 2:
+                        abbre_list = self.__get_abbre_plain_text(nearest_down_tag)
+                        if len(abbre_list) <= 2:
                             nearest_down_tag = nearest_down_tag.next_element
                             continue
                         else:
