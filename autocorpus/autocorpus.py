@@ -6,6 +6,15 @@ from typing import Any
 
 from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
+from marker.converters.pdf import PdfConverter  # type: ignore[import-untyped]
+from marker.models import create_model_dict  # type: ignore[import-untyped]
+from marker.output import text_from_rendered  # type: ignore[import-untyped]
+
+from autocorpus.bioc_supplementary import (
+    BioCTableConverter,
+    BioCTextConverter,
+    extract_table_from_pdf_text,
+)
 
 from . import logger
 from .abbreviation import Abbreviations
@@ -13,6 +22,16 @@ from .bioc_formatter import get_formatted_bioc_collection
 from .section import Section
 from .table import get_table_json
 from .utils import handle_not_tables
+
+pdf_converter: PdfConverter | None = None
+
+
+def __load_pdf_models():
+    global pdf_converter
+    if pdf_converter is None:
+        pdf_converter = PdfConverter(
+            artifact_dict=create_model_dict(),
+        )
 
 
 class Autocorpus:
@@ -79,6 +98,37 @@ class Autocorpus:
             return []
 
         return handle_not_tables(config["sections"], soup)
+
+    @staticmethod
+    def __extract_pdf_content(
+        file_path: Path,
+    ) -> bool:
+        """Extracts content from a PDF file.
+
+        Args:
+            file_path (Path): Path to the PDF file.
+
+        Returns:
+            bool: success status of the extraction process.
+        """
+        bioc_text, bioc_tables = None, None
+
+        __load_pdf_models()
+        if pdf_converter:
+            # extract text from PDF
+            rendered = pdf_converter(file_path)
+            text, _, _ = text_from_rendered(rendered)
+            # seperate text and tables
+            text, tables = extract_table_from_pdf_text(text)
+            # format data for BioC
+            bioc_text = BioCTextConverter(text, "pdf")
+            bioc_text.output_bioc_json(file_path)
+            bioc_tables = BioCTableConverter(tables)
+            bioc_tables.output_tables_json(file_path)
+            return True
+        else:
+            logger.error("PDF converter not initialized.")
+            return False
 
     def __extract_text(self, soup, config):
         """Convert beautiful soup object into a python dict object with cleaned main text body.
@@ -296,6 +346,21 @@ class Autocorpus:
                 ).to_dict()
             except Exception as e:
                 logger.error(e)
+            # check and process files nested in folders as supplementary files.
+            input_path = Path(self.file_path)
+            if input_path.is_dir():
+                # check if the provided directory contains subdirectories
+                for file in input_path.iterdir():
+                    # ignore files at this level, they are already processed as main text.
+                    if file.is_dir():
+                        # recursively process all files in the subdirectory
+                        # rglob should filter for only processable file extensions.
+                        for sub_file in file.rglob(".pdf"):
+                            if sub_file.suffix == ".pdf":
+                                bioc_text, bioc_tables = self.__extract_pdf_content(
+                                    sub_file
+                                )
+
         if self.linked_tables:
             for table_file in self.linked_tables:
                 soup = self.__soupify_infile(table_file)

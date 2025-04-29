@@ -60,6 +60,43 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
     assert tables == expected_tables
 
 
+@pytest.mark.parametrize(
+    "input_file",
+    [
+        ("Supplementary/PDF/tp-10-08-2123-coif.pdf"),
+    ],
+)
+def test_pdf_to_bioc(data_path: Path, input_file: str) -> None:
+    """Test the conversion of a PDF file to a BioC format."""
+    from autocorpus.autocorpus import Autocorpus
+
+    pdf_path = data_path / input_file
+    with open(
+        str(pdf_path).replace(".pdf", ".pdf_bioc.json"),
+        encoding="utf-8",
+    ) as f:
+        expected_bioc = json.load(f)
+
+    with open(
+        str(pdf_path).replace(".pdf", ".pdf_tables.json"),
+        encoding="utf-8",
+    ) as f:
+        expected_bioc = json.load(f)
+
+    auto_corpus = Autocorpus(
+        config=DefaultConfig.PMC.load_config(),
+        main_text=str(pdf_path.parent.absolute()),
+    )
+
+    auto_corpus.process_files()
+
+    bioc = auto_corpus.to_bioc()
+
+    _make_reproducible(bioc, expected_bioc)
+
+    assert bioc == expected_bioc
+
+
 def _make_reproducible(*data: dict[str, Any]) -> None:
     """Make output files reproducible by stripping dates and file paths."""
     for d in data:
