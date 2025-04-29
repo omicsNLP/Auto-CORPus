@@ -13,6 +13,7 @@ from collections import Counter, defaultdict
 from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import regex as re2
 from bs4 import BeautifulSoup, Tag
@@ -368,32 +369,33 @@ def _get_abbre_dict_given_by_author(soup: BeautifulSoup) -> dict[str, str]:
     return {}
 
 
+def _get_abbreviations(
+    main_text: dict[str, Any], soup: BeautifulSoup
+) -> dict[str, dict[str, list[str]]]:
+    paragraphs = main_text["paragraphs"]
+    all_abbreviations: dict[str, str] = {}
+    for paragraph in paragraphs:
+        all_abbreviations |= _extract_abbreviation_definition_pairs(paragraph["body"])
+    author_provided_abbreviations = _get_abbre_dict_given_by_author(soup)
+
+    abbrev_json: dict[str, dict[str, list[str]]] = {}
+
+    for k, v in author_provided_abbreviations.items():
+        abbrev_json[k] = {v: ["abbreviations section"]}
+
+    for k, v in all_abbreviations.items():
+        if k not in abbrev_json:
+            abbrev_json[k] = {}
+        if v not in abbrev_json[k]:
+            abbrev_json[k][v] = []
+
+        abbrev_json[k][v].append("fulltext")
+
+    return abbrev_json
+
+
 class Abbreviations:
     """Class for processing abbreviations using Auto-CORPus configurations."""
-
-    def __get_abbreviations(self, main_text, soup):
-        paragraphs = main_text["paragraphs"]
-        all_abbreviations = {}
-        for paragraph in paragraphs:
-            all_abbreviations |= _extract_abbreviation_definition_pairs(
-                paragraph["body"]
-            )
-        author_provided_abbreviations = _get_abbre_dict_given_by_author(soup)
-
-        abbrev_json = {}
-
-        for k, v in author_provided_abbreviations.items():
-            abbrev_json[k] = {v: ["abbreviations section"]}
-
-        for k, v in all_abbreviations.items():
-            if k not in abbrev_json:
-                abbrev_json[k] = {}
-            if v not in abbrev_json[k]:
-                abbrev_json[k][v] = []
-
-            abbrev_json[k][v].append("fulltext")
-
-        return abbrev_json
 
     def __biocify_abbreviations(self, abbreviations, file_path):
         template = {
@@ -430,7 +432,7 @@ class Abbreviations:
             file_path (str): Input file path
         """
         self.abbreviations = self.__biocify_abbreviations(
-            self.__get_abbreviations(main_text, soup), file_path
+            _get_abbreviations(main_text, soup), file_path
         )
 
     def to_dict(self):
