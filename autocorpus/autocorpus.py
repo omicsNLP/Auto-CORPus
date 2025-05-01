@@ -12,7 +12,7 @@ from .abbreviation import Abbreviations
 from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
 from .table import get_table_json
-from .utils import handle_not_tables
+from .utils import check_file_type, handle_not_tables
 
 
 class Autocorpus:
@@ -287,19 +287,35 @@ class Autocorpus:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
-            soup = self.__soupify_infile(self.file_path)
-            self.__process_html_tables(self.file_path, soup, self.config)
-            self.main_text = self.__extract_text(soup, self.config)
-            try:
-                self.abbreviations = Abbreviations(
-                    self.main_text, soup, self.config, self.file_path
-                ).to_dict()
-            except Exception as e:
-                logger.error(e)
+            file_type = check_file_type(Path(self.file_path))
+            if file_type == "other":
+                raise RuntimeError("Main text file must be an HTML or XML file.")
+
+            if file_type == "html":
+                soup = self.__soupify_infile(self.file_path)
+                self.__process_html_tables(self.file_path, soup, self.config)
+                self.main_text = self.__extract_text(soup, self.config)
+                try:
+                    self.abbreviations = Abbreviations(
+                        self.main_text, soup, self.config, self.file_path
+                    ).to_dict()
+                except Exception as e:
+                    logger.error(e)
+            else:
+                raise NotImplementedError(
+                    "XML processing is not yet implemented for Auto-CORPus"
+                )
+
         if self.linked_tables:
             for table_file in self.linked_tables:
-                soup = self.__soupify_infile(table_file)
-                self.__process_html_tables(table_file, soup, self.config)
+                file_type = check_file_type(Path(table_file))
+                if file_type == "other":
+                    raise RuntimeError("Linked table files must be HTML or XML files.")
+                if file_type == "html":
+                    soup = self.__soupify_infile(table_file)
+                    self.__process_html_tables(table_file, soup, self.config)
+                else:
+                    pass  # TODO: implement XML handling
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
