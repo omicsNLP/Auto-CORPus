@@ -26,14 +26,6 @@ from .utils import handle_not_tables
 pdf_converter: PdfConverter | None = None
 
 
-def __load_pdf_models():
-    global pdf_converter
-    if pdf_converter is None:
-        pdf_converter = PdfConverter(
-            artifact_dict=create_model_dict(),
-        )
-
-
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
@@ -98,6 +90,13 @@ class Autocorpus:
 
         return handle_not_tables(config["sections"], soup)
 
+    def __load_pdf_models():
+        global pdf_converter
+        if pdf_converter is None:
+            pdf_converter = PdfConverter(
+                artifact_dict=create_model_dict(),
+            )
+
     @staticmethod
     def __extract_pdf_content(
         file_path: Path,
@@ -111,11 +110,11 @@ class Autocorpus:
             bool: success status of the extraction process.
         """
         bioc_text, bioc_tables = None, None
-
-        __load_pdf_models()
+        global pdf_converter
+        Autocorpus.__load_pdf_models()
         if pdf_converter:
             # extract text from PDF
-            rendered = pdf_converter(file_path)
+            rendered = pdf_converter(str(file_path))
             text, _, _ = text_from_rendered(rendered)
             # seperate text and tables
             text, tables = extract_table_from_pdf_text(text)
@@ -325,8 +324,21 @@ class Autocorpus:
                             }
                         )
 
+    def __process_supplementary_file(self, file: Path):
+        match file.suffix:
+            case ".html" | ".htm":
+                self.__process_html_article(file)
+            case ".xml":
+                pass
+            case ".pdf":
+                is_extracted = self.__extract_pdf_content(file)
+                if not is_extracted:
+                    logger.info(f"Unable to extract text/tables from {file.name}")
+            case _:
+                pass
+
     def process_file(self):
-        """Processes the file specified in the configuration.
+        """Processes the files specified in the configuration.
 
         This method performs the following steps:
         1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
@@ -347,75 +359,70 @@ class Autocorpus:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
-            if not self.file_path.is_file():
-                logger.error(f"The provided path is not a file: {self.file_path}")
-                raise FileNotFoundError("Provided path is not a file.")
-            self.__process_html_article(self.file_path)
-
+            soup = self.__soupify_infile(self.file_path)
+            self.__process_html_tables(self.file_path, soup, self.config)
+            self.main_text = self.__extract_text(soup, self.config)
+            try:
+                self.abbreviations = Abbreviations(
+                    self.main_text, soup, self.config, self.file_path
+                ).to_dict()
+            except Exception as e:
+                logger.error(e)
         if self.linked_tables:
             for table_file in self.linked_tables:
-                table_file = Path(table_file)
                 soup = self.__soupify_infile(table_file)
                 self.__process_html_tables(table_file, soup, self.config)
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
 
-    def process_files(self, files: list[Path | str] = [], dir_path: Path | str = ""):
-        """Processes the files specified in the configuration.
-
-        This method performs the following steps:
-        1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
-        2. Handles the main text file:
-            - Parses the HTML content of the file.
-            - Extracts the main text from the parsed HTML.
-            - Attempts to extract abbreviations from the main text and HTML content.
-              If an error occurs during this process, it prints the error.
-        3. Processes linked tables, if any:
-            - Parses the HTML content of each linked table file.
-        4. Merges table data.
-        5. Checks if there are any documents in the tables and sets the `has_tables` attribute accordingly.
+    def process_files(
+        self,
+        config: dict[str, Any] = {},
+        files: list[Path | str] = [],
+        dir_path: Path | str = "",
+        linked_tables: list[Path | str] = [],
+    ):
+        """Processes main text files provided and nested supplementary files.
 
         Raises:
-            RuntimeError: If no valid configuration is loaded.
+            RuntimeError: If no valid configuration is provided.
         """
-        if not self.config:
-            raise RuntimeError("A valid config file must be loaded.")
-        # individual file paths provided
-        if files:
-            if self.file_path.is_dir():
-                for file in self.file_path.iterdir():
+        # Config must be provided for the main text HTML files.
+        if not config:
+            raise RuntimeError("A valid config file must be provided.")
+        # Either a list of specific files or a directory path must be provided.
+        if not (files or dir_path):
+            logger.error("No files or directory provided.")
+            raise FileNotFoundError("No files or directory provided.")
+        #
+        if dir_path:
+            # Path is the preferred type, users can also provide a string though
+            if isinstance(dir_path, str):
+                dir_path = Path(dir_path)
+            for file in dir_path.iterdir():
+                if file.is_file() and file.suffix in [".html", ".htm"]:
                     self.__process_html_article(file)
-            # check and process files nested in folders as supplementary files.
-            input_path = Path(self.file_path)
-            if input_path.is_dir():
-                # check if the provided directory contains subdirectories
-                for file in input_path.iterdir():
-                    # ignore files at this level, they are already processed as main text.
-                    if file.is_dir():
-                        # recursively process all files in the subdirectory
-                        # rglob should filter for only processable file extensions.
-                        for sub_file in file.rglob(".pdf"):
-                            if sub_file.suffix == ".pdf":
-                                is_extracted = self.__extract_pdf_content(sub_file)
-                                if not is_extracted:
-                                    logger.info(
-                                        f"Unable to extract text/tables from {file.name}"
-                                    )
+                elif file.is_dir():
+                    # recursively process all files in the subdirectory
+                    for sub_file in file.rglob("*"):
+                        self.__process_supplementary_file(sub_file)
 
-        if self.linked_tables:
-            for table_file in self.linked_tables:
-                table_file = Path(table_file)
-                soup = self.__soupify_infile(table_file)
-                self.__process_html_tables(table_file, soup, self.config)
-        self.__merge_table_data()
-        if "documents" in self.tables and not self.tables["documents"] == []:
-            self.has_tables = True
+        # process any specific files provided
+        for specific_file in files:
+            # Path is the preferred type, users can also provide a string though
+            if isinstance(specific_file, str):
+                specific_file = Path(specific_file)
+            if specific_file.is_file() and specific_file.suffix in [".html", ".htm"]:
+                self.__process_html_article(specific_file)
+            else:
+                # process any specific files provided
+                self.__process_supplementary_file(specific_file)
 
     def __init__(
         self,
         config: dict[str, Any],
-        main_text: Path,
+        main_text: Path | None = None,
         linked_tables=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.

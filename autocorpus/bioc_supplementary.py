@@ -4,63 +4,21 @@ import datetime
 import json
 import re
 from pathlib import Path
-from typing import Any, TypedDict
+from typing import Any
 
 import pandas as pd
-from bioc import BioCAnnotation, BioCCollection, BioCDocument
+from bioc import BioCAnnotation, BioCCollection, BioCDocument, BioCPassage
 from pandas import DataFrame
 
 from autocorpus.utils import replace_unicode
 
-
-class Cell(TypedDict):
-    """Represents a cell in a table with an ID and text content.
-
-    Attributes:
-        cell_id (str): The unique identifier for the cell.
-        cell_text (str): The text content of the cell.
-    """
-
-    cell_id: str
-    cell_text: str
-
-
-class DataRow(TypedDict):
-    """Represents a row in a table, consisting of a list of cells.
-
-    Attributes:
-        cells (list[Cell]): A list of cells that make up the row.
-    """
-
-    cells: list[Cell]
-
-
-class DataSection(TypedDict):
-    """Represents a section of a table with a title and rows of data.
-
-    Attributes:
-        table_section_title_1 (str): The title of the table section.
-        data_rows (list[list[Cell]]): A list of rows, where each row is a list of Cell objects.
-    """
-
-    table_section_title_1: str
-    data_rows: list[list[Cell]]  # list of rows, where each row is a list of Cells
-
-
-class Passage(TypedDict, total=False):
-    """Represents a passage in a document with optional attributes.
-
-    Attributes:
-        offset (int): The starting position of the passage in the document.
-        infons (dict[str, Any]): Metadata information associated with the passage.
-        column_headings (list[Cell]): A list of column headings for table passages.
-        data_section (list[DataSection]): A list of data sections for table passages.
-    """
-
-    offset: int
-    infons: dict[str, Any]
-    column_headings: list[Cell]
-    data_section: list[DataSection]
+from .bioctable import (
+    BioCTableCell,
+    BioCTableCollection,
+    BioCTableDocument,
+    BioCTableJSONEncoder,
+    BioCTablePassage,
+)
 
 
 def extract_table_from_pdf_text(text):
@@ -146,20 +104,20 @@ class BioCTableConverter:
         """
         self.textsource = "Auto-CORPus (supplementary)"
         self.infons: dict[str, Any] = {}
-        self.documents: list[BioCDocument] = []
+        self.documents: list[BioCTableDocument] = []
         self.annotations: list[dict[str, Any]] = []
         self.__build_tables(table_data)
         self.__structure_bioc()
 
     def __structure_bioc(self):
         # Finalize the BioC structure
-        self.bioc = BioCCollection()
+        self.bioc = BioCTableCollection()
         self.bioc.source = "Auto-CORPus (supplementary)"
         self.bioc.date = datetime.date.today().strftime("%Y%m%d")
         self.bioc.key = "autocorpus_supplementary.key"
         self.bioc.infons = {}
         self.bioc.documents = []
-        temp_doc = BioCDocument()
+        temp_doc = BioCTableDocument()
         temp_doc.passages = self.passages
         temp_doc.annotations = self.annotations
         temp_doc.infons = self.infons
@@ -174,62 +132,57 @@ class BioCTableConverter:
             None
         """
         for table_idx, table_dataframe in enumerate(table_data):
-            passages: list[Passage] = []
+            passages: list[BioCTablePassage] = []
             # Create a title passage
-            title_passage: Passage = {
-                "offset": 0,
-                "infons": {
-                    "section_title_1": "table_title",
-                    "iao_name_1": "document title",
-                    "iao_id_1": "IAO:0000305",
-                },
+            title_passage: BioCTablePassage = BioCTablePassage()
+            title_passage.offset = 0
+            title_passage.infons = {
+                "section_title_1": "table_title",
+                "iao_name_1": "document title",
+                "iao_id_1": "IAO:0000305",
             }
             passages.append(title_passage)
             # Create a caption passage
-            caption_passage: Passage = {
-                "offset": 0,
-                "infons": {
-                    "section_title_1": "table_caption",
-                    "iao_name_1": "caption",
-                    "iao_id_1": "IAO:0000304",
-                },
+            caption_passage: BioCTablePassage = BioCTablePassage()
+            caption_passage.offset = 0
+            caption_passage.infons = {
+                "section_title_1": "table_caption",
+                "iao_name_1": "caption",
+                "iao_id_1": "IAO:0000304",
             }
             passages.append(caption_passage)
             # Create a passage for table content
-            passage: Passage = {
-                "offset": 0,
-                "infons": {
-                    "section_title_1": "table_content",
-                    "iao_name_1": "table",
-                    "iao_id_1": "IAO:0000306",
-                },
-                "column_headings": [],
-                "data_section": [{"table_section_title_1": "", "data_rows": []}],
+            passage: BioCTablePassage = BioCTablePassage()
+            passage.offset = 0
+            passage.infons = {
+                "section_title_1": "table_content",
+                "iao_name_1": "table",
+                "iao_id_1": "IAO:0000306",
             }
             # Populate column headings
             for i, text in enumerate(table_dataframe.columns.values):
-                passage["column_headings"].append(
-                    {
-                        "cell_id": str(table_idx) + f".1.{i + 1}",
-                        "cell_text": replace_unicode(text),
-                    }
+                cell_id: str = str(table_idx) + f".1.{i + 1}"
+                cell_text: str = replace_unicode(text)
+                # use new cell object
+                new_cell: BioCTableCell = BioCTableCell(
+                    cell_id=cell_id, cell_text=cell_text
                 )
+                passage.column_headings.append(new_cell)
             # Populate table rows with cell data
             for row_idx, row in enumerate(table_dataframe.values):
-                new_row: list[Cell] = []
+                new_row: list[BioCTableCell] = []
                 for cell_idx, cell in enumerate(row):
-                    new_cell: Cell = {
-                        "cell_id": f"{table_idx}.{row_idx + 2}.{cell_idx + 1}",
-                        "cell_text": f"{replace_unicode(cell)}",
-                    }
-                    new_row.append(new_cell)
+                    data_cell_id: str = f"{table_idx}.{row_idx + 2}.{cell_idx + 1}"
+                    data_cell_text: str = f"{replace_unicode(cell)}"
+                    new_data_cell: BioCTableCell = BioCTableCell(
+                        cell_id=data_cell_id, cell_text=data_cell_text
+                    )
+                    new_row.append(new_data_cell)
                 passage["data_section"][0]["data_rows"].append(new_row)
             # Add the table passage to the passages list
             passages.append(passage)
-            temp_doc = BioCDocument()
+            temp_doc = BioCTableDocument()
             temp_doc.passages = passages
-            temp_doc.annotations = []
-            temp_doc.infons = {}
             self.documents.append(temp_doc)
 
     def output_tables_json(self, filename: Path) -> None:
@@ -241,7 +194,7 @@ class BioCTableConverter:
         """
         out_filename = str(filename).replace(".pdf", "_tables.json")
         with open(out_filename, "w", encoding="utf-8") as f:
-            f.write(json.dumps(self.bioc, indent=4))
+            BioCTableJSONEncoder.dump(self.bioc, f, indent=4)
 
 
 class BioCTextConverter:
@@ -318,16 +271,11 @@ class BioCTextConverter:
             iao_name = "supplementary material section"
             iao_id = "IAO:0000326"
             # Create a passage object and add it to the passages list
-            passages.append(
-                {
-                    "offset": offset,
-                    "infons": {"iao_name_1": iao_name, "iao_id_1": iao_id},
-                    "text": line,
-                    "sentences": [],
-                    "annotations": [],
-                    "relations": [],
-                }
-            )
+            passage = BioCPassage()
+            passage.offset = offset
+            passage.infons = {"iao_name_1": iao_name, "iao_id_1": iao_id}
+            passage.text = line
+            passages.append(passage)
             offset += len(line)
         return passages
 
@@ -359,31 +307,29 @@ class BioCTextConverter:
         """
         offset = 0
         passages = []
-        # Iterate through each line in the text
-        line, is_header = text
-        line = line.replace("\n", "")
-        iao_name = ""
-        iao_id = ""
-
-        # Determine the type of the line and assign appropriate information
-        if line.isupper() or is_header:
-            iao_name = "document title"
-            iao_id = "IAO:0000305"
+        if text is None:
+            return passages
+        if type(text) is str:
+            text = text.split("\n\n")
         else:
+            text = [x.split("\n") for x in text]
+            temp = []
+            for i in text:
+                for t in i:
+                    temp.append(t)
+        text = [x for x in text if x]
+        # Iterate through each line in the text
+        for line in text:
+            # Determine the type of the line and assign appropriate information
             iao_name = "supplementary material section"
             iao_id = "IAO:0000326"
-        # Create a passage object and add it to the passages list
-        passages.append(
-            {
-                "offset": offset,
-                "infons": {"iao_name_1": iao_name, "iao_id_1": iao_id},
-                "text": line,
-                "sentences": [],
-                "annotations": [],
-                "relations": [],
-            }
-        )
-        offset += len(line)
+            # Create a passage object and add it to the passages list
+            passage = BioCPassage()
+            passage.offset = offset
+            passage.infons = {"iao_name_1": iao_name, "iao_id_1": iao_id}
+            passage.text = line
+            passages.append(passage)
+            offset += len(line)
         return passages
 
     @staticmethod
@@ -450,4 +396,4 @@ class BioCTextConverter:
         """
         out_filename = str(filename).replace(".pdf", "_bioc.json")
         with open(out_filename, "w", encoding="utf-8") as f:
-            f.write(json.dumps(self.bioc, indent=4))
+            json.dump(self.bioc, f, indent=4)
