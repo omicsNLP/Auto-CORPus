@@ -1,7 +1,6 @@
 """This module provides functionality for converting text extracted from various file types into a BioC format."""
 
 import datetime
-import json
 import re
 from pathlib import Path
 from typing import Any
