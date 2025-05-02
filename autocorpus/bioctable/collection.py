@@ -8,7 +8,7 @@ from typing import Any
 
 from bioc import BioCCollection
 
-from .BioCTableDocument import BioCTableDocument
+from .document import BioCTableDocument
 
 
 class BioCTableCollection(BioCCollection):

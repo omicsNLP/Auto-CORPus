@@ -90,6 +90,7 @@ class Autocorpus:
 
         return handle_not_tables(config["sections"], soup)
 
+    @staticmethod
     def __load_pdf_models():
         global pdf_converter
         if pdf_converter is None:

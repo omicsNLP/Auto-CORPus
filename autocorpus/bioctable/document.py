@@ -8,7 +8,7 @@ from typing import Any
 
 from bioc import BioCDocument
 
-from .BioCTablePassage import BioCTablePassage
+from .passage import BioCTablePassage
 
 
 class BioCTableDocument(BioCDocument):

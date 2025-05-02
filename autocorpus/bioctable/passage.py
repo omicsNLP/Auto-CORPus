@@ -8,7 +8,7 @@ from typing import Any
 
 from bioc import BioCPassage
 
-from .BioCTableCell import BioCTableCell
+from .cell import BioCTableCell
 
 
 class BioCTablePassage(BioCPassage):

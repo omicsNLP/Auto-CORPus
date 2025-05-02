@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
-from bioc import BioCAnnotation, BioCCollection, BioCDocument, BioCPassage
+from bioc import BioCAnnotation, BioCCollection, BioCDocument, BioCPassage, biocjson
 from pandas import DataFrame
 
 from autocorpus.utils import replace_unicode
@@ -106,6 +106,7 @@ class BioCTableConverter:
         self.infons: dict[str, Any] = {}
         self.documents: list[BioCTableDocument] = []
         self.annotations: list[dict[str, Any]] = []
+        self.passages: list[BioCTablePassage] = []
         self.__build_tables(table_data)
         self.__structure_bioc()
 
@@ -168,6 +169,13 @@ class BioCTableConverter:
                     cell_id=cell_id, cell_text=cell_text
                 )
                 passage.column_headings.append(new_cell)
+            # generate a new data section
+            passage.data_section = [
+                {
+                    "table_section_title_1": "table_data",
+                    "data_rows": [],
+                }
+            ]
             # Populate table rows with cell data
             for row_idx, row in enumerate(table_dataframe.values):
                 new_row: list[BioCTableCell] = []
@@ -178,7 +186,7 @@ class BioCTableConverter:
                         cell_id=data_cell_id, cell_text=data_cell_text
                     )
                     new_row.append(new_data_cell)
-                passage["data_section"][0]["data_rows"].append(new_row)
+                passage.data_section[0]["data_rows"].append(new_row)
             # Add the table passage to the passages list
             passages.append(passage)
             temp_doc = BioCTableDocument()
@@ -192,7 +200,7 @@ class BioCTableConverter:
             bioc (dict): The BioC data to be written to the file.
             filename (str): The name of the input file.
         """
-        out_filename = str(filename).replace(".pdf", "_tables.json")
+        out_filename = str(filename).replace(".pdf", ".pdf_tables.json")
         with open(out_filename, "w", encoding="utf-8") as f:
             BioCTableJSONEncoder.dump(self.bioc, f, indent=4)
 
@@ -394,6 +402,6 @@ class BioCTextConverter:
             bioc (dict): The BioC data to be written to the file.
             filename (str): The name of the input file.
         """
-        out_filename = str(filename).replace(".pdf", "_bioc.json")
+        out_filename = str(filename).replace(".pdf", ".pdf_bioc.json")
         with open(out_filename, "w", encoding="utf-8") as f:
-            json.dump(self.bioc, f, indent=4)
+            biocjson.dump(self.bioc, f, indent=4)
