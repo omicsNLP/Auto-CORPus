@@ -102,8 +102,7 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
     ) as f:
         new_tables = json.load(f)
 
-    _make_reproducible(new_bioc, expected_bioc)
-    _make_reproducible(new_tables, expected_tables)
+    _make_reproducible(new_bioc, expected_bioc, new_tables, expected_tables)
 
     assert new_bioc == expected_bioc
     assert new_tables == expected_tables

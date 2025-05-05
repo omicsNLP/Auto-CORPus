@@ -36,24 +36,34 @@ class BioCTableJSONEncoder(BioCJSONEncoder):
         """
         if isinstance(o, BioCTableCell):
             return {
-                "bioctype": "BioCTableCell",
                 "cell_id": o.cell_id,
                 "cell_text": o.cell_text,
             }
         if isinstance(o, BioCTablePassage):
             return {
-                "bioctype": "BioCPassage",
                 "offset": o.offset,
                 "infons": o.infons,
                 "text": o.text,
-                "sentences": [self.default(s) for s in o.sentences],
+                "column_headings": [self.default(c) for c in o.column_headings],
+                "data_section": [
+                    {
+                        "table_section_title_1": section.get(
+                            "table_section_title_1", ""
+                        ),
+                        "data_rows": [
+                            [self.default(cell) for cell in row]
+                            for row in section.get("data_rows", [])
+                        ],
+                    }
+                    for section in o.data_section
+                ],
                 "annotations": [self.default(a) for a in o.annotations],
                 "relations": [self.default(r) for r in o.relations],
             }
         if isinstance(o, BioCTableDocument):
             return {
-                "bioctype": "BioCDocument",
                 "id": o.id,
+                "inputfile": o.inputfile,
                 "infons": o.infons,
                 "passages": [self.default(p) for p in o.passages],
                 "annotations": [self.default(a) for a in o.annotations],
@@ -61,7 +71,6 @@ class BioCTableJSONEncoder(BioCJSONEncoder):
             }
         if isinstance(o, BioCTableCollection):
             return {
-                "bioctype": "BioCCollection",
                 "source": o.source,
                 "date": o.date,
                 "key": o.key,

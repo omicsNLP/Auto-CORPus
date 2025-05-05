@@ -120,9 +120,9 @@ class Autocorpus:
             # seperate text and tables
             text, tables = extract_table_from_pdf_text(text)
             # format data for BioC
-            bioc_text = BioCTextConverter(text, "pdf")
+            bioc_text = BioCTextConverter(text, "pdf", str(file_path))
             bioc_text.output_bioc_json(file_path)
-            bioc_tables = BioCTableConverter(tables)
+            bioc_tables = BioCTableConverter(tables, str(file_path))
             bioc_tables.output_tables_json(file_path)
             return True
         else:

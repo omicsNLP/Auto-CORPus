@@ -93,14 +93,16 @@ def extract_table_from_pdf_text(text):
 class BioCTableConverter:
     """Converts tables from nested lists into a BioC table object."""
 
-    def __init__(self, table_data: list[DataFrame]):
+    def __init__(self, table_data: list[DataFrame], input_file: str):
         """Initialize a BioCTable object.
 
         Args:
             table_id (int): The unique identifier for the table.
             table_data (pd.DataFrame): The data of the table as a Pandas DataFrame.
-            textsource (str): The source of the text content.
+            input_file (str): The source of the text content.
         """
+        self.input_file = input_file
+        self.current_table_id = 1
         self.textsource = "Auto-CORPus (supplementary)"
         self.infons: dict[str, Any] = {}
         self.documents: list[BioCTableDocument] = []
@@ -116,11 +118,7 @@ class BioCTableConverter:
         self.bioc.date = datetime.date.today().strftime("%Y%m%d")
         self.bioc.key = "autocorpus_supplementary.key"
         self.bioc.infons = {}
-        self.bioc.documents = []
-        temp_doc = BioCTableDocument()
-        temp_doc.passages = self.passages
-        temp_doc.annotations = self.annotations
-        temp_doc.infons = self.infons
+        self.bioc.documents = self.documents
 
     def __build_tables(self, table_data: list[DataFrame]):
         """Builds a table passage based on the provided table_data and adds it to the passages list.
@@ -134,23 +132,23 @@ class BioCTableConverter:
         for table_idx, table_dataframe in enumerate(table_data):
             passages: list[BioCTablePassage] = []
             # Create a title passage
-            title_passage: BioCTablePassage = BioCTablePassage()
-            title_passage.offset = 0
-            title_passage.infons = {
-                "section_title_1": "table_title",
-                "iao_name_1": "document title",
-                "iao_id_1": "IAO:0000305",
-            }
-            passages.append(title_passage)
+            # title_passage: BioCTablePassage = BioCTablePassage()
+            # title_passage.offset = 0
+            # title_passage.infons = {
+            #     "section_title_1": "table_title",
+            #     "iao_name_1": "document title",
+            #     "iao_id_1": "IAO:0000305",
+            # }
+            # passages.append(title_passage)
             # Create a caption passage
-            caption_passage: BioCTablePassage = BioCTablePassage()
-            caption_passage.offset = 0
-            caption_passage.infons = {
-                "section_title_1": "table_caption",
-                "iao_name_1": "caption",
-                "iao_id_1": "IAO:0000304",
-            }
-            passages.append(caption_passage)
+            # caption_passage: BioCTablePassage = BioCTablePassage()
+            # caption_passage.offset = 0
+            # caption_passage.infons = {
+            #     "section_title_1": "table_caption",
+            #     "iao_name_1": "caption",
+            #     "iao_id_1": "IAO:0000304",
+            # }
+            # passages.append(caption_passage)
             # Create a passage for table content
             passage: BioCTablePassage = BioCTablePassage()
             passage.offset = 0
@@ -190,7 +188,10 @@ class BioCTableConverter:
             passages.append(passage)
             temp_doc = BioCTableDocument()
             temp_doc.passages = passages
+            temp_doc.inputfile = self.input_file
+            temp_doc.id = f"{self.current_table_id}"
             self.documents.append(temp_doc)
+            self.current_table_id += 1
 
     def output_tables_json(self, filename: Path) -> None:
         """Outputs the BioC data to a JSON file.
@@ -213,13 +214,14 @@ class BioCTextConverter:
         annotations (list): A list of BioCAnnotation objects for the text.
     """
 
-    def __init__(self, text: str, file_type_source: str):
+    def __init__(self, text: str, file_type_source: str, input_file: str):
         """Initialize the BioCTextConverter with text and its source type.
 
         Args:
             text (str): The text content to be converted.
             file_type_source (str): The source type of the text (e.g., 'word' or 'pdf').
         """
+        self.input_file = input_file
         self.infons: dict[str, Any] = {}
         if file_type_source == "word":
             self.passages = self.__identify_word_passages(text)
@@ -240,6 +242,8 @@ class BioCTextConverter:
         temp_doc.passages = self.passages
         temp_doc.annotations = self.annotations
         temp_doc.infons = self.infons
+        temp_doc.inputfile = self.input_file
+        self.bioc.documents.append(temp_doc)
 
     @staticmethod
     def __identify_passages(text):
@@ -381,16 +385,12 @@ class BioCTextConverter:
             iao_name = "supplementary material section"
             iao_id = "IAO:0000326"
         # Create a passage object and add it to the passages list
-        passages.append(
-            {
-                "offset": offset,
-                "infons": {"iao_name_1": iao_name, "iao_id_1": iao_id},
-                "text": line,
-                "sentences": [],
-                "annotations": [],
-                "relations": [],
-            }
-        )
+        passage = BioCPassage()
+        passage.offset = offset
+        passage.infons = {"iao_name_1": iao_name, "iao_id_1": iao_id}
+        passage.text = line
+        # Add the passage to the list
+        passages.append(passage)
         offset += len(line)
         return passages
 
