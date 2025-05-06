@@ -1,16 +1,15 @@
 """Main entry script for the autocorpus CLI."""
 
 import argparse
-import re
 from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 from tqdm import tqdm
 
 from . import add_file_logger, logger
 from .autocorpus import Autocorpus
 from .configs.default_config import DefaultConfig
+from .inputs import read_file_structure
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -36,109 +35,6 @@ group.add_argument(
 group.add_argument(
     "-b", "--default_config", type=str, help="name of a default config file"
 )
-
-
-def get_file_type(file_path: Path) -> str:
-    """Identify the type of files present in the given path.
-
-    Args:
-        file_path: file path to be checked
-
-    Returns:
-        "directory", "main_text" or "linked_table"
-    """
-    if file_path.is_dir():
-        return "directory"
-    if file_path.suffix == ".html":
-        if file_path.name.startswith("table_"):
-            return "linked_tables"
-        return "main_text"
-
-    logger.warning(
-        f"unable to identify file type for {file_path}, file will not be processed"
-    )
-    return ""
-
-
-def fill_structure(structure, key, ftype, fpath: Path):
-    """Takes the structure dict, if key is not present then creates new entry with default vals and adds fpath to correct ftype if key is present then updates the dict with the new fpath only.
-
-    Args:
-        structure: structure dict
-        key: base file name
-        ftype: file type (main_text, linked_table)
-        fpath: full path to the file
-
-    Returns:
-        updated structure dct
-    """
-    if key not in structure:
-        structure[key] = {
-            "main_text": "",
-            "out_dir": "",
-            "linked_tables": [],
-        }
-    if ftype == "main_text" or ftype == "out_dir":
-        structure[key][ftype] = str(fpath)
-    else:
-        structure[key][ftype].append(str(fpath))
-    return structure
-
-
-def read_file_structure(file_path: Path, target_dir: Path) -> dict[str, Any]:
-    """Takes in any file structure (flat or nested) and groups files, returns a dict of files which are all related and the paths to each related file.
-
-    :param file_path:
-    :param target_dir:
-    :return: list of dicts
-    """
-    if file_path.is_dir():
-        structure: dict[str, Any] = {}
-        all_fpaths = file_path.rglob("*")
-        for fpath in all_fpaths:
-            tmp_out = fpath.relative_to(file_path).parent
-            out_dir = target_dir / tmp_out
-            ftype = get_file_type(fpath)
-            base_file = ""
-            if ftype == "directory":
-                continue
-            elif ftype == "main_text":
-                base_file = re.sub(r"\.html", "", str(fpath))
-                structure = fill_structure(structure, base_file, "main_text", fpath)
-                structure = fill_structure(structure, base_file, "out_dir", out_dir)
-            elif ftype == "linked_tables":
-                base_file = re.sub(r"_table_\d+\.html", "", str(fpath))
-                structure = fill_structure(structure, base_file, "linked_tables", fpath)
-                structure = fill_structure(structure, base_file, "out_dir", out_dir)
-            elif not ftype:
-                logger.warning(
-                    f"cannot determine file type for {fpath}. "
-                    "AC will not process this file"
-                )
-            if base_file in structure:
-                structure = fill_structure(structure, base_file, "out_dir", out_dir)
-        return structure
-
-    ftype = get_file_type(file_path)
-    if ftype == "main_text":
-        base_file = re.sub(r"\.html", "", str(file_path)).split("/")[-1]
-    if ftype == "linked_tables":
-        base_file = re.sub(r"_table_\d+\.html", "", str(file_path)).split("/")[-1]
-    if not ftype:
-        raise OSError(
-            f"cannot determine file type for {file_path}. AC will not process this file"
-        )
-    template = {
-        base_file: {
-            "main_text": "",
-            "out_dir": str(target_dir),
-            "linked_tables": [],
-        }
-    }
-    template[base_file][get_file_type(file_path)] = str(
-        file_path if get_file_type(file_path) == "main_text" else [file_path]
-    )
-    return template
 
 
 def main():
@@ -174,6 +70,7 @@ def main():
     logger.info(f"Output path: {target_dir}")
     logger.info(f"Config: {config}")
     logger.info(f"Output format: {output_format}")
+
     success = []
     errors = []
     for key in pbar:
