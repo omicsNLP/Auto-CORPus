@@ -5,7 +5,6 @@ convert the document to a dictionary representation.
 """
 
 from .annotation import BioCAnnotation
-from .key import BioCKey
 from .passage import BioCPassage
 from .relation import BioCRelation
 

@@ -5,7 +5,6 @@ the collection to a dictionary representation.
 """
 
 from .document import BioCDocument
-from .key import BioCKey
 
 
 class BioCCollection:

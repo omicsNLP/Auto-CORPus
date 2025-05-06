@@ -1,4 +1,3 @@
-from .key import BioCKey
 from .location import BioCLocation
 
 

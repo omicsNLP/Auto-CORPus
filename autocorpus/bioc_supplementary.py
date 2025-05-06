@@ -1,12 +1,15 @@
 """This module provides functionality for converting text extracted from various file types into a BioC format."""
 
 import datetime
-import json
 import re
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from pandas import DataFrame
+
+from autocorpus.utils import replace_unicode
+
 from .bioc import BioCAnnotation, BioCCollection, BioCDocument, BioCPassage, encoder
 from .bioc.bioctable import (
     BioCTableCell,
@@ -15,9 +18,6 @@ from .bioc.bioctable import (
     BioCTableJSONEncoder,
     BioCTablePassage,
 )
-from pandas import DataFrame
-
-from autocorpus.utils import replace_unicode
 
 
 def extract_table_from_pdf_text(text):

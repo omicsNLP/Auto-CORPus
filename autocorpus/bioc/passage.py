@@ -4,11 +4,9 @@ BioC extends BioC to include additional functionality for handling  data, such a
 column headings and data sections.
 """
 
-from typing import Any
-from .key import BioCKey
-from .sentence import BioCSentence
 from .annotation import BioCAnnotation
 from .relation import BioCRelation
+from .sentence import BioCSentence
 
 
 class BioCPassage:

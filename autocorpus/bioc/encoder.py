@@ -12,7 +12,6 @@ from typing import Any
 from .annotation import BioCAnnotation
 from .collection import BioCCollection
 from .document import BioCDocument
-from .key import BioCKey
 from .passage import BioCPassage
 from .relation import BioCRelation
 from .sentence import BioCSentence

@@ -1,5 +1,4 @@
 from .annotation import BioCAnnotation
-from .key import BioCKey
 from .relation import BioCRelation
 
 
