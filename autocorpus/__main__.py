@@ -10,6 +10,7 @@ from . import add_file_logger, logger
 from .autocorpus import Autocorpus
 from .configs.default_config import DefaultConfig
 from .inputs import read_file_structure
+from .run import run_autocorpus
 
 parser = argparse.ArgumentParser(prog="PROG")
 parser.add_argument(
@@ -71,6 +72,14 @@ def main():
     logger.info(f"Config: {config}")
     logger.info(f"Output format: {output_format}")
 
+    if args.config:
+        config = Autocorpus.read_config(args.config)
+    elif args.default_config:
+        try:
+            config = DefaultConfig[args.default_config].load_config()
+        except KeyError:
+            raise ValueError(f"{args.default_config} is not a valid default config.")
+
     success = []
     errors = []
     for key in pbar:
@@ -81,54 +90,7 @@ def main():
             }
         )
         try:
-            if args.config:
-                config = Autocorpus.read_config(args.config)
-            elif args.default_config:
-                try:
-                    config = DefaultConfig[args.default_config].load_config()
-                except KeyError:
-                    raise ValueError(
-                        f"{args.default_config} is not a valid default config."
-                    )
-
-            ac = Autocorpus(
-                config=config,
-                main_text=structure[key]["main_text"],
-                linked_tables=sorted(structure[key]["linked_tables"]),
-            )
-
-            ac.process_files()
-
-            out_dir = Path(structure[key]["out_dir"])
-            if structure[key]["main_text"]:
-                key = key.replace("\\", "/")
-                if output_format.lower() == "json":
-                    with open(
-                        out_dir / f"{Path(key).name}_bioc.json",
-                        "w",
-                        encoding="utf-8",
-                    ) as outfp:
-                        outfp.write(ac.main_text_to_bioc_json())
-                else:
-                    with open(
-                        out_dir / f"{Path(key).name}_bioc.xml",
-                        "w",
-                        encoding="utf-8",
-                    ) as outfp:
-                        outfp.write(ac.main_text_to_bioc_xml())
-                with open(
-                    out_dir / f"{Path(key).name}_abbreviations.json",
-                    "w",
-                    encoding="utf-8",
-                ) as outfp:
-                    outfp.write(ac.abbreviations_to_bioc_json())
-
-            # AC does not support the conversion of tables or abbreviations to XML
-            if ac.has_tables:
-                with open(
-                    out_dir / f"{Path(key).name}_tables.json", "w", encoding="utf-8"
-                ) as outfp:
-                    outfp.write(ac.tables_to_bioc_json())
+            run_autocorpus(config, structure, key, output_format)
             success.append(f"{key} was processed successfully.")
         except Exception as e:
             errors.append(f"{key} failed due to {e}.")
