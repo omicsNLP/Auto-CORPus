@@ -1,23 +1,23 @@
 """This module provides functionality for converting text extracted from various file types into a BioC format."""
 
 import datetime
+import json
 import re
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
-from bioc import BioCAnnotation, BioCCollection, BioCDocument, BioCPassage, biocjson
-from pandas import DataFrame
-
-from autocorpus.utils import replace_unicode
-
-from .bioctable import (
+from .bioc import BioCAnnotation, BioCCollection, BioCDocument, BioCPassage, encoder
+from .bioc.bioctable import (
     BioCTableCell,
     BioCTableCollection,
     BioCTableDocument,
     BioCTableJSONEncoder,
     BioCTablePassage,
 )
+from pandas import DataFrame
+
+from autocorpus.utils import replace_unicode
 
 
 def extract_table_from_pdf_text(text):
@@ -186,10 +186,9 @@ class BioCTableConverter:
                 passage.data_section[0]["data_rows"].append(new_row)
             # Add the table passage to the passages list
             passages.append(passage)
-            temp_doc = BioCTableDocument()
+            temp_doc = BioCTableDocument(id=f"{self.current_table_id}")
             temp_doc.passages = passages
             temp_doc.inputfile = self.input_file
-            temp_doc.id = f"{self.current_table_id}"
             self.documents.append(temp_doc)
             self.current_table_id += 1
 
@@ -221,6 +220,7 @@ class BioCTextConverter:
             text (str): The text content to be converted.
             file_type_source (str): The source type of the text (e.g., 'word' or 'pdf').
         """
+        self.document_id = 1
         self.input_file = input_file
         self.infons: dict[str, Any] = {}
         if file_type_source == "word":
@@ -238,11 +238,12 @@ class BioCTextConverter:
         self.bioc.key = "autocorpus_supplementary.key"
         self.bioc.infons = {}
         self.bioc.documents = []
-        temp_doc = BioCDocument()
+        temp_doc = BioCDocument(id=f"{self.document_id}")
         temp_doc.passages = self.passages
         temp_doc.annotations = self.annotations
         temp_doc.infons = self.infons
         temp_doc.inputfile = self.input_file
+        self.document_id += 1
         self.bioc.documents.append(temp_doc)
 
     @staticmethod
@@ -403,4 +404,4 @@ class BioCTextConverter:
         """
         out_filename = str(filename).replace(".pdf", ".pdf_bioc.json")
         with open(out_filename, "w", encoding="utf-8") as f:
-            biocjson.dump(self.bioc, f, indent=4)
+            encoder.dump(self.bioc, f, indent=4)

@@ -6,8 +6,7 @@ the collection to a dictionary representation.
 
 from typing import Any
 
-from bioc import BioCCollection
-
+from ...bioc import BioCCollection
 from .document import BioCTableDocument
 
 

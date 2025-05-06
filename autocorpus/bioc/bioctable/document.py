@@ -6,8 +6,7 @@ convert the document to a dictionary representation.
 
 from typing import Any
 
-from bioc import BioCDocument
-
+from ...bioc import BioCDocument
 from .passage import BioCTablePassage
 
 

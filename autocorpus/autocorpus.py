@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
 from marker.converters.pdf import PdfConverter  # type: ignore
 from marker.models import create_model_dict  # type: ignore

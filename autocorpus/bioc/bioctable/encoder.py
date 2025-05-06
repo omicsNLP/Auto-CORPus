@@ -8,8 +8,7 @@ It includes:
 
 import json
 
-from bioc.biocjson.encoder import BioCJSONEncoder
-
+from ...bioc.encoder import BioCJSONEncoder
 from .cell import BioCTableCell
 from .collection import BioCTableCollection
 from .document import BioCTableDocument

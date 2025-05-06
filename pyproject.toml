@@ -30,7 +30,6 @@ auto-corpus = "autocorpus.__main__:main"
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
 regex = "^2024.9.11"
-bioc = "^2.1"
 beautifulsoup4 = "^4.12.3"
 nltk = "^3.9.1"
 fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}

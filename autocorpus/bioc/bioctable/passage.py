@@ -6,8 +6,7 @@ column headings and data sections.
 
 from typing import Any
 
-from bioc import BioCPassage
-
+from ...bioc import BioCPassage
 from .cell import BioCTableCell
 
 
