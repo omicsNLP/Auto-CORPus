@@ -17,8 +17,11 @@ parser.add_argument(
     "-f", "--filepath", type=str, help="filepath for document/directory to run AC on"
 )
 parser.add_argument(
-    "-t", "--target_dir", type=str, help="target directory"
-)  # default autoCORPusOutput
+    "-t",
+    "--target_dir",
+    type=str,
+    help="target directory. Default is autoCORPus_output",
+)
 parser.add_argument(
     "-o",
     "--output_format",
@@ -43,9 +46,10 @@ def main():
     args = parser.parse_args()
     file_path = Path(args.filepath)
     target_dir = Path(args.target_dir if args.target_dir else "autoCORPus_output")
-    config = args.config if args.config else args.default_config
+    config_str = args.config if args.config else args.default_config
     output_format = args.output_format if args.output_format else "JSON"
 
+    # Validate file paths
     if not file_path.exists():
         raise FileNotFoundError(f"{file_path} does not exist")
     if not target_dir.exists():
@@ -53,25 +57,14 @@ def main():
     if not target_dir.is_dir():
         raise NotADirectoryError(f"{target_dir} is not a directory")
 
-    structure = read_file_structure(file_path, target_dir)
-    pbar = tqdm(structure.keys())
-    cdate = datetime.now()
-
-    log_file_path = (
-        target_dir / "autoCORPus-log-"
-        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}.log"
-    )
-    add_file_logger(log_file_path)
-
-    logger.info(
-        f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
-        f"on {cdate.day}/{cdate.month}/{cdate.year}"
-    )
+    # Log the argument values
+    create_log_file(target_dir)
     logger.info(f"Input path: {file_path}")
     logger.info(f"Output path: {target_dir}")
-    logger.info(f"Config: {config}")
+    logger.info(f"Config: {config_str}")
     logger.info(f"Output format: {output_format}")
 
+    # Load the config
     if args.config:
         config = Autocorpus.read_config(args.config)
     elif args.default_config:
@@ -80,14 +73,14 @@ def main():
         except KeyError:
             raise ValueError(f"{args.default_config} is not a valid default config.")
 
+    # Run autocorpus on each file in the structure
+    structure = read_file_structure(file_path, target_dir)
+    pbar = tqdm(structure.keys())
     success = []
     errors = []
     for key in pbar:
         pbar.set_postfix(
-            {
-                "file": key + "*",
-                "linked_tables": len(structure[key]["linked_tables"]),
-            }
+            {"file": key + "*", "linked_tables": len(structure[key]["linked_tables"])}
         )
         try:
             run_autocorpus(config, structure, key, output_format)
@@ -108,6 +101,22 @@ def main():
             "Auto-CORPus has completed processing with some errors. "
             "Please inspect the log file for further details."
         )
+
+
+def create_log_file(target_dir):
+    """Create a log file for the Auto-CORPus run."""
+    cdate = datetime.now()
+
+    log_file_path = (
+        target_dir / "autoCORPus-log-"
+        f"{cdate.day}-{cdate.month}-{cdate.year}-{cdate.hour}-{cdate.minute}.log"
+    )
+    add_file_logger(log_file_path)
+
+    logger.info(
+        f"Auto-CORPus log file from {cdate.hour}:{cdate.minute} "
+        f"on {cdate.day}/{cdate.month}/{cdate.year}"
+    )
 
 
 if __name__ == "__main__":
