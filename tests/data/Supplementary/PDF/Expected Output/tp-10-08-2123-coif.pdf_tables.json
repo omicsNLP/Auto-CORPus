@@ -1,0 +1,2927 @@
+{
+    "source": "Auto-CORPus (supplementary)",
+    "date": "20250211",
+    "key": "autocorpus_supplementary.key",
+    "infons": {},
+    "documents": [
+        {
+            "id": 1,
+            "inputfile": "PMC8429878_supplementary\\Raw\\tp-10-08-2123-coif.pdf",
+            "textsource": "Auto-CORPus",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "1_1.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "1_1.1.2",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "1_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "1_1.1.4",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "1_1.1.5",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "1_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "1_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "1_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "1_1.2.4",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "1_1.2.5",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.3.1",
+                                        "cell_text": "Identifying Information"
+                                    },
+                                    {
+                                        "cell_id": "1_1.3.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.3.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.3.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.3.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.4.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "1_1.4.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "1_1.4.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.4.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.4.5",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.5.1",
+                                        "cell_text": "Yanfang"
+                                    },
+                                    {
+                                        "cell_id": "1_1.5.2",
+                                        "cell_text": "Zong"
+                                    },
+                                    {
+                                        "cell_id": "1_1.5.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.5.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.5.5",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.6.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "1_1.6.2",
+                                        "cell_text": "Yes"
+                                    },
+                                    {
+                                        "cell_id": "1_1.6.3",
+                                        "cell_text": "\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "1_1.6.4",
+                                        "cell_text": "Corresponding Author's Name"
+                                    },
+                                    {
+                                        "cell_id": "1_1.6.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.7.1",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "1_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.7.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.7.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.7.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.8.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "1_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.8.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.8.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.8.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.9.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "1_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.9.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.9.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.9.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.10.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "1_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.10.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.10.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.10.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.11.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "1_1.11.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.11.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.11.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.11.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "1_1.12.1",
+                                        "cell_text": "Section 2. The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "1_1.12.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.12.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.12.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "1_1.12.5",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "2_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "3_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "4_1.1.1",
+                            "cell_text": "Section 1. Identifying Information"
+                        },
+                        {
+                            "cell_id": "4_1.1.2",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "4_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "4_1.1.4",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "4_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "4_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "4_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "4_1.2.4",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "4_1.3.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "4_1.3.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "4_1.3.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.3.4",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "4_1.4.1",
+                                        "cell_text": "wei"
+                                    },
+                                    {
+                                        "cell_id": "4_1.4.2",
+                                        "cell_text": "Liu"
+                                    },
+                                    {
+                                        "cell_id": "4_1.4.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.4.4",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "4_1.5.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "4_1.5.2",
+                                        "cell_text": "Yes \u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "4_1.5.3",
+                                        "cell_text": "Corresponding Author's Name"
+                                    },
+                                    {
+                                        "cell_id": "4_1.5.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "4_1.6.1",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.6.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.6.3",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "4_1.6.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "4_1.7.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "4_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.7.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.7.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "4_1.8.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "4_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.8.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.8.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "4_1.9.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "4_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.9.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.9.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "4_1.10.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "4_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.10.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "4_1.10.4",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "5_1.1.1",
+                            "cell_text": "Yes \u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "5_1.2.1",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "5_1.3.1",
+                                        "cell_text": "Are there any relevant conflicts of interest?"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "6_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "7_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "8_1.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "8_1.1.2",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "8_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "8_1.1.4",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "8_1.1.5",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "8_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "8_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "8_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "8_1.2.4",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "8_1.2.5",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.3.1",
+                                        "cell_text": "Identifying Information"
+                                    },
+                                    {
+                                        "cell_id": "8_1.3.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.3.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.3.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.3.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.4.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "8_1.4.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "8_1.4.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.4.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.4.5",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.5.1",
+                                        "cell_text": "Cuilan"
+                                    },
+                                    {
+                                        "cell_id": "8_1.5.2",
+                                        "cell_text": "Hou"
+                                    },
+                                    {
+                                        "cell_id": "8_1.5.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.5.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.5.5",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.6.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "8_1.6.2",
+                                        "cell_text": "Yes"
+                                    },
+                                    {
+                                        "cell_id": "8_1.6.3",
+                                        "cell_text": "\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "8_1.6.4",
+                                        "cell_text": "Corresponding Author's Name"
+                                    },
+                                    {
+                                        "cell_id": "8_1.6.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.7.1",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.7.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.7.4",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "8_1.7.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.8.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "8_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.8.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.8.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.8.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.9.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "8_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.9.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.9.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.9.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.10.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "8_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.10.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.10.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.10.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.11.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "8_1.11.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.11.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.11.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.11.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "8_1.12.1",
+                                        "cell_text": "Section 2. The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "8_1.12.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.12.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.12.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "8_1.12.5",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "9_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "10_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "11_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "12_1.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "12_1.1.2",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "12_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "12_1.1.4",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "12_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "12_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "12_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "12_1.2.4",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.3.1",
+                                        "cell_text": "Identifying Information"
+                                    },
+                                    {
+                                        "cell_id": "12_1.3.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.3.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.3.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.4.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "12_1.4.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "12_1.4.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.4.4",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.5.1",
+                                        "cell_text": "Han"
+                                    },
+                                    {
+                                        "cell_id": "12_1.5.2",
+                                        "cell_text": "Zhang"
+                                    },
+                                    {
+                                        "cell_id": "12_1.5.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.5.4",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.6.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "12_1.6.2",
+                                        "cell_text": "Yes \u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "12_1.6.3",
+                                        "cell_text": "Corresponding Author's Name"
+                                    },
+                                    {
+                                        "cell_id": "12_1.6.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.7.1",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.7.3",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "12_1.7.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.8.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "12_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.8.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.8.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.9.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "12_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.9.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.9.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.10.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "12_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.10.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.10.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.11.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "12_1.11.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.11.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.11.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.12.1",
+                                        "cell_text": "Section 2."
+                                    },
+                                    {
+                                        "cell_id": "12_1.12.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.12.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.12.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "12_1.13.1",
+                                        "cell_text": "The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "12_1.13.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.13.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "12_1.13.4",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "13_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "14_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "15_1.1.1",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "15_1.1.2",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "15_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "15_1.1.4",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "15_1.1.5",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "15_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "15_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "15_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "15_1.2.4",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "15_1.2.5",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.3.1",
+                                        "cell_text": "Identifying Information"
+                                    },
+                                    {
+                                        "cell_id": "15_1.3.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.3.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.3.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.3.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.4.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "15_1.4.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "15_1.4.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.4.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.4.5",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.5.1",
+                                        "cell_text": "Jiang"
+                                    },
+                                    {
+                                        "cell_id": "15_1.5.2",
+                                        "cell_text": "Xunwei"
+                                    },
+                                    {
+                                        "cell_id": "15_1.5.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.5.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.5.5",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.6.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "15_1.6.2",
+                                        "cell_text": "Yes"
+                                    },
+                                    {
+                                        "cell_id": "15_1.6.3",
+                                        "cell_text": "\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "15_1.6.4",
+                                        "cell_text": "Corresponding Author's Name"
+                                    },
+                                    {
+                                        "cell_id": "15_1.6.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.7.1",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.7.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.7.4",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "15_1.7.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.8.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "15_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.8.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.8.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.8.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.9.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "15_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.9.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.9.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.9.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.10.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "15_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.10.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.10.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.10.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.11.1",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.11.2",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "15_1.11.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.11.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.11.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "15_1.12.1",
+                                        "cell_text": "The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "15_1.12.2",
+                                        "cell_text": "Section 2."
+                                    },
+                                    {
+                                        "cell_id": "15_1.12.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.12.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "15_1.12.5",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "16_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "17_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "18_1.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "18_1.1.2",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "18_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "18_1.1.4",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "18_1.1.5",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "18_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "18_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "18_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "18_1.2.4",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "18_1.2.5",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.3.1",
+                                        "cell_text": "Identifying Information"
+                                    },
+                                    {
+                                        "cell_id": "18_1.3.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.3.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.3.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.3.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.4.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "18_1.4.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "18_1.4.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.4.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.4.5",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.5.1",
+                                        "cell_text": "Xiaomin"
+                                    },
+                                    {
+                                        "cell_id": "18_1.5.2",
+                                        "cell_text": "Sun"
+                                    },
+                                    {
+                                        "cell_id": "18_1.5.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.5.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.5.5",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.6.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "18_1.6.2",
+                                        "cell_text": "Yes"
+                                    },
+                                    {
+                                        "cell_id": "18_1.6.3",
+                                        "cell_text": "\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "18_1.6.4",
+                                        "cell_text": "Corresponding Author's Name"
+                                    },
+                                    {
+                                        "cell_id": "18_1.6.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.7.1",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.7.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.7.4",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "18_1.7.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.8.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "18_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.8.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.8.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.8.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.9.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "18_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.9.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.9.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.9.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.10.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "18_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.10.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.10.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.10.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.11.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "18_1.11.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.11.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.11.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.11.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "18_1.12.1",
+                                        "cell_text": "Section 2."
+                                    },
+                                    {
+                                        "cell_id": "18_1.12.2",
+                                        "cell_text": "The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "18_1.12.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.12.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "18_1.12.5",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "19_1.1.1",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "19_1.2.1",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "19_1.3.1",
+                                        "cell_text": "Are there any relevant conflicts of interest? Yes"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "20_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "21_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "22_1.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "22_1.1.2",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "22_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "22_1.1.4",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "22_1.1.5",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "22_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "22_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "22_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "22_1.2.4",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "22_1.2.5",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.3.1",
+                                        "cell_text": "Identifying Information"
+                                    },
+                                    {
+                                        "cell_id": "22_1.3.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.3.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.3.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.3.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.4.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "22_1.4.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "22_1.4.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.4.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.4.5",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.5.1",
+                                        "cell_text": "Xie"
+                                    },
+                                    {
+                                        "cell_id": "22_1.5.2",
+                                        "cell_text": "Lijian"
+                                    },
+                                    {
+                                        "cell_id": "22_1.5.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.5.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.5.5",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.6.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "22_1.6.2",
+                                        "cell_text": "Yes"
+                                    },
+                                    {
+                                        "cell_id": "22_1.6.3",
+                                        "cell_text": "\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "22_1.6.4",
+                                        "cell_text": "Corresponding Author's Name"
+                                    },
+                                    {
+                                        "cell_id": "22_1.6.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.7.1",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "22_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.7.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.7.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.7.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.8.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "22_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.8.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.8.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.8.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.9.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "22_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.9.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.9.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.9.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.10.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "22_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.10.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.10.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.10.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.11.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "22_1.11.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.11.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.11.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.11.5",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "22_1.12.1",
+                                        "cell_text": "The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "22_1.12.2",
+                                        "cell_text": "Section 2."
+                                    },
+                                    {
+                                        "cell_id": "22_1.12.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.12.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "22_1.12.5",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "23_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "24_1.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "24_1.1.2",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "24_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "24_1.1.4",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "24_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "24_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "24_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "24_1.2.4",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.3.1",
+                                        "cell_text": "Identifying Information"
+                                    },
+                                    {
+                                        "cell_id": "24_1.3.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.3.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.3.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.4.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "24_1.4.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "24_1.4.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.4.4",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.5.1",
+                                        "cell_text": "Tingting"
+                                    },
+                                    {
+                                        "cell_id": "24_1.5.2",
+                                        "cell_text": "Xiao"
+                                    },
+                                    {
+                                        "cell_id": "24_1.5.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.5.4",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.6.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "24_1.6.2",
+                                        "cell_text": "Yes \u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "24_1.6.3",
+                                        "cell_text": "Corresponding Author's Name"
+                                    },
+                                    {
+                                        "cell_id": "24_1.6.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.7.1",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "24_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.7.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.7.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.8.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "24_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.8.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.8.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.9.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "24_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.9.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.9.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.10.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "24_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.10.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.10.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.11.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "24_1.11.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.11.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.11.4",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24_1.12.1",
+                                        "cell_text": "Section 2. The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "24_1.12.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.12.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "24_1.12.4",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "25_1.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "25_1.1.2",
+                            "cell_text": "Identifying Information"
+                        },
+                        {
+                            "cell_id": "25_1.1.3",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "25_1.1.4",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "25_1.1.5",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "25_1.1.6",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "25_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "25_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "25_1.2.3",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "25_1.2.4",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "25_1.2.5",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "25_1.2.6",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "25_1.3.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "25_1.3.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "25_1.3.3",
+                                        "cell_text": "3. Date"
+                                    },
+                                    {
+                                        "cell_id": "25_1.3.4",
+                                        "cell_text": "Yongwei"
+                                    },
+                                    {
+                                        "cell_id": "25_1.3.5",
+                                        "cell_text": "Zhang"
+                                    },
+                                    {
+                                        "cell_id": "25_1.3.6",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "25_1.4.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "25_1.4.2",
+                                        "cell_text": "\u2714 Yes"
+                                    },
+                                    {
+                                        "cell_id": "25_1.4.3",
+                                        "cell_text": "No"
+                                    },
+                                    {
+                                        "cell_id": "25_1.4.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.4.5",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.4.6",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "25_1.5.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "25_1.5.2",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "25_1.5.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.5.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.5.5",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.5.6",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "25_1.6.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "25_1.6.2",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "25_1.6.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.6.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.6.5",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.6.6",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "25_1.7.1",
+                                        "cell_text": "Section 2."
+                                    },
+                                    {
+                                        "cell_id": "25_1.7.2",
+                                        "cell_text": "The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "25_1.7.3",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.7.4",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.7.5",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "25_1.7.6",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "26_1.1.1",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "26_1.2.1",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "26_1.3.1",
+                                        "cell_text": "Are there any relevant conflicts of interest? Yes"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "27_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "28_1.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "28_1.1.2",
+                            "cell_text": null
+                        },
+                        {
+                            "cell_id": "28_1.1.3",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "28_1.2.1",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "28_1.2.2",
+                                        "cell_text": "---"
+                                    },
+                                    {
+                                        "cell_id": "28_1.2.3",
+                                        "cell_text": "---"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.3.1",
+                                        "cell_text": "Identifying Information"
+                                    },
+                                    {
+                                        "cell_id": "28_1.3.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "28_1.3.3",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.4.1",
+                                        "cell_text": "1. Given Name (First Name)"
+                                    },
+                                    {
+                                        "cell_id": "28_1.4.2",
+                                        "cell_text": "2. Surname (Last Name)"
+                                    },
+                                    {
+                                        "cell_id": "28_1.4.3",
+                                        "cell_text": "3. Date"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.5.1",
+                                        "cell_text": "Yun Li"
+                                    },
+                                    {
+                                        "cell_id": "28_1.5.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "28_1.5.3",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.6.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "28_1.6.2",
+                                        "cell_text": "\u2714 Yes No"
+                                    },
+                                    {
+                                        "cell_id": "28_1.6.3",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.7.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "28_1.7.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "28_1.7.3",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.8.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "28_1.8.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "28_1.8.3",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.9.1",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "28_1.9.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "28_1.9.3",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.10.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "28_1.10.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "28_1.10.3",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.11.1",
+                                        "cell_text": "Section 2."
+                                    },
+                                    {
+                                        "cell_id": "28_1.11.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "28_1.11.3",
+                                        "cell_text": "None"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "28_1.12.1",
+                                        "cell_text": "The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "28_1.12.2",
+                                        "cell_text": "None"
+                                    },
+                                    {
+                                        "cell_id": "28_1.12.3",
+                                        "cell_text": "None"
+                                    }
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "29_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "30_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                },
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "column_headings": [
+                        {
+                            "cell_id": "31_1.1.1",
+                            "cell_text": null
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "",
+                            "data_rows": []
+                        }
+                    ]
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        }
+    ]
+}
