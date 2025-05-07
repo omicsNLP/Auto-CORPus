@@ -8,7 +8,7 @@ It includes:
 
 import json
 
-from ...bioc.encoder import BioCJSONEncoder
+from ..json import BioCJSONEncoder
 from .cell import BioCTableCell
 from .collection import BioCTableCollection
 from .document import BioCTableDocument
@@ -80,6 +80,9 @@ class BioCTableJSONEncoder(BioCJSONEncoder):
         # Let the base class default method raise the TypeError
         return json.JSONEncoder.default(self, o)
 
+
+class BioCTableJSON:
+    @staticmethod
     def dump(obj, fp, **kwargs):
         """Serialize a BioCTableCollection object to a JSON file-like object.
 
@@ -93,6 +96,7 @@ class BioCTableJSONEncoder(BioCJSONEncoder):
         """
         return json.dump(obj, fp, cls=BioCTableJSONEncoder, **kwargs)
 
+    @staticmethod
     def dumps(obj, **kwargs):
         """Serialize a BioCTableCollection object to a JSON-formatted string.
 

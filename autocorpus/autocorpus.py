@@ -17,6 +17,7 @@ from autocorpus.bioc_supplementary import (
 
 from . import logger
 from .abbreviation import Abbreviations
+from .bioc import BioCJSON, BioCXML
 from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
 from .table import get_table_json
@@ -468,12 +469,12 @@ class Autocorpus:
         Returns:
             (str): main text as BioC XML
         """
-        collection = biocjson.loads(
+        collection = BioCJSON.loads(
             json.dumps(
                 get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
             )
         )
-        return biocxml.dumps(collection)
+        return BioCXML.dumps(collection)
 
     def tables_to_bioc_json(self, indent=2):
         """Get the currently loaded tables as Tables-JSON.

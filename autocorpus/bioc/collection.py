@@ -4,6 +4,9 @@ BioCCollection extends BioCCollection to include a list of BioCDocument objects 
 the collection to a dictionary representation.
 """
 
+import xml.etree.ElementTree as ET
+from typing import Any
+
 from .document import BioCDocument
 
 
@@ -33,6 +36,60 @@ class BioCCollection:
             "documents": [d.to_dict() for d in self.documents],
         }
 
-    def validate_with_key(self, key_file_path: str):
-        # Placeholder: you'd load your schema and validate the collection here
-        pass
+    def to_json(self) -> dict[str, Any]:
+        return self.to_dict()
+
+    @classmethod
+    def from_json(cls, data: dict[str, Any]) -> "BioCCollection":
+        documents = [BioCDocument.from_dict(d) for d in data.get("documents", [])]
+        return cls(
+            source=data.get("source", ""),
+            date=data.get("date", ""),
+            key=data.get("key", ""),
+            infons=data.get("infons", {}),
+            version=data.get("version", ""),
+            documents=documents,
+        )
+
+    def to_xml(self) -> ET.Element:
+        collection_elem = ET.Element("collection")
+
+        if self.source:
+            source_elem = ET.SubElement(collection_elem, "source")
+            source_elem.text = self.source
+
+        if self.date:
+            date_elem = ET.SubElement(collection_elem, "date")
+            date_elem.text = self.date
+
+        if self.key:
+            key_elem = ET.SubElement(collection_elem, "key")
+            key_elem.text = self.key
+
+        if self.infons:
+            for k, v in self.infons.items():
+                infon = ET.SubElement(collection_elem, "infon", {"key": k})
+                infon.text = v
+
+        for doc in self.documents:
+            collection_elem.append(doc.to_xml())
+
+        return collection_elem
+
+    @classmethod
+    def from_xml(cls, elem: ET.Element) -> "BioCCollection":
+        source = elem.findtext("source", default="")
+        date = elem.findtext("date", default="")
+        key = elem.findtext("key", default="")
+
+        infons = {
+            e.attrib["key"]: e.text for e in elem.findall("infon") if e.text is not None
+        }
+
+        documents = [
+            BioCDocument.from_xml(doc_elem) for doc_elem in elem.findall("document")
+        ]
+
+        return cls(
+            source=source, date=date, key=key, infons=infons, documents=documents
+        )

@@ -6,18 +6,24 @@ This package provides classes for handling modified BioC table structures, inclu
 from .annotation import BioCAnnotation
 from .collection import BioCCollection
 from .document import BioCDocument
-from .encoder import BioCJSONEncoder
+from .json import BioCJSON
+from .location import BioCLocation
+from .node import BioCNode
 from .passage import BioCPassage
 from .relation import BioCRelation
 from .sentence import BioCSentence
+from .xml import BioCXML
 
 __all__ = [
     "BioCAnnotation",
     "BioCCollection",
     "BioCDocument",
-    "BioCJSONEncoder",
+    "BioCJSON",
     "BioCKey",
+    "BioCLocation",
+    "BioCNode",
     "BioCPassage",
     "BioCRelation",
     "BioCSentence",
+    "BioCXML",
 ]

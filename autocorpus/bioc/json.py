@@ -12,6 +12,8 @@ from typing import Any
 from .annotation import BioCAnnotation
 from .collection import BioCCollection
 from .document import BioCDocument
+from .location import BioCLocation
+from .node import BioCNode
 from .passage import BioCPassage
 from .relation import BioCRelation
 from .sentence import BioCSentence
@@ -21,6 +23,17 @@ class BioCJSONEncoder(json.JSONEncoder):
     """Custom JSON encoder for BioC-related objects."""
 
     def default(self, o: Any) -> Any:
+        if isinstance(o, BioCLocation):
+            return {
+                "offset": o.offset,
+                "length": o.length,
+            }
+
+        if isinstance(o, BioCNode):
+            return {
+                "refid": o.refid,
+                "role": o.role,
+            }
         if isinstance(o, BioCSentence):
             return {
                 "offset": o.offset,
@@ -72,17 +85,20 @@ class BioCJSONEncoder(json.JSONEncoder):
         return super().default(o)
 
 
-def dump(obj: BioCCollection, fp, **kwargs) -> None:
-    """Serialize a BioCCollection object to a JSON file-like object."""
-    return json.dump(obj, fp, cls=BioCJSONEncoder, **kwargs)
+class BioCJSON:
+    """JSON serialization for BioC objects."""
 
+    @staticmethod
+    def dump(obj: BioCCollection, fp, **kwargs) -> None:
+        """Serialize a BioCCollection object to a JSON file-like object."""
+        return json.dump(obj, fp, cls=BioCJSONEncoder, **kwargs)
 
-def dumps(obj: BioCCollection, **kwargs) -> str:
-    """Serialize a BioCCollection object to a JSON-formatted string."""
-    return json.dumps(obj, cls=BioCJSONEncoder, **kwargs)
+    @staticmethod
+    def dumps(obj: BioCCollection, **kwargs) -> str:
+        """Serialize a BioCCollection object to a JSON-formatted string."""
+        return json.dumps(obj, cls=BioCJSONEncoder, **kwargs)
 
-
-# Stub for future XML support
-class BioCXMLEncoder:
-    def default(self, o: Any) -> Any:
-        pass  # Not implemented yet
+    @staticmethod
+    def loads(json_str: str) -> BioCCollection:
+        data = json.loads(json_str)
+        return BioCCollection.from_json(data)

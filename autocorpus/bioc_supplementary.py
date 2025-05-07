@@ -10,12 +10,18 @@ from pandas import DataFrame
 
 from autocorpus.utils import replace_unicode
 
-from .bioc import BioCAnnotation, BioCCollection, BioCDocument, BioCPassage, encoder
+from .bioc import (
+    BioCAnnotation,
+    BioCCollection,
+    BioCDocument,
+    BioCJSON,
+    BioCPassage,
+)
 from .bioc.bioctable import (
     BioCTableCell,
     BioCTableCollection,
     BioCTableDocument,
-    BioCTableJSONEncoder,
+    BioCTableJSON,
     BioCTablePassage,
 )
 
@@ -201,7 +207,7 @@ class BioCTableConverter:
         """
         out_filename = str(filename).replace(".pdf", ".pdf_tables.json")
         with open(out_filename, "w", encoding="utf-8") as f:
-            BioCTableJSONEncoder.dump(self.bioc, f, indent=4)
+            BioCTableJSON.dump(self.bioc, f, indent=4)
 
 
 class BioCTextConverter:
@@ -404,4 +410,4 @@ class BioCTextConverter:
         """
         out_filename = str(filename).replace(".pdf", ".pdf_bioc.json")
         with open(out_filename, "w", encoding="utf-8") as f:
-            encoder.dump(self.bioc, f, indent=4)
+            BioCJSON.dump(self.bioc, f, indent=4)
