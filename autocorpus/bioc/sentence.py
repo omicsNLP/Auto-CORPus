@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import xml.etree.ElementTree as ET
 from typing import Any
 
@@ -29,7 +31,7 @@ class BioCSentence:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "BioCSentence":
+    def from_dict(cls, data: dict[str, Any]) -> BioCSentence:
         annotations = [BioCAnnotation.from_dict(a) for a in data.get("annotations", [])]
         return cls(
             text=data.get("text", ""),
@@ -60,7 +62,7 @@ class BioCSentence:
         return sentence_elem
 
     @classmethod
-    def from_xml(cls, elem: ET.Element) -> "BioCSentence":
+    def from_xml(cls, elem: ET.Element) -> BioCSentence:
         offset = int(elem.findtext("offset", default="0"))
         text = elem.findtext("text", default="")
 

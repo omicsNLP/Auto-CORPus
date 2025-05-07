@@ -78,7 +78,7 @@ class BioCTableJSONEncoder(BioCJSONEncoder):
                 "documents": [self.default(d) for d in o.documents],
             }
         # Let the base class default method raise the TypeError
-        return json.JSONEncoder.default(self, o)
+        return super().default(o)
 
 
 class BioCTableJSON:
