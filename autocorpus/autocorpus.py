@@ -16,7 +16,7 @@ from autocorpus.bioc_supplementary import (
 )
 
 from . import logger
-from .abbreviation import Abbreviations
+from .abbreviation import get_abbreviations
 from .bioc import BioCJSON, BioCXML
 from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
@@ -364,9 +364,9 @@ class Autocorpus:
             self.__process_html_tables(self.file_path, soup, self.config)
             self.main_text = self.__extract_text(soup, self.config)
             try:
-                self.abbreviations = Abbreviations(
-                    self.main_text, soup, self.config, self.file_path
-                ).to_dict()
+                self.abbreviations = get_abbreviations(
+                    self.main_text, soup, self.file_path
+                )
             except Exception as e:
                 logger.error(e)
         if self.linked_tables:
