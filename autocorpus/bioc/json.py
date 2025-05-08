@@ -23,66 +23,69 @@ class BioCJSONEncoder(json.JSONEncoder):
     """Custom JSON encoder for BioC-related objects."""
 
     def default(self, o: Any) -> Any:
-        if isinstance(o, BioCLocation):
-            return {
-                "offset": o.offset,
-                "length": o.length,
-            }
+        """Override the default method to handle BioC-related objects."""
+        match o:
+            case BioCLocation():
+                return {
+                    "offset": o.offset,
+                    "length": o.length,
+                }
 
-        if isinstance(o, BioCNode):
-            return {
-                "refid": o.refid,
-                "role": o.role,
-            }
-        if isinstance(o, BioCSentence):
-            return {
-                "offset": o.offset,
-                "infons": o.infons,
-                "text": o.text,
-                "annotations": [self.default(a) for a in o.annotations],
-                "relations": [self.default(r) for r in o.relations],
-            }
-        if isinstance(o, BioCPassage):
-            return {
-                "offset": o.offset,
-                "infons": o.infons,
-                "text": o.text,
-                "annotations": [self.default(a) for a in o.annotations],
-                "relations": [self.default(r) for r in o.relations],
-            }
-        if isinstance(o, BioCDocument):
-            return {
-                "id": o.id,
-                "infons": o.infons,
-                "inputfile": o.inputfile,
-                "passages": [self.default(p) for p in o.passages],
-                "annotations": [self.default(a) for a in o.annotations],
-                "relations": [self.default(r) for r in o.relations],
-            }
-        if isinstance(o, BioCAnnotation):
-            return {
-                "id": o.id,
-                "infons": o.infons,
-                "text": o.text,
-                "locations": [self.default(l) for l in o.locations],
-            }
-        if isinstance(o, BioCRelation):
-            return {
-                "id": o.id,
-                "infons": o.infons,
-                "nodes": [self.default(n) for n in o.nodes],
-            }
-        if isinstance(o, BioCCollection):
-            return {
-                "source": o.source,
-                "date": o.date,
-                "key": o.key,
-                "version": o.version,
-                "infons": o.infons,
-                "documents": [self.default(d) for d in o.documents],
-            }
-
-        return super().default(o)
+            case BioCNode():
+                return {
+                    "refid": o.refid,
+                    "role": o.role,
+                }
+            case BioCSentence():
+                return {
+                    "offset": o.offset,
+                    "infons": o.infons,
+                    "text": o.text,
+                    "annotations": [self.default(a) for a in o.annotations],
+                    "relations": [self.default(r) for r in o.relations],
+                }
+            case BioCPassage():
+                return {
+                    "offset": o.offset,
+                    "infons": o.infons,
+                    "text": o.text,
+                    "annotations": [self.default(a) for a in o.annotations],
+                    "relations": [self.default(r) for r in o.relations],
+                }
+            case BioCDocument():
+                return {
+                    "id": o.id,
+                    "infons": o.infons,
+                    "inputfile": o.inputfile,
+                    "passages": [self.default(p) for p in o.passages],
+                    "annotations": [self.default(a) for a in o.annotations],
+                    "relations": [self.default(r) for r in o.relations],
+                }
+            case BioCAnnotation():
+                return {
+                    "id": o.id,
+                    "infons": o.infons,
+                    "text": o.text,
+                    "locations": [self.default(l) for l in o.locations],
+                }
+            case BioCRelation():
+                return {
+                    "id": o.id,
+                    "infons": o.infons,
+                    "nodes": [self.default(n) for n in o.nodes],
+                }
+            case BioCCollection():
+                return {
+                    "source": o.source,
+                    "date": o.date,
+                    "key": o.key,
+                    "version": o.version,
+                    "infons": o.infons,
+                    "documents": [self.default(d) for d in o.documents],
+                }
+            case _:
+                # Let the base class default method raise the TypeError
+                return super().default(o)
 
 
 class BioCJSON:
@@ -100,5 +103,6 @@ class BioCJSON:
 
     @staticmethod
     def loads(json_str: str) -> BioCCollection:
+        """Deserialize a JSON-formatted string to a BioCCollection object."""
         data = json.loads(json_str)
         return BioCCollection.from_json(data)

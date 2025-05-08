@@ -185,9 +185,7 @@ class Autocorpus:
         self.__process_html_tables(file, soup, self.config)
         self.main_text = self.__extract_text(soup, self.config)
         try:
-            self.abbreviations = Abbreviations(
-                self.main_text, soup, self.config, file
-            ).to_dict()
+            self.abbreviations = get_abbreviations(self.main_text, soup, str(file))
         except Exception as e:
             logger.error(e)
 
@@ -379,7 +377,6 @@ class Autocorpus:
 
     def process_files(
         self,
-        config: dict[str, Any] = {},
         files: list[Path | str] = [],
         dir_path: Path | str = "",
         linked_tables: list[Path | str] = [],
@@ -389,9 +386,6 @@ class Autocorpus:
         Raises:
             RuntimeError: If no valid configuration is provided.
         """
-        # Config must be provided for the main text HTML files.
-        if not config:
-            raise RuntimeError("A valid config file must be provided.")
         # Either a list of specific files or a directory path must be provided.
         if not (files or dir_path):
             logger.error("No files or directory provided.")

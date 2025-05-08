@@ -1,8 +1,4 @@
-"""This module defines the BioCTablePassage class.
-
-BioCTablePassage extends BioCPassage to include additional functionality for handling table data, such as
-column headings and data sections.
-"""
+"""This module defines the BioCTablePassage class."""
 
 from typing import Any
 

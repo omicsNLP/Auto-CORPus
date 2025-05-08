@@ -4,22 +4,38 @@ BioCCollection extends BioCCollection to include a list of BioCDocument objects 
 the collection to a dictionary representation.
 """
 
+from __future__ import annotations
+
 import xml.etree.ElementTree as ET
+from dataclasses import dataclass, field
 from typing import Any
 
 from .document import BioCDocument
 
 
+@dataclass
 class BioCCollection:
+    """A class representing a BioC collection."""
+
     def __init__(
         self,
-        source: str = "",
-        date: str = "",
-        key: str = "",
-        documents: list[BioCDocument] | None = None,
-        infons: dict[str, str] | None = None,
-        version: str = "",
+        source: str = field(default_factory=str),
+        date: str = field(default_factory=str),
+        key: str = field(default_factory=str),
+        documents: list[BioCDocument] = field(default_factory=list),
+        infons: dict[str, str] = field(default_factory=dict),
+        version: str = field(default="1.0"),
     ):
+        """Initialize a BioCCollection instance.
+
+        Args:
+            source (str): The source of the collection.
+            date (str): The date of the collection.
+            key (str): The key of the collection.
+            documents (list[BioCDocument]): A list of BioCDocument objects.
+            infons (dict[str, str]): Additional information about the collection.
+            version (str): The version of the collection format.
+        """
         self.source = source
         self.date = date
         self.key = key
@@ -28,6 +44,11 @@ class BioCCollection:
         self.version = version
 
     def to_dict(self):
+        """Convert the BioCCollection instance to a dictionary.
+
+        Returns:
+            dict: A dictionary representation of the BioCCollection instance.
+        """
         return {
             "source": self.source,
             "date": self.date,
@@ -37,10 +58,23 @@ class BioCCollection:
         }
 
     def to_json(self) -> dict[str, Any]:
+        """Convert the BioCCollection instance to a JSON-compatible dictionary.
+
+        Returns:
+            dict[str, Any]: A dictionary representation of the BioCCollection instance.
+        """
         return self.to_dict()
 
     @classmethod
-    def from_json(cls, data: dict[str, Any]) -> "BioCCollection":
+    def from_json(cls, data: dict[str, Any]) -> BioCCollection:
+        """Create a BioCCollection instance from a JSON dictionary.
+
+        Args:
+            data (dict[str, Any]): A dictionary containing the JSON representation of a BioCCollection.
+
+        Returns:
+            BioCCollection: An instance of BioCCollection created from the JSON dictionary.
+        """
         documents = [BioCDocument.from_dict(d) for d in data.get("documents", [])]
         return cls(
             source=data.get("source", ""),
@@ -52,6 +86,11 @@ class BioCCollection:
         )
 
     def to_xml(self) -> ET.Element:
+        """Convert the BioCCollection instance to an XML element.
+
+        Returns:
+            ET.Element: An XML element representation of the BioCCollection instance.
+        """
         collection_elem = ET.Element("collection")
 
         if self.source:
@@ -77,7 +116,15 @@ class BioCCollection:
         return collection_elem
 
     @classmethod
-    def from_xml(cls, elem: ET.Element) -> "BioCCollection":
+    def from_xml(cls, elem: ET.Element) -> BioCCollection:
+        """Create a BioCCollection instance from an XML element.
+
+        Args:
+            elem (ET.Element): The XML element representing a BioCCollection.
+
+        Returns:
+            BioCCollection: An instance of BioCCollection created from the XML element.
+        """
         source = elem.findtext("source", default="")
         date = elem.findtext("date", default="")
         key = elem.findtext("key", default="")

@@ -1,8 +1,4 @@
-"""This module defines the BioCTableDocument class.
-
-BioCTableDocument extends BioCDocument to include a list of BioCTablePassage objects and provides a method to
-convert the document to a dictionary representation.
-"""
+"""This module defines the BioCTableDocument class."""
 
 from typing import Any
 

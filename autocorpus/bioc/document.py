@@ -4,7 +4,10 @@ BioCDocument objects include a list of BioCPassage objects and provide a method 
 convert the document to a dictionary representation.
 """
 
+from __future__ import annotations
+
 import xml.etree.ElementTree as ET
+from dataclasses import dataclass, field
 from typing import Any
 
 from .annotation import BioCAnnotation
@@ -12,24 +15,42 @@ from .passage import BioCPassage
 from .relation import BioCRelation
 
 
+@dataclass
 class BioCDocument:
+    """Represents a BioC document containing passages, annotations, and relations."""
+
     def __init__(
         self,
         id: str,
-        inputfile: str = "",
-        infons: dict[str, str] | None = None,
-        passages: list[BioCPassage] | None = None,
-        annotations: list[BioCAnnotation] | None = None,
-        relations: list[BioCRelation] | None = None,
+        inputfile: str = field(default_factory=str),
+        infons: dict[str, str] = field(default_factory=dict),
+        passages: list[BioCPassage] = field(default_factory=list),
+        annotations: list[BioCAnnotation] = field(default_factory=list),
+        relations: list[BioCRelation] = field(default_factory=list),
     ):
+        """Initialize a BioCDocument instance.
+
+        Args:
+            id (str): The unique identifier for the document.
+            inputfile (str): The input file associated with the document.
+            infons (dict[str, str]): Additional information about the document.
+            passages (list[BioCPassage]): List of passages in the document.
+            annotations (list[BioCAnnotation]): List of annotations in the document.
+            relations (list[BioCRelation]): List of relations in the document.
+        """
         self.id = id
         self.inputfile = inputfile
-        self.infons = infons or {}
-        self.passages = passages or []
-        self.annotations = annotations or []
-        self.relations = relations or []
+        self.infons = infons
+        self.passages = passages
+        self.annotations = annotations
+        self.relations = relations
 
     def to_dict(self):
+        """Convert the BioCDocument instance to a dictionary representation.
+
+        Returns:
+            dict: A dictionary containing the document's ID, infons, and passages.
+        """
         return {
             "id": self.id,
             "infons": self.infons,
@@ -37,19 +58,38 @@ class BioCDocument:
         }
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> "BioCDocument":
+    def from_dict(cls, data: dict[str, Any]) -> BioCDocument:
+        """Create a BioCDocument instance from a dictionary.
+
+        Args:
+            data (dict[str, Any]): A dictionary containing the document's data.
+
+        Returns:
+            BioCDocument: An instance of BioCDocument created from the dictionary.
+        """
         passages = [BioCPassage.from_dict(p) for p in data.get("passages", [])]
         return cls(
             id=data["id"],
             infons=data.get("infons", {}),
             passages=passages,
-            # You could also support annotations/relations here if needed
+            annotations=data.get("annotations", []),
+            relations=data.get("relations", []),
         )
 
     def to_json(self) -> dict[str, Any]:
+        """Convert the BioCDocument instance to a JSON-compatible dictionary.
+
+        Returns:
+            dict[str, Any]: A dictionary representation of the document.
+        """
         return self.to_dict()
 
     def to_xml(self) -> ET.Element:
+        """Convert the BioCDocument instance to an XML element.
+
+        Returns:
+            ET.Element: An XML element representing the document.
+        """
         doc_elem = ET.Element("document")
 
         id_elem = ET.SubElement(doc_elem, "id")
@@ -70,7 +110,15 @@ class BioCDocument:
         return doc_elem
 
     @classmethod
-    def from_xml(cls, elem: ET.Element) -> "BioCDocument":
+    def from_xml(cls, elem: ET.Element) -> BioCDocument:
+        """Create a BioCDocument instance from an XML element.
+
+        Args:
+            elem (ET.Element): An XML element representing the document.
+
+        Returns:
+            BioCDocument: An instance of BioCDocument created from the XML element.
+        """
         id_text = elem.findtext("id", default="")
 
         infons = {

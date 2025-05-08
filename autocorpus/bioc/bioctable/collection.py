@@ -1,8 +1,4 @@
-"""This module defines the BioCTableCollection class.
-
-BioCTableCollection extends BioCCollection to include a list of BioCTableDocument objects and provides a method to convert
-the collection to a dictionary representation.
-"""
+"""This module defines the BioCTableCollection class."""
 
 from typing import Any
 

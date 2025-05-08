@@ -1,21 +1,36 @@
+"""This module defines the BioCSentence class."""
+
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
+from dataclasses import dataclass, field
 from typing import Any
 
 from .annotation import BioCAnnotation
 from .relation import BioCRelation
 
 
+@dataclass
 class BioCSentence:
+    """Represents a sentence in the BioC format."""
+
     def __init__(
         self,
         text: str,
         offset: int,
-        infons: dict[str, str] | None = None,
-        annotations: list[BioCAnnotation] | None = None,
-        relations: list[BioCRelation] | None = None,
+        infons: dict[str, str] = field(default_factory=dict),
+        annotations: list[BioCAnnotation] = field(default_factory=list),
+        relations: list[BioCRelation] = field(default_factory=list),
     ):
+        """Initialize a BioCSentence instance.
+
+        Args:
+            text (str): The text of the sentence.
+            offset (int): The character offset of the sentence in the document.
+            infons (dict[str, str], optional): Additional information about the sentence.
+            annotations (list[BioCAnnotation], optional): Annotations associated with the sentence.
+            relations (list[BioCRelation], optional): Relations associated with the sentence.
+        """
         self.text = text
         self.offset = offset
         self.infons = infons or {}
@@ -23,6 +38,11 @@ class BioCSentence:
         self.relations = relations or []
 
     def to_dict(self):
+        """Convert the BioCSentence instance to a dictionary representation.
+
+        Returns:
+            dict: A dictionary containing the sentence's text, offset, infons, and annotations.
+        """
         return {
             "text": self.text,
             "offset": self.offset,
@@ -32,6 +52,14 @@ class BioCSentence:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> BioCSentence:
+        """Create a BioCSentence instance from a dictionary.
+
+        Args:
+            data (dict[str, Any]): A dictionary containing sentence data.
+
+        Returns:
+            BioCSentence: An instance of BioCSentence created from the dictionary.
+        """
         annotations = [BioCAnnotation.from_dict(a) for a in data.get("annotations", [])]
         return cls(
             text=data.get("text", ""),
@@ -41,9 +69,19 @@ class BioCSentence:
         )
 
     def to_json(self) -> dict[str, Any]:
+        """Convert the BioCSentence instance to a JSON-compatible dictionary.
+
+        Returns:
+            dict[str, Any]: A dictionary representation of the sentence.
+        """
         return self.to_dict()
 
     def to_xml(self) -> ET.Element:
+        """Convert the BioCSentence instance to an XML element.
+
+        Returns:
+            ET.Element: An XML element representing the sentence.
+        """
         sentence_elem = ET.Element("sentence")
 
         for k, v in self.infons.items():
@@ -63,6 +101,14 @@ class BioCSentence:
 
     @classmethod
     def from_xml(cls, elem: ET.Element) -> BioCSentence:
+        """Create a BioCSentence instance from an XML element.
+
+        Args:
+            elem (ET.Element): An XML element representing a sentence.
+
+        Returns:
+            BioCSentence: An instance of BioCSentence created from the XML element.
+        """
         offset = int(elem.findtext("offset", default="0"))
         text = elem.findtext("text", default="")
 

@@ -1,10 +1,4 @@
-"""This module provides a custom JSON encoder for BioCTableCollection objects.
-
-It includes:
-- BioCTableJSONEncoder: A subclass of BioCJsonEncoder to handle objects with a `to_dict` method.
-- dump: Function to serialize BioCTableCollection to a JSON file-like object.
-- dumps: Function to serialize BioCTableCollection to a JSON-formatted string.
-"""
+"""This module provides a custom JSON encoder for BioCTableCollection objects."""
 
 import json
 
@@ -33,55 +27,59 @@ class BioCTableJSONEncoder(BioCJSONEncoder):
             dict
                 A dictionary representation of the object if it is serializable.
         """
-        if isinstance(o, BioCTableCell):
-            return {
-                "cell_id": o.cell_id,
-                "cell_text": o.cell_text,
-            }
-        if isinstance(o, BioCTablePassage):
-            return {
-                "offset": o.offset,
-                "infons": o.infons,
-                "text": o.text,
-                "column_headings": [self.default(c) for c in o.column_headings],
-                "data_section": [
-                    {
-                        "table_section_title_1": section.get(
-                            "table_section_title_1", ""
-                        ),
-                        "data_rows": [
-                            [self.default(cell) for cell in row]
-                            for row in section.get("data_rows", [])
-                        ],
-                    }
-                    for section in o.data_section
-                ],
-                "annotations": [self.default(a) for a in o.annotations],
-                "relations": [self.default(r) for r in o.relations],
-            }
-        if isinstance(o, BioCTableDocument):
-            return {
-                "id": o.id,
-                "inputfile": o.inputfile,
-                "infons": o.infons,
-                "passages": [self.default(p) for p in o.passages],
-                "annotations": [self.default(a) for a in o.annotations],
-                "relations": [self.default(r) for r in o.relations],
-            }
-        if isinstance(o, BioCTableCollection):
-            return {
-                "source": o.source,
-                "date": o.date,
-                "key": o.key,
-                "version": o.version,
-                "infons": o.infons,
-                "documents": [self.default(d) for d in o.documents],
-            }
-        # Let the base class default method raise the TypeError
-        return super().default(o)
+        match o:
+            case BioCTableCell():
+                return {
+                    "cell_id": o.cell_id,
+                    "cell_text": o.cell_text,
+                }
+            case BioCTablePassage():
+                return {
+                    "offset": o.offset,
+                    "infons": o.infons,
+                    "text": o.text,
+                    "column_headings": [self.default(c) for c in o.column_headings],
+                    "data_section": [
+                        {
+                            "table_section_title_1": section.get(
+                                "table_section_title_1", ""
+                            ),
+                            "data_rows": [
+                                [self.default(cell) for cell in row]
+                                for row in section.get("data_rows", [])
+                            ],
+                        }
+                        for section in o.data_section
+                    ],
+                    "annotations": [self.default(a) for a in o.annotations],
+                    "relations": [self.default(r) for r in o.relations],
+                }
+            case BioCTableDocument():
+                return {
+                    "id": o.id,
+                    "inputfile": o.inputfile,
+                    "infons": o.infons,
+                    "passages": [self.default(p) for p in o.passages],
+                    "annotations": [self.default(a) for a in o.annotations],
+                    "relations": [self.default(r) for r in o.relations],
+                }
+            case BioCTableCollection():
+                return {
+                    "source": o.source,
+                    "date": o.date,
+                    "key": o.key,
+                    "version": o.version,
+                    "infons": o.infons,
+                    "documents": [self.default(d) for d in o.documents],
+                }
+            case _:
+                # Let the base class default method raise the TypeError
+                return super().default(o)
 
 
 class BioCTableJSON:
+    """Utility class for serializing BioCTableCollection objects to JSON."""
+
     @staticmethod
     def dump(obj, fp, **kwargs):
         """Serialize a BioCTableCollection object to a JSON file-like object.

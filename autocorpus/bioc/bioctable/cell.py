@@ -1,9 +1,4 @@
-"""This module defines the BioCTableCell class.
-
-The BioCTableCell class represents a cell in a BioC table, including its
-unique identifier and text content, and provides a method to convert
-its attributes to a dictionary.
-"""
+"""This module defines the BioCTableCell class."""
 
 
 class BioCTableCell:
