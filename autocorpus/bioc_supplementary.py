@@ -9,13 +9,13 @@ from typing import Any
 import pandas as pd
 from pandas import DataFrame
 
-from .bioc import (
+from .ac_bioc import (
     BioCCollection,
     BioCDocument,
     BioCJSON,
     BioCPassage,
 )
-from .bioc.bioctable import (
+from .ac_bioc.bioctable import (
     BioCTableCell,
     BioCTableCollection,
     BioCTableDocument,

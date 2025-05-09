@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from ...bioc import BioCDocument
+from ...ac_bioc import BioCDocument
 from .passage import BioCTablePassage
 
 

@@ -17,7 +17,7 @@ from autocorpus.bioc_supplementary import (
 
 from . import logger
 from .abbreviation import get_abbreviations
-from .bioc import BioCJSON, BioCXML
+from .ac_bioc import BioCJSON, BioCXML
 from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
 from .table import get_table_json

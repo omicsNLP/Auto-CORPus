@@ -3,7 +3,7 @@
 from dataclasses import dataclass, field
 from typing import Any
 
-from ...bioc import BioCPassage
+from ...ac_bioc import BioCPassage
 from .cell import BioCTableCell
 
 

@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from ...bioc import BioCCollection
+from ...ac_bioc import BioCCollection
 from .document import BioCTableDocument
 
 
