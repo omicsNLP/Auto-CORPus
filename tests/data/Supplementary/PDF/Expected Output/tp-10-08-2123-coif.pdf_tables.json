@@ -1,8 +1,8 @@
 {
     "source": "Auto-CORPus (supplementary)",
-    "date": "20250507",
+    "date": "20250509",
     "key": "autocorpus_supplementary.key",
-    "version": "",
+    "version": "1.0",
     "infons": {},
     "documents": [
         {
@@ -51,7 +51,7 @@
                                     },
                                     {
                                         "cell_id": "0.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "0.2.3",
@@ -59,11 +59,11 @@
                                     },
                                     {
                                         "cell_id": "0.2.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "0.2.5",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -77,15 +77,15 @@
                                     },
                                     {
                                         "cell_id": "0.3.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "0.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "0.3.5",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -132,15 +132,15 @@
                                 [
                                     {
                                         "cell_id": "1.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "1.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "1.2.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -263,11 +263,11 @@
                                 [
                                     {
                                         "cell_id": "3.4.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "3.4.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "3.4.3",
@@ -281,11 +281,11 @@
                                     },
                                     {
                                         "cell_id": "3.5.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "3.5.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -295,25 +295,25 @@
                                     },
                                     {
                                         "cell_id": "3.6.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "3.6.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
                                     {
                                         "cell_id": "3.7.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "3.7.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "3.7.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -452,19 +452,19 @@
                                 [
                                     {
                                         "cell_id": "6.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "6.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "6.2.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "6.2.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -515,7 +515,7 @@
                                 [
                                     {
                                         "cell_id": "7.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "7.2.2",
@@ -537,7 +537,7 @@
                                     },
                                     {
                                         "cell_id": "7.3.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "7.3.3",
@@ -545,7 +545,7 @@
                                     },
                                     {
                                         "cell_id": "7.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -559,29 +559,29 @@
                                     },
                                     {
                                         "cell_id": "7.4.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "7.4.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
                                     {
                                         "cell_id": "7.5.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "7.5.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "7.5.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "7.5.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -712,19 +712,19 @@
                                 [
                                     {
                                         "cell_id": "10.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "10.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "10.2.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "10.2.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -775,7 +775,7 @@
                                 [
                                     {
                                         "cell_id": "11.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "11.2.2",
@@ -805,7 +805,7 @@
                                     },
                                     {
                                         "cell_id": "11.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -815,15 +815,15 @@
                                     },
                                     {
                                         "cell_id": "11.4.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "11.4.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "11.4.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -870,15 +870,15 @@
                                 [
                                     {
                                         "cell_id": "12.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "12.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "12.2.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -969,7 +969,7 @@
                                 [
                                     {
                                         "cell_id": "14.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "14.2.2",
@@ -999,25 +999,25 @@
                                     },
                                     {
                                         "cell_id": "14.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
                                     {
                                         "cell_id": "14.4.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "14.4.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "14.4.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "14.4.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -1064,15 +1064,15 @@
                                 [
                                     {
                                         "cell_id": "15.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "15.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "15.2.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -1171,7 +1171,7 @@
                                 [
                                     {
                                         "cell_id": "17.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "17.2.2",
@@ -1193,7 +1193,7 @@
                                     },
                                     {
                                         "cell_id": "17.3.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "17.3.3",
@@ -1201,7 +1201,7 @@
                                     },
                                     {
                                         "cell_id": "17.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -1215,11 +1215,11 @@
                                     },
                                     {
                                         "cell_id": "17.4.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "17.4.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -1406,7 +1406,7 @@
                                 [
                                     {
                                         "cell_id": "21.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "21.2.2",
@@ -1428,7 +1428,7 @@
                                     },
                                     {
                                         "cell_id": "21.3.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "21.3.3",
@@ -1436,7 +1436,7 @@
                                     },
                                     {
                                         "cell_id": "21.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -1450,29 +1450,29 @@
                                     },
                                     {
                                         "cell_id": "21.4.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "21.4.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
                                     {
                                         "cell_id": "21.5.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "21.5.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "21.5.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "21.5.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -1523,19 +1523,19 @@
                                 [
                                     {
                                         "cell_id": "22.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "22.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "22.2.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "22.2.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -1586,7 +1586,7 @@
                                 [
                                     {
                                         "cell_id": "23.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "23.2.2",
@@ -1608,7 +1608,7 @@
                                     },
                                     {
                                         "cell_id": "23.3.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "23.3.3",
@@ -1616,7 +1616,7 @@
                                     },
                                     {
                                         "cell_id": "23.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -1630,29 +1630,29 @@
                                     },
                                     {
                                         "cell_id": "23.4.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "23.4.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
                                     {
                                         "cell_id": "23.5.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "23.5.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "23.5.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "23.5.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -1707,7 +1707,7 @@
                                     },
                                     {
                                         "cell_id": "24.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "24.2.3",
@@ -1721,7 +1721,7 @@
                                 [
                                     {
                                         "cell_id": "24.3.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "24.3.2",
@@ -1733,7 +1733,7 @@
                                     },
                                     {
                                         "cell_id": "24.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -1743,7 +1743,7 @@
                                     },
                                     {
                                         "cell_id": "24.4.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "24.4.3",
@@ -1751,7 +1751,7 @@
                                     },
                                     {
                                         "cell_id": "24.4.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -1765,29 +1765,29 @@
                                     },
                                     {
                                         "cell_id": "24.5.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "24.5.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
                                     {
                                         "cell_id": "24.6.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "24.6.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "24.6.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "24.6.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -1797,7 +1797,7 @@
                                     },
                                     {
                                         "cell_id": "24.7.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "24.7.3",
@@ -1805,7 +1805,7 @@
                                     },
                                     {
                                         "cell_id": "24.7.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -1948,7 +1948,7 @@
                                     },
                                     {
                                         "cell_id": "27.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "27.2.3",
@@ -1962,7 +1962,7 @@
                                 [
                                     {
                                         "cell_id": "27.3.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "27.3.2",
@@ -1974,7 +1974,7 @@
                                     },
                                     {
                                         "cell_id": "27.3.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -1984,7 +1984,7 @@
                                     },
                                     {
                                         "cell_id": "27.4.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "27.4.3",
@@ -1992,7 +1992,7 @@
                                     },
                                     {
                                         "cell_id": "27.4.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -2006,29 +2006,29 @@
                                     },
                                     {
                                         "cell_id": "27.5.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "27.5.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
                                     {
                                         "cell_id": "27.6.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "27.6.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "27.6.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "27.6.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ],
                                 [
@@ -2038,7 +2038,7 @@
                                     },
                                     {
                                         "cell_id": "27.7.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "27.7.3",
@@ -2046,7 +2046,7 @@
                                     },
                                     {
                                         "cell_id": "27.7.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -2097,19 +2097,19 @@
                                 [
                                     {
                                         "cell_id": "28.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "28.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "28.2.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "28.2.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -2208,19 +2208,19 @@
                                 [
                                     {
                                         "cell_id": "30.2.1",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "30.2.2",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "30.2.3",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     },
                                     {
                                         "cell_id": "30.2.4",
-                                        "cell_text": "None"
+                                        "cell_text": ""
                                     }
                                 ]
                             ]
