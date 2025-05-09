@@ -1,29 +1,14 @@
 """This module defines the BioCTableCell class."""
 
+from dataclasses import dataclass, field
 
+
+@dataclass
 class BioCTableCell:
-    """Represents a cell in a BioC table.
+    """Represents a cell in a table."""
 
-    Attributes:
-        cell_id : str
-            The unique identifier for the cell.
-        cell_text : str
-            The text content of the cell.
-
-    Methods:
-        to_dict() -> dict[str, str]
-            Converts the cell's attributes to a dictionary.
-    """
-
-    def __init__(self, cell_id: str, cell_text: str):
-        """Initialize a BioCTableCell with an ID and text content.
-
-        Args:
-            cell_id (str): The unique identifier for the cell.
-            cell_text (str): The text content of the cell.
-        """
-        self.cell_id: str = cell_id
-        self.cell_text: str = cell_text
+    cell_id: str = field(default_factory=str)
+    cell_text: str = field(default_factory=str)
 
     def to_dict(self) -> dict[str, str]:
         """Convert the cell's attributes to a dictionary.

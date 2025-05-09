@@ -13,22 +13,9 @@ from .node import BioCNode
 class BioCRelation:
     """A class representing a BioC relation."""
 
-    def __init__(
-        self,
-        id: str = field(default_factory=str),
-        infons: dict[str, str] = field(default_factory=dict),
-        nodes: list[BioCNode] = field(default_factory=list),
-    ):
-        """Initialize a BioCRelation instance.
-
-        Args:
-            id (str): The ID of the relation.
-            infons (dict[str, str]): A dictionary of additional information.
-            nodes (list[BioCNode]): A list of associated BioCNode objects.
-        """
-        self.id = id
-        self.infons = infons
-        self.nodes = nodes
+    id: str = field(default_factory=str)
+    infons: dict[str, str] = field(default_factory=dict)
+    nodes: list[BioCNode] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         """Convert the BioCRelation instance to a dictionary.

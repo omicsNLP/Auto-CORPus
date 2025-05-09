@@ -88,7 +88,7 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
         config=config,
     )
 
-    ac.process_files(config=config, files=[pdf_path])
+    ac.process_files(files=[pdf_path])
 
     with open(
         str(pdf_path).replace(".pdf", ".pdf_bioc.json"),

@@ -3,39 +3,22 @@
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
+from dataclasses import dataclass, field
 from typing import Any
 
 from .location import BioCLocation
 
 
+@dataclass
 class BioCAnnotation:
     """Represents an annotation in a BioC document."""
 
-    def __init__(
-        self,
-        id: str,
-        text: str,
-        offset: int,
-        length: int,
-        infons: dict[str, str] | None = None,
-        locations: list[BioCLocation] | None = None,
-    ):
-        """Initialize a BioCAnnotation instance.
-
-        Args:
-            id (str): The unique identifier for the annotation.
-            text (str): The text of the annotation.
-            offset (int): The starting offset of the annotation.
-            length (int): The length of the annotation.
-            infons (dict[str, str] | None): Additional information about the annotation.
-            locations (list[BioCLocation] | None): List of locations associated with the annotation.
-        """
-        self.id = id
-        self.text = text
-        self.offset = offset
-        self.length = length
-        self.infons = infons or {}
-        self.locations = locations or []
+    id: str = field(default_factory=str)
+    text: str = field(default_factory=str)
+    offset: int = field(default_factory=int)
+    length: int = field(default_factory=int)
+    infons: dict[str, str] = field(default_factory=dict)
+    locations: list[BioCLocation] = field(default_factory=list)
 
     def to_dict(self):
         """Convert the annotation to a dictionary representation.

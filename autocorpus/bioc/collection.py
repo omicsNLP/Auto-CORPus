@@ -17,31 +17,12 @@ from .document import BioCDocument
 class BioCCollection:
     """A class representing a BioC collection."""
 
-    def __init__(
-        self,
-        source: str = field(default_factory=str),
-        date: str = field(default_factory=str),
-        key: str = field(default_factory=str),
-        documents: list[BioCDocument] = field(default_factory=list),
-        infons: dict[str, str] = field(default_factory=dict),
-        version: str = field(default="1.0"),
-    ):
-        """Initialize a BioCCollection instance.
-
-        Args:
-            source (str): The source of the collection.
-            date (str): The date of the collection.
-            key (str): The key of the collection.
-            documents (list[BioCDocument]): A list of BioCDocument objects.
-            infons (dict[str, str]): Additional information about the collection.
-            version (str): The version of the collection format.
-        """
-        self.source = source
-        self.date = date
-        self.key = key
-        self.documents = documents or []
-        self.infons = infons or {}
-        self.version = version
+    source: str = field(default_factory=str)
+    date: str = field(default_factory=str)
+    key: str = field(default_factory=str)
+    documents: list[BioCDocument] = field(default_factory=list)
+    infons: dict[str, str] = field(default_factory=dict)
+    version: str = field(default="1.0")
 
     def to_dict(self):
         """Convert the BioCCollection instance to a dictionary.

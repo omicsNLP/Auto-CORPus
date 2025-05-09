@@ -7,16 +7,7 @@ from .document import BioCTableDocument
 
 
 class BioCTableCollection(BioCCollection):
-    """A collection of BioCTableDocument objects extending BioCCollection.
-
-    Attributes:
-        documents : list[BioCTableDocument]
-            A list of BioCTableDocument objects in the collection.
-
-    Methods:
-        to_dict() -> dict[str, Any]
-            Converts the collection to a dictionary representation.
-    """
+    """A collection of BioCTableDocument objects extending BioCCollection."""
 
     def __init__(self, *args, **kwargs):
         """Initialize a BioCTableCollection with optional arguments.

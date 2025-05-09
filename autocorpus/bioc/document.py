@@ -19,31 +19,12 @@ from .relation import BioCRelation
 class BioCDocument:
     """Represents a BioC document containing passages, annotations, and relations."""
 
-    def __init__(
-        self,
-        id: str,
-        inputfile: str = field(default_factory=str),
-        infons: dict[str, str] = field(default_factory=dict),
-        passages: list[BioCPassage] = field(default_factory=list),
-        annotations: list[BioCAnnotation] = field(default_factory=list),
-        relations: list[BioCRelation] = field(default_factory=list),
-    ):
-        """Initialize a BioCDocument instance.
-
-        Args:
-            id (str): The unique identifier for the document.
-            inputfile (str): The input file associated with the document.
-            infons (dict[str, str]): Additional information about the document.
-            passages (list[BioCPassage]): List of passages in the document.
-            annotations (list[BioCAnnotation]): List of annotations in the document.
-            relations (list[BioCRelation]): List of relations in the document.
-        """
-        self.id = id
-        self.inputfile = inputfile
-        self.infons = infons
-        self.passages = passages
-        self.annotations = annotations
-        self.relations = relations
+    id: str = field(default_factory=str)
+    inputfile: str = field(default_factory=str)
+    infons: dict[str, str] = field(default_factory=dict)
+    passages: list[BioCPassage] = field(default_factory=list)
+    annotations: list[BioCAnnotation] = field(default_factory=list)
+    relations: list[BioCRelation] = field(default_factory=list)
 
     def to_dict(self):
         """Convert the BioCDocument instance to a dictionary representation.

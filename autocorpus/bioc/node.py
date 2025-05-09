@@ -10,15 +10,8 @@ from dataclasses import dataclass, field
 class BioCNode:
     """Represents a node in a BioC graph with a reference ID and a role."""
 
-    def __init__(self, refid: str, role: str = field(default_factory=str)):
-        """Initialize a BioCNode instance.
-
-        Args:
-            refid (str): The reference ID of the node.
-            role (str): The role of the node. Defaults to an empty string.
-        """
-        self.refid = refid
-        self.role = role
+    refid: str = field(default_factory=str)
+    role: str = field(default_factory=str)
 
     def to_dict(self) -> dict[str, str]:
         """Convert the BioCNode instance to a dictionary representation."""

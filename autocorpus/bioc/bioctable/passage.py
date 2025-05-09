@@ -1,35 +1,18 @@
 """This module defines the BioCTablePassage class."""
 
+from dataclasses import dataclass, field
 from typing import Any
 
 from ...bioc import BioCPassage
 from .cell import BioCTableCell
 
 
+@dataclass
 class BioCTablePassage(BioCPassage):
-    """A class that extends BioCPassage to handle table data.
+    """A class that extends BioCPassage to handle table data."""
 
-    Attributes:
-        column_headings : list[BioCTableCell]
-            A list of cells representing the column headings of the table.
-        data_section : list[dict[str, Any]]
-            A list of dictionaries representing the data sections of the table.
-
-    Methods:
-        to_dict() -> dict[str, Any]
-            Converts the BioCTablePassage instance to a dictionary representation.
-    """
-
-    def __init__(self, *args, **kwargs):
-        """Initialize a BioCTablePassage instance.
-
-        Args:
-            *args: Variable length argument list passed to the parent class.
-            **kwargs: Arbitrary keyword arguments passed to the parent class.
-        """
-        super().__init__(*args, **kwargs)
-        self.column_headings: list[BioCTableCell] = []
-        self.data_section: list[dict[str, Any]] = []
+    column_headings: list[BioCTableCell] = field(default_factory=list)
+    data_section: list[dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         """Convert the BioCTablePassage instance to a dictionary.

@@ -14,28 +14,11 @@ from .relation import BioCRelation
 class BioCSentence:
     """Represents a sentence in the BioC format."""
 
-    def __init__(
-        self,
-        text: str,
-        offset: int,
-        infons: dict[str, str] = field(default_factory=dict),
-        annotations: list[BioCAnnotation] = field(default_factory=list),
-        relations: list[BioCRelation] = field(default_factory=list),
-    ):
-        """Initialize a BioCSentence instance.
-
-        Args:
-            text (str): The text of the sentence.
-            offset (int): The character offset of the sentence in the document.
-            infons (dict[str, str], optional): Additional information about the sentence.
-            annotations (list[BioCAnnotation], optional): Annotations associated with the sentence.
-            relations (list[BioCRelation], optional): Relations associated with the sentence.
-        """
-        self.text = text
-        self.offset = offset
-        self.infons = infons or {}
-        self.annotations = annotations or []
-        self.relations = relations or []
+    text: str
+    offset: int
+    infons: dict[str, str] = field(default_factory=dict)
+    annotations: list[BioCAnnotation] = field(default_factory=list)
+    relations: list[BioCRelation] = field(default_factory=list)
 
     def to_dict(self):
         """Convert the BioCSentence instance to a dictionary representation.

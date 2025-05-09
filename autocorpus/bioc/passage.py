@@ -19,8 +19,8 @@ from .sentence import BioCSentence
 class BioCPassage:
     """Represents a passage in a BioC document."""
 
-    text: str = ""
-    offset: int = 0
+    text: str = field(default_factory=str)
+    offset: int = field(default_factory=int)
     infons: dict[str, Any] = field(default_factory=dict)
     sentences: list[BioCSentence] = field(default_factory=list)
     annotations: list[BioCAnnotation] = field(default_factory=list)

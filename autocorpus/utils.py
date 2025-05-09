@@ -333,50 +333,6 @@ def handle_tables(config, soup):
     return responses
 
 
-def replace_unicode(text):
-    """Replaces specific Unicode characters with their corresponding replacements in the given text.
-
-    Args:
-        text (str or list): The input text or list of texts to process.
-
-    Returns:
-        str or list: The processed text or list of processed texts.
-
-    If the input `text` is empty or None, the function returns None.
-
-    If the input `text` is a list, it iterates over each element of the list and replaces the following Unicode characters:
-        - '\u00a0': Replaced with a space ' '
-        - '\u00ad': Replaced with a hyphen '-'
-        - '\u2010': Replaced with a hyphen '-'
-        - '\u00d7': Replaced with a lowercase 'x'
-
-    If the input `text` is not a list, it directly replaces the Unicode characters mentioned above.
-
-    Returns the processed text or list of processed texts.
-    """
-    if not text:
-        return None
-    if isinstance(text, list):
-        clean_texts = []
-        for t in text:
-            if t:
-                clean_texts.append(
-                    t.replace("\u00a0", " ")
-                    .replace("\u00ad", "-")
-                    .replace("\u2010", "-")
-                    .replace("\u00d7", "x")
-                )
-        return clean_texts
-    else:
-        clean_text = (
-            text.replace("\u00a0", " ")
-            .replace("\u00ad", "-")
-            .replace("\u2010", "-")
-            .replace("\u00d7", "x")
-        )
-        return clean_text
-
-
 def convert_datetime_to_string(df: DataFrame) -> DataFrame:
     """Convert all datetime objects in a DataFrame to string format.
 
