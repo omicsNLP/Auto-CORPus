@@ -9,7 +9,6 @@ import bs4
 from bs4 import BeautifulSoup, NavigableString
 from lxml import etree
 from lxml.html.soupparser import fromstring
-from pandas import DataFrame
 
 
 def get_files(base_dir, pattern=r"(.*).html"):
@@ -331,33 +330,3 @@ def handle_tables(config, soup):
             response_addition = {"node": match}
             responses.append(response_addition)
     return responses
-
-
-def convert_datetime_to_string(df: DataFrame) -> DataFrame:
-    """Convert all datetime objects in a DataFrame to string format.
-
-    Args:
-        df (pd.DataFrame): The input DataFrame.
-
-    Returns:
-        pd.DataFrame: A DataFrame with datetime columns converted to string.
-    """
-    for col in df.select_dtypes(include=["datetime64[ns]", "datetime64"]):
-        df[col] = df[col].astype(str)
-    return df
-
-
-def get_blank_cell_count(row: list[dict[str, str]]) -> int:
-    """Counts the number of blank cells in a given row.
-
-    Args:
-        row (list): A list of dictionaries representing cells in a row.
-
-    Returns:
-        int: The number of blank cells in the row.
-    """
-    blank_count = 0
-    for cell in row:
-        if not cell["text"].strip():
-            blank_count += 1
-    return blank_count
