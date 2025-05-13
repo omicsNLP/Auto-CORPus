@@ -204,6 +204,11 @@ class BioCTableConverter:
             self.current_table_id += 1
 
     def output_tables_json(self, filename: Path) -> None:
+        """Outputs the BioC table collection as a JSON file.
+
+        Args:
+            filename (Path): The path to the input file, which will be used to generate the output JSON filename.
+        """
         out_filename = str(filename).replace(".pdf", ".pdf_tables.json")
         with open(out_filename, "w", encoding="utf-8") as f:
             BioCTableJSON.dump(self.bioc, f, indent=4)
@@ -300,6 +305,11 @@ class BioCTextConverter:
         return passages
 
     def output_bioc_json(self, filename: Path) -> None:
+        """Outputs the BioC collection as a JSON file.
+
+        Args:
+            filename (Path): The path to the input file, which will be used to generate the output JSON filename.
+        """
         out_filename = str(filename).replace(".pdf", ".pdf_bioc.json")
         with open(out_filename, "w", encoding="utf-8") as f:
             BioCJSON.dump(self.bioc, f, indent=4)
