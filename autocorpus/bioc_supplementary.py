@@ -1,12 +1,12 @@
 """This module provides functionality for converting text extracted from various file types into a BioC format."""
 
 import datetime
-import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
+import regex
 from pandas import DataFrame
 
 from .ac_bioc import (
@@ -28,7 +28,7 @@ def extract_table_from_pdf_text(text: str) -> tuple[str, list[DataFrame]]:
     """Extracts tables from PDF text and returns the remaining text and tables.
 
     Args:
-        text (str): The input text extracted from a PDF file.
+        text: The input text extracted from a PDF file.
 
     Returns:
         tuple: A tuple containing the remaining text (str) and a list of tables (list of DataFrames).
@@ -42,34 +42,34 @@ def extract_table_from_pdf_text(text: str) -> tuple[str, list[DataFrame]]:
     # Identify where the table starts and ends by looking for lines containing pipes
     table_lines = []
     # keep unmodified lines used in tables. These must be removed from the original text
-    lines_to_remove = []
+    main_text_lines = []
+
     inside_table = False
     for line in lines:
         if "|" in line:
             inside_table = True
             table_lines.append(line)
-            lines_to_remove.append(line)
         elif (
             inside_table
         ):  # End of table if there's a blank line after lines with pipes
             inside_table = False
             tables.append(table_lines)
+            main_text_lines.append(line)
             table_lines = []
             continue
-
-    for line in lines_to_remove:
-        temp_text_output.remove(line)
+        else:
+            main_text_lines.append(line)
 
     tables_output = []
     # Remove lines that are just dashes (table separators)
     for table in tables:
-        table = [line for line in table if not re.match(r"^\s*-+\s*$", line)]
+        table = [line for line in table if not regex.match(r"^\s*[\p{Pd}]+\s*$", line)]
 
         # Extract rows from the identified table lines
         rows = []
         for line in table:
             # Match only lines that look like table rows (contain pipes)
-            if re.search(r"\|", line):
+            if regex.search(r"\|", line):
                 # Split the line into cells using the pipe delimiter and strip whitespace
                 cells = [
                     cell.strip()
@@ -90,7 +90,7 @@ def extract_table_from_pdf_text(text: str) -> tuple[str, list[DataFrame]]:
         # Create a DataFrame from the rows
         df = pd.DataFrame(rows[1:], columns=rows[0])
         tables_output.append(df)
-    text_output = "\n\n".join(temp_text_output)
+    text_output = "\n\n".join(main_text_lines)
     return text_output, tables_output
 
 

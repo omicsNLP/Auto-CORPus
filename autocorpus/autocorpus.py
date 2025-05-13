@@ -94,9 +94,15 @@ class Autocorpus:
     def __load_pdf_models():
         global pdf_converter
         if pdf_converter is None:
-            pdf_converter = PdfConverter(
-                artifact_dict=create_model_dict(),
-            )
+            try:
+                # Load the PDF models
+                pdf_converter = PdfConverter(
+                    artifact_dict=create_model_dict(),
+                )
+            except Exception as e:
+                logger.error(f"Error loading PDF models: {e}")
+                # If loading fails, set pdf_converter to None
+                pdf_converter = None
 
     @staticmethod
     def __extract_pdf_content(
@@ -113,21 +119,21 @@ class Autocorpus:
         bioc_text, bioc_tables = None, None
         global pdf_converter
         Autocorpus.__load_pdf_models()
-        if pdf_converter:
-            # extract text from PDF
-            rendered = pdf_converter(str(file_path))
-            text, _, _ = text_from_rendered(rendered)
-            # seperate text and tables
-            text, tables = extract_table_from_pdf_text(text)
-            # format data for BioC
-            bioc_text = BioCTextConverter(text, "pdf", str(file_path))
-            bioc_text.output_bioc_json(file_path)
-            bioc_tables = BioCTableConverter(tables, str(file_path))
-            bioc_tables.output_tables_json(file_path)
-            return True
-        else:
+        if not pdf_converter:
             logger.error("PDF converter not initialized.")
             return False
+
+        # extract text from PDF
+        rendered = pdf_converter(str(file_path))
+        text, _, _ = text_from_rendered(rendered)
+        # separate text and tables
+        text, tables = extract_table_from_pdf_text(text)
+        # format data for BioC
+        bioc_text = BioCTextConverter(text, "pdf", str(file_path))
+        bioc_text.output_bioc_json(file_path)
+        bioc_tables = BioCTableConverter(tables, str(file_path))
+        bioc_tables.output_tables_json(file_path)
+        return True
 
     def __extract_text(self, soup, config):
         """Convert beautiful soup object into a python dict object with cleaned main text body.
@@ -330,9 +336,7 @@ class Autocorpus:
             case ".xml":
                 pass
             case ".pdf":
-                is_extracted = self.__extract_pdf_content(file)
-                if not is_extracted:
-                    logger.info(f"Unable to extract text/tables from {file.name}")
+                self.__extract_pdf_content(file)
             case _:
                 pass
 
