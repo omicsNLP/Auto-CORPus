@@ -1,13 +1,13 @@
 {
     "source": "Auto-CORPus (supplementary)",
-    "date": "20250509",
+    "date": "20250513",
     "key": "autocorpus_supplementary.key",
     "version": "1.0",
     "infons": {},
     "documents": [
         {
             "id": "1",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -100,7 +100,7 @@
         },
         {
             "id": "2",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -155,7 +155,7 @@
         },
         {
             "id": "3",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -203,7 +203,7 @@
         },
         {
             "id": "4",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -328,7 +328,7 @@
         },
         {
             "id": "5",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -376,7 +376,7 @@
         },
         {
             "id": "6",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -416,7 +416,7 @@
         },
         {
             "id": "7",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -479,7 +479,7 @@
         },
         {
             "id": "8",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -596,7 +596,7 @@
         },
         {
             "id": "9",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -636,7 +636,7 @@
         },
         {
             "id": "10",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -676,7 +676,7 @@
         },
         {
             "id": "11",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -739,7 +739,7 @@
         },
         {
             "id": "12",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -838,7 +838,7 @@
         },
         {
             "id": "13",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -893,7 +893,7 @@
         },
         {
             "id": "14",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -933,7 +933,7 @@
         },
         {
             "id": "15",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1032,7 +1032,7 @@
         },
         {
             "id": "16",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1087,7 +1087,7 @@
         },
         {
             "id": "17",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1135,7 +1135,7 @@
         },
         {
             "id": "18",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1234,7 +1234,7 @@
         },
         {
             "id": "19",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1282,7 +1282,7 @@
         },
         {
             "id": "20",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1322,7 +1322,7 @@
         },
         {
             "id": "21",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1370,7 +1370,7 @@
         },
         {
             "id": "22",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1487,7 +1487,7 @@
         },
         {
             "id": "23",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1550,7 +1550,7 @@
         },
         {
             "id": "24",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1667,7 +1667,7 @@
         },
         {
             "id": "25",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1820,7 +1820,7 @@
         },
         {
             "id": "26",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1868,7 +1868,7 @@
         },
         {
             "id": "27",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -1908,7 +1908,7 @@
         },
         {
             "id": "28",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -2061,7 +2061,7 @@
         },
         {
             "id": "29",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -2079,14 +2079,10 @@
                         },
                         {
                             "cell_id": "28.1.2",
-                            "cell_text": null
-                        },
-                        {
-                            "cell_id": "28.1.3",
                             "cell_text": "Yes"
                         },
                         {
-                            "cell_id": "28.1.4",
+                            "cell_id": "28.1.3",
                             "cell_text": "\u2714 No"
                         }
                     ],
@@ -2106,10 +2102,6 @@
                                     {
                                         "cell_id": "28.2.3",
                                         "cell_text": ""
-                                    },
-                                    {
-                                        "cell_id": "28.2.4",
-                                        "cell_text": ""
                                     }
                                 ]
                             ]
@@ -2124,7 +2116,7 @@
         },
         {
             "id": "30",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {
@@ -2172,7 +2164,7 @@
         },
         {
             "id": "31",
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "infons": {},
             "passages": [
                 {

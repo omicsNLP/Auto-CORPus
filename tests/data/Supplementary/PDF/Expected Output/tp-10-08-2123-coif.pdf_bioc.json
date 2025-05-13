@@ -1,6 +1,6 @@
 {
     "source": "Auto-CORPus (supplementary)",
-    "date": "20250507",
+    "date": "20250513",
     "key": "autocorpus_supplementary.key",
     "version": "1.0",
     "infons": {},
@@ -8,7 +8,7 @@
         {
             "id": "1",
             "infons": {},
-            "inputfile": "/mnt/sda2/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
             "passages": [
                 {
                     "offset": 0,
