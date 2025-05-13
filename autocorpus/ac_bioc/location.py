@@ -1,3 +1,8 @@
+"""This module defines the BioCLocation class.
+
+It provides methods for converting between dictionary, XML, and object representations.
+"""
+
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET

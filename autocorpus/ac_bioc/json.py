@@ -66,7 +66,7 @@ class BioCJSONEncoder(json.JSONEncoder):
                     "id": o.id,
                     "infons": o.infons,
                     "text": o.text,
-                    "locations": [self.default(l) for l in o.locations],
+                    "locations": [self.default(loc) for loc in o.locations],
                 }
             case BioCRelation():
                 return {
