@@ -5,9 +5,9 @@ from pathlib import Path
 from typing import Any
 
 from bs4 import BeautifulSoup
-from marker.converters.pdf import PdfConverter  # type: ignore
-from marker.models import create_model_dict  # type: ignore
-from marker.output import text_from_rendered  # type: ignore
+from marker.converters.pdf import PdfConverter
+from marker.models import create_model_dict
+from marker.output import text_from_rendered
 
 from autocorpus.bioc_supplementary import (
     BioCTableConverter,

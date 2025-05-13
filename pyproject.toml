@@ -77,7 +77,7 @@ module = "tests.*"
 disallow_untyped_defs = false
 
 [[tool.mypy.overrides]]
-module = ["nltk.*", "fuzzywuzzy.*", "bioc.*"]
+module = ["nltk.*", "fuzzywuzzy.*", "bioc.*", "marker.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
