@@ -1,39 +1,26 @@
-"""This module defines the BioCTableDocument class."""
+"""This module defines the BioCTableDocument class.
 
+Extends BioCDocument to include BioCTablePassage objects and provides a method to convert the
+document to a dictionary representation.
+"""
+
+from dataclasses import dataclass, field
 from typing import Any
 
-from ...ac_bioc import BioCDocument
-from .passage import BioCTablePassage
+from ...ac_bioc import BioCDocument, BioCPassage
+from ...ac_bioc.bioctable.passage import BioCTablePassage
 
 
+@dataclass
 class BioCTableDocument(BioCDocument):
-    """Extends BioCDocument to include BioCTablePassage objects.
+    """Extends BioCDocument to include BioCTablePassage objects."""
 
-    Attributes:
-        passages : list[BioCTablePassage]
-            A list of BioCTablePassage objects associated with the document.
-
-    Methods:
-        to_dict() -> dict[str, Any]
-            Converts the document and its passages to a dictionary representation.
-    """
-
-    def __init__(self, *args, **kwargs):
-        """Initialize a BioCTableDocument instance.
-
-        Args:
-            *args: Variable length argument list for the parent class.
-            **kwargs: Arbitrary keyword arguments for the parent class.
-        """
-        super().__init__(*args, **kwargs)
-        self.passages: list[BioCTablePassage] = []
+    passages: list[BioCPassage] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
-        """Convert the document and its passages to a dictionary representation.
-
-        Returns:
-            dict[str, Any]: A dictionary containing the document's data and its passages.
-        """
+        """Convert the BioCTableDocument to a dictionary representation."""
         base = super().to_dict()
-        base["passages"] = [p.to_dict() for p in self.passages]
+        base["passages"] = [
+            p.to_dict() for p in self.passages if isinstance(p, BioCTablePassage)
+        ]
         return base

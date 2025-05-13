@@ -162,7 +162,7 @@ class BioCTableConverter:
 
     def __build_tables(self, table_data: list[DataFrame]):
         for table_idx, table_dataframe in enumerate(table_data):
-            passages: list[BioCTablePassage] = []
+            passages: list[BioCPassage] = []
             passage: BioCTablePassage = BioCTablePassage()
             passage.offset = 0
             passage.infons = {

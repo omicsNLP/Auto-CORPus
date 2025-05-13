@@ -1,23 +1,16 @@
 """This module defines the BioCTableCollection class."""
 
+from dataclasses import dataclass, field
 from typing import Any
 
-from ...ac_bioc import BioCCollection
-from .document import BioCTableDocument
+from ...ac_bioc import BioCCollection, BioCDocument
 
 
+@dataclass
 class BioCTableCollection(BioCCollection):
     """A collection of BioCTableDocument objects extending BioCCollection."""
 
-    def __init__(self, *args, **kwargs):
-        """Initialize a BioCTableCollection with optional arguments.
-
-        Args:
-            *args: Variable length argument list passed to the parent class.
-            **kwargs: Arbitrary keyword arguments passed to the parent class.
-        """
-        super().__init__(*args, **kwargs)
-        self.documents: list[BioCTableDocument] = []
+    documents: list[BioCDocument] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         """Convert the BioCTableCollection to a dictionary representation.
