@@ -1,6 +1,6 @@
 {
   "source": "Auto-CORPus (abbreviations)",
-  "date": "20240829",
+  "date": "20250514",
   "key": "autocorpus_abbreviations.key",
   "documents": [
     {
@@ -55,11 +55,6 @@
         {
           "text_short": "HDR",
           "text_long_1": "Health Data Research",
-          "extraction_algorithm_1": "fulltext"
-        },
-        {
-          "text_short": "CRIS-CODE",
-          "text_long_1": "Clinical Record Interactive Search Comprehensive Data Extraction",
           "extraction_algorithm_1": "fulltext"
         }
       ]
