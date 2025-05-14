@@ -1,11 +1,11 @@
 {
   "source": "Auto-CORPus (abbreviations)",
-  "date": "20250326",
+  "date": "20250514",
   "key": "autocorpus_abbreviations.key",
   "documents": [
     {
       "id": "PMC8885717",
-      "inputfile": "tests\\data\\PMC\\Current\\PMC8885717.html",
+      "inputfile": "tests/data/PMC/Current/PMC8885717.html",
       "passages": [
         {
           "text_short": "NLP",
@@ -55,11 +55,6 @@
         {
           "text_short": "HDR",
           "text_long_1": "Health Data Research",
-          "extraction_algorithm_1": "fulltext"
-        },
-        {
-          "text_short": "CRIS-CODE",
-          "text_long_1": "Clinical Record Interactive Search Comprehensive Data Extraction",
           "extraction_algorithm_1": "fulltext"
         }
       ]
