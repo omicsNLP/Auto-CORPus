@@ -1,12 +1,12 @@
 {
   "source": "Auto-CORPus (full-text)",
-  "date": "20250326",
+  "date": "20250514",
   "key": "autocorpus_fulltext.key",
   "infons": {},
   "documents": [
     {
       "id": "PMC8885717",
-      "inputfile": "tests\\data\\PMC\\Current\\PMC8885717.html",
+      "inputfile": "tests/data/PMC/Current/PMC8885717.html",
       "infons": {},
       "passages": [
         {

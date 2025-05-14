@@ -1,11 +1,11 @@
 {
   "source": "Auto-CORPus (tables)",
-  "date": "20250326",
+  "date": "20250514",
   "key": "autocorpus_tables.key",
   "infons": {},
   "documents": [
     {
-      "inputfile": "tests\\data\\PMC\\Current\\PMC8885717.html",
+      "inputfile": "tests/data/PMC/Current/PMC8885717.html",
       "id": "1",
       "infons": {},
       "passages": [
@@ -782,7 +782,7 @@
       ]
     },
     {
-      "inputfile": "tests\\data\\PMC\\Current\\PMC8885717.html",
+      "inputfile": "tests/data/PMC/Current/PMC8885717.html",
       "id": "2",
       "infons": {},
       "passages": [
@@ -1139,7 +1139,7 @@
       ]
     },
     {
-      "inputfile": "tests\\data\\PMC\\Current\\PMC8885717.html",
+      "inputfile": "tests/data/PMC/Current/PMC8885717.html",
       "id": "3",
       "infons": {},
       "passages": [
@@ -1319,7 +1319,7 @@
       ]
     },
     {
-      "inputfile": "tests\\data\\PMC\\Current\\PMC8885717.html",
+      "inputfile": "tests/data/PMC/Current/PMC8885717.html",
       "id": "4",
       "infons": {},
       "passages": [
