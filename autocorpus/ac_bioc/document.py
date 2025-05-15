@@ -10,7 +10,6 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from typing import Any
 
-from .annotation import BioCAnnotation
 from .passage import BioCPassage
 from .relation import BioCRelation
 

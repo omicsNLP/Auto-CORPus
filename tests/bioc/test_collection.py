@@ -2,8 +2,6 @@
 
 import xml.etree.ElementTree as ET
 
-import pytest
-
 from autocorpus.ac_bioc import (
     BioCCollection,
 )
