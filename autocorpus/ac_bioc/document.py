@@ -23,7 +23,6 @@ class BioCDocument:
     inputfile: str = field(default_factory=str)
     infons: dict[str, str] = field(default_factory=dict)
     passages: list[BioCPassage] = field(default_factory=list)
-    annotations: list[BioCAnnotation] = field(default_factory=list)
     relations: list[BioCRelation] = field(default_factory=list)
 
     def to_dict(self):
@@ -53,7 +52,6 @@ class BioCDocument:
             id=data["id"],
             infons=data.get("infons", {}),
             passages=passages,
-            annotations=data.get("annotations", []),
             relations=data.get("relations", []),
         )
 
@@ -83,8 +81,6 @@ class BioCDocument:
         for passage in self.passages:
             doc_elem.append(passage.to_xml())
 
-        for ann in self.annotations:
-            doc_elem.append(ann.to_xml())
         for rel in self.relations:
             doc_elem.append(rel.to_xml())
 
@@ -112,5 +108,4 @@ class BioCDocument:
             id=id_text,
             infons=infons,
             passages=passages,
-            # Again, add annotations/relations here when needed
         )

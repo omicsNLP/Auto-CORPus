@@ -58,7 +58,6 @@ class BioCJSONEncoder(json.JSONEncoder):
                     "infons": o.infons,
                     "inputfile": o.inputfile,
                     "passages": [self.default(p) for p in o.passages],
-                    "annotations": [self.default(a) for a in o.annotations],
                     "relations": [self.default(r) for r in o.relations],
                 }
             case BioCAnnotation():
