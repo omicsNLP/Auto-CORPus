@@ -1,8 +1,6 @@
-# tests/bioc/test_bioc_collection.py
+"""Unit tests for the BioCCollection class and its methods for serialization and deserialization."""
 
 import xml.etree.ElementTree as ET
-
-import pytest
 
 from autocorpus.ac_bioc import (
     BioCCollection,

@@ -1,13 +1,14 @@
-# tests/bioc/test_bioc_document.py
+"""Unit tests for the BioCDocument class.
+
+Including serialization to/from dictionaries, JSON, and XML.
+"""
 
 import xml.etree.ElementTree as ET
 
 import pytest
 
 from autocorpus.ac_bioc import (
-    BioCAnnotation,
     BioCDocument,
-    BioCLocation,
     BioCNode,
     BioCPassage,
     BioCRelation,
