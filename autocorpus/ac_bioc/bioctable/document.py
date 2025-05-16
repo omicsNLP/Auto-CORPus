@@ -7,7 +7,7 @@ document to a dictionary representation.
 from dataclasses import dataclass, field
 from typing import Any
 
-from ...ac_bioc import BioCDocument, BioCPassage, BioCAnnotation
+from ...ac_bioc import BioCAnnotation, BioCDocument, BioCPassage
 from ...ac_bioc.bioctable.passage import BioCTablePassage
 
 
