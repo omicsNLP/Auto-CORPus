@@ -38,10 +38,10 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
 
     auto_corpus = Autocorpus(
         config=config,
-        main_text=str(pmc_example_path),
+        main_text=pmc_example_path,
     )
 
-    auto_corpus.process_files()
+    auto_corpus.process_file()
 
     abbreviations = auto_corpus.abbreviations
     bioc = auto_corpus.to_bioc()
@@ -58,6 +58,54 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
     assert abbreviations == expected_abbreviations
     assert bioc == expected_bioc
     assert tables == expected_tables
+
+
+@pytest.mark.parametrize(
+    "input_file, config",
+    [
+        ("Supplementary/PDF/tp-10-08-2123-coif.pdf", DefaultConfig.PMC.load_config()),
+    ],
+)
+def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
+    """Test the conversion of a PDF file to a BioC format."""
+    from autocorpus.autocorpus import Autocorpus
+
+    pdf_path = data_path / input_file
+    expected_output = pdf_path.parent / "Expected Output" / pdf_path.name
+    with open(
+        str(expected_output).replace(".pdf", ".pdf_bioc.json"),
+        encoding="utf-8",
+    ) as f:
+        expected_bioc = json.load(f)
+
+    with open(
+        str(expected_output).replace(".pdf", ".pdf_tables.json"),
+        encoding="utf-8",
+    ) as f:
+        expected_tables = json.load(f)
+
+    ac = Autocorpus(
+        config=config,
+    )
+
+    ac.process_files(files=[pdf_path])
+
+    with open(
+        str(pdf_path).replace(".pdf", ".pdf_bioc.json"),
+        encoding="utf-8",
+    ) as f:
+        new_bioc = json.load(f)
+
+    with open(
+        str(pdf_path).replace(".pdf", ".pdf_tables.json"),
+        encoding="utf-8",
+    ) as f:
+        new_tables = json.load(f)
+
+    _make_reproducible(new_bioc, expected_bioc, new_tables, expected_tables)
+
+    assert new_bioc == expected_bioc
+    assert new_tables == expected_tables
 
 
 def _make_reproducible(*data: dict[str, Any]) -> None:
