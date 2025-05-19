@@ -7,15 +7,19 @@ Modules used:
 """
 
 import re
+from collections.abc import Iterable
+from dataclasses import asdict, dataclass
 from functools import lru_cache
 from importlib import resources
+from itertools import chain
 from typing import Any
 
 import nltk
+from bs4 import BeautifulSoup, Tag
 from fuzzywuzzy import fuzz
 
 from . import logger
-from .references import References
+from .reference import get_references
 from .utils import handle_not_tables
 
 
@@ -127,32 +131,77 @@ def get_iao_term_to_id_mapping(iao_term: str) -> dict[str, str]:
     return {"iao_name": iao_term, "iao_id": mapping_result_id_version}
 
 
-class Section:
-    """Class for processing section data."""
+@dataclass
+class Paragraph:
+    """A paragraph for a section of the article."""
 
-    def __add_paragraph(self, body):
-        self.paragraphs.append(
-            {
-                "section_heading": self.section_heading,
-                "subsection_heading": self.subheader,
-                "body": body,
-                "section_type": self.section_type,
-            }
-        )
+    section_heading: str
+    subsection_heading: str
+    body: str
+    section_type: list[dict[str, str]]
 
-    def __navigate_children(self, soup_section, all_sub_sections, filtered_paragraphs):
-        if soup_section in filtered_paragraphs:
-            if soup_section.previous_sibling and soup_section.previous_sibling.name in (
+    as_dict = asdict
+
+
+def _get_abbreviations(
+    abbreviations_config: dict[str, Any], soup_section: BeautifulSoup
+) -> str:
+    try:
+        abbreviations_tables = handle_not_tables(abbreviations_config, soup_section)
+        node = abbreviations_tables[0]["node"]
+        abbreviations = {}
+        for tr in node.find_all("tr"):
+            short_form, long_form = (td.get_text() for td in tr.find_all("td"))
+            abbreviations[short_form] = long_form
+    except Exception:
+        abbreviations = {}
+
+    return str(abbreviations)
+
+
+def _get_references(
+    config: dict[str, Any], section_heading: str, soup_section: BeautifulSoup
+) -> Iterable[dict[str, Any]]:
+    """Constructs the article references using the provided configuration file.
+
+    Args:
+        config: HTML config rules
+        section_heading: Current section heading
+        soup_section: Article section containing references
+    """
+    all_references = handle_not_tables(config["references"], soup_section)
+    for ref in all_references:
+        yield get_references(ref, section_heading)
+
+
+@dataclass(frozen=True)
+class SectionChild:
+    """A child node in the section."""
+
+    subheading: str
+    body: str
+
+
+def _navigate_children(
+    subheading: str,
+    soup_sections: list[Tag],
+    subsections: list[dict[str, Any]],
+    paragraphs: list[Tag],
+) -> Iterable[SectionChild]:
+    for soup_section in soup_sections:
+        if soup_section in paragraphs:
+            if soup_section.previous_sibling and soup_section.previous_sibling.name in (  # type: ignore[attr-defined]
                 "h3",
                 "h4",
                 "h5",
             ):
-                self.subheader = soup_section.previous_sibling.get_text()
-            self.__add_paragraph(soup_section.get_text())
-            return
-        for subsec in all_sub_sections:
+                subheading = soup_section.previous_sibling.get_text()
+            yield SectionChild(subheading, soup_section.get_text())
+            continue
+
+        for subsec in subsections:
             if subsec["node"] == soup_section:
-                self.subheader = (
+                subheading = (
                     subsec["headers"][0]
                     if "headers" in subsec and not subsec["headers"] == ""
                     else ""
@@ -162,87 +211,71 @@ class Section:
             children = soup_section.findChildren(recursive=False)
         except Exception as e:
             logger.warning(e)
-            children = []
-        for child in children:
-            self.__navigate_children(child, all_sub_sections, filtered_paragraphs)
+            continue
 
-    def __get_abbreviations(self, soup_section):
-        if "abbreviations-table" in self.config:
-            try:
-                abbreviations_tables = handle_not_tables(
-                    self.config["abbreviations-table"], soup_section
-                )
-                abbreviations_tables = abbreviations_tables[0]["node"]
-                abbreviations = {}
-                for tr in abbreviations_tables.find_all("tr"):
-                    short_form, long_form = (td.get_text() for td in tr.find_all("td"))
-                    abbreviations[short_form] = long_form
-            except Exception:
-                abbreviations = {}
-            self.__add_paragraph(str(abbreviations))
+        for output in _navigate_children(subheading, children, subsections, paragraphs):
+            # We keep the last known subheading in case the next child doesn't define
+            # their own
+            subheading = output.subheading
+            yield output
 
-    def __get_section(self, soup_section):
-        all_sub_sections = handle_not_tables(self.config["sub-sections"], soup_section)
-        all_paragraphs = handle_not_tables(self.config["paragraphs"], soup_section)
-        all_paragraphs = [x["node"] for x in all_paragraphs]
-        all_tables = handle_not_tables(self.config["tables"], soup_section)
-        all_tables = [x["node"] for x in all_tables]
-        all_figures = handle_not_tables(self.config["figures"], soup_section)
-        all_figures = [x["node"] for x in all_figures]
-        unwanted_paragraphs = []
-        [
-            unwanted_paragraphs.extend(capt.find_all("p", recursive=True))
-            for capt in all_tables
-        ]
-        [
-            unwanted_paragraphs.extend(capt.find_all("p", recursive=True))
-            for capt in all_figures
-        ]
-        all_paragraphs = [
-            para for para in all_paragraphs if para not in unwanted_paragraphs
-        ]
-        children = soup_section.findChildren(recursive=False)
-        for child in children:
-            self.__navigate_children(child, all_sub_sections, all_paragraphs)
 
-    def __get_references(self, soup_section):
-        """Constructs the article references using the provided configuration file.
+def _get_section(
+    config: dict[str, Any], soup_section: BeautifulSoup
+) -> Iterable[SectionChild]:
+    subsections = handle_not_tables(config["sub-sections"], soup_section)
+    paragraphs = [
+        para["node"] for para in handle_not_tables(config["paragraphs"], soup_section)
+    ]
+    tables = [
+        table["node"] for table in handle_not_tables(config["tables"], soup_section)
+    ]
+    figures = [
+        figure["node"] for figure in handle_not_tables(config["figures"], soup_section)
+    ]
+    unwanted_paragraphs = list(
+        chain.from_iterable(
+            capt.find_all("p", recursive=True) for capt in chain(tables, figures)
+        )
+    )
+    paragraphs = [para for para in paragraphs if para not in unwanted_paragraphs]
+    children = soup_section.findChildren(recursive=False)
+    return _navigate_children("", children, subsections, paragraphs)
 
-        Args:
-            soup_section (bs4.BeautifulSoup): article section containing references
-        """
-        all_references = handle_not_tables(self.config["references"], soup_section)
-        for ref in all_references:
-            self.paragraphs.append(
-                References(ref, self.config, self.section_heading).to_dict()
+
+def get_section(
+    config: dict[str, dict[str, Any]], section_dict: dict[str, Any]
+) -> Iterable[dict[str, Any]]:
+    """Identifies a section using the provided configuration.
+
+    Args:
+        config: AC configuration object.
+        section_dict: Article section dictionary.
+    """
+    section_heading = section_dict.get("headers", [""])[0]
+    section_type = get_iao_term_mapping(section_heading)
+
+    # Different processing for abbreviations and references section types
+    if section_heading == "Abbreviations":
+        if abbreviations_config := config.get("abbreviations-table", None):
+            abbreviations = _get_abbreviations(
+                abbreviations_config, section_dict["node"]
             )
+            for body in abbreviations:
+                yield Paragraph(section_heading, "", body, section_type).as_dict()
+            return
 
-    def __init__(self, config: dict[str, Any], section_dict: dict[str, Any]) -> None:
-        """Identifies a section using the provided configuration.
+    if {
+        "iao_name": "references section",
+        "iao_id": "IAO:0000320",
+    } in section_type:
+        yield from _get_references(config, section_heading, section_dict["node"])
+        return
 
-        Args:
-            config: AC configuration object.
-            section_dict: Article section dictionary.
-        """
-        self.config = config
-        self.section_heading = section_dict.get("headers", [""])[0]
-        self.section_type = get_iao_term_mapping(self.section_heading)
-        self.subheader = ""
-        self.paragraphs: list[dict[str, str]] = []
-        if self.section_heading == "Abbreviations":
-            self.__get_abbreviations(section_dict["node"])
-        elif {
-            "iao_name": "references section",
-            "iao_id": "IAO:0000320",
-        } in self.section_type:
-            self.__get_references(section_dict["node"])
-        else:
-            self.__get_section(section_dict["node"])
-
-    def to_list(self) -> list[dict[str, str]]:
-        """Retrieve a list of section paragraphs.
-
-        Returns:
-                The section paragraphs
-        """
-        return self.paragraphs
+    for child in _get_section(config, section_dict["node"]):
+        yield Paragraph(
+            section_heading,
+            child.subheading,
+            child.body,
+            section_type,
+        ).as_dict()

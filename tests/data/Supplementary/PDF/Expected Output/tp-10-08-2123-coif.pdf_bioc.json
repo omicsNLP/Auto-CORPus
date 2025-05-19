@@ -1,0 +1,3717 @@
+{
+    "source": "Auto-CORPus (supplementary)",
+    "date": "20250516",
+    "key": "autocorpus_supplementary.key",
+    "version": "1.0",
+    "infons": {},
+    "documents": [
+        {
+            "id": "1",
+            "infons": {},
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_0_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 27,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 48,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 519,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 555,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 612,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 1425,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 1494,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 2099,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 2620,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 3245,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 3279,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 3388,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 3432,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 3634,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 3654,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 3743,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 3830,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 4027,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 4190,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 4449,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_1_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 4476,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 4782,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 4856,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 5233,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 5295,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 5394,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_2_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 5421,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 5470,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 5655,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 5741,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 5836,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6065,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6103,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6232,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Zong has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6265,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6296,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_3_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6323,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6343,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6344,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6815,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6851,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 6908,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 7721,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 7790,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 8395,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 8916,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 9541,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 9575,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 9684,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 9728,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 9930,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 9950,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 10039,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 10126,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 10323,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 10486,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 10745,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_4_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 10772,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **The Work Under Consideration for Publication Section 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 10834,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 11140,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 11215,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 11592,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 11654,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_5_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 11681,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 11730,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 11915,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12001,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12096,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12325,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12363,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12492,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Liu has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12524,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12555,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_6_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12582,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12602,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 12603,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 13074,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 13110,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 13167,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 13980,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 14049,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 14654,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 15175,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 15800,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 15834,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 15943,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 15987,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 16189,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 16209,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 16298,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 16385,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 16582,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 16745,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 17004,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_7_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 17031,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 17337,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 17411,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 17788,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 17850,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_8_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 17877,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 17926,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18111,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18197,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18292,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18521,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18559,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18688,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Hou has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18720,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18751,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_9_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18778,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18798,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 18799,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 19270,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 19306,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 19363,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 20176,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 20245,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 20850,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 21371,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 21996,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22030,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22139,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22183,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22385,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22405,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22494,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22581,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22778,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 22941,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 23200,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_10_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 23228,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 23534,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 23608,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 23985,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24047,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24146,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_11_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24174,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24223,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24408,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24494,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24589,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24818,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24856,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 24985,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Zhang has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 25019,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 25050,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_12_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 25078,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 25098,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 25099,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 25570,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 25606,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 25663,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 26476,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 26545,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 27150,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 27671,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 28296,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 28330,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 28439,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 28483,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 28685,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 28705,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 28794,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 28881,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 29078,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 29241,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 29500,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_13_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 29528,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 29834,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 29908,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 30285,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 30347,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 30446,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_14_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 30474,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 30523,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 30708,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 30794,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 30889,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31118,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31156,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31285,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Jiang has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31319,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31350,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_15_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31378,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31398,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31399,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31870,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31906,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 31963,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 32776,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 32845,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 33450,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 33971,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 34596,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 34630,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 34739,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 34783,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 34985,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 35005,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 35094,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 35181,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 35378,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 35541,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 35800,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_16_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 35828,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 36134,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 36208,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 36585,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 36647,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_17_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 36675,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 36724,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 36909,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 36995,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37090,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37319,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37357,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37486,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Sun has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37518,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37549,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_18_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37577,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37597,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 37598,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 38069,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 38105,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 38162,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 38975,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 39044,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 39649,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 40170,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 40795,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 40829,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 40938,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 40982,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 41184,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 41204,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 41293,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 41380,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 41577,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 41740,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 41999,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_19_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 42027,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation,",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 42304,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "statistical analysis, etc.)? Are there any relevant conflicts of interest? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 42387,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 42461,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 42838,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there any relevant conflicts of interest? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 42892,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 42954,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_20_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 42982,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43031,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43216,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43302,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43397,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43626,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43664,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43793,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Xie has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43825,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43856,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_21_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43884,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43904,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 43905,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 44376,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 44412,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 44469,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 45282,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 45351,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 45956,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 46477,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47102,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47136,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47245,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47289,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47491,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47511,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47600,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47687,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 47884,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 48047,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 48306,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_22_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 48334,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation,",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 48611,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "statistical analysis, etc.)? Are there any relevant conflicts of interest? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 48694,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 48768,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49145,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there any relevant conflicts of interest? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49199,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49261,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49360,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_23_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49388,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49437,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49622,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49708,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 49803,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50032,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50070,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50199,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Xiao has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50232,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50263,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_24_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50291,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50311,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50312,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50783,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50819,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 50876,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 51689,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 51758,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 52363,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 52884,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 53509,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 53543,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 53652,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 53696,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 53898,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 53918,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 54007,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 54094,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 54291,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 54454,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 54713,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_25_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 54741,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 55047,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 55121,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 55498,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 55560,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 55659,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_26_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 55687,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 55736,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 55921,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56007,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56102,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56331,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56369,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56498,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Zhang has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56532,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56563,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_27_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56591,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Instructions**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56611,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " ",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 56612,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 57083,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Identifying information. 1.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 57119,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **The work under consideration for publication. 2.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 57176,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 57989,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relevant financial activities outside the submitted work. 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 58058,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 58663,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 59184,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 59809,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Intellectual Property. 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 59843,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 59952,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "#### **Relationships not covered above. 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 59996,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 60198,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Definitions.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 60218,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 60307,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 60394,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 60591,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 60754,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 61013,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_28_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 61041,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 61347,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 61421,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 61798,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 61860,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "![](_page_29_Picture_0.jpeg)",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 61888,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Relationships not covered above Section 5.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 61937,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 62122,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 62208,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 62303,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 62532,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "## **Disclosure Statement Section 6.**",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 62570,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 62699,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "Dr. Li has nothing to disclose.",
+                    "annotations": [],
+                    "relations": []
+                },
+                {
+                    "offset": 62730,
+                    "infons": {
+                        "iao_name_1": "supplementary material section",
+                        "iao_id_1": "IAO:0000326"
+                    },
+                    "text": "### **Evaluation and Feedback**",
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "relations": []
+        }
+    ]
+}
