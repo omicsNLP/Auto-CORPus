@@ -80,12 +80,12 @@ def sample_collection() -> BioCCollection:
 
 
 def pytest_addoption(parser):
-    """Fixture to add command line options for pytest."""
+    """Hook function to add custom command line options for pytest."""
     parser.addoption(
-        "--ci",
+        "--skip-ci-macos",
         action="store_true",
         default=False,
-        help="Indicate tests are running in CI",
+        help="Skip tests that are unable to run in CI on macOS",
     )
 
 
