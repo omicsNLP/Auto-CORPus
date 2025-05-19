@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run tests
-        run: poetry run pytest
+        run: poetry run pytest --ci
       - name: Check docs build
         run: poetry run mkdocs build
       - name: Check types
