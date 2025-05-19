@@ -2524,6 +2524,21 @@ files = [
 six = ">=1.5"
 
 [[package]]
+name = "python-docx"
+version = "1.1.2"
+description = "Create, read, and update Microsoft Word .docx files."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "python_docx-1.1.2-py3-none-any.whl", hash = "sha256:08c20d6058916fb19853fcf080f7f42b6270d89eac9fa5f8c15f691c0017fabe"},
+    {file = "python_docx-1.1.2.tar.gz", hash = "sha256:0cf1f22e95b9002addca7948e16f2cd7acdfd498047f1941ca5d293db7762efd"},
+]
+
+[package.dependencies]
+lxml = ">=3.1.0"
+typing-extensions = ">=4.9.0"
+
+[[package]]
 name = "python-dotenv"
 version = "1.1.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
@@ -3597,6 +3612,17 @@ files = [
 ]
 
 [[package]]
+name = "types-pywin32"
+version = "310.0.0.20250516"
+description = "Typing stubs for pywin32"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "types_pywin32-310.0.0.20250516-py3-none-any.whl", hash = "sha256:f9ef83a1ec3e5aae2b0e24c5f55ab41272b5dfeaabb9a0451d33684c9545e41a"},
+    {file = "types_pywin32-310.0.0.20250516.tar.gz", hash = "sha256:91e5bfc033f65c9efb443722eff8101e31d690dd9a540fa77525590d3da9cc9d"},
+]
+
+[[package]]
 name = "types-regex"
 version = "2024.11.6.20250403"
 description = "Typing stubs for regex"
@@ -3842,4 +3868,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4"
-content-hash = "e056cd80a80d198aebb03f56524339ba094d9202dbbc242031681883e9272f19"
+content-hash = "9aa4f30d08ca2ce55ec0848361b28ecaea08f2966b692e0552fc3ff19b79daab"

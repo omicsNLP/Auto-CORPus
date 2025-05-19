@@ -218,7 +218,7 @@ class BioCTableConverter:
 class BioCTextConverter:
     """Converts text content into a BioC format for supplementary material processing."""
 
-    text: str
+    text: str | list[tuple[str, bool]]
     file_type_source: str
     input_file: str
 

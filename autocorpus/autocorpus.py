@@ -14,6 +14,7 @@ from autocorpus.bioc_supplementary import (
     BioCTextConverter,
     extract_table_from_pdf_text,
 )
+from autocorpus.word_extractor import extract_word_content
 
 from . import logger
 from .abbreviation import get_abbreviations
@@ -337,6 +338,8 @@ class Autocorpus:
                 pass
             case ".pdf":
                 self.__extract_pdf_content(file)
+            case ".doc" | ".docx":
+                extract_word_content(file)
             case _:
                 pass
 

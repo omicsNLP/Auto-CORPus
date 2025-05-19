@@ -38,6 +38,8 @@ pandas = "^2.2.3"
 marker-pdf = "^1.6.2"
 lxml-stubs = "^0.5.1"
 pandas-stubs = "^2.2.3.250308"
+python-docx = "^1.1.2"
+types-pywin32 = "^310.0.0.20250516"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
