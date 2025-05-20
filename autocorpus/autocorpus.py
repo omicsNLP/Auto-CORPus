@@ -18,26 +18,6 @@ from .utils import handle_not_tables
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
-    @staticmethod
-    def read_config(config_path: str) -> dict[str, Any]:
-        """Reads a configuration file and returns its content.
-
-        Args:
-            config_path (str): The path to the configuration file.
-
-        Returns:
-            dict: The content of the configuration file.
-
-        Raises:
-            FileNotFoundError: If the configuration file does not exist.
-            json.JSONDecodeError: If the configuration file is not a valid JSON.
-            KeyError: If the configuration file does not contain the expected "config" key.
-        """
-        with open(config_path, encoding="utf-8") as f:
-            ## TODO: validate config file here if possible
-            content = json.load(f)
-            return content["config"]
-
     def __soupify_infile(self, fpath: Path):
         with fpath.open(encoding="utf-8") as fp:
             soup = BeautifulSoup(fp.read(), "html.parser")

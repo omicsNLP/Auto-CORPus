@@ -6,7 +6,7 @@ from typing import Any
 
 import pytest
 
-from autocorpus.configs.default_config import DefaultConfig
+from autocorpus.config import DefaultConfig
 
 
 @pytest.mark.parametrize(
