@@ -9,6 +9,7 @@ from marker.converters.pdf import PdfConverter
 from marker.models import create_model_dict
 from marker.output import text_from_rendered
 
+from autocorpus.ac_bioc.bioctable.json import BioCTableJSON
 from autocorpus.bioc_supplementary import (
     BioCTableConverter,
     BioCTextConverter,
@@ -129,10 +130,16 @@ class Autocorpus:
         # separate text and tables
         text, tables = extract_table_from_pdf_text(text)
         # format data for BioC
-        bioc_text = BioCTextConverter(text, "pdf", str(file_path))
-        bioc_text.output_bioc_json(file_path)
-        bioc_tables = BioCTableConverter(tables, str(file_path))
-        bioc_tables.output_tables_json(file_path)
+        bioc_text = BioCTextConverter.build_bioc(text, str(file_path), "pdf")
+        bioc_tables = BioCTableConverter.build_bioc(tables, str(file_path))
+
+        out_filename = str(file_path).replace(".pdf", ".pdf_bioc.json")
+        with open(out_filename, "w", encoding="utf-8") as f:
+            BioCJSON.dump(bioc_text, f, indent=4)
+
+        out_table_filename = str(file_path).replace(".pdf", ".pdf_tables.json")
+        with open(out_table_filename, "w", encoding="utf-8") as f:
+            BioCTableJSON.dump(bioc_tables, f, indent=4)
         return True
 
     def __extract_text(self, soup, config):
