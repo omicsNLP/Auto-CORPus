@@ -1,5 +1,6 @@
 """Fixtures for tests."""
 
+import sys
 from pathlib import Path
 
 import pytest
@@ -76,3 +77,33 @@ def sample_collection() -> BioCCollection:
             )
         ],
     )
+
+
+def pytest_addoption(parser):
+    """Hook function to add custom command line options for pytest."""
+    parser.addoption(
+        "--skip-ci-macos",
+        action="store_true",
+        default=False,
+        help="Skip tests that are unable to run in CI on macOS",
+    )
+
+
+def pytest_configure(config):
+    """Fixture to add custom markers to pytest."""
+    config.addinivalue_line(
+        "markers", "skip_ci_macos: mark test as unable to run in CI on MacOS"
+    )
+
+
+def pytest_collection_modifyitems(config, items):
+    """Fixture to modify test collection based on command line options."""
+    if not config.getoption("--skip-ci-macos"):
+        # `--skip-ci-macos` not given in cli: this is not a CI run
+        return
+    skip_ci_macos = pytest.mark.skipif(
+        sys.platform == "darwin", reason="Uses too much memory in CI on MacOS"
+    )
+    for item in items:
+        if "skip_ci_macos" in item.keywords:
+            item.add_marker(skip_ci_macos)
