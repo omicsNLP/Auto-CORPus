@@ -133,7 +133,7 @@ class BioCTableConverter:
     """Converts tables from nested lists into a BioC table object."""
 
     @staticmethod
-    def build_bioc(table_data: list[DataFrame], input_file: str):
+    def build_bioc(table_data: list[DataFrame], input_file: str) -> BioCTableCollection:
         """Builds a BioCTableCollection object from the provided table data and input file.
 
         Args:
@@ -146,6 +146,7 @@ class BioCTableConverter:
         bioc.key = "autocorpus_supplementary.key"
         bioc.infons = {}
         bioc.documents = BioCTableConverter.__build_tables(table_data, input_file)
+        return bioc
 
     @staticmethod
     def __build_tables(
