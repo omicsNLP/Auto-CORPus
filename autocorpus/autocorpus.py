@@ -331,7 +331,7 @@ class Autocorpus:
                         )
 
     def __process_supplementary_file(self, file: Path):
-        match file.suffix:
+        match file.suffix.lower():
             case ".html" | ".htm":
                 self.__process_html_article(file)
             case ".xml":

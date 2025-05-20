@@ -43,26 +43,27 @@ def __extract_tables(doc):
     return tables
 
 
-def __convert_older_doc_file(file, output_dir):
+def __convert_older_doc_file(file: Path, output_dir: Path) -> Path | bool:
+    """Converts an older .doc file to .docx format using platform-specific methods."""
     operating_system = platform.system()
-    docx_path = file.replace(".doc", ".docx")
+    docx_path = Path(str(file).replace(".doc", ".docx"))
     if operating_system == "Windows":
         import win32com.client
 
         word = None
         try:
-            docx_path = file + ".docx"
             word = win32com.client.DispatchEx("Word.Application")
             doc = word.Documents.Open(file)
-            doc.SaveAs(file + ".docx", 16)
+            doc.SaveAs(docx_path, 16)
             doc.Close()
             word.Quit()
             return docx_path
         except Exception:
             return False
         finally:
-            word.Quit()
-    elif operating_system == "linux":
+            if word:
+                word.Quit()
+    elif operating_system == "Linux":
         # Convert .doc to .docx using LibreOffice
         subprocess.run(
             [
@@ -101,11 +102,13 @@ def extract_word_content(file_path: Path):
     if file_path.suffix.lower() not in [".doc", ".docx"]:
         raise ValueError("Input file must be a .doc file.")
     try:
-        output_dir = str(Path(file_path).parent.absolute())
-        docx_path = __convert_older_doc_file(file_path, output_dir)
+        output_dir = Path(file_path).parent.absolute()
+        # Check if the file is a .doc file
+        if file_path.suffix.lower() == ".doc":
+            docx_path = __convert_older_doc_file(file_path, output_dir)
 
         # Extract text from the resulting .docx file
-        doc = Document(docx_path)
+        doc = Document(str(docx_path))
         tables = __extract_tables(doc)
         text_sizes = set(
             [
@@ -130,8 +133,8 @@ def extract_word_content(file_path: Path):
         bioc_text.output_bioc_json(file_path)
         bioc_tables = BioCTableConverter(tables, str(file_path))
         bioc_tables.output_tables_json(file_path)
-        os.unlink(docx_path)
-        return paragraphs, tables
+        print(str(docx_path))
+        os.unlink(str(docx_path))
     except FileNotFoundError:
         logger.error(
             "LibreOffice 'soffice' command not found. Ensure it is installed and in your PATH."
