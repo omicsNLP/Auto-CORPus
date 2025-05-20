@@ -60,6 +60,7 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
     assert tables == expected_tables
 
 
+@pytest.mark.skip_ci_macos
 @pytest.mark.parametrize(
     "input_file, config",
     [
