@@ -200,7 +200,7 @@ class BioCTableConverter:
 
 class BioCTextConverter:
     """Converts text content into a BioC format for supplementary material processing."""
-    
+
     @staticmethod
     def build_bioc(text: str, input_file: str, file_type: str) -> BioCCollection:
         """Builds a BioCCollection object from the provided text, input file, and file type.
