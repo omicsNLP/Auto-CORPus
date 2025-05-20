@@ -80,6 +80,5 @@ def test_bioc_collection_dtd_validation(dtd_path, sample_collection):
         dtd = LET.DTD(dtd_file)
 
     doc = LET.fromstring(xml_str)
-    print(doc.find("document"))
 
     assert dtd.validate(doc), dtd.error_log.filter_from_errors()
