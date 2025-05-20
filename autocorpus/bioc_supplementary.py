@@ -1,9 +1,7 @@
 """This module provides functionality for converting text extracted from various file types into a BioC format."""
 
 import datetime
-from dataclasses import dataclass, field
-from pathlib import Path
-from typing import Any
+from typing import TypeVar
 
 import pandas as pd
 import regex
@@ -12,14 +10,12 @@ from pandas import DataFrame
 from .ac_bioc import (
     BioCCollection,
     BioCDocument,
-    BioCJSON,
     BioCPassage,
 )
 from .ac_bioc.bioctable import (
     BioCTableCell,
     BioCTableCollection,
     BioCTableDocument,
-    BioCTableJSON,
     BioCTablePassage,
 )
 
@@ -88,7 +84,20 @@ def extract_table_from_pdf_text(text: str) -> tuple[str, list[DataFrame]]:
     return text_output, tables_output
 
 
-def replace_unicode(text):
+def string_replace_unicode(text: str) -> str:
+    """Replaces specific Unicode characters with their corresponding replacements in the given text."""
+    return (
+        text.replace("\u00a0", " ")
+        .replace("\u00ad", "-")
+        .replace("\u2010", "-")
+        .replace("\u00d7", "x")
+    )
+
+
+T = TypeVar("T", str, list[str])
+
+
+def replace_unicode(text: T) -> T:
     """Replaces specific Unicode characters with their corresponding replacements in the given text.
 
     Args:
@@ -109,58 +118,42 @@ def replace_unicode(text):
 
     Returns the processed text or list of processed texts.
     """
-    if not text:
-        return None
     if isinstance(text, list):
         clean_texts = []
         for t in text:
             if t:
-                clean_texts.append(
-                    t.replace("\u00a0", " ")
-                    .replace("\u00ad", "-")
-                    .replace("\u2010", "-")
-                    .replace("\u00d7", "x")
-                )
+                clean_texts.append(string_replace_unicode(t))
         return clean_texts
     else:
-        clean_text = (
-            text.replace("\u00a0", " ")
-            .replace("\u00ad", "-")
-            .replace("\u2010", "-")
-            .replace("\u00d7", "x")
-        )
+        clean_text = string_replace_unicode(text)
         return clean_text
 
 
-@dataclass
 class BioCTableConverter:
     """Converts tables from nested lists into a BioC table object."""
 
-    table_data: list["DataFrame"]
-    input_file: str
+    @staticmethod
+    def build_bioc(table_data: list[DataFrame], input_file: str) -> BioCTableCollection:
+        """Builds a BioCTableCollection object from the provided table data and input file.
 
-    current_table_id: int = 1
-    textsource: str = "Auto-CORPus (supplementary)"
-    infons: dict[str, Any] = field(default_factory=dict)
-    documents: list["BioCTableDocument"] = field(default_factory=list)
-    annotations: list[dict[str, Any]] = field(default_factory=list)
-    passages: list["BioCTablePassage"] = field(default_factory=list)
-    bioc: Any = field(init=False)
+        Args:
+            table_data (list[DataFrame]): List of pandas DataFrames representing tables.
+            input_file (str): The path to the input file.
+        """
+        bioc = BioCTableCollection()
+        bioc.source = "Auto-CORPus (supplementary)"
+        bioc.date = datetime.date.today().strftime("%Y%m%d")
+        bioc.key = "autocorpus_supplementary.key"
+        bioc.infons = {}
+        bioc.documents = BioCTableConverter.__build_tables(table_data, input_file)
+        return bioc
 
-    def __post_init__(self):
-        """Initializes the object after its creation by building tables and structuring the BioC object."""
-        self.__build_tables(self.table_data)
-        self.__structure_bioc()
-
-    def __structure_bioc(self):
-        self.bioc = BioCTableCollection()
-        self.bioc.source = self.textsource
-        self.bioc.date = datetime.date.today().strftime("%Y%m%d")
-        self.bioc.key = "autocorpus_supplementary.key"
-        self.bioc.infons = {}
-        self.bioc.documents = self.documents
-
-    def __build_tables(self, table_data: list[DataFrame]):
+    @staticmethod
+    def __build_tables(
+        table_data: list[DataFrame], input_file: str
+    ) -> list[BioCDocument]:
+        current_table_id = 1
+        documents: list[BioCDocument] = []
         for table_idx, table_dataframe in enumerate(table_data):
             passages: list[BioCPassage] = []
             passage: BioCTablePassage = BioCTablePassage()
@@ -197,61 +190,42 @@ class BioCTableConverter:
                 passage.data_section[0]["data_rows"].append(new_row)
 
             passages.append(passage)
-            temp_doc = BioCTableDocument(id=str(self.current_table_id))
+            temp_doc = BioCTableDocument(id=str(current_table_id))
             temp_doc.passages = passages
-            temp_doc.inputfile = self.input_file
-            self.documents.append(temp_doc)
-            self.current_table_id += 1
-
-    def output_tables_json(self, filename: Path) -> None:
-        """Outputs the BioC table collection as a JSON file.
-
-        Args:
-            filename (Path): The path to the input file, which will be used to generate the output JSON filename.
-        """
-        out_filename = str(filename).replace(".pdf", ".pdf_tables.json")
-        with open(out_filename, "w", encoding="utf-8") as f:
-            BioCTableJSON.dump(self.bioc, f, indent=4)
+            temp_doc.inputfile = input_file
+            documents.append(temp_doc)
+            current_table_id += 1
+        return documents
 
 
-@dataclass
 class BioCTextConverter:
     """Converts text content into a BioC format for supplementary material processing."""
+    
+    @staticmethod
+    def build_bioc(text: str, input_file: str, file_type: str) -> BioCCollection:
+        """Builds a BioCCollection object from the provided text, input file, and file type.
 
-    text: str | list[tuple[str, bool]]
-    file_type_source: str
-    input_file: str
+        Args:
+            text (str): The text content to be converted.
+            input_file (str): The path to the input file.
+            file_type (str): The type of the input file ('word' or 'pdf').
 
-    document_id: int = 1
-    infons: dict[str, Any] = field(default_factory=dict)
-    passages: list[Any] = field(init=False)
-    annotations: list[Any] = field(default_factory=list)
-    bioc: Any = field(init=False)
-
-    def __post_init__(self):
-        """Initializes passages based on the file type source and structures the BioC object."""
-        if self.file_type_source == "word":
-            self.passages = self.__identify_word_passages(self.text)
-        elif self.file_type_source == "pdf":
-            self.passages = self.__identify_pdf_passages(self.text)
-        else:
-            self.passages = []
-        self.__structure_bioc()
-
-    def __structure_bioc(self):
-        self.bioc = BioCCollection()
-        self.bioc.source = "Auto-CORPus (supplementary)"
-        self.bioc.date = datetime.date.today().strftime("%Y%m%d")
-        self.bioc.key = "autocorpus_supplementary.key"
-        self.bioc.infons = {}
-        self.bioc.documents = []
-        temp_doc = BioCDocument(id=str(self.document_id))
-        temp_doc.passages = self.passages
-        temp_doc.annotations = self.annotations
-        temp_doc.infons = self.infons
-        temp_doc.inputfile = self.input_file
-        self.document_id += 1
-        self.bioc.documents.append(temp_doc)
+        Returns:
+            BioCCollection: The constructed BioCCollection object.
+        """
+        bioc = BioCCollection()
+        bioc.source = "Auto-CORPus (supplementary)"
+        bioc.date = datetime.date.today().strftime("%Y%m%d")
+        bioc.key = "autocorpus_supplementary.key"
+        temp_doc = BioCDocument(id="1")
+        if file_type == "word":
+            temp_doc.passages = BioCTextConverter.__identify_word_passages(text)
+        elif file_type == "pdf":
+            temp_doc.passages = BioCTextConverter.__identify_passages(text)
+        temp_doc.passages = BioCTextConverter.__identify_passages(text)
+        temp_doc.inputfile = input_file
+        bioc.documents.append(temp_doc)
+        return bioc
 
     @staticmethod
     def __identify_passages(text):
@@ -281,10 +255,6 @@ class BioCTextConverter:
         return passages
 
     @staticmethod
-    def __identify_pdf_passages(text):
-        return BioCTextConverter.__identify_passages(text)
-
-    @staticmethod
     def __identify_word_passages(text):
         offset = 0
         passages = []
@@ -303,13 +273,3 @@ class BioCTextConverter:
         passages.append(passage)
         offset += len(line)
         return passages
-
-    def output_bioc_json(self, filename: Path) -> None:
-        """Outputs the BioC collection as a JSON file.
-
-        Args:
-            filename (Path): The path to the input file, which will be used to generate the output JSON filename.
-        """
-        out_filename = str(filename).replace(".pdf", ".pdf_bioc.json")
-        with open(out_filename, "w", encoding="utf-8") as f:
-            BioCJSON.dump(self.bioc, f, indent=4)
