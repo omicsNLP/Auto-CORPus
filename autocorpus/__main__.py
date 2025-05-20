@@ -7,8 +7,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from . import add_file_logger, logger
-from .autocorpus import Autocorpus
-from .configs.default_config import DefaultConfig
+from .config import DefaultConfig, read_config
 from .inputs import read_file_structure
 from .run import run_autocorpus
 
@@ -66,7 +65,7 @@ def main():
 
     # Load the config
     if args.config:
-        config = Autocorpus.read_config(args.config)
+        config = read_config(args.config)
     elif args.default_config:
         try:
             config = DefaultConfig[args.default_config].load_config()
