@@ -200,13 +200,15 @@ class BioCTableConverter:
 
 class BioCTextConverter:
     """Converts text content into a BioC format for supplementary material processing."""
-    
+
     @staticmethod
-    def build_bioc(text: str, input_file: str, file_type: str) -> BioCCollection:
+    def build_bioc(
+        text: str | list[tuple[str, bool]], input_file: str, file_type: str
+    ) -> BioCCollection:
         """Builds a BioCCollection object from the provided text, input file, and file type.
 
         Args:
-            text (str): The text content to be converted.
+            text (str | list[tuple[str, bool]]): The text content to be converted.
             input_file (str): The path to the input file.
             file_type (str): The type of the input file ('word' or 'pdf').
 
@@ -222,7 +224,8 @@ class BioCTextConverter:
             temp_doc.passages = BioCTextConverter.__identify_word_passages(text)
         elif file_type == "pdf":
             temp_doc.passages = BioCTextConverter.__identify_passages(text)
-        temp_doc.passages = BioCTextConverter.__identify_passages(text)
+        else:
+            temp_doc.passages = BioCTextConverter.__identify_passages(text)
         temp_doc.inputfile = input_file
         bioc.documents.append(temp_doc)
         return bioc
@@ -255,21 +258,21 @@ class BioCTextConverter:
         return passages
 
     @staticmethod
-    def __identify_word_passages(text):
+    def __identify_word_passages(text: list[tuple[str, bool]]) -> list[BioCPassage]:
         offset = 0
         passages = []
-        line, is_header = text
-        line = line.replace("\n", "")
-        if line.isupper() or is_header:
-            iao_name = "document title"
-            iao_id = "IAO:0000305"
-        else:
-            iao_name = "supplementary material section"
-            iao_id = "IAO:0000326"
-        passage = BioCPassage()
-        passage.offset = offset
-        passage.infons = {"iao_name_1": iao_name, "iao_id_1": iao_id}
-        passage.text = line
-        passages.append(passage)
-        offset += len(line)
+        for paragraph, is_header in text:
+            paragraph = paragraph.replace("\n", "")
+            if paragraph.isupper() or is_header:
+                iao_name = "document title"
+                iao_id = "IAO:0000305"
+            else:
+                iao_name = "supplementary material section"
+                iao_id = "IAO:0000326"
+            passage = BioCPassage()
+            passage.offset = offset
+            passage.infons = {"iao_name_1": iao_name, "iao_id_1": iao_id}
+            passage.text = paragraph
+            passages.append(passage)
+            offset += len(paragraph)
         return passages

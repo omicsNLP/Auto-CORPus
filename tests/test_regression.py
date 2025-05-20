@@ -109,6 +109,61 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
     assert new_tables == expected_tables
 
 
+@pytest.mark.parametrize(
+    "input_file, config, has_tables",
+    [
+        ("Supplementary/Word/mmc1.doc", DefaultConfig.PMC.load_config(), False),
+    ],
+)
+def test_word_to_bioc(
+    data_path: Path, input_file: str, config: dict[str, Any], has_tables: bool
+) -> None:
+    """Test the conversion of a doc file to a BioC format."""
+    from autocorpus.autocorpus import Autocorpus
+
+    doc_path = data_path / input_file
+    expected_output = doc_path.parent / "Expected Output" / doc_path.name
+    with open(
+        str(expected_output).replace(".doc", ".doc_bioc.json"),
+        encoding="utf-8",
+    ) as f:
+        expected_bioc = json.load(f)
+
+    if has_tables:
+        with open(
+            str(expected_output).replace(".doc", ".doc_tables.json"),
+            encoding="utf-8",
+        ) as f:
+            expected_tables = json.load(f)
+
+    ac = Autocorpus(
+        config=config,
+    )
+
+    ac.process_files(files=[doc_path])
+
+    with open(
+        str(doc_path).replace(".doc", ".doc_bioc.json"),
+        encoding="utf-8",
+    ) as f:
+        new_bioc = json.load(f)
+
+    if has_tables:
+        with open(
+            str(doc_path).replace(".doc", ".doc_tables.json"),
+            encoding="utf-8",
+        ) as f:
+            new_tables = json.load(f)
+
+        _make_reproducible(new_bioc, expected_bioc, new_tables, expected_tables)
+    else:
+        _make_reproducible(new_bioc, expected_bioc)
+
+    assert new_bioc == expected_bioc
+    if has_tables:
+        assert new_tables == expected_tables
+
+
 def _make_reproducible(*data: dict[str, Any]) -> None:
     """Make output files reproducible by stripping dates and file paths."""
     for d in data:

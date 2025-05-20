@@ -10,6 +10,10 @@ from pathlib import Path
 
 from docx import Document
 
+from autocorpus.ac_bioc.bioctable.collection import BioCTableCollection
+from autocorpus.ac_bioc.bioctable.json import BioCTableJSON
+from autocorpus.ac_bioc.collection import BioCCollection
+from autocorpus.ac_bioc.json import BioCJSON
 from autocorpus.bioc_supplementary import BioCTableConverter, BioCTextConverter
 
 from . import logger
@@ -129,11 +133,29 @@ def extract_word_content(file_path: Path):
             )
             for x in doc.paragraphs
         ]
-        bioc_text = BioCTextConverter(paragraphs, "word", str(file_path))
-        bioc_text.output_bioc_json(file_path)
-        bioc_tables = BioCTableConverter(tables, str(file_path))
-        bioc_tables.output_tables_json(file_path)
-        print(str(docx_path))
+        bioc_text: BioCCollection | None = None
+        bioc_tables: BioCTableCollection | None = None
+
+        if paragraphs:
+            bioc_text = BioCTextConverter.build_bioc(paragraphs, str(file_path), "word")
+
+        if tables:
+            bioc_tables = BioCTableConverter.build_bioc(tables, str(file_path))
+
+        if bioc_text:
+            out_filename = str(file_path).replace(
+                file_path.suffix, f"{file_path.suffix}_bioc.json"
+            )
+            with open(out_filename, "w", encoding="utf-8") as f:
+                BioCJSON.dump(bioc_text, f, indent=4)
+
+        if bioc_tables:
+            out_table_filename = str(file_path).replace(
+                file_path.suffix, f"{file_path.suffix}_tables.json"
+            )
+            with open(out_table_filename, "w", encoding="utf-8") as f:
+                BioCTableJSON.dump(bioc_tables, f, indent=4)
+
         os.unlink(str(docx_path))
     except FileNotFoundError:
         logger.error(

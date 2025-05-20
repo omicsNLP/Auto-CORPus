@@ -22,7 +22,6 @@ class BioCCollection:
     key: str = field(default_factory=str)
     documents: list[BioCDocument] = field(default_factory=list)
     infons: dict[str, str] = field(default_factory=dict)
-    version: str = field(default="1.0")
 
     def to_dict(self):
         """Convert the BioCCollection instance to a dictionary.
@@ -62,7 +61,6 @@ class BioCCollection:
             date=data.get("date", ""),
             key=data.get("key", ""),
             infons=data.get("infons", {}),
-            version=data.get("version", ""),
             documents=documents,
         )
 
