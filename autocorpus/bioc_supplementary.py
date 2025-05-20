@@ -1,7 +1,7 @@
 """This module provides functionality for converting text extracted from various file types into a BioC format."""
 
 import datetime
-from typing import TypeVar
+from typing import TypeVar, cast
 
 import pandas as pd
 import regex
@@ -221,6 +221,7 @@ class BioCTextConverter:
         bioc.key = "autocorpus_supplementary.key"
         temp_doc = BioCDocument(id="1")
         if file_type == "word":
+            text = cast(list[tuple[str, bool]], text)
             temp_doc.passages = BioCTextConverter.__identify_word_passages(text)
         elif file_type == "pdf":
             temp_doc.passages = BioCTextConverter.__identify_passages(text)
