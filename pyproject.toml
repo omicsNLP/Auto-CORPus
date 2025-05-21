@@ -35,7 +35,10 @@ nltk = "^3.9.1"
 fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
 lxml = "^5.3.0"
 pandas = "^2.2.3"
-marker-pdf = "^1.6.2"
+marker-pdf = { version = "^1.6.2", optional = true }
+
+[tool.poetry.extras]
+pdf = ["marker-pdf"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
