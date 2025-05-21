@@ -81,7 +81,7 @@ module = ["nltk.*", "fuzzywuzzy.*", "bioc.*", "marker.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
-addopts = "-v -p no:warnings --cov=autocorpus --cov-report=html --doctest-modules --ignore=docs/ --ignore=site/"
+addopts = "-v -p no:warnings --cov=autocorpus --cov-branch --cov-report=xml --cov-report=html --doctest-modules --ignore=docs/ --ignore=site/"
 
 [tool.ruff]
 target-version = "py310"
