@@ -2,15 +2,14 @@
 
 from pathlib import Path
 
+import pandas as pd
+import regex
 from marker.converters.pdf import PdfConverter
 from marker.models import create_model_dict
 from marker.output import text_from_rendered
+from pandas import DataFrame
 
-from autocorpus.bioc_supplementary import (
-    BioCTableConverter,
-    BioCTextConverter,
-    extract_table_from_pdf_text,
-)
+from autocorpus.bioc_supplementary import BioCTableConverter, BioCTextConverter
 
 from . import logger
 from .ac_bioc import BioCJSON
@@ -56,7 +55,7 @@ def extract_pdf_content(
     rendered = pdf_converter(str(file_path))
     text, _, _ = text_from_rendered(rendered)
     # separate text and tables
-    text, tables = extract_table_from_pdf_text(text)
+    text, tables = _extract_table_from_pdf_text(text)
     # format data for BioC
     bioc_text = BioCTextConverter.build_bioc(text, str(file_path), "pdf")
     bioc_tables = BioCTableConverter.build_bioc(tables, str(file_path))
@@ -69,3 +68,67 @@ def extract_pdf_content(
     with open(out_table_filename, "w", encoding="utf-8") as f:
         BioCTableJSON.dump(bioc_tables, f, indent=4)
     return True
+
+
+def _split_text_and_tables(text: str) -> tuple[list[str], list[list[str]]]:
+    """Splits PDF text into main text lines and raw table lines."""
+    lines = [x for x in text.splitlines() if x]
+    tables = []
+    table_lines = []
+    main_text_lines = []
+    inside_table = False
+
+    for line in lines:
+        if "|" in line:
+            inside_table = True
+            table_lines.append(line)
+        elif inside_table:
+            inside_table = False
+            tables.append(table_lines)
+            main_text_lines.append(line)
+            table_lines = []
+            continue
+        else:
+            main_text_lines.append(line)
+
+    return main_text_lines, tables
+
+
+def _parse_tables(raw_tables: list[list[str]]) -> list[DataFrame]:
+    """Converts raw table text lines into DataFrames."""
+    parsed_tables = []
+    for table in raw_tables:
+        # Remove lines that are just dashes
+        table = [line for line in table if not regex.match(r"^\s*[\p{Pd}]+\s*$", line)]
+
+        rows = []
+        for line in table:
+            if regex.search(r"\|", line):
+                cells = [
+                    cell.strip()
+                    for cell in line.split("|")
+                    if not all(x in "|-" for x in cell)
+                ]
+                if cells:
+                    rows.append(cells)
+
+        if not rows:
+            continue
+
+        num_columns = max(len(row) for row in rows)
+        for row in rows:
+            while len(row) < num_columns:
+                row.append("")
+
+        df = pd.DataFrame(rows[1:], columns=rows[0])
+        parsed_tables.append(df)
+
+    return parsed_tables
+
+
+def _extract_table_from_pdf_text(text: str) -> tuple[str, list[DataFrame]]:
+    """Extracts tables from PDF text and returns the remaining text and parsed tables."""
+    main_text_lines, raw_tables = _split_text_and_tables(text)
+    tables_output = _parse_tables(raw_tables)
+    text_output = "\n\n".join(main_text_lines)
+    return text_output, tables_output

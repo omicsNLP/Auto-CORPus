@@ -3,8 +3,6 @@
 import datetime
 from typing import TypeVar
 
-import pandas as pd
-import regex
 from pandas import DataFrame
 
 from .ac_bioc import (
@@ -18,70 +16,6 @@ from .ac_bioc.bioctable import (
     BioCTableDocument,
     BioCTablePassage,
 )
-
-
-def _split_text_and_tables(text: str) -> tuple[list[str], list[list[str]]]:
-    """Splits PDF text into main text lines and raw table lines."""
-    lines = [x for x in text.splitlines() if x]
-    tables = []
-    table_lines = []
-    main_text_lines = []
-    inside_table = False
-
-    for line in lines:
-        if "|" in line:
-            inside_table = True
-            table_lines.append(line)
-        elif inside_table:
-            inside_table = False
-            tables.append(table_lines)
-            main_text_lines.append(line)
-            table_lines = []
-            continue
-        else:
-            main_text_lines.append(line)
-
-    return main_text_lines, tables
-
-
-def _parse_tables(raw_tables: list[list[str]]) -> list[DataFrame]:
-    """Converts raw table text lines into DataFrames."""
-    parsed_tables = []
-    for table in raw_tables:
-        # Remove lines that are just dashes
-        table = [line for line in table if not regex.match(r"^\s*[\p{Pd}]+\s*$", line)]
-
-        rows = []
-        for line in table:
-            if regex.search(r"\|", line):
-                cells = [
-                    cell.strip()
-                    for cell in line.split("|")
-                    if not all(x in "|-" for x in cell)
-                ]
-                if cells:
-                    rows.append(cells)
-
-        if not rows:
-            continue
-
-        num_columns = max(len(row) for row in rows)
-        for row in rows:
-            while len(row) < num_columns:
-                row.append("")
-
-        df = pd.DataFrame(rows[1:], columns=rows[0])
-        parsed_tables.append(df)
-
-    return parsed_tables
-
-
-def extract_table_from_pdf_text(text: str) -> tuple[str, list[DataFrame]]:
-    """Extracts tables from PDF text and returns the remaining text and parsed tables."""
-    main_text_lines, raw_tables = _split_text_and_tables(text)
-    tables_output = _parse_tables(raw_tables)
-    text_output = "\n\n".join(main_text_lines)
-    return text_output, tables_output
 
 
 def string_replace_unicode(text: str) -> str:
