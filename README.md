@@ -5,7 +5,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/omicsNLP/Auto-CORPus/main.svg)](https://results.pre-commit.ci/latest/github/omicsNLP/Auto-CORPus/main)
 [![PyPI version](https://badge.fury.io/py/autocorpus.svg)](https://badge.fury.io/py/autocorpus)
-[![codecov](https://codecov.io/gh/ImperialCollegeLondon/Auto-CORPus/graph/badge.svg?token=6WWASKCH66)](https://codecov.io/gh/ImperialCollegeLondon/Auto-CORPus)
+[![codecov](https://codecov.io/gh/omicsNLP/Auto-CORPus/graph/badge.svg?token=ZTKK4URM4A)](https://codecov.io/gh/omicsNLP/Auto-CORPus)
 
 *Requires Python 3.10+* <!-- markdownlint-disable-line MD036 -->
 
