@@ -224,30 +224,25 @@ class BioCTextConverter:
             text = cast(list[tuple[str, bool]], text)
             temp_doc.passages = BioCTextConverter.__identify_word_passages(text)
         elif file_type == "pdf":
+            text = cast(str, text)
             temp_doc.passages = BioCTextConverter.__identify_passages(text)
         else:
+            text = cast(str, text)
             temp_doc.passages = BioCTextConverter.__identify_passages(text)
         temp_doc.inputfile = input_file
         bioc.documents.append(temp_doc)
         return bioc
 
     @staticmethod
-    def __identify_passages(text):
+    def __identify_passages(text: str | list[str]) -> list[BioCPassage]:
         offset = 0
         passages = []
-        if text is None:
-            return passages
         if isinstance(text, str):
-            text = text.split("\n\n")
+            split_text = text.split("\n\n")
         else:
-            text = [x.split("\n") for x in text]
-            temp = []
-            for i in text:
-                for t in i:
-                    temp.append(t)
-            text = temp
-        text = [x for x in text if x]
-        for line in text:
+            split_text = [t for x in text for t in x.split("\n")]
+        split_text = [x for x in split_text if x]
+        for line in split_text:
             iao_name = "supplementary material section"
             iao_id = "IAO:0000326"
             passage = BioCPassage()
