@@ -22,10 +22,18 @@ The documentation for Auto-CORPus is available on our [GitHub Pages site].
 
 ## Installation
 
-Install with pip
+Install with pip:
 
 ```sh
 pip install autocorpus
+```
+
+If you want to be able to process PDF files (only available with Auto-CORPus >v1.1.0),
+you will need to install (large!) additional dependencies. To install Auto-CORPUS with
+PDF processing support, run:
+
+```sh
+pip install autocorpus[pdf]
 ```
 
 ## Usage
@@ -123,6 +131,13 @@ To get started:
 
    ```sh
    poetry install
+   ```
+
+   If you want to develop PDF functionality or run the PDF-related tests, you will need
+   to install additional dependencies:
+
+   ```sh
+   poetry install --extras pdf
    ```
 
 1. Activate the virtual environment (alternatively, ensure any Python-related command is preceded by `poetry run`):
