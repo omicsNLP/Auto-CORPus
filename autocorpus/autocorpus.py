@@ -4,15 +4,27 @@ import json
 from pathlib import Path
 from typing import Any
 
-from bioc import biocjson, biocxml
 from bs4 import BeautifulSoup
+from marker.converters.pdf import PdfConverter
+from marker.models import create_model_dict
+from marker.output import text_from_rendered
+
+from autocorpus.ac_bioc.bioctable.json import BioCTableJSON
+from autocorpus.bioc_supplementary import (
+    BioCTableConverter,
+    BioCTextConverter,
+    extract_table_from_pdf_text,
+)
 
 from . import logger
 from .abbreviation import get_abbreviations
+from .ac_bioc import BioCJSON, BioCXML
 from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
 from .table import get_table_json
 from .utils import handle_not_tables
+
+pdf_converter: PdfConverter | None = None
 
 
 class Autocorpus:
@@ -38,8 +50,7 @@ class Autocorpus:
             content = json.load(f)
             return content["config"]
 
-    def __soupify_infile(self, fpath):
-        fpath = Path(fpath)
+    def __soupify_infile(self, fpath: Path):
         with fpath.open(encoding="utf-8") as fp:
             soup = BeautifulSoup(fp.read(), "html.parser")
             for e in soup.find_all(
@@ -79,6 +90,57 @@ class Autocorpus:
             return []
 
         return handle_not_tables(config["sections"], soup)
+
+    @staticmethod
+    def __load_pdf_models():
+        global pdf_converter
+        if pdf_converter is None:
+            try:
+                # Load the PDF models
+                pdf_converter = PdfConverter(
+                    artifact_dict=create_model_dict(),
+                )
+            except Exception as e:
+                logger.error(f"Error loading PDF models: {e}")
+                # If loading fails, set pdf_converter to None
+                pdf_converter = None
+
+    @staticmethod
+    def __extract_pdf_content(
+        file_path: Path,
+    ) -> bool:
+        """Extracts content from a PDF file.
+
+        Args:
+            file_path (Path): Path to the PDF file.
+
+        Returns:
+            bool: success status of the extraction process.
+        """
+        bioc_text, bioc_tables = None, None
+        global pdf_converter
+        Autocorpus.__load_pdf_models()
+        if not pdf_converter:
+            logger.error("PDF converter not initialized.")
+            return False
+
+        # extract text from PDF
+        rendered = pdf_converter(str(file_path))
+        text, _, _ = text_from_rendered(rendered)
+        # separate text and tables
+        text, tables = extract_table_from_pdf_text(text)
+        # format data for BioC
+        bioc_text = BioCTextConverter.build_bioc(text, str(file_path), "pdf")
+        bioc_tables = BioCTableConverter.build_bioc(tables, str(file_path))
+
+        out_filename = str(file_path).replace(".pdf", ".pdf_bioc.json")
+        with open(out_filename, "w", encoding="utf-8") as f:
+            BioCJSON.dump(bioc_text, f, indent=4)
+
+        out_table_filename = str(file_path).replace(".pdf", ".pdf_tables.json")
+        with open(out_table_filename, "w", encoding="utf-8") as f:
+            BioCTableJSON.dump(bioc_tables, f, indent=4)
+        return True
 
     def __extract_text(self, soup, config):
         """Convert beautiful soup object into a python dict object with cleaned main text body.
@@ -130,6 +192,15 @@ class Autocorpus:
                 ]
 
         return unique_text
+
+    def __process_html_article(self, file: Path):
+        soup = self.__soupify_infile(file)
+        self.__process_html_tables(file, soup, self.config)
+        self.main_text = self.__extract_text(soup, self.config)
+        try:
+            self.abbreviations = get_abbreviations(self.main_text, soup, str(file))
+        except Exception as e:
+            logger.error(e)
 
     def __process_html_tables(self, file_path, soup, config):
         """Extract data from tables in the HTML file.
@@ -265,7 +336,18 @@ class Autocorpus:
                             }
                         )
 
-    def process_files(self):
+    def __process_supplementary_file(self, file: Path):
+        match file.suffix:
+            case ".html" | ".htm":
+                self.__process_html_article(file)
+            case ".xml":
+                pass
+            case ".pdf":
+                self.__extract_pdf_content(file)
+            case _:
+                pass
+
+    def process_file(self):
         """Processes the files specified in the configuration.
 
         This method performs the following steps:
@@ -304,17 +386,56 @@ class Autocorpus:
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
 
+    def process_files(
+        self,
+        files: list[Path | str] = [],
+        dir_path: Path | str = "",
+        linked_tables: list[Path | str] = [],
+    ):
+        """Processes main text files provided and nested supplementary files.
+
+        Raises:
+            RuntimeError: If no valid configuration is provided.
+        """
+        # Either a list of specific files or a directory path must be provided.
+        if not (files or dir_path):
+            logger.error("No files or directory provided.")
+            raise FileNotFoundError("No files or directory provided.")
+        #
+        if dir_path:
+            # Path is the preferred type, users can also provide a string though
+            if isinstance(dir_path, str):
+                dir_path = Path(dir_path)
+            for file in dir_path.iterdir():
+                if file.is_file() and file.suffix in [".html", ".htm"]:
+                    self.__process_html_article(file)
+                elif file.is_dir():
+                    # recursively process all files in the subdirectory
+                    for sub_file in file.rglob("*"):
+                        self.__process_supplementary_file(sub_file)
+
+        # process any specific files provided
+        for specific_file in files:
+            # Path is the preferred type, users can also provide a string though
+            if isinstance(specific_file, str):
+                specific_file = Path(specific_file)
+            if specific_file.is_file() and specific_file.suffix in [".html", ".htm"]:
+                self.__process_html_article(specific_file)
+            else:
+                # process any specific files provided
+                self.__process_supplementary_file(specific_file)
+
     def __init__(
         self,
-        config,
-        main_text,
+        config: dict[str, Any],
+        main_text: Path | None = None,
         linked_tables=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
 
         Args:
             config (dict): configuration file for the input HTML journal articles
-            main_text (str): path to the main text of the article (HTML files only)
+            main_text (Path): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
         """
         self.file_path = main_text
@@ -353,12 +474,12 @@ class Autocorpus:
         Returns:
             (str): main text as BioC XML
         """
-        collection = biocjson.loads(
+        collection = BioCJSON.loads(
             json.dumps(
                 get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
             )
         )
-        return biocxml.dumps(collection)
+        return BioCXML.dumps(collection)
 
     def tables_to_bioc_json(self, indent=2):
         """Get the currently loaded tables as Tables-JSON.
