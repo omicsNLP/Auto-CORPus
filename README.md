@@ -130,15 +130,11 @@ To get started:
 1. Set up the virtual environment:
 
    ```sh
-   poetry install
+   poetry install --all-extras
    ```
 
-   If you want to develop PDF functionality or run the PDF-related tests, you will need
-   to install additional dependencies:
-
-   ```sh
-   poetry install --extras pdf
-   ```
+   Note: The `--all-extras` flag is because of the additional dependencies required for
+   analysing extra file types (PDF, Word, Excel, etc).
 
 1. Activate the virtual environment (alternatively, ensure any Python-related command is preceded by `poetry run`):
 
