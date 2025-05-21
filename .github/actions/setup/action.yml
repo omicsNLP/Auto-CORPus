@@ -19,4 +19,4 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: poetry install
+      run: poetry install --all-extras
