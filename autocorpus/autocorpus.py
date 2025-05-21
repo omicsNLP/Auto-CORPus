@@ -355,7 +355,7 @@ class Autocorpus:
     def __init__(
         self,
         config: dict[str, Any],
-        main_text: Path | None = None,
+        main_text: str = "",
         linked_tables=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
@@ -374,15 +374,15 @@ class Autocorpus:
         self.abbreviations = {}
         self.has_tables = False
 
-    def to_bioc(self):
+    def to_bioc(self) -> dict[str, Any]:
         """Get the currently loaded bioc as a dict.
 
         Returns:
             (dict): bioc as a dict
         """
-        return get_formatted_bioc_collection(self)
+        return get_formatted_bioc_collection(self.main_text, self.file_path)
 
-    def main_text_to_bioc_json(self):
+    def main_text_to_bioc_json(self) -> str:
         """Get the currently loaded main text as BioC JSON.
 
         Args:
@@ -392,10 +392,12 @@ class Autocorpus:
             (str): main text as BioC JSON
         """
         return json.dumps(
-            get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
+            get_formatted_bioc_collection(self.main_text, self.file_path),
+            indent=2,
+            ensure_ascii=False,
         )
 
-    def main_text_to_bioc_xml(self):
+    def main_text_to_bioc_xml(self) -> str:
         """Get the currently loaded main text as BioC XML.
 
         Returns:
@@ -403,12 +405,14 @@ class Autocorpus:
         """
         collection = BioCJSON.loads(
             json.dumps(
-                get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
+                get_formatted_bioc_collection(self.main_text, self.file_path),
+                indent=2,
+                ensure_ascii=False,
             )
         )
         return BioCXML.dumps(collection)
 
-    def tables_to_bioc_json(self, indent=2):
+    def tables_to_bioc_json(self, indent: int = 2) -> str:
         """Get the currently loaded tables as Tables-JSON.
 
         Args:
@@ -419,7 +423,7 @@ class Autocorpus:
         """
         return json.dumps(self.tables, ensure_ascii=False, indent=indent)
 
-    def abbreviations_to_bioc_json(self, indent=2):
+    def abbreviations_to_bioc_json(self, indent: int = 2) -> str:
         """Get the currently loaded abbreviations as BioC JSON.
 
         Args:
@@ -430,7 +434,7 @@ class Autocorpus:
         """
         return json.dumps(self.abbreviations, ensure_ascii=False, indent=indent)
 
-    def to_json(self, indent=2):
+    def to_json(self, indent: int = 2) -> str:
         """Get the currently loaded AC object as a dict.
 
         Args:
@@ -441,7 +445,7 @@ class Autocorpus:
         """
         return json.dumps(self.to_dict(), ensure_ascii=False, indent=indent)
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         """Get the currently loaded AC object as a dict.
 
         Returns:

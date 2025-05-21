@@ -38,7 +38,7 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
 
     auto_corpus = Autocorpus(
         config=config,
-        main_text=pmc_example_path,
+        main_text=str(pmc_example_path),
     )
 
     auto_corpus.process_file()

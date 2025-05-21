@@ -1,1 +1,0 @@
-"""Autocorpus configs package."""
