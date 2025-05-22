@@ -77,6 +77,8 @@ def replace_unicode_escape(input_string: str):
 def read_mapping_file() -> dict:
     """Read the IAO mapping file and create a dictionary of IAO terms and headings.
 
+    TODO: USE THE EQUIVALENT FUNCTION FROM MAIN AC
+
     Returns:
         A dictionary mapping IAO terms to their corresponding headings.
     """
@@ -129,6 +131,8 @@ def read_mapping_file() -> dict:
 def read_IAO_term_to_ID_file():
     """Read the IAO term to ID mapping file and create a dictionary of IAO terms and IDs.
 
+    TODO: USE THE EQUIVALENT FUNCTION FROM MAIN AC
+
     Returns:
         A dictionary mapping IAO terms to their corresponding IDs.
     """
@@ -156,12 +160,7 @@ def read_IAO_term_to_ID_file():
 
 
 def __add_IAO(section_heading, IAO_term):
-    # Initialize a dictionary to store the paper's section heading and associated IAO term
-    paper = {}
-
-    # Assign the IAO term to the section heading in the paper dictionary
-    paper.update({section_heading: IAO_term})
-
+    """TODO: USE THE EQUIVALENT FUNCTION FROM MAIN AC."""
     # Retrieve the mapping dictionary of IAO terms to their IDs using the helper function
     IAO_term_to_no_dict = read_IAO_term_to_ID_file()
 
@@ -284,13 +283,12 @@ if __name__ == "__main__":
     ### A directory containing the path to the XML files to be processed, is a list of str
     try:
         dir_path = sys.argv[1]
+        # dir_output = sys.argv[2]
+        #### ANTOINE wants to take the output here are well and also transform the below as a function
+        #### Request an error if no input parameters
     except IndexError:
         dir_path = "./xml_hackathon"
     all_files = glob.glob(f"{dir_path}/*.xml")
-    # all_files = glob.glob('./xml_hackathon/*.xml')
-    # all_files = all_files[:10]
-    # all_files = ['./PMC_original/PMC10001121.xml']
-    # all_files = ['./PMC_original/PMC5829769.xml']
 
     ######### END INPUT #########
 
@@ -319,6 +317,24 @@ if __name__ == "__main__":
 
             # Parse the XML content using BeautifulSoup with the 'lxml' parser
             soup = BeautifulSoup(text, features="lxml")
+
+            # Clean unwanted tags
+            tags_to_remove = [
+                "table-wrap",
+                "table",
+                "table-wrap-foot",
+                "inline-formula",
+                "fig",
+                "graphic",
+                "inline-graphic",
+                "inline-supplementary-material",
+                "media",
+                "tex-math",
+                "sub-article",
+            ]
+            for tag in tags_to_remove:
+                for element in soup.find_all(tag):
+                    element.extract()
 
             # Get the current date in the format 'YYYYMMDD'
             current_date = datetime.now().strftime("%Y%m%d")
@@ -441,51 +457,55 @@ if __name__ == "__main__":
                 tag_subtitle.append(["document title"])
 
             # Check if the 'kwd-group' (keyword) tag exists and contains valid text i.e. not none after removing the character present between < and > to remove XML tag from the content
-            if re.sub("<[^>]+>", "", str(soup.find("kwd-group"))) != "None":
-                # If valid text exists, append the entire 'kwd-group' tag to text_list, remove the title as we fix it to 'keywords'
-                kwd_group = soup.find("kwd-group")
-                if kwd_group.find("title"):
-                    kwd_group.find("title").extract()
-                text_list.append(kwd_group)
-                # Append corresponding titles for the tag
-                tag_title.append(["keywords"])
-                tag_subtitle.append(["keywords"])
-                # Clean up the text by removing <ital> and <bol> tags from the keyword, the element [0] of the list is supposed to be the title, then element [1] is the keyword
-                # Conversion for special character is done later, unicode and hexacode check later
-                ### ERROR if not title is found than there is no element [1] as this become element [0] instead of 1
-                text_list[1] = re.sub(
-                    "</ital[^>]+>", "", re.sub("<ital[^>]+>", "", str(text_list[1]))
-                )
-                text_list[1] = re.sub(
-                    "</bol[^>]+>", "", re.sub("<bol[^>]+>", "", str(text_list[1]))
-                )
+            kwd_groups = soup.find_all(
+                "kwd-group"
+            )  # Store result to avoid repeated calls
+            for kwd in kwd_groups:
+                # Skip kwd-group if xml:lang is present and not 'en'
+                if kwd.has_attr("xml:lang") and kwd["xml:lang"] != "en":
+                    continue
+                # Find the title (if it exists)
+                title_tag = kwd.find("title")
+                if title_tag is None:
+                    # Extract text from each <kwd>, ensuring inline elements stay together
+                    kwd_texts = [
+                        kwd_item.get_text(separator="", strip=True)
+                        for kwd_item in kwd.find_all("kwd")
+                    ]
 
-                # Initialize a list to hold the cleaned keyword entries
-                current = []
-                # Split the cleaned text (removed tag) by commas and filter out empty strings (if the string was only a tag)
-                for i in range(
-                    len(re.sub("<[^>]+>", ",", str(text_list[1])).split(","))
-                ):
-                    if re.sub("<[^>]+>", ",", str(text_list[1])).split(",")[i] != "":
-                        current.append(
-                            re.sub("<[^>]+>", ",", str(text_list[1])).split(",")[i]
-                        )
-                    # Old PMC XMLs is text when new one is a list
-                    current_filtered = []
-                    for i in range(len(current)):
-                        current[i] = current[i].replace(",", "")
-                        if current[i] == "\n":
-                            pass
-                        elif current[i] == "\n\n":
-                            pass
-                        elif current[i] == "":
-                            pass
-                        elif current[i] == " ":
-                            pass
-                        else:
-                            current_filtered.append(current[i])
-                # Join the cleaned entries with commas and reassign them to text_list[1]
-                text_list[1] = ", ".join(current_filtered)
+                    # Join <kwd> elements with "; " while keeping inline formatting intact
+                    remaining_text = "; ".join(kwd_texts)
+
+                    if remaining_text:
+                        tag_title.append(["Keywords"])
+                        tag_subtitle.append(["Keywords"])
+                        text_list.append(
+                            str(remaining_text)
+                        )  # Print remaining content only if it exists
+                else:
+                    if "abbr" not in title_tag.text.lower():
+                        # Extract text from each <kwd>, ensuring inline elements stay together
+                        kwd_texts = [
+                            kwd_item.get_text(separator="", strip=True)
+                            for kwd_item in kwd.find_all("kwd")
+                        ]
+
+                        # Join <kwd> elements with "; " while keeping inline formatting intact
+                        remaining_text = "; ".join(kwd_texts)
+
+                        # If a title exists, remove it from the remaining text
+                        if title_tag:
+                            title_text = title_tag.get_text(strip=True)
+                            remaining_text = remaining_text.replace(
+                                title_text, "", 1
+                            ).strip()
+
+                        if remaining_text:
+                            tag_title.append(["Keywords"])
+                            tag_subtitle.append([str(title_tag.text)])
+                            text_list.append(
+                                str(remaining_text)
+                            )  # Print remaining content only if it exists
 
             # Check if the 'abstract' tag exists and contains valid text (stripping XML tags if there any text left)
             # ALL ABSTRACT CODE: Special characters, i.e. < and >, are converted to human form and unicode and hexacode is replaced later
@@ -561,6 +581,853 @@ if __name__ == "__main__":
                 else:
                     # If there is no abstract or it doesn't match any conditions, do nothing
                     pass
+
+            ############### <p> outside of <sec>
+            output_p = []  # Store the result for all documents
+
+            with open(path, encoding="utf-8") as xml_file:
+                text = xml_file.read()
+                soup3 = BeautifulSoup(text, features="lxml")
+
+            # Clean unwanted tags
+            tags_to_remove = [
+                "table-wrap",
+                "table",
+                "table-wrap-foot",
+                "inline-formula",
+                "front",
+                "back",
+                "fig",
+                "graphic",
+                "inline-graphic",
+                "inline-supplementary-material",
+                "media",
+                "tex-math",
+                "sub-article",
+                "def-list",
+                "notes",
+            ]
+            for tag in tags_to_remove:
+                for element in soup3.find_all(tag):
+                    element.extract()
+
+            # Extract body
+            body = soup3.body
+            if not body:
+                continue
+
+            # Identify all paragraphs inside and outside <sec>
+            all_p_in_body = body.find_all("p")
+
+            # Identify paragraphs inside <sec> and <boxed-text> to avoid duplication
+            p_inside_sections = set()
+            p_inside_boxed = set()
+
+            for sec in body.find_all("sec"):
+                p_inside_sections.update(sec.find_all("p"))
+
+            for boxed in body.find_all("boxed-text"):
+                p_inside_boxed.update(boxed.find_all("p"))
+
+            # Filter paragraphs outside <sec> and <boxed-text>
+            p_outside = [
+                p
+                for p in all_p_in_body
+                if p not in p_inside_sections and p not in p_inside_boxed
+            ]
+
+            # Generate pairs without duplication
+            pairs = []
+            prev_group = []
+            next_group = []
+
+            i = 0
+            while i < len(p_outside):
+                next_group = []
+
+                # Aggregate consecutive outside paragraphs
+                while i < len(p_outside):
+                    next_group.append(p_outside[i])
+                    # Check if the next paragraph is also outside <sec> and <boxed-text>
+                    if (
+                        i + 1 < len(p_outside)
+                        and all_p_in_body.index(p_outside[i + 1])
+                        == all_p_in_body.index(p_outside[i]) + 1
+                    ):
+                        i += 1
+                    else:
+                        break
+                i += 1
+
+                # Append the pair
+                pairs.append([prev_group, next_group])
+
+                # Prepare for the next iteration
+                prev_group = next_group
+
+            # Store the result for the current file
+            output_p.append({"file": path, "pairs": pairs})
+
+            # Print the result
+            for doc in output_p:
+                if len(doc["pairs"]) == 1 and doc["pairs"][0][0] == []:
+                    current_intro_list = []
+                    for i in range(len(doc["pairs"][0][1])):
+                        if (
+                            "boxed-text" not in str(doc["pairs"][0][1])
+                            and len(doc["pairs"][0][1]) == 1
+                            and "</sec>" not in str(doc["pairs"][0][1])
+                        ):
+                            doc["pairs"][0][1][i] = re.sub(
+                                "<p[^>]*>", "<p>", str(doc["pairs"][0][1][i])
+                            )
+                            for j in range(len(doc["pairs"][0][1][i].split("<p>"))):
+                                # Check if the current section (split by <p>) is not empty after removing </p> tags
+                                if (
+                                    doc["pairs"][0][1][i]
+                                    .split("<p>")[j]
+                                    .replace("</p>", "")
+                                    != ""
+                                ):
+                                    # Remove all tags from the current p text from the current item of the text_list
+                                    new_text = str(
+                                        re.sub(
+                                            "<[^>]+>",
+                                            "",
+                                            str(doc["pairs"][0][1][i].split("<p>")[j]),
+                                        )
+                                    )
+                                    # Replace unicode and hexacode, using the function introduced above
+                                    new_text = replace_unicode_escape(new_text)
+                                    # Replace spaces and newlines, using the function introduced above
+                                    new_text = replace_spaces_and_newlines(new_text)
+                                    # Clean up special characters
+                                    # Replace </p> with an empty string (### not sure it's necessary anymore) and handle XML entities like <, >, &, ', and "
+                                    new_text = (
+                                        new_text.replace("</p>", "")
+                                        .replace("&lt;", "<")
+                                        .replace("&gt;", ">")
+                                        .replace("&amp;", "&")
+                                        .replace("&apos;", "'")
+                                        .replace("&quot;", '"')
+                                    )
+
+                                    if len(new_text) < 6:
+                                        pass
+                                    else:
+                                        current_intro_list.append(new_text)
+
+                                        # Update the offset list (keeps track of the position in the document)
+                                        # offset_list.append(offset)
+
+                                        # Increment the offset by the length of the new text + 1 (for spacing or next content)
+                                        # offset += len(new_text) + 1
+                                else:
+                                    # If the current section is empty after removing </p>, skip it
+                                    pass
+
+                        elif (
+                            "boxed-text" not in str(doc["pairs"][0][1])
+                            and len(doc["pairs"][0][1]) > 1
+                            and "</sec>" not in str(doc["pairs"][0][1])
+                        ):
+                            doc["pairs"][0][1][i] = re.sub(
+                                "<p[^>]*>", "<p>", str(doc["pairs"][0][1][i])
+                            )
+                            for j in range(len(doc["pairs"][0][1][i].split("<p>"))):
+                                # Check if the current section (split by <p>) is not empty after removing </p> tags
+                                if (
+                                    doc["pairs"][0][1][i]
+                                    .split("<p>")[j]
+                                    .replace("</p>", "")
+                                    != ""
+                                ):
+                                    # Remove all tags from the current p text from the current item of the text_list
+                                    new_text = str(
+                                        re.sub(
+                                            "<[^>]+>",
+                                            "",
+                                            str(doc["pairs"][0][1][i].split("<p>")[j]),
+                                        )
+                                    )
+                                    # Replace unicode and hexacode, using the function introduced above
+                                    new_text = replace_unicode_escape(new_text)
+                                    # Replace spaces and newlines, using the function introduced above
+                                    new_text = replace_spaces_and_newlines(new_text)
+                                    # Clean up special characters
+                                    # Replace </p> with an empty string (### not sure it's necessary anymore) and handle XML entities like <, >, &, ', and "
+                                    new_text = (
+                                        new_text.replace("</p>", "")
+                                        .replace("&lt;", "<")
+                                        .replace("&gt;", ">")
+                                        .replace("&amp;", "&")
+                                        .replace("&apos;", "'")
+                                        .replace("&quot;", '"')
+                                    )
+
+                                    if len(new_text) < 6:
+                                        pass
+                                    else:
+                                        current_intro_list.append(new_text)
+
+                                        # Update the offset list (keeps track of the position in the document)
+                                        # offset_list.append(offset)
+
+                                        # Increment the offset by the length of the new text + 1 (for spacing or next content)
+                                        # offset += len(new_text) + 1
+                                else:
+                                    # If the current section is empty after removing </p>, skip it
+                                    pass
+                        else:
+                            if (
+                                "<caption>" in str(doc["pairs"][0][1][i])
+                                and len(doc["pairs"][0][1]) == 1
+                            ):
+                                if "</sec>" in str(doc["pairs"][0][1][i]):
+                                    for j in range(
+                                        len(
+                                            str(doc["pairs"][0][1][i])
+                                            .split("</caption>")[-1]
+                                            .split("</sec>")
+                                        )
+                                        - 1
+                                    ):
+                                        if (
+                                            re.sub(
+                                                "<[^>]+>",
+                                                "",
+                                                str(doc["pairs"][0][1][i])
+                                                .split("</caption>")[-1]
+                                                .split("</sec>")[j]
+                                                .split("</title>")[-1]
+                                                .replace("\n", ""),
+                                            )
+                                            != ""
+                                        ):
+                                            tag_title.append(
+                                                [
+                                                    re.sub(
+                                                        "<[^>]+>",
+                                                        "",
+                                                        str(doc["pairs"][0][1][i])
+                                                        .split("<caption>")[-1]
+                                                        .split("</caption>")[0],
+                                                    )
+                                                ]
+                                            )
+                                            tag_subtitle.append(
+                                                [
+                                                    str(doc["pairs"][0][1][i])
+                                                    .split("</caption>")[-1]
+                                                    .split("</sec>")[j]
+                                                    .split("<title>")[-1]
+                                                    .split("</title>")[0]
+                                                ]
+                                            )
+                                            text_list.append(
+                                                re.sub(
+                                                    "<[^>]+>",
+                                                    " ",
+                                                    str(doc["pairs"][0][1][i])
+                                                    .split("</caption>")[-1]
+                                                    .split("</sec>")[j]
+                                                    .split("</title>")[-1]
+                                                    .replace("\n", ""),
+                                                )
+                                            )
+                                else:
+                                    current_subtitle = ""
+                                    for j in range(
+                                        len(
+                                            str(doc["pairs"][0][1][i])
+                                            .split("</caption>")[-1]
+                                            .split("</p>")
+                                        )
+                                    ):
+                                        if (
+                                            re.sub(
+                                                "<[^>]+>",
+                                                "",
+                                                str(doc["pairs"][0][1][i])
+                                                .split("</caption>")[-1]
+                                                .split("</p>")[j]
+                                                .split("</title>")[-1]
+                                                .replace("\n", ""),
+                                            )
+                                            != ""
+                                        ):
+                                            tag_title.append(
+                                                [
+                                                    re.sub(
+                                                        "<[^>]+>",
+                                                        "",
+                                                        str(doc["pairs"][0][1][i])
+                                                        .split("<caption>")[-1]
+                                                        .split("</caption>")[0],
+                                                    )
+                                                ]
+                                            )
+                                            if current_subtitle == "":
+                                                current_subtitle = re.sub(
+                                                    "<[^>]+>",
+                                                    "",
+                                                    str(doc["pairs"][0][1][i])
+                                                    .split("<caption>")[-1]
+                                                    .split("</caption>")[0],
+                                                )
+                                            if (
+                                                "</title>"
+                                                in str(doc["pairs"][0][1][i])
+                                                .split("</caption>")[-1]
+                                                .split("</p>")[j]
+                                            ):
+                                                tag_subtitle.append(
+                                                    [
+                                                        str(doc["pairs"][0][1][i])
+                                                        .split("</caption>")[-1]
+                                                        .split("</sec>")[j]
+                                                        .split("<title>")[-1]
+                                                        .split("</title>")[0]
+                                                    ]
+                                                )
+                                            else:
+                                                tag_subtitle.append([current_subtitle])
+                                            text_list.append(
+                                                re.sub(
+                                                    "<[^>]+>",
+                                                    "",
+                                                    str(doc["pairs"][0][1][i])
+                                                    .split("</caption>")[-1]
+                                                    .split("</p>")[j]
+                                                    .split("</title>")[-1]
+                                                    .replace("\n", ""),
+                                                )
+                                            )
+                            elif (
+                                re.sub(
+                                    "<[^>]+>",
+                                    "",
+                                    "</title>".join(
+                                        str(doc["pairs"][0][1][i]).split("</title>")[:2]
+                                    )
+                                    .split("<title>")[1]
+                                    .split("</title>")[-1],
+                                )
+                                == ""
+                                and len(doc["pairs"][0][1]) == 1
+                                and "</sec>" not in str(doc["pairs"][0][1])
+                            ):
+                                curent_subtitle = ""
+                                for j in range(
+                                    len(
+                                        "</title>".join(
+                                            str(doc["pairs"][0][1][i]).split(
+                                                "</title>"
+                                            )[1:]
+                                        ).split("</p>")
+                                    )
+                                ):
+                                    if (
+                                        re.sub(
+                                            "<[^>]+>",
+                                            "",
+                                            "</title>".join(
+                                                str(doc["pairs"][0][1][i]).split(
+                                                    "</title>"
+                                                )[1:]
+                                            )
+                                            .split("</p>")[j]
+                                            .split("</title>")[-1]
+                                            .replace("\n", ""),
+                                        )
+                                        != ""
+                                    ):
+                                        tag_title.append(
+                                            [
+                                                "</title>".join(
+                                                    str(doc["pairs"][0][1][i]).split(
+                                                        "</title>"
+                                                    )[:2]
+                                                )
+                                                .split("<title>")[1]
+                                                .split("</title>")[0]
+                                            ]
+                                        )
+                                        if curent_subtitle == "":
+                                            curent_subtitle = (
+                                                "</title>".join(
+                                                    str(doc["pairs"][0][1][i]).split(
+                                                        "</title>"
+                                                    )[:2]
+                                                )
+                                                .split("<title>")[1]
+                                                .split("</title>")[0]
+                                            )
+                                        if (
+                                            "<title>"
+                                            in "</title>".join(
+                                                str(doc["pairs"][0][1][i]).split(
+                                                    "</title>"
+                                                )[1:]
+                                            ).split("</p>")[j]
+                                        ):
+                                            curent_subtitle = (
+                                                "</title>".join(
+                                                    str(doc["pairs"][0][1][i]).split(
+                                                        "</title>"
+                                                    )[1:]
+                                                )
+                                                .split("</p>")[j]
+                                                .split("<title>")[-1]
+                                                .split("</title>")[0]
+                                            )
+                                        tag_subtitle.append([curent_subtitle])
+                                        text_list.append(
+                                            re.sub(
+                                                "<[^>]+>",
+                                                "",
+                                                "</title>".join(
+                                                    str(doc["pairs"][0][1][i]).split(
+                                                        "</title>"
+                                                    )[1:]
+                                                )
+                                                .split("</p>")[j]
+                                                .split("</title>")[-1]
+                                                .replace("\n", ""),
+                                            )
+                                        )
+                            else:
+                                if "</sec>" not in str(doc["pairs"][0][1]):
+                                    for pair in doc["pairs"]:
+                                        print("\nPrevious:", [str(p) for p in pair[0]])
+                                        print("\nNext:", [str(p) for p in pair[1]])
+                                        print("=" * 80)
+                    if len(current_intro_list) == 0:
+                        pass
+                    elif len(current_intro_list) == 1:
+                        # Append the corresponding tag title and tag subtitle for the section
+                        # corrected_section.append(tag_title[i])
+                        tag_title.append(["document part"])
+                        # corrected_subsection.append(tag_subtitle[i])
+                        tag_subtitle.append(["document part"])
+                        # Append the corrected text to the corrected_text list
+                        # corrected_text.append(new_text)
+                        text_list.append(current_intro_list[0])
+                    else:
+                        for j in range(len(current_intro_list)):
+                            # Append the corresponding tag title and tag subtitle for the section
+                            # corrected_section.append(tag_title[i])
+                            tag_title.append(["introduction"])
+                            # corrected_subsection.append(tag_subtitle[i])
+                            tag_subtitle.append(["introduction"])
+                            # Append the corrected text to the corrected_text list
+                            # corrected_text.append(new_text)
+                            text_list.append(current_intro_list[j])
+                else:
+                    trigger_previous = True
+                    for z in range(1, len(doc["pairs"])):
+                        if (
+                            doc["pairs"][z - 1][1] != doc["pairs"][z][0]
+                            or doc["pairs"][0][0] != []
+                        ):
+                            trigger_previous = False
+                    if trigger_previous:
+                        for z in range(len(doc["pairs"])):
+                            current_intro_list = []
+                            for i in range(len(doc["pairs"][z][1])):
+                                if (
+                                    "boxed-text" not in str(doc["pairs"][z][1])
+                                    and len(doc["pairs"][z][1]) == 1
+                                    and "</sec>" not in str(doc["pairs"][z][1])
+                                ):
+                                    doc["pairs"][z][1][i] = re.sub(
+                                        "<p[^>]*>", "<p>", str(doc["pairs"][z][1][i])
+                                    )
+                                    for j in range(
+                                        len(doc["pairs"][z][1][i].split("<p>"))
+                                    ):
+                                        # Check if the current section (split by <p>) is not empty after removing </p> tags
+                                        if (
+                                            doc["pairs"][z][1][i]
+                                            .split("<p>")[j]
+                                            .replace("</p>", "")
+                                            != ""
+                                        ):
+                                            # Remove all tags from the current p text from the current item of the text_list
+                                            new_text = str(
+                                                re.sub(
+                                                    "<[^>]+>",
+                                                    "",
+                                                    str(
+                                                        doc["pairs"][z][1][i].split(
+                                                            "<p>"
+                                                        )[j]
+                                                    ),
+                                                )
+                                            )
+                                            # Replace unicode and hexacode, using the function introduced above
+                                            new_text = replace_unicode_escape(new_text)
+                                            # Replace spaces and newlines, using the function introduced above
+                                            new_text = replace_spaces_and_newlines(
+                                                new_text
+                                            )
+                                            # Clean up special characters
+                                            # Replace </p> with an empty string (### not sure it's necessary anymore) and handle XML entities like <, >, &, ', and "
+                                            new_text = (
+                                                new_text.replace("</p>", "")
+                                                .replace("&lt;", "<")
+                                                .replace("&gt;", ">")
+                                                .replace("&amp;", "&")
+                                                .replace("&apos;", "'")
+                                                .replace("&quot;", '"')
+                                            )
+
+                                            if len(new_text) < 6:
+                                                pass
+                                            else:
+                                                current_intro_list.append(new_text)
+
+                                                # Update the offset list (keeps track of the position in the document)
+                                                # offset_list.append(offset)
+
+                                                # Increment the offset by the length of the new text + 1 (for spacing or next content)
+                                                # offset += len(new_text) + 1
+                                        else:
+                                            # If the current section is empty after removing </p>, skip it
+                                            pass
+
+                                elif (
+                                    "boxed-text" not in str(doc["pairs"][z][1])
+                                    and len(doc["pairs"][z][1]) > 1
+                                    and "</sec>" not in str(doc["pairs"][z][1])
+                                ):
+                                    doc["pairs"][z][1][i] = re.sub(
+                                        "<p[^>]*>", "<p>", str(doc["pairs"][z][1][i])
+                                    )
+                                    for j in range(
+                                        len(doc["pairs"][z][1][i].split("<p>"))
+                                    ):
+                                        # Check if the current section (split by <p>) is not empty after removing </p> tags
+                                        if (
+                                            doc["pairs"][z][1][i]
+                                            .split("<p>")[j]
+                                            .replace("</p>", "")
+                                            != ""
+                                        ):
+                                            # Remove all tags from the current p text from the current item of the text_list
+                                            new_text = str(
+                                                re.sub(
+                                                    "<[^>]+>",
+                                                    "",
+                                                    str(
+                                                        doc["pairs"][z][1][i].split(
+                                                            "<p>"
+                                                        )[j]
+                                                    ),
+                                                )
+                                            )
+                                            # Replace unicode and hexacode, using the function introduced above
+                                            new_text = replace_unicode_escape(new_text)
+                                            # Replace spaces and newlines, using the function introduced above
+                                            new_text = replace_spaces_and_newlines(
+                                                new_text
+                                            )
+                                            # Clean up special characters
+                                            # Replace </p> with an empty string (### not sure it's necessary anymore) and handle XML entities like <, >, &, ', and "
+                                            new_text = (
+                                                new_text.replace("</p>", "")
+                                                .replace("&lt;", "<")
+                                                .replace("&gt;", ">")
+                                                .replace("&amp;", "&")
+                                                .replace("&apos;", "'")
+                                                .replace("&quot;", '"')
+                                            )
+
+                                            if len(new_text) < 6:
+                                                pass
+                                            else:
+                                                current_intro_list.append(new_text)
+
+                                                # Update the offset list (keeps track of the position in the document)
+                                                # offset_list.append(offset)
+
+                                                # Increment the offset by the length of the new text + 1 (for spacing or next content)
+                                                # offset += len(new_text) + 1
+                                        else:
+                                            # If the current section is empty after removing </p>, skip it
+                                            pass
+                                else:
+                                    if (
+                                        "<caption>" in str(doc["pairs"][z][1][i])
+                                        and len(doc["pairs"][z][1]) == 1
+                                    ):
+                                        if "</sec>" in str(doc["pairs"][z][1][i]):
+                                            for j in range(
+                                                len(
+                                                    str(doc["pairs"][z][1][i])
+                                                    .split("</caption>")[-1]
+                                                    .split("</sec>")
+                                                )
+                                                - 1
+                                            ):
+                                                if (
+                                                    re.sub(
+                                                        "<[^>]+>",
+                                                        "",
+                                                        str(doc["pairs"][z][1][i])
+                                                        .split("</caption>")[-1]
+                                                        .split("</sec>")[j]
+                                                        .split("</title>")[-1]
+                                                        .replace("\n", ""),
+                                                    )
+                                                    != ""
+                                                ):
+                                                    tag_title.append(
+                                                        [
+                                                            re.sub(
+                                                                "<[^>]+>",
+                                                                "",
+                                                                str(
+                                                                    doc["pairs"][z][1][
+                                                                        i
+                                                                    ]
+                                                                )
+                                                                .split("<caption>")[-1]
+                                                                .split("</caption>")[0],
+                                                            )
+                                                        ]
+                                                    )
+                                                    tag_subtitle.append(
+                                                        [
+                                                            str(doc["pairs"][z][1][i])
+                                                            .split("</caption>")[-1]
+                                                            .split("</sec>")[j]
+                                                            .split("<title>")[-1]
+                                                            .split("</title>")[0]
+                                                        ]
+                                                    )
+                                                    text_list.append(
+                                                        re.sub(
+                                                            "<[^>]+>",
+                                                            " ",
+                                                            str(doc["pairs"][z][1][i])
+                                                            .split("</caption>")[-1]
+                                                            .split("</sec>")[j]
+                                                            .split("</title>")[-1]
+                                                            .replace("\n", ""),
+                                                        )
+                                                    )
+                                        else:
+                                            current_subtitle = ""
+                                            for j in range(
+                                                len(
+                                                    str(doc["pairs"][z][1][i])
+                                                    .split("</caption>")[-1]
+                                                    .split("</p>")
+                                                )
+                                            ):
+                                                if (
+                                                    re.sub(
+                                                        "<[^>]+>",
+                                                        "",
+                                                        str(doc["pairs"][z][1][i])
+                                                        .split("</caption>")[-1]
+                                                        .split("</p>")[j]
+                                                        .split("</title>")[-1]
+                                                        .replace("\n", ""),
+                                                    )
+                                                    != ""
+                                                ):
+                                                    tag_title.append(
+                                                        [
+                                                            re.sub(
+                                                                "<[^>]+>",
+                                                                "",
+                                                                str(
+                                                                    doc["pairs"][z][1][
+                                                                        i
+                                                                    ]
+                                                                )
+                                                                .split("<caption>")[-1]
+                                                                .split("</caption>")[0],
+                                                            )
+                                                        ]
+                                                    )
+                                                    if current_subtitle == "":
+                                                        current_subtitle = re.sub(
+                                                            "<[^>]+>",
+                                                            "",
+                                                            str(doc["pairs"][z][1][i])
+                                                            .split("<caption>")[-1]
+                                                            .split("</caption>")[0],
+                                                        )
+                                                    if (
+                                                        "</title>"
+                                                        in str(doc["pairs"][z][1][i])
+                                                        .split("</caption>")[-1]
+                                                        .split("</p>")[j]
+                                                    ):
+                                                        tag_subtitle.append(
+                                                            [
+                                                                str(
+                                                                    doc["pairs"][z][1][
+                                                                        i
+                                                                    ]
+                                                                )
+                                                                .split("</caption>")[-1]
+                                                                .split("</sec>")[j]
+                                                                .split("<title>")[-1]
+                                                                .split("</title>")[0]
+                                                            ]
+                                                        )
+                                                    else:
+                                                        tag_subtitle.append(
+                                                            [current_subtitle]
+                                                        )
+                                                    text_list.append(
+                                                        re.sub(
+                                                            "<[^>]+>",
+                                                            "",
+                                                            str(doc["pairs"][z][1][i])
+                                                            .split("</caption>")[-1]
+                                                            .split("</p>")[j]
+                                                            .split("</title>")[-1]
+                                                            .replace("\n", ""),
+                                                        )
+                                                    )
+                                    elif (
+                                        re.sub(
+                                            "<[^>]+>",
+                                            "",
+                                            "</title>".join(
+                                                str(doc["pairs"][z][1][i]).split(
+                                                    "</title>"
+                                                )[:2]
+                                            )
+                                            .split("<title>")[1]
+                                            .split("</title>")[-1],
+                                        )
+                                        == ""
+                                        and len(doc["pairs"][z][1]) == 1
+                                        and "</sec>" not in str(doc["pairs"][z][1])
+                                    ):
+                                        curent_subtitle = ""
+                                        for j in range(
+                                            len(
+                                                "</title>".join(
+                                                    str(doc["pairs"][z][1][i]).split(
+                                                        "</title>"
+                                                    )[1:]
+                                                ).split("</p>")
+                                            )
+                                        ):
+                                            if (
+                                                re.sub(
+                                                    "<[^>]+>",
+                                                    "",
+                                                    "</title>".join(
+                                                        str(
+                                                            doc["pairs"][z][1][i]
+                                                        ).split("</title>")[1:]
+                                                    )
+                                                    .split("</p>")[j]
+                                                    .split("</title>")[-1]
+                                                    .replace("\n", ""),
+                                                )
+                                                != ""
+                                            ):
+                                                tag_title.append(
+                                                    [
+                                                        "</title>".join(
+                                                            str(
+                                                                doc["pairs"][z][1][i]
+                                                            ).split("</title>")[:2]
+                                                        )
+                                                        .split("<title>")[1]
+                                                        .split("</title>")[0]
+                                                    ]
+                                                )
+                                                if curent_subtitle == "":
+                                                    curent_subtitle = (
+                                                        "</title>".join(
+                                                            str(
+                                                                doc["pairs"][z][1][i]
+                                                            ).split("</title>")[:2]
+                                                        )
+                                                        .split("<title>")[1]
+                                                        .split("</title>")[0]
+                                                    )
+                                                if (
+                                                    "<title>"
+                                                    in "</title>".join(
+                                                        str(
+                                                            doc["pairs"][z][1][i]
+                                                        ).split("</title>")[1:]
+                                                    ).split("</p>")[j]
+                                                ):
+                                                    curent_subtitle = (
+                                                        "</title>".join(
+                                                            str(
+                                                                doc["pairs"][z][1][i]
+                                                            ).split("</title>")[1:]
+                                                        )
+                                                        .split("</p>")[j]
+                                                        .split("<title>")[-1]
+                                                        .split("</title>")[0]
+                                                    )
+                                                tag_subtitle.append([curent_subtitle])
+                                                text_list.append(
+                                                    re.sub(
+                                                        "<[^>]+>",
+                                                        "",
+                                                        "</title>".join(
+                                                            str(
+                                                                doc["pairs"][z][1][i]
+                                                            ).split("</title>")[1:]
+                                                        )
+                                                        .split("</p>")[j]
+                                                        .split("</title>")[-1]
+                                                        .replace("\n", ""),
+                                                    )
+                                                )
+                                    else:
+                                        if "</sec>" not in str(doc["pairs"][z][1]):
+                                            for pair in doc["pairs"]:
+                                                print(
+                                                    "\nPrevious:",
+                                                    [str(p) for p in pair[0]],
+                                                )
+                                                print(
+                                                    "\nNext:", [str(p) for p in pair[1]]
+                                                )
+                                                print("=" * 80)
+                            if len(current_intro_list) == 0:
+                                pass
+                            elif len(current_intro_list) == 1:
+                                # Append the corresponding tag title and tag subtitle for the section
+                                # corrected_section.append(tag_title[i])
+                                tag_title.append(["document part"])
+                                # corrected_subsection.append(tag_subtitle[i])
+                                tag_subtitle.append(["document part"])
+                                # Append the corrected text to the corrected_text list
+                                # corrected_text.append(new_text)
+                                text_list.append(current_intro_list[0])
+                            else:
+                                for j in range(len(current_intro_list)):
+                                    # Append the corresponding tag title and tag subtitle for the section
+                                    # corrected_section.append(tag_title[i])
+                                    tag_title.append(["introduction"])
+                                    # corrected_subsection.append(tag_subtitle[i])
+                                    tag_subtitle.append(["introduction"])
+                                    # Append the corrected text to the corrected_text list
+                                    # corrected_text.append(new_text)
+                                    text_list.append(current_intro_list[j])
+                    else:
+                        for pair in doc["pairs"]:
+                            print("\nPrevious:", [str(p) for p in pair[0]])
+                            print("\nNext:", [str(p) for p in pair[1]])
+                            print("=" * 80)
+            ################### <p> outside section
 
             # Create a second soup object to perform modification of its content without modify the original soup object where more information will be extracted later in the code
             soup2 = BeautifulSoup(text, features="lxml")
@@ -1165,8 +2032,8 @@ if __name__ == "__main__":
                         # Check if the current section (split by <p>) is not empty after removing </p> tags
                         if text_list[i].split("<p>")[j].replace("</p>", "") != "":
                             # Append the corresponding tag title and tag subtitle for the section
-                            corrected_section.append(tag_title[i])
-                            corrected_subsection.append(tag_subtitle[i])
+                            # corrected_section.append(tag_title[i])
+                            # corrected_subsection.append(tag_subtitle[i])
 
                             # Remove all tags from the current p text from the current item of the text_list
                             new_text = str(
@@ -1185,16 +2052,34 @@ if __name__ == "__main__":
                                 .replace("&amp;", "&")
                                 .replace("&apos;", "'")
                                 .replace("&quot;", '"')
+                                .replace("\xa0", " ")
                             )
-
-                            # Append the corrected text to the corrected_text list
-                            corrected_text.append(new_text)
+                            if len(new_text) > 0:
+                                if new_text[0] == " " and new_text[-1] == " ":
+                                    if new_text[1:-1] in corrected_text:
+                                        pass
+                                    else:
+                                        corrected_section.append(tag_title[i])
+                                        corrected_subsection.append(tag_subtitle[i])
+                                        corrected_text.append(new_text[1:-1])
+                                        offset_list.append(offset)
+                                        offset += len(new_text[1:-1]) + 1
+                                # Append the corrected text to the corrected_text list
+                                else:
+                                    if new_text in corrected_text:
+                                        pass
+                                    else:
+                                        corrected_section.append(tag_title[i])
+                                        corrected_subsection.append(tag_subtitle[i])
+                                        corrected_text.append(new_text)
+                                        offset_list.append(offset)
+                                        offset += len(new_text) + 1
 
                             # Update the offset list (keeps track of the position in the document)
-                            offset_list.append(offset)
+                            # offset_list.append(offset)
 
                             # Increment the offset by the length of the new text + 1 (for spacing or next content)
-                            offset += len(new_text) + 1
+                            # offset += len(new_text) + 1
                         else:
                             # If the current section is empty after removing </p>, skip it
                             pass
@@ -1228,6 +2113,22 @@ if __name__ == "__main__":
 
                 # Update the 'offset', as it comes after the main text by adding the length of the current reference text + 1, the +1 accounts for a space or delimiter between references
                 offset += len(text_list_ref[i]) + 1
+
+            for i in range(len(corrected_section)):
+                corrected_section[i][0][0] = (
+                    corrected_section[i][0][0]
+                    .replace("\n", "")
+                    .replace("\\n", "")
+                    .replace("\\xa0", " ")
+                )
+            for i in range(len(corrected_subsection)):
+                for y in range(len(corrected_subsection[i])):
+                    corrected_subsection[i][y] = (
+                        corrected_subsection[i][y]
+                        .replace("\n", "")
+                        .replace("\\n", "")
+                        .replace("\\xa0", " ")
+                    )
 
             ######### FROM AC MAIN LIBRARY #########
 
@@ -1399,7 +2300,10 @@ if __name__ == "__main__":
                     embeded_dict = {
                         "offset": offset_list_ref[i],  # Offset for reference text
                         "infons": embeded_section_ref_list[i],  # Reference metadata
-                        "text": text_list_ref[i],  # Reference text
+                        "text": replace_spaces_and_newlines(text_list_ref[i])
+                        .replace(" ,", ",")
+                        .replace(" .", ".")
+                        .replace("..", "."),  # Reference text
                         "sentences": [],  # Placeholder for sentences
                         "annotations": [],  # Placeholder for annotations
                         "relations": [],  # Placeholder for relations
