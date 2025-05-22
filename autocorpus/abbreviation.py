@@ -398,7 +398,7 @@ def _extract_abbreviations(
 
 
 def _biocify_abbreviations(
-    abbreviations: _AbbreviationsDict, file_path: Path
+    abbreviations: _AbbreviationsDict, file_path: str
 ) -> dict[str, Any]:
     passages = []
     for short, long in abbreviations.items():
@@ -416,8 +416,8 @@ def _biocify_abbreviations(
         "key": "autocorpus_abbreviations.key",
         "documents": [
             {
-                "id": file_path.name.partition(".")[0],
-                "inputfile": str(file_path),
+                "id": Path(file_path).name.partition(".")[0],
+                "inputfile": file_path,
                 "passages": passages,
             }
         ],
@@ -425,7 +425,7 @@ def _biocify_abbreviations(
 
 
 def get_abbreviations(
-    main_text: dict[str, Any], soup: BeautifulSoup, file_path: Path
+    main_text: dict[str, Any], soup: BeautifulSoup, file_path: str
 ) -> dict[str, Any]:
     """Extract abbreviations from the input main text.
 

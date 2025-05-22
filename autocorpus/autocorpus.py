@@ -138,7 +138,7 @@ class Autocorpus:
         self.__process_html_tables(file, soup, self.config)
         self.main_text = self.__extract_text(soup, self.config)
         try:
-            self.abbreviations = get_abbreviations(self.main_text, soup, file)
+            self.abbreviations = get_abbreviations(self.main_text, soup, str(file))
         except Exception as e:
             logger.error(e)
 

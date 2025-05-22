@@ -35,7 +35,7 @@ def get_formatted_bioc_document(data_store) -> dict[str, Any]:
 
     return {
         "id": Path(data_store.file_path).name.split(".")[0],
-        "inputfile": str(data_store.file_path),
+        "inputfile": data_store.file_path,
         "infons": {},
         "passages": passages,
         "annotations": [],
