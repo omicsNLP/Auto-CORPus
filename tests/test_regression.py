@@ -1,6 +1,7 @@
 """Primary build test script used for regression testing between AC output versions."""
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -9,12 +10,26 @@ import pytest
 from autocorpus.configs.default_config import DefaultConfig
 
 
+def _get_html_test_data_paths():
+    """Return paths to HTML test data files with appropriate DefaultConfig."""
+    DATA_PATH = Path(__file__).parent / "data"
+    HTML_DATA_PATH = DATA_PATH / "html"
+
+    for dir_name in os.listdir(HTML_DATA_PATH):
+        dir_path = HTML_DATA_PATH / dir_name
+        if dir_path.is_dir():
+            # Assume the folder name corresponds to a DefaultConfig
+            config = getattr(DefaultConfig, str(dir_name)).load_config()
+
+            for file_path in dir_path.glob("*.html"):
+                # The reason for converting the path to a string is so that we get the
+                # file path in the test name (paths don't work for some reason)
+                yield (str(file_path.relative_to(DATA_PATH)), config)
+
+
 @pytest.mark.parametrize(
-    "input_file, config",
-    [
-        ("html/LEGACY_PMC/PMC8885717.html", DefaultConfig.LEGACY_PMC.load_config()),
-        ("html/PMC/PMC8885717.html", DefaultConfig.PMC.load_config()),
-    ],
+    "input_file,config",
+    _get_html_test_data_paths(),
 )
 def test_regression_html(
     data_path: Path, input_file: str, config: dict[str, Any]
@@ -22,25 +37,25 @@ def test_regression_html(
     """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper."""
     from autocorpus.autocorpus import Autocorpus
 
-    pmc_example_path = data_path / input_file
+    file_path = data_path / input_file
     with open(
-        str(pmc_example_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
+        str(file_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
     ) as f:
         expected_abbreviations = json.load(f)
     with open(
-        str(pmc_example_path).replace(".html", "_bioc.json"),
+        str(file_path).replace(".html", "_bioc.json"),
         encoding="utf-8",
     ) as f:
         expected_bioc = json.load(f)
     with open(
-        str(pmc_example_path).replace(".html", "_tables.json"),
+        str(file_path).replace(".html", "_tables.json"),
         encoding="utf-8",
     ) as f:
         expected_tables = json.load(f)
 
     auto_corpus = Autocorpus(
         config=config,
-        main_text=pmc_example_path,
+        main_text=file_path,
     )
 
     auto_corpus.process_file()
