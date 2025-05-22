@@ -67,11 +67,14 @@ def _run_html_regression_test(
         encoding="utf-8",
     ) as f:
         expected_bioc = json.load(f)
-    with open(
-        str(file_path).replace(".html", "_tables.json"),
-        encoding="utf-8",
-    ) as f:
-        expected_tables = json.load(f)
+    try:
+        with open(
+            str(file_path).replace(".html", "_tables.json"),
+            encoding="utf-8",
+        ) as f:
+            expected_tables = json.load(f)
+    except FileNotFoundError:
+        expected_tables = {}
 
     auto_corpus = Autocorpus(
         config=config,
@@ -94,7 +97,10 @@ def _run_html_regression_test(
     )
     assert abbreviations == expected_abbreviations
     assert bioc == expected_bioc
-    assert tables == expected_tables
+    if auto_corpus.has_tables:
+        assert tables == expected_tables
+    else:
+        assert not expected_tables
 
 
 @pytest.mark.skip_ci_macos
@@ -149,6 +155,7 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
 def _make_reproducible(*data: dict[str, Any]) -> None:
     """Make output files reproducible by stripping dates and file paths."""
     for d in data:
-        d.pop("date")
-        for doc in d["documents"]:
-            doc.pop("inputfile")
+        d.pop("date", None)
+        if docs := d.get("documents", None):
+            for doc in docs:
+                doc.pop("inputfile", None)
