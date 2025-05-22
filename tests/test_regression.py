@@ -12,11 +12,13 @@ from autocorpus.configs.default_config import DefaultConfig
 @pytest.mark.parametrize(
     "input_file, config",
     [
-        ("PMC/Pre-Oct-2024/PMC8885717.html", DefaultConfig.LEGACY_PMC.load_config()),
-        ("PMC/Current/PMC8885717.html", DefaultConfig.PMC.load_config()),
+        ("html/LEGACY_PMC/PMC8885717.html", DefaultConfig.LEGACY_PMC.load_config()),
+        ("html/PMC/PMC8885717.html", DefaultConfig.PMC.load_config()),
     ],
 )
-def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
+def test_regression_html(
+    data_path: Path, input_file: str, config: dict[str, Any]
+) -> None:
     """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper."""
     from autocorpus.autocorpus import Autocorpus
 
