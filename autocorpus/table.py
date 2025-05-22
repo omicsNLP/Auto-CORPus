@@ -279,7 +279,7 @@ def __format_table_bioc(table_json, table_identifier, file_path):
                 formatted_identifier = table["identifier"].replace(".", "_")
         offset = 0
         table_dict = {
-            "inputfile": file_path,
+            "inputfile": str(file_path),
             "id": formatted_identifier,
             "infons": {},
             "passages": [
