@@ -13,7 +13,7 @@ from autocorpus.configs.default_config import DefaultConfig
 def _get_html_test_data_paths():
     """Return paths to HTML test data files with appropriate DefaultConfig."""
     DATA_PATH = Path(__file__).parent / "data"
-    HTML_DATA_PATH = DATA_PATH / "html"
+    HTML_DATA_PATH = DATA_PATH / "public" / "html"
 
     for dir_name in os.listdir(HTML_DATA_PATH):
         dir_path = HTML_DATA_PATH / dir_name
