@@ -16,11 +16,11 @@ def run_autocorpus(config, structure, key, output_format):
     """
     ac = Autocorpus(
         config=config,
-        main_text=structure[key]["main_text"],
+        main_text=Path(structure[key]["main_text"]),
         linked_tables=sorted(structure[key]["linked_tables"]),
     )
 
-    ac.process_files()
+    ac.process_file()
 
     out_dir = Path(structure[key]["out_dir"])
     if structure[key]["main_text"]:
