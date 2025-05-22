@@ -10,10 +10,12 @@ import pytest
 from autocorpus.configs.default_config import DefaultConfig
 
 
-def _get_html_test_data_paths():
+def _get_html_test_data_paths(subfolder: str):
     """Return paths to HTML test data files with appropriate DefaultConfig."""
     DATA_PATH = Path(__file__).parent / "data"
-    HTML_DATA_PATH = DATA_PATH / "public" / "html"
+    HTML_DATA_PATH = DATA_PATH / subfolder / "html"
+    if not HTML_DATA_PATH.exists():
+        return
 
     for dir_name in os.listdir(HTML_DATA_PATH):
         dir_path = HTML_DATA_PATH / dir_name
@@ -27,14 +29,32 @@ def _get_html_test_data_paths():
                 yield (str(file_path.relative_to(DATA_PATH)), config)
 
 
+_private_test_data = list(_get_html_test_data_paths("private"))
+
+
 @pytest.mark.parametrize(
     "input_file,config",
-    _get_html_test_data_paths(),
+    _get_html_test_data_paths("public"),
 )
-def test_regression_html(
+def test_regression_html_public(
     data_path: Path, input_file: str, config: dict[str, Any]
 ) -> None:
-    """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper."""
+    """Regression test for public HTML data."""
+    _run_html_regression_test(data_path, input_file, config)
+
+
+@pytest.mark.skipif(not _private_test_data, reason="Private test data not checked out")
+@pytest.mark.parametrize("input_file,config", _private_test_data)
+def test_regression_html_private(
+    data_path: Path, input_file: str, config: dict[str, Any]
+) -> None:
+    """Regression test for private HTML data."""
+    _run_html_regression_test(data_path, input_file, config)
+
+
+def _run_html_regression_test(
+    data_path: Path, input_file: str, config: dict[str, Any]
+) -> None:
     from autocorpus.autocorpus import Autocorpus
 
     file_path = data_path / input_file
