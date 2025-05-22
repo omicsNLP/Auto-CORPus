@@ -6,7 +6,7 @@ from typing import Any
 
 import pytest
 
-from autocorpus.configs.default_config import DefaultConfig
+from autocorpus.config import DefaultConfig
 
 
 @pytest.mark.parametrize(
@@ -38,7 +38,7 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
 
     auto_corpus = Autocorpus(
         config=config,
-        main_text=pmc_example_path,
+        main_text=str(pmc_example_path),
     )
 
     auto_corpus.process_file()

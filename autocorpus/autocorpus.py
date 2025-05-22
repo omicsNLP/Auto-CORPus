@@ -1,10 +1,10 @@
-"""Auto-CORPus primary functions are called from this script, after initialisation with __main__.py."""
+"""Auto-CORPus primary functions are defined in this module."""
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, TypedDict, cast
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from marker.converters.pdf import PdfConverter
 
 from . import logger
@@ -18,69 +18,127 @@ from .utils import handle_not_tables
 pdf_converter: PdfConverter | None = None
 
 
+def soupify_infile(fpath: Path) -> BeautifulSoup:
+    """Convert the input file into a BeautifulSoup object.
+
+    Args:
+        fpath: Path to the input file.
+
+    Returns:
+        BeautifulSoup object of the input file.
+    """
+    with fpath.open(encoding="utf-8") as fp:
+        soup = BeautifulSoup(fp.read(), "html.parser")
+        for e in soup.find_all(attrs={"style": ["display:none", "visibility:hidden"]}):
+            e.extract()
+        return soup
+
+
+class Keywords(TypedDict, total=False):
+    """TypedDict for keywords section."""
+
+    section_heading: str
+    subsection_heading: str
+    body: str
+    section_type: list[dict[str, str]]
+
+
+def get_keywords(soup: BeautifulSoup, config: dict[str, Any]) -> Keywords:
+    """Extract keywords from the soup object based on the provided configuration.
+
+    Args:
+        soup: BeautifulSoup object of the HTML file.
+        config: AC config rules.
+
+    Returns:
+        dict: Extracted keywords as a dictionary.
+    """
+    if "keywords" not in config:
+        return {}
+
+    responses = handle_not_tables(config["keywords"], soup)
+    if not responses:
+        return {}
+
+    return {
+        "section_heading": "keywords",
+        "subsection_heading": "",
+        "body": " ".join(
+            x["node"].get_text() for x in responses if isinstance(x["node"], Tag)
+        ),
+        "section_type": [{"iao_name": "keywords section", "iao_id": "IAO:0000630"}],
+    }
+
+
+def get_title(soup: BeautifulSoup, config: dict[str, Any]) -> str:
+    """Extract the title from the soup object based on the provided configuration.
+
+    Args:
+        soup: BeautifulSoup object of the HTML file.
+        config: AC config rules.
+
+    Returns:
+        Extracted title as a string.
+    """
+    if "title" not in config:
+        return ""
+
+    titles = handle_not_tables(config["title"], soup)
+    if not titles:
+        return ""
+
+    node = cast(Tag, titles[0]["node"])
+
+    return node.get_text()
+
+
+def get_sections(
+    soup: BeautifulSoup, config: dict[str, Any]
+) -> list[dict[str, Tag | list[str]]]:
+    """Extract sections from the soup object based on the provided configuration.
+
+    Args:
+        soup: Beautiful Soup object of the HTML file.
+        config: AC config rules.
+
+    Returns:
+        A list of matches for the provided config rules. Either as a Tag or a list of
+            strings.
+    """
+    if "sections" not in config:
+        return []
+
+    return handle_not_tables(config["sections"], soup)
+
+
+def set_unknown_section_headings(unique_text: list[Keywords]) -> list[Keywords]:
+    """Set the heading for sections that are not specified in the config.
+
+    Args:
+        unique_text: List of unique text sections.
+
+    Returns:
+        A list of unique text sections with unknown headings set to "document part".
+    """
+    paper = {}
+    for para in unique_text:
+        if para["section_heading"] != "keywords":
+            paper[para["section_heading"]] = [
+                x["iao_name"] for x in para["section_type"]
+            ]
+
+    for text in unique_text:
+        if not text["section_heading"]:
+            text["section_heading"] = "document part"
+            text["section_type"] = [
+                {"iao_name": "document part", "iao_id": "IAO:0000314"}
+            ]
+
+    return unique_text
+
+
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
-
-    @staticmethod
-    def read_config(config_path: str) -> dict[str, Any]:
-        """Reads a configuration file and returns its content.
-
-        Args:
-            config_path (str): The path to the configuration file.
-
-        Returns:
-            dict: The content of the configuration file.
-
-        Raises:
-            FileNotFoundError: If the configuration file does not exist.
-            json.JSONDecodeError: If the configuration file is not a valid JSON.
-            KeyError: If the configuration file does not contain the expected "config" key.
-        """
-        with open(config_path, encoding="utf-8") as f:
-            ## TODO: validate config file here if possible
-            content = json.load(f)
-            return content["config"]
-
-    def __soupify_infile(self, fpath: Path):
-        with fpath.open(encoding="utf-8") as fp:
-            soup = BeautifulSoup(fp.read(), "html.parser")
-            for e in soup.find_all(
-                attrs={"style": ["display:none", "visibility:hidden"]}
-            ):
-                e.extract()
-            return soup
-
-    def __get_keywords(self, soup, config):
-        if "keywords" not in config:
-            return {}
-
-        responses = handle_not_tables(config["keywords"], soup)
-        if not responses:
-            return {}
-
-        responses = " ".join(x["node"].get_text() for x in responses)
-        return {
-            "section_heading": "keywords",
-            "subsection_heading": "",
-            "body": responses,
-            "section_type": [{"iao_name": "keywords section", "iao_id": "IAO:0000630"}],
-        }
-
-    def __get_title(self, soup, config):
-        if "title" not in config:
-            return ""
-
-        titles = handle_not_tables(config["title"], soup)
-        if not titles:
-            return ""
-
-        return titles[0]["node"].get_text()
-
-    def __get_sections(self, soup, config):
-        if "sections" not in config:
-            return []
-
-        return handle_not_tables(config["sections"], soup)
 
     def __extract_text(self, soup, config):
         """Convert beautiful soup object into a python dict object with cleaned main text body.
@@ -95,11 +153,11 @@ class Autocorpus:
         result = {}
 
         # Tags of text body to be extracted are hard-coded as p (main text) and span (keywords and refs)
-        result["title"] = self.__get_title(soup, config)
+        result["title"] = get_title(soup, config)
         maintext = []
-        if keywords := self.__get_keywords(soup, config):
+        if keywords := get_keywords(soup, config):
             maintext.append(keywords)
-        sections = self.__get_sections(soup, config)
+        sections = get_sections(soup, config)
         for sec in sections:
             maintext.extend(get_section(config, sec))
 
@@ -112,29 +170,12 @@ class Autocorpus:
                 seen_text.append(text["body"])
                 unique_text.append(text)
 
-        result["paragraphs"] = self.__set_unknown_section_headings(unique_text)
+        result["paragraphs"] = set_unknown_section_headings(unique_text)
 
         return result
 
-    def __set_unknown_section_headings(self, unique_text):
-        paper = {}
-        for para in unique_text:
-            if para["section_heading"] != "keywords":
-                paper[para["section_heading"]] = [
-                    x["iao_name"] for x in para["section_type"]
-                ]
-
-        for text in unique_text:
-            if not text["section_heading"]:
-                text["section_heading"] = "document part"
-                text["section_type"] = [
-                    {"iao_name": "document part", "iao_id": "IAO:0000314"}
-                ]
-
-        return unique_text
-
     def __process_html_article(self, file: Path):
-        soup = self.__soupify_infile(file)
+        soup = soupify_infile(file)
         self.__process_html_tables(file, soup, self.config)
         self.main_text = self.__extract_text(soup, self.config)
         try:
@@ -319,7 +360,7 @@ class Autocorpus:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
-            soup = self.__soupify_infile(Path(self.file_path))
+            soup = soupify_infile(Path(self.file_path))
             self.__process_html_tables(self.file_path, soup, self.config)
             self.main_text = self.__extract_text(soup, self.config)
             try:
@@ -330,7 +371,7 @@ class Autocorpus:
                 logger.error(e)
         if self.linked_tables:
             for table_file in self.linked_tables:
-                soup = self.__soupify_infile(table_file)
+                soup = soupify_infile(table_file)
                 self.__process_html_tables(table_file, soup, self.config)
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
@@ -378,7 +419,7 @@ class Autocorpus:
     def __init__(
         self,
         config: dict[str, Any],
-        main_text: Path | None = None,
+        main_text: str = "",
         linked_tables=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
@@ -397,15 +438,15 @@ class Autocorpus:
         self.abbreviations = {}
         self.has_tables = False
 
-    def to_bioc(self):
+    def to_bioc(self) -> dict[str, Any]:
         """Get the currently loaded bioc as a dict.
 
         Returns:
             (dict): bioc as a dict
         """
-        return get_formatted_bioc_collection(self)
+        return get_formatted_bioc_collection(self.main_text, self.file_path)
 
-    def main_text_to_bioc_json(self):
+    def main_text_to_bioc_json(self) -> str:
         """Get the currently loaded main text as BioC JSON.
 
         Args:
@@ -415,10 +456,12 @@ class Autocorpus:
             (str): main text as BioC JSON
         """
         return json.dumps(
-            get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
+            get_formatted_bioc_collection(self.main_text, self.file_path),
+            indent=2,
+            ensure_ascii=False,
         )
 
-    def main_text_to_bioc_xml(self):
+    def main_text_to_bioc_xml(self) -> str:
         """Get the currently loaded main text as BioC XML.
 
         Returns:
@@ -426,12 +469,14 @@ class Autocorpus:
         """
         collection = BioCJSON.loads(
             json.dumps(
-                get_formatted_bioc_collection(self), indent=2, ensure_ascii=False
+                get_formatted_bioc_collection(self.main_text, self.file_path),
+                indent=2,
+                ensure_ascii=False,
             )
         )
         return BioCXML.dumps(collection)
 
-    def tables_to_bioc_json(self, indent=2):
+    def tables_to_bioc_json(self, indent: int = 2) -> str:
         """Get the currently loaded tables as Tables-JSON.
 
         Args:
@@ -442,7 +487,7 @@ class Autocorpus:
         """
         return json.dumps(self.tables, ensure_ascii=False, indent=indent)
 
-    def abbreviations_to_bioc_json(self, indent=2):
+    def abbreviations_to_bioc_json(self, indent: int = 2) -> str:
         """Get the currently loaded abbreviations as BioC JSON.
 
         Args:
@@ -453,7 +498,7 @@ class Autocorpus:
         """
         return json.dumps(self.abbreviations, ensure_ascii=False, indent=indent)
 
-    def to_json(self, indent=2):
+    def to_json(self, indent: int = 2) -> str:
         """Get the currently loaded AC object as a dict.
 
         Args:
@@ -464,7 +509,7 @@ class Autocorpus:
         """
         return json.dumps(self.to_dict(), ensure_ascii=False, indent=indent)
 
-    def to_dict(self):
+    def to_dict(self) -> dict[str, Any]:
         """Get the currently loaded AC object as a dict.
 
         Returns:
