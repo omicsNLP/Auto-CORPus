@@ -12,7 +12,7 @@ from dataclasses import asdict, dataclass
 from functools import lru_cache
 from importlib import resources
 from itertools import chain
-from typing import Any
+from typing import Any, cast
 
 import nltk
 from bs4 import BeautifulSoup, Tag
@@ -148,7 +148,7 @@ def _get_abbreviations(
 ) -> str:
     try:
         abbreviations_tables = handle_not_tables(abbreviations_config, soup_section)
-        node = abbreviations_tables[0]["node"]
+        node = cast(Tag, abbreviations_tables[0]["node"])
         abbreviations = {}
         for tr in node.find_all("tr"):
             short_form, long_form = (td.get_text() for td in tr.find_all("td"))
@@ -225,13 +225,16 @@ def _get_section(
 ) -> Iterable[SectionChild]:
     subsections = handle_not_tables(config["sub-sections"], soup_section)
     paragraphs = [
-        para["node"] for para in handle_not_tables(config["paragraphs"], soup_section)
+        cast(Tag, para["node"])
+        for para in handle_not_tables(config["paragraphs"], soup_section)
     ]
     tables = [
-        table["node"] for table in handle_not_tables(config["tables"], soup_section)
+        cast(Tag, table["node"])
+        for table in handle_not_tables(config["tables"], soup_section)
     ]
     figures = [
-        figure["node"] for figure in handle_not_tables(config["figures"], soup_section)
+        cast(Tag, figure["node"])
+        for figure in handle_not_tables(config["figures"], soup_section)
     ]
     unwanted_paragraphs = list(
         chain.from_iterable(
