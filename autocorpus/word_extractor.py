@@ -8,6 +8,7 @@ import platform
 import subprocess
 from pathlib import Path
 
+import docx
 from docx import Document
 
 from autocorpus.ac_bioc.bioctable.collection import BioCTableCollection
@@ -19,11 +20,11 @@ from autocorpus.bioc_supplementary import BioCTableConverter, BioCTextConverter
 from . import logger
 
 
-def __extract_tables(doc):
+def __extract_tables(doc: docx.document.Document) -> list[list[list[str]]]:
     """Extracts tables from a .docx document.
 
     Args:
-        doc (docx.Document): The Document object representing the .docx document.
+        doc: The Document object representing the .docx document.
 
     Returns:
         list: A list of tables extracted from the document. Each table is represented as a nested list,
@@ -37,7 +38,7 @@ def __extract_tables(doc):
         tables = extract_tables(doc)
     """
     # Open the .docx file
-    tables = []
+    tables: list[list[list[str]]] = []
     # Iterate through the tables in the document
     for table in doc.tables:
         tables.append([])
@@ -47,57 +48,104 @@ def __extract_tables(doc):
     return tables
 
 
-def __convert_older_doc_file(file: Path, output_dir: Path) -> Path | bool:
-    """Converts an older .doc file to .docx format using platform-specific methods."""
-    operating_system = platform.system()
-    docx_path = Path(str(file).replace(".doc", ".docx"))
-    if operating_system == "Windows":
+def __windows_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
+    """Converts a .doc file to .docx format using Microsoft Word on Windows."""
+    try:
         import win32com.client
+    except ImportError as e:
+        logger.error(
+            "pywin32 is required to convert Word documents on Windows. Please install it via 'pip install pywin32'."
+        )
+        return False
 
-        word = None
-        try:
-            word = win32com.client.DispatchEx("Word.Application")
-            doc = word.Documents.Open(file)
-            doc.SaveAs(docx_path, 16)
-            doc.Close()
-            word.Quit()
-            return docx_path
-        except Exception:
-            return False
-        finally:
-            if word:
+    word = None
+    try:
+        word = win32com.client.DispatchEx("Word.Application")
+        doc = word.Documents.Open(str(file))
+        doc.SaveAs(str(docx_path), 16)  # 16 = wdFormatDocumentDefault (.docx)
+        doc.Close()
+        logger.info(
+            f"Successfully converted '{file}' to '{docx_path}' using Word on Windows."
+        )
+        return docx_path
+    except Exception as e:
+        logger.exception(f"Failed to convert '{file}' on Windows: {e}")
+        return False
+    finally:
+        if word:
+            try:
                 word.Quit()
-    elif operating_system == "Linux":
-        # Convert .doc to .docx using LibreOffice
-        subprocess.run(
+            except Exception as quit_err:
+                logger.warning(f"Could not quit Word application cleanly: {quit_err}")
+
+
+def __linux_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
+    """Converts a .doc file to .docx format using LibreOffice on Linux."""
+    try:
+        result = subprocess.run(
             [
                 "soffice",
                 "--headless",
                 "--convert-to",
                 "docx",
                 "--outdir",
-                output_dir,
-                file,
+                str(docx_path.parent),
+                str(file),
             ],
             check=True,
             capture_output=True,
+            text=True,
+        )
+        logger.info(f"LibreOffice output: {result.stdout}")
+        return docx_path
+    except FileNotFoundError:
+        logger.error(
+            "LibreOffice ('soffice') not found. Please install it to enable DOC to DOCX conversion."
+        )
+        return False
+    except subprocess.CalledProcessError as e:
+        logger.exception(f"LibreOffice failed to convert '{file}': {e.stderr}")
+        return False
+
+
+def __macos_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
+    """Converts a .doc file to .docx format using AppleScript on macOS."""
+    try:
+        applescript = f'''
+        tell application "Microsoft Word"
+            open "{file}"
+            save as active document file name "{docx_path}" file format format document
+            close active document saving no
+        end tell
+        '''
+        subprocess.run(["osascript", "-e", applescript], check=True)
+        logger.info(
+            f"Successfully converted '{file}' to '{docx_path}' using Word on macOS."
         )
         return docx_path
+    except FileNotFoundError:
+        logger.error(
+            "osascript not found. Ensure you have AppleScript and Microsoft Word installed on macOS."
+        )
+        return False
+    except subprocess.CalledProcessError as e:
+        logger.exception(f"AppleScript failed to convert '{file}': {e}")
+        return False
+
+
+def __convert_older_doc_file(file: Path, output_dir: Path) -> Path | bool:
+    """Converts an older .doc file to .docx format using platform-specific methods."""
+    operating_system = platform.system()
+    docx_path = output_dir / file.with_suffix(".docx").name
+
+    if operating_system == "Windows":
+        return __windows_convert_doc_to_docx(docx_path, file)
+    elif operating_system == "Linux":
+        return __linux_convert_doc_to_docx(docx_path, file)
     elif operating_system == "Darwin":  # macOS
-        try:
-            # AppleScript to open the file in Word and save as .docx
-            applescript = f'''
-            tell application "Microsoft Word"
-                open "{file}"
-                save as active document file name "{docx_path}" file format format document
-                close active document saving no
-            end tell
-            '''
-            subprocess.run(["osascript", "-e", applescript], check=True)
-            return docx_path
-        except Exception:
-            return False
+        return __macos_convert_doc_to_docx(docx_path, file)
     else:
+        logger.error(f"Unsupported operating system: {operating_system}")
         return False
 
 

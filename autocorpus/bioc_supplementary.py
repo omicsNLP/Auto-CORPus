@@ -208,9 +208,9 @@ class BioCTextConverter:
         """Builds a BioCCollection object from the provided text, input file, and file type.
 
         Args:
-            text (str | list[tuple[str, bool]]): The text content to be converted.
-            input_file (str): The path to the input file.
-            file_type (str): The type of the input file ('word' or 'pdf').
+            text: The text content to be converted.
+            input_file: The path to the input file.
+            file_type: The type of the input file ('word' or 'pdf').
 
         Returns:
             BioCCollection: The constructed BioCCollection object.
