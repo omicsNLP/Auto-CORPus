@@ -4,8 +4,6 @@ import datetime
 from dataclasses import dataclass
 from typing import TypeVar, cast
 
-import pandas as pd
-import regex
 from pandas import DataFrame
 
 from .ac_bioc import (
@@ -19,7 +17,6 @@ from .ac_bioc.bioctable import (
     BioCTableDocument,
     BioCTablePassage,
 )
-
 
 @dataclass
 class WordText:
@@ -91,7 +88,6 @@ def extract_table_from_pdf_text(text: str) -> tuple[str, list[DataFrame]]:
     tables_output = _parse_tables(raw_tables)
     text_output = "\n\n".join(main_text_lines)
     return text_output, tables_output
-
 
 def string_replace_unicode(text: str) -> str:
     """Replaces specific Unicode characters with their corresponding replacements in the given text."""

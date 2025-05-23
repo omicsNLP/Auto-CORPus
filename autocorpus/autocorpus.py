@@ -5,17 +5,6 @@ from pathlib import Path
 from typing import Any
 
 from bs4 import BeautifulSoup
-from marker.converters.pdf import PdfConverter
-from marker.models import create_model_dict
-from marker.output import text_from_rendered
-
-from autocorpus.ac_bioc.bioctable.json import BioCTableJSON
-from autocorpus.bioc_supplementary import (
-    BioCTableConverter,
-    BioCTextConverter,
-    extract_table_from_pdf_text,
-)
-from autocorpus.word_extractor import extract_word_content
 
 from . import logger
 from .abbreviation import get_abbreviations
@@ -24,8 +13,6 @@ from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
 from .table import get_table_json
 from .utils import handle_not_tables
-
-pdf_converter: PdfConverter | None = None
 
 
 class Autocorpus:
@@ -91,57 +78,6 @@ class Autocorpus:
             return []
 
         return handle_not_tables(config["sections"], soup)
-
-    @staticmethod
-    def __load_pdf_models():
-        global pdf_converter
-        if pdf_converter is None:
-            try:
-                # Load the PDF models
-                pdf_converter = PdfConverter(
-                    artifact_dict=create_model_dict(),
-                )
-            except Exception as e:
-                logger.error(f"Error loading PDF models: {e}")
-                # If loading fails, set pdf_converter to None
-                pdf_converter = None
-
-    @staticmethod
-    def __extract_pdf_content(
-        file_path: Path,
-    ) -> bool:
-        """Extracts content from a PDF file.
-
-        Args:
-            file_path (Path): Path to the PDF file.
-
-        Returns:
-            bool: success status of the extraction process.
-        """
-        bioc_text, bioc_tables = None, None
-        global pdf_converter
-        Autocorpus.__load_pdf_models()
-        if not pdf_converter:
-            logger.error("PDF converter not initialized.")
-            return False
-
-        # extract text from PDF
-        rendered = pdf_converter(str(file_path))
-        text, _, _ = text_from_rendered(rendered)
-        # separate text and tables
-        text, tables = extract_table_from_pdf_text(text)
-        # format data for BioC
-        bioc_text = BioCTextConverter.build_bioc(text, str(file_path), "pdf")
-        bioc_tables = BioCTableConverter.build_bioc(tables, str(file_path))
-
-        out_filename = str(file_path).replace(".pdf", ".pdf_bioc.json")
-        with open(out_filename, "w", encoding="utf-8") as f:
-            BioCJSON.dump(bioc_text, f, indent=4)
-
-        out_table_filename = str(file_path).replace(".pdf", ".pdf_tables.json")
-        with open(out_table_filename, "w", encoding="utf-8") as f:
-            BioCTableJSON.dump(bioc_tables, f, indent=4)
-        return True
 
     def __extract_text(self, soup, config):
         """Convert beautiful soup object into a python dict object with cleaned main text body.
@@ -344,7 +280,17 @@ class Autocorpus:
             case ".xml":
                 pass
             case ".pdf":
-                self.__extract_pdf_content(file)
+                try:
+                    from .pdf import extract_pdf_content
+
+                    extract_pdf_content(file)
+                except ModuleNotFoundError:
+                    logger.error(
+                        "Could not load necessary PDF packages. "
+                        "If you installed Auto-CORPUS via pip, you can obtain these with:\n"
+                        "    pip install autocorpus[pdf]"
+                    )
+                    raise
             case ".doc" | ".docx":
                 extract_word_content(file)
             case _:
@@ -372,7 +318,7 @@ class Autocorpus:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
-            soup = self.__soupify_infile(self.file_path)
+            soup = self.__soupify_infile(Path(self.file_path))
             self.__process_html_tables(self.file_path, soup, self.config)
             self.main_text = self.__extract_text(soup, self.config)
             try:
@@ -441,7 +387,7 @@ class Autocorpus:
             main_text (Path): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
         """
-        self.file_path = main_text
+        self.file_path = str(main_text)
         self.linked_tables = linked_tables
         self.config = config
         self.main_text = {}
