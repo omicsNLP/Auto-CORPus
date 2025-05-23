@@ -292,6 +292,8 @@ class Autocorpus:
                     )
                     raise
             case ".doc" | ".docx":
+                from .word_extractor import extract_word_content
+
                 extract_word_content(file)
             case _:
                 pass
