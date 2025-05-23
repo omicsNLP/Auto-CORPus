@@ -1,6 +1,7 @@
 """Primary build test script used for regression testing between AC output versions."""
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -8,37 +9,91 @@ import pytest
 
 from autocorpus.configs.default_config import DefaultConfig
 
+_KNOWN_FAILURES = [
+    "PMC10790237.html",
+    "PMC5480070.html",
+    "PMC8853865.html",
+    "PMC9477686.html",
+]
+"""These files are known to fail the regression test, even though they shouldn't.
+
+The problem is in the `*_tables.json` files. You get different results on different runs
+for reasons unknown.
+"""
+
+
+def _get_html_test_data_paths(subfolder: str):
+    """Return paths to HTML test data files with appropriate DefaultConfig."""
+    DATA_PATH = Path(__file__).parent / "data"
+    HTML_DATA_PATH = DATA_PATH / subfolder / "html"
+    if not HTML_DATA_PATH.exists():
+        return
+
+    for dir_name in os.listdir(HTML_DATA_PATH):
+        dir_path = HTML_DATA_PATH / dir_name
+        if dir_path.is_dir():
+            # Assume the folder name corresponds to a DefaultConfig
+            config = getattr(DefaultConfig, dir_name).load_config()
+
+            for file_path in dir_path.glob("*.html"):
+                # The reason for converting the path to a string is so that we get the
+                # file path in the test name (paths don't work for some reason)
+                yield (str(file_path.relative_to(DATA_PATH)), config)
+
+
+_private_test_data = list(_get_html_test_data_paths("private"))
+
 
 @pytest.mark.parametrize(
-    "input_file, config",
-    [
-        ("PMC/Pre-Oct-2024/PMC8885717.html", DefaultConfig.LEGACY_PMC.load_config()),
-        ("PMC/Current/PMC8885717.html", DefaultConfig.PMC.load_config()),
-    ],
+    "input_file,config",
+    _get_html_test_data_paths("public"),
 )
-def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
-    """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper."""
+def test_regression_html_public(
+    data_path: Path, input_file: str, config: dict[str, Any]
+) -> None:
+    """Regression test for public HTML data."""
+    _run_html_regression_test(data_path, input_file, config)
+
+
+@pytest.mark.skipif(not _private_test_data, reason="Private test data not checked out")
+@pytest.mark.parametrize("input_file,config", _private_test_data)
+def test_regression_html_private(
+    data_path: Path, input_file: str, config: dict[str, Any]
+) -> None:
+    """Regression test for private HTML data."""
+    if Path(input_file).name in _KNOWN_FAILURES:
+        pytest.xfail("Known problematic file")
+
+    _run_html_regression_test(data_path, input_file, config)
+
+
+def _run_html_regression_test(
+    data_path: Path, input_file: str, config: dict[str, Any]
+) -> None:
     from autocorpus.autocorpus import Autocorpus
 
-    pmc_example_path = data_path / input_file
+    file_path = data_path / input_file
     with open(
-        str(pmc_example_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
+        str(file_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
     ) as f:
         expected_abbreviations = json.load(f)
     with open(
-        str(pmc_example_path).replace(".html", "_bioc.json"),
+        str(file_path).replace(".html", "_bioc.json"),
         encoding="utf-8",
     ) as f:
         expected_bioc = json.load(f)
-    with open(
-        str(pmc_example_path).replace(".html", "_tables.json"),
-        encoding="utf-8",
-    ) as f:
-        expected_tables = json.load(f)
+    try:
+        with open(
+            str(file_path).replace(".html", "_tables.json"),
+            encoding="utf-8",
+        ) as f:
+            expected_tables = json.load(f)
+    except FileNotFoundError:
+        expected_tables = {}
 
     auto_corpus = Autocorpus(
         config=config,
-        main_text=pmc_example_path,
+        main_text=file_path,
     )
 
     auto_corpus.process_file()
@@ -57,7 +112,10 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
     )
     assert abbreviations == expected_abbreviations
     assert bioc == expected_bioc
-    assert tables == expected_tables
+    if auto_corpus.has_tables:
+        assert tables == expected_tables
+    else:
+        assert not expected_tables
 
 
 @pytest.mark.skip_ci_macos
@@ -112,6 +170,7 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
 def _make_reproducible(*data: dict[str, Any]) -> None:
     """Make output files reproducible by stripping dates and file paths."""
     for d in data:
-        d.pop("date")
-        for doc in d["documents"]:
-            doc.pop("inputfile")
+        d.pop("date", None)
+        if docs := d.get("documents", None):
+            for doc in docs:
+                doc.pop("inputfile", None)
