@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Any
 
 from bs4 import BeautifulSoup
-from marker.converters.pdf import PdfConverter
 
 from . import logger
 from .abbreviation import get_abbreviations
@@ -14,8 +13,6 @@ from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
 from .table import get_table_json
 from .utils import handle_not_tables
-
-pdf_converter: PdfConverter | None = None
 
 
 class Autocorpus:
