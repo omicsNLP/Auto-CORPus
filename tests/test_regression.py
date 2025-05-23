@@ -17,7 +17,10 @@ from autocorpus.configs.default_config import DefaultConfig
     ],
 )
 def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
-    """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper."""
+    """A regression test for the main autoCORPus class.
+
+    Uses each PMC config on the AutoCORPus Paper.
+    """
     from autocorpus.autocorpus import Autocorpus
 
     pmc_example_path = data_path / input_file
