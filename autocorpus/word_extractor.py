@@ -8,55 +8,58 @@ import platform
 import subprocess
 from pathlib import Path
 
-import docx
 from docx import Document
-
-from autocorpus.ac_bioc.bioctable.collection import BioCTableCollection
-from autocorpus.ac_bioc.bioctable.json import BioCTableJSON
-from autocorpus.ac_bioc.collection import BioCCollection
-from autocorpus.ac_bioc.json import BioCJSON
-from autocorpus.bioc_supplementary import BioCTableConverter, BioCTextConverter
+from docx.document import Document as DocumentObject
+from pandas import DataFrame
 
 from . import logger
+from .ac_bioc.bioctable.collection import BioCTableCollection
+from .ac_bioc.bioctable.json import BioCTableJSON
+from .ac_bioc.collection import BioCCollection
+from .ac_bioc.json import BioCJSON
+from .bioc_supplementary import (
+    BioCTableConverter,
+    BioCTextConverter,
+    WordText,
+)
 
 
-def __extract_tables(doc: docx.document.Document) -> list[list[list[str]]]:
-    """Extracts tables from a .docx document.
+def __extract_tables(doc: DocumentObject) -> list[DataFrame]:
+    """Extracts tables from a .docx document as a list of DataFrames.
 
     Args:
         doc: The Document object representing the .docx document.
 
     Returns:
-        list: A list of tables extracted from the document. Each table is represented as a nested list,
-              where each inner list corresponds to a row, and each element in the inner list corresponds
-              to the text content of a cell in the row.
+        List[pd.DataFrame]: A list of pandas DataFrames, each representing a table in the document.
 
     Example:
         from docx import Document
 
         doc = Document("document.docx")
-        tables = extract_tables(doc)
+        tables = __extract_tables(doc)
     """
-    # Open the .docx file
-    tables: list[list[list[str]]] = []
-    # Iterate through the tables in the document
+    dataframes: list[DataFrame] = []
+
     for table in doc.tables:
-        tables.append([])
-        # Iterate through the rows in the table
+        data = []
         for row in table.rows:
-            tables[-1].append([x.text for x in row.cells])
-    return tables
+            data.append([cell.text.strip() for cell in row.cells])
+        df = DataFrame(data)
+        dataframes.append(df)
+
+    return dataframes
 
 
-def __windows_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
+def __windows_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | None:
     """Converts a .doc file to .docx format using Microsoft Word on Windows."""
     try:
         import win32com.client
-    except ImportError as e:
+    except ImportError:
         logger.error(
             "pywin32 is required to convert Word documents on Windows. Please install it via 'pip install pywin32'."
         )
-        return False
+        return None
 
     word = None
     try:
@@ -70,7 +73,7 @@ def __windows_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
         return docx_path
     except Exception as e:
         logger.exception(f"Failed to convert '{file}' on Windows: {e}")
-        return False
+        return None
     finally:
         if word:
             try:
@@ -79,7 +82,7 @@ def __windows_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
                 logger.warning(f"Could not quit Word application cleanly: {quit_err}")
 
 
-def __linux_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
+def __linux_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | None:
     """Converts a .doc file to .docx format using LibreOffice on Linux."""
     try:
         result = subprocess.run(
@@ -102,19 +105,26 @@ def __linux_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
         logger.error(
             "LibreOffice ('soffice') not found. Please install it to enable DOC to DOCX conversion."
         )
-        return False
+        return None
     except subprocess.CalledProcessError as e:
         logger.exception(f"LibreOffice failed to convert '{file}': {e.stderr}")
-        return False
+        return None
 
 
-def __macos_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
+def __escape_applescript_path(path: Path) -> str:
+    # Convert to absolute path just in case
+    path = path.absolute()
+    # Escape backslashes and double quotes for AppleScript
+    return str(path).replace("\\", "\\\\").replace('"', '\\"')
+
+
+def __macos_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | None:
     """Converts a .doc file to .docx format using AppleScript on macOS."""
     try:
         applescript = f'''
         tell application "Microsoft Word"
-            open "{file}"
-            save as active document file name "{docx_path}" file format format document
+            open "{__escape_applescript_path(file)}"
+            save as active document file name "{__escape_applescript_path(docx_path)}" file format format document
             close active document saving no
         end tell
         '''
@@ -127,26 +137,23 @@ def __macos_convert_doc_to_docx(docx_path: Path, file: Path) -> Path | bool:
         logger.error(
             "osascript not found. Ensure you have AppleScript and Microsoft Word installed on macOS."
         )
-        return False
+        return None
     except subprocess.CalledProcessError as e:
         logger.exception(f"AppleScript failed to convert '{file}': {e}")
-        return False
+        return None
 
 
-def __convert_older_doc_file(file: Path, output_dir: Path) -> Path | bool:
+def __convert_older_doc_file(file: Path, output_dir: Path) -> Path | None:
     """Converts an older .doc file to .docx format using platform-specific methods."""
     operating_system = platform.system()
     docx_path = output_dir / file.with_suffix(".docx").name
 
     if operating_system == "Windows":
         return __windows_convert_doc_to_docx(docx_path, file)
-    elif operating_system == "Linux":
-        return __linux_convert_doc_to_docx(docx_path, file)
     elif operating_system == "Darwin":  # macOS
         return __macos_convert_doc_to_docx(docx_path, file)
     else:
-        logger.error(f"Unsupported operating system: {operating_system}")
-        return False
+        return __linux_convert_doc_to_docx(docx_path, file)  # Fallback to Linux method
 
 
 def extract_word_content(file_path: Path):
@@ -170,7 +177,7 @@ def extract_word_content(file_path: Path):
             ]
         )
         paragraphs = [
-            (
+            WordText(
                 x.text,
                 True
                 if text_sizes

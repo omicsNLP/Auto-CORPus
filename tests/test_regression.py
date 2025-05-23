@@ -1,11 +1,13 @@
 """Primary build test script used for regression testing between AC output versions."""
 
 import json
+import shutil
 from pathlib import Path
 from typing import Any
 
 import pytest
 
+from autocorpus.autocorpus import Autocorpus
 from autocorpus.configs.default_config import DefaultConfig
 
 
@@ -18,8 +20,6 @@ from autocorpus.configs.default_config import DefaultConfig
 )
 def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
     """A regression test for the main autoCORPus class, using the each PMC config on the AutoCORPus Paper."""
-    from autocorpus.autocorpus import Autocorpus
-
     pmc_example_path = data_path / input_file
     with open(
         str(pmc_example_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
@@ -67,38 +67,48 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
         ("Supplementary/PDF/tp-10-08-2123-coif.pdf", DefaultConfig.PMC.load_config()),
     ],
 )
-def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
-    """Test the conversion of a PDF file to a BioC format."""
-    from autocorpus.autocorpus import Autocorpus
+def test_pdf_to_bioc(
+    data_path: Path, input_file: str, config: dict[str, Any], tmp_path: Path
+) -> None:
+    """Test the conversion of a PDF file to a BioC format using a temp directory."""
+    # Original paths
+    original_pdf_path = data_path / input_file
+    expected_output_path = (
+        original_pdf_path.parent / "Expected Output" / original_pdf_path.name
+    )
 
-    pdf_path = data_path / input_file
-    expected_output = pdf_path.parent / "Expected Output" / pdf_path.name
+    # Temp setup
+    temp_input_dir = tmp_path / "input"
+    temp_input_dir.mkdir()
+    temp_pdf_path = temp_input_dir / original_pdf_path.name
+    shutil.copy(original_pdf_path, temp_pdf_path)
+
+    # Load expected outputs
     with open(
-        str(expected_output).replace(".pdf", ".pdf_bioc.json"),
+        str(expected_output_path).replace(".pdf", ".pdf_bioc.json"),
         encoding="utf-8",
     ) as f:
         expected_bioc = json.load(f)
 
     with open(
-        str(expected_output).replace(".pdf", ".pdf_tables.json"),
+        str(expected_output_path).replace(".pdf", ".pdf_tables.json"),
         encoding="utf-8",
     ) as f:
         expected_tables = json.load(f)
 
-    ac = Autocorpus(
-        config=config,
-    )
+    # Process in temp dir
+    ac = Autocorpus(config=config)
+    ac.process_files(files=[temp_pdf_path])
 
-    ac.process_files(files=[pdf_path])
-
+    # Load results
     with open(
-        str(pdf_path).replace(".pdf", ".pdf_bioc.json"),
+        str(temp_pdf_path).replace(".pdf", ".pdf_bioc.json"),
         encoding="utf-8",
     ) as f:
         new_bioc = json.load(f)
 
     with open(
-        str(pdf_path).replace(".pdf", ".pdf_tables.json"),
+        str(temp_pdf_path).replace(".pdf", ".pdf_tables.json"),
         encoding="utf-8",
     ) as f:
         new_tables = json.load(f)
@@ -116,52 +126,61 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
     ],
 )
 def test_word_to_bioc(
-    data_path: Path, input_file: str, config: dict[str, Any], has_tables: bool
+    data_path: Path,
+    input_file: str,
+    config: dict[str, Any],
+    has_tables: bool,
+    tmp_path: Path,
 ) -> None:
-    """Test the conversion of a doc file to a BioC format."""
-    from autocorpus.autocorpus import Autocorpus
+    """Test the conversion of a doc file to a BioC format using a temp directory."""
+    # Original file locations
+    original_doc_path = data_path / input_file
+    expected_output_path = (
+        original_doc_path.parent / "Expected Output" / original_doc_path.name
+    )
 
-    doc_path = data_path / input_file
-    expected_output = doc_path.parent / "Expected Output" / doc_path.name
+    # Copy the input doc file to the temp directory
+    temp_input_dir = tmp_path / "input"
+    temp_input_dir.mkdir()
+    temp_doc_path = temp_input_dir / original_doc_path.name
+    shutil.copy(original_doc_path, temp_doc_path)
+
+    # Load expected BioC output
     with open(
-        str(expected_output).replace(".doc", ".doc_bioc.json"),
+        str(expected_output_path).replace(".doc", ".doc_bioc.json"),
         encoding="utf-8",
     ) as f:
         expected_bioc = json.load(f)
 
-    if has_tables:
-        with open(
-            str(expected_output).replace(".doc", ".doc_tables.json"),
-            encoding="utf-8",
-        ) as f:
-            expected_tables = json.load(f)
+    ac = Autocorpus(config=config)
+    ac.process_files(files=[temp_doc_path])  # Run on temp file
 
-    ac = Autocorpus(
-        config=config,
-    )
-
-    ac.process_files(files=[doc_path])
-
+    # Load generated BioC output from temp dir
     with open(
-        str(doc_path).replace(".doc", ".doc_bioc.json"),
+        str(temp_doc_path).replace(".doc", ".doc_bioc.json"),
         encoding="utf-8",
     ) as f:
         new_bioc = json.load(f)
 
     if has_tables:
         with open(
-            str(doc_path).replace(".doc", ".doc_tables.json"),
+            str(expected_output_path).replace(".doc", ".doc_tables.json"),
+            encoding="utf-8",
+        ) as f:
+            expected_tables = json.load(f)
+
+        with open(
+            str(temp_doc_path).replace(".doc", ".doc_tables.json"),
             encoding="utf-8",
         ) as f:
             new_tables = json.load(f)
 
         _make_reproducible(new_bioc, expected_bioc, new_tables, expected_tables)
+        assert new_tables == expected_tables
     else:
         _make_reproducible(new_bioc, expected_bioc)
 
     assert new_bioc == expected_bioc
-    if has_tables:
-        assert new_tables == expected_tables
 
 
 def _make_reproducible(*data: dict[str, Any]) -> None:

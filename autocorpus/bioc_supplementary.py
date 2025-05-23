@@ -1,6 +1,7 @@
 """This module provides functionality for converting text extracted from various file types into a BioC format."""
 
 import datetime
+from dataclasses import dataclass
 from typing import TypeVar, cast
 
 import pandas as pd
@@ -18,6 +19,14 @@ from .ac_bioc.bioctable import (
     BioCTableDocument,
     BioCTablePassage,
 )
+
+
+@dataclass
+class WordText:
+    """Represents a text element extracted from a Word document."""
+
+    text: str
+    is_header: bool
 
 
 def _split_text_and_tables(text: str) -> tuple[list[str], list[list[str]]]:
@@ -203,7 +212,7 @@ class BioCTextConverter:
 
     @staticmethod
     def build_bioc(
-        text: str | list[tuple[str, bool]], input_file: str, file_type: str
+        text: str | list[WordText], input_file: str, file_type: str
     ) -> BioCCollection:
         """Builds a BioCCollection object from the provided text, input file, and file type.
 
@@ -221,7 +230,7 @@ class BioCTextConverter:
         bioc.key = "autocorpus_supplementary.key"
         temp_doc = BioCDocument(id="1")
         if file_type == "word":
-            text = cast(list[tuple[str, bool]], text)
+            text = cast(list[WordText], text)
             temp_doc.passages = BioCTextConverter.__identify_word_passages(text)
         elif file_type == "pdf":
             text = cast(str, text)
@@ -254,12 +263,12 @@ class BioCTextConverter:
         return passages
 
     @staticmethod
-    def __identify_word_passages(text: list[tuple[str, bool]]) -> list[BioCPassage]:
+    def __identify_word_passages(text: list[WordText]) -> list[BioCPassage]:
         offset = 0
         passages = []
-        for paragraph, is_header in text:
-            paragraph = paragraph.replace("\n", "")
-            if paragraph.isupper() or is_header:
+        for t in text:
+            paragraph = t.text.replace("\n", "")
+            if paragraph.isupper() or t.is_header:
                 iao_name = "document title"
                 iao_id = "IAO:0000305"
             else:
