@@ -33,7 +33,7 @@ def _get_html_test_data_paths(subfolder: str):
         dir_path = HTML_DATA_PATH / dir_name
         if dir_path.is_dir():
             # Assume the folder name corresponds to a DefaultConfig
-            config = getattr(DefaultConfig, str(dir_name)).load_config()
+            config = getattr(DefaultConfig, dir_name).load_config()
 
             for file_path in dir_path.glob("*.html"):
                 # The reason for converting the path to a string is so that we get the
