@@ -2,7 +2,7 @@
 
 import json
 from pathlib import Path
-from typing import Any, TypedDict, cast
+from typing import Any, cast
 
 from bs4 import BeautifulSoup, Tag
 
@@ -10,6 +10,7 @@ from . import logger
 from .abbreviation import get_abbreviations
 from .ac_bioc import BioCJSON, BioCXML
 from .bioc_formatter import get_formatted_bioc_collection
+from .data_structures import Paragraph
 from .section import get_section
 from .table import get_table_json
 from .utils import handle_not_tables
@@ -31,16 +32,7 @@ def soupify_infile(fpath: Path) -> BeautifulSoup:
         return soup
 
 
-class Keywords(TypedDict, total=False):
-    """TypedDict for keywords section."""
-
-    section_heading: str
-    subsection_heading: str
-    body: str
-    section_type: list[dict[str, str]]
-
-
-def get_keywords(soup: BeautifulSoup, config: dict[str, Any]) -> Keywords:
+def get_keywords(soup: BeautifulSoup, config: dict[str, Any]) -> None | Paragraph:
     """Extract keywords from the soup object based on the provided configuration.
 
     Args:
@@ -51,20 +43,20 @@ def get_keywords(soup: BeautifulSoup, config: dict[str, Any]) -> Keywords:
         dict: Extracted keywords as a dictionary.
     """
     if "keywords" not in config:
-        return {}
+        return None
 
     responses = handle_not_tables(config["keywords"], soup)
     if not responses:
-        return {}
+        return None
 
-    return {
-        "section_heading": "keywords",
-        "subsection_heading": "",
-        "body": " ".join(
+    return Paragraph(
+        section_heading="keywords",
+        subsection_heading="",
+        body=" ".join(
             x["node"].get_text() for x in responses if isinstance(x["node"], Tag)
         ),
-        "section_type": [{"iao_name": "keywords section", "iao_id": "IAO:0000630"}],
-    }
+        section_type=[{"iao_name": "keywords section", "iao_id": "IAO:0000630"}],
+    )
 
 
 def get_title(soup: BeautifulSoup, config: dict[str, Any]) -> str:
@@ -108,7 +100,7 @@ def get_sections(
     return handle_not_tables(config["sections"], soup)
 
 
-def set_unknown_section_headings(unique_text: list[Keywords]) -> list[Keywords]:
+def set_unknown_section_headings(unique_text: list[Paragraph]) -> list[Paragraph]:
     """Set the heading for sections that are not specified in the config.
 
     Args:
@@ -119,62 +111,62 @@ def set_unknown_section_headings(unique_text: list[Keywords]) -> list[Keywords]:
     """
     paper = {}
     for para in unique_text:
-        if para["section_heading"] != "keywords":
-            paper[para["section_heading"]] = [
-                x["iao_name"] for x in para["section_type"]
-            ]
+        if para.section_heading != "keywords":
+            paper[para.section_heading] = [x["iao_name"] for x in para.section_type]
 
     for text in unique_text:
-        if not text["section_heading"]:
-            text["section_heading"] = "document part"
-            text["section_type"] = [
-                {"iao_name": "document part", "iao_id": "IAO:0000314"}
-            ]
+        if not text.section_heading:
+            text.section_heading = "document part"
+            text.section_type = [{"iao_name": "document part", "iao_id": "IAO:0000314"}]
 
     return unique_text
+
+
+def extract_text(soup: BeautifulSoup, config: dict[str, Any]) -> dict[str, Any]:
+    """Convert BeautifulSoup object into a Python dict with cleaned main text body.
+
+    Args:
+        soup: BeautifulSoup object of html
+        config: AC config rules
+
+    Return:
+        dict of the maintext
+    """
+    result: dict[str, Any] = {}
+
+    # Extract tags of text body and hard-code as:
+    # p (main text) and span (keywords and refs)
+    result["title"] = get_title(soup, config)
+    maintext = []
+    if keywords := get_keywords(soup, config):
+        maintext.append(keywords)
+    sections = get_sections(soup, config)
+    for sec in sections:
+        maintext.extend(get_section(config, sec))
+
+    # filter out the sections which do not contain any info
+    filtered_text = [x for x in maintext if x]
+    unique_text = []
+    seen_text = []
+    for text in filtered_text:
+        if text.body not in seen_text:
+            seen_text.append(text.body)
+            unique_text.append(text)
+
+    result["paragraphs"] = [
+        p.as_dict() for p in set_unknown_section_headings(unique_text)
+    ]
+
+    return result
 
 
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
-    def __extract_text(self, soup, config):
-        """Convert beautiful soup object into a python dict object with cleaned main text body.
-
-        Args:
-            soup (bs4.BeautifulSoup): BeautifulSoup object of html
-            config (dict): AC config rules
-
-        Return:
-            (dict): dict of the maintext
-        """
-        result = {}
-
-        # Tags of text body to be extracted are hard-coded as p (main text) and span (keywords and refs)
-        result["title"] = get_title(soup, config)
-        maintext = []
-        if keywords := get_keywords(soup, config):
-            maintext.append(keywords)
-        sections = get_sections(soup, config)
-        for sec in sections:
-            maintext.extend(get_section(config, sec))
-
-        # filter out the sections which do not contain any info
-        filtered_text = [x for x in maintext if x]
-        unique_text = []
-        seen_text = []
-        for text in filtered_text:
-            if text["body"] not in seen_text:
-                seen_text.append(text["body"])
-                unique_text.append(text)
-
-        result["paragraphs"] = set_unknown_section_headings(unique_text)
-
-        return result
-
     def __process_html_article(self, file: Path):
         soup = soupify_infile(file)
         self.__process_html_tables(file, soup, self.config)
-        self.main_text = self.__extract_text(soup, self.config)
+        self.main_text = extract_text(soup, self.config)
         try:
             self.abbreviations = get_abbreviations(self.main_text, soup, str(file))
         except Exception as e:
@@ -359,7 +351,7 @@ class Autocorpus:
         if self.file_path:
             soup = soupify_infile(Path(self.file_path))
             self.__process_html_tables(self.file_path, soup, self.config)
-            self.main_text = self.__extract_text(soup, self.config)
+            self.main_text = extract_text(soup, self.config)
             try:
                 self.abbreviations = get_abbreviations(
                     self.main_text, soup, self.file_path
