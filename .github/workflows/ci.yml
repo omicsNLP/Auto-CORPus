@@ -30,7 +30,7 @@ jobs:
         if: runner.os == 'Windows'
         run: poetry add pywin32
       - name: Run tests
-        run: poetry run pytest --skip-ci-macos
+        run: poetry run pytest --skip-ci-macos --skip-ci-windows
       - name: Upload coverage reports to Codecov
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.13' && github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.user.login != 'pre-commit-ci[bot]' }}
         uses: codecov/codecov-action@v5

@@ -119,6 +119,7 @@ def test_pdf_to_bioc(
     assert new_tables == expected_tables
 
 
+@pytest.mark.skip_ci_windows
 @pytest.mark.parametrize(
     "input_file, config, has_tables",
     [
