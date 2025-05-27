@@ -11,11 +11,12 @@ import glob
 import json
 import re
 from datetime import datetime
-from importlib import resources
 
-import nltk
 from bs4 import BeautifulSoup, NavigableString, Tag
-from fuzzywuzzy import fuzz
+
+from .section import (
+    get_iao_term_mapping,
+)
 
 
 def replace_spaces_and_newlines(input_string: str) -> str:
@@ -75,110 +76,20 @@ def replace_unicode_escape(input_string: str):
     return output_string
 
 
-def read_mapping_file() -> dict:  # type: ignore [type-arg]
-    """Read the IAO mapping file and create a dictionary of IAO terms and headings.
+def fix_mojibake_string(bad_string: str):
+    """This function takes a string with badly formatted mojibake and return the same string fixed.
 
-    TODO: USE THE EQUIVALENT FUNCTION FROM MAIN AC
-
-    Returns:
-        A dictionary mapping IAO terms to their corresponding headings.
-    """
-    # Initialize an empty dictionary to store the mapping between IAO terms and headings
-    # Open the mapping file in read mode
-    mapping_dict: dict[str, list[str]] = {}
-    mapping_path = resources.files("autocorpus.IAO_dicts") / "IAO_FINAL_MAPPING.txt"
-    with mapping_path.open(encoding="utf-8") as f:
-        # Read all lines from the file
-        lines = f.readlines()
-
-        # Iterate over each line in the file
-        for line in lines:
-            # Extract the heading (first column) and IAO term (second column) from the tab-separated line
-            heading = line.split("\t")[0].lower().strip("\n")
-            IAO_term = line.split("\t")[1].lower().strip("\n")
-
-            # Check if the IAO term is not empty
-            if IAO_term != "":
-                # Handle cases where the IAO term contains multiple entries separated by a '/'
-                if "/" in IAO_term:
-                    # Split the IAO term into two parts
-                    IAO_term_1 = IAO_term.split("/")[0].strip(" ")
-                    IAO_term_2 = IAO_term.split("/")[1].strip(" ")
-
-                    # Update the mapping dictionary for the first part of the IAO term
-                    if IAO_term_1 in mapping_dict.keys():
-                        mapping_dict[IAO_term_1].append(heading)
-                    else:
-                        mapping_dict.update({IAO_term_1: [heading]})
-
-                    # Update the mapping dictionary for the second part of the IAO term
-                    if IAO_term_2 in mapping_dict.keys():
-                        mapping_dict[IAO_term_2].append(heading)
-                    else:
-                        mapping_dict.update({IAO_term_2: [heading]})
-
-                # Handle cases where the IAO term does not contain '/'
-                else:
-                    # Update the mapping dictionary for the single IAO term
-                    if IAO_term in mapping_dict.keys():
-                        mapping_dict[IAO_term].append(heading)
-                    else:
-                        mapping_dict.update({IAO_term: [heading]})
-
-    # Return the result
-    return mapping_dict
-
-
-def read_IAO_term_to_ID_file():
-    """Read the IAO term to ID mapping file and create a dictionary of IAO terms and IDs.
-
-    TODO: USE THE EQUIVALENT FUNCTION FROM MAIN AC
+    Args:
+        bad_string: string with mojibake errors.
 
     Returns:
-        A dictionary mapping IAO terms to their corresponding IDs.
+        the same string better formatted
     """
-    # Initialize an empty dictionary to store the mapping between IAO terms and their corresponding IDs
-    IAO_term_to_no_dict = {}
-
-    # Open the file containing the mapping between IAO terms and IDs
-    mapping_path = resources.files("autocorpus.IAO_dicts") / "IAO_term_to_ID.txt"
-    with mapping_path.open(encoding="utf-8") as f:
-        # Read all lines from the file
-        lines = f.readlines()
-
-        # Iterate over each line in the file
-        for line in lines:
-            # Extract the IAO term (first column) and the corresponding ID (second column)
-            IAO_term = line.split("\t")[0]
-            IAO_no = line.split("\t")[1].strip(
-                "\n"
-            )  # Remove any trailing newline characters from the ID
-
-            # Update the dictionary with the IAO term as the key and the ID as the value
-            IAO_term_to_no_dict.update({IAO_term: IAO_no})
-
-    # Return the result
-    return IAO_term_to_no_dict
-
-
-def __add_IAO(section_heading, IAO_term):
-    """TODO: USE THE EQUIVALENT FUNCTION FROM MAIN AC."""
-    # Retrieve the mapping dictionary of IAO terms to their IDs using the helper function
-    IAO_term_to_no_dict = read_IAO_term_to_ID_file()
-
-    # Check if the given IAO term exists in the dictionary
-    if IAO_term in IAO_term_to_no_dict.keys():
-        # If the term exists, get its corresponding ID
-        mapping_result_ID_version = IAO_term_to_no_dict[IAO_term]
-    else:
-        # If the term does not exist, set the ID version to an empty string
-        mapping_result_ID_version = ""
-
-    # Return a dictionary containing the IAO term and its corresponding ID
-    return {
-        "iao_name": IAO_term,  # Name of the IAO term
-        "iao_id": mapping_result_ID_version,  # ID associated with the IAO term, or empty if not found
-    }
+    try:
+        return bad_string.encode("latin1").decode("utf-8")
+    except UnicodeEncodeError:
+        # If it's already fine or can't be encoded in latin1
+        return bad_string
 
 
 def extract_section_content(
@@ -210,7 +121,7 @@ def extract_section_content(
     # If a title is available, attempt to locate it in the soup2 object
     if current_title:
         target_title = soup2.find(
-            "title", string=f"{current_title.text}"
+            "title", string=current_title.text
         )  # Find the exact title in the soup2 object
 
         if target_title is not None:
@@ -226,7 +137,9 @@ def extract_section_content(
         parent_titles = None  # If no current title, set parent titles to None
 
     # Extract the content within the current section, specifically paragraphs (`<p>` tags)
-    content = BeautifulSoup("<sec" + str(section).split("<sec")[1]).find_all("p")
+    content = BeautifulSoup(
+        "<sec" + str(section).split("<sec")[1], features="xml"
+    ).find_all("p")
 
     # If content is found, process each paragraph
     if content:
@@ -234,17 +147,17 @@ def extract_section_content(
             # Avoid adding duplicate or null content
             if f"{content[i]}" not in text_list and content[i] is not None:
                 # If no parent titles are found, tag the content with 'Unknown'
-                if parent_titles is None:
-                    tag_title.append(["Unknown"])
+                if parent_titles:
+                    tag_title.append(parent_titles)
                 else:
                     # Otherwise, tag it with the identified parent titles
-                    tag_title.append(parent_titles)
+                    tag_title.append(["document part"])
 
                 # Similarly, handle subtitle tagging
-                if current_title is None:
-                    tag_subtitle.append(["Unknown"])
-                else:
+                if current_title:
                     tag_subtitle.append([current_title.text])
+                else:
+                    tag_subtitle.append(["document part"])
 
                 # Add the processed content to the text list
                 text_list.append(f"{content[i]}")
@@ -298,12 +211,12 @@ def convert_xml_to_json(path):
         A Dictionary in BioC format
     """
     # Open the XML file located at the specified path
-    with open(f"{path}") as xml_file:
+    with open(f"{path}", encoding="utf-8") as xml_file:
         # Read the contents of the XML file into a string
         text = xml_file.read()
 
     # Parse the XML content using BeautifulSoup with the 'lxml' parser
-    soup = BeautifulSoup(text, features="lxml")
+    soup = BeautifulSoup(text, features="xml")
 
     # Clean unwanted tags
     tags_to_remove = [
@@ -323,14 +236,11 @@ def convert_xml_to_json(path):
         for element in soup.find_all(tag):
             element.extract()
 
-    # Get the current date in the format 'YYYYMMDD'
-    current_date = datetime.now().strftime("%Y%m%d")
-
     # Set the source method description for tracking
     source_method = "Auto-CORPus (XML)"
 
-    # Assign the current date to the variable 'date'
-    date = f"{current_date}"
+    # Get the current date in the format 'YYYYMMDD'
+    date = datetime.now().strftime("%Y%m%d")
 
     # Check if the text content, after replacing the any characters contained between < >, of the 'license-p' tag within the 'front' section is not 'None'
     if re.sub("<[^>]+>", "", str(soup.find("front").find("license-p"))) != "None":
@@ -555,7 +465,7 @@ def convert_xml_to_json(path):
 
     with open(path, encoding="utf-8") as xml_file:
         text = xml_file.read()
-        soup3 = BeautifulSoup(text, features="lxml")
+        soup3 = BeautifulSoup(text, features="xml")
 
     # Clean unwanted tags
     tags_to_remove = [
@@ -1354,7 +1264,7 @@ def convert_xml_to_json(path):
     ################### <p> outside section
 
     # Create a second soup object to perform modification of its content without modify the original soup object where more information will be extracted later in the code
-    soup2 = BeautifulSoup(text, features="lxml")
+    soup2 = BeautifulSoup(text, features="xml")
 
     tableswrap_to_remove = soup2.find_all("table-wrap")
     # Iterate through the tables present in the 'table-wrap' tag and remove them from the soup object regardless of where in the soup the tag is present
@@ -1459,7 +1369,7 @@ def convert_xml_to_json(path):
             text_test = re.sub(current_tag_remove, "", text_test)
 
         # After all unwanted tags are removed from the converted string, update the sec_elements list with the cleaned <sec> element by reconverting to string to a soup object
-        sec_elements[a] = BeautifulSoup(text_test, features="lxml").find_all("sec")[
+        sec_elements[a] = BeautifulSoup(text_test, features="xml").find_all("sec")[
             0
         ]  # we keep the 0 element because we want the paragraph as a all not specific section since the parsing is taking place after
 
@@ -1482,36 +1392,9 @@ def convert_xml_to_json(path):
     if re.sub("<[^>]+>", "", str(soup.find("ack"))) != "None":
         # If there is only one <ack> tag
         if len(soup.find_all("ack")) == 1:
-            # Loop through all <title> tags inside the first <ack> tag
-            for title in soup.find("back").find("ack").find_all("title"):
-                title_text = title.text  # Extract the title text
-
-                # Initialize an empty list to hold the <p> tags
-                p_tags = []
-                # Find the <p> tags that follow the title
-                next_sibling = title.find_next_sibling("p")
-
-                # Loop through all <p> tags that follow the title tag
-                while next_sibling and next_sibling.name == "p":
-                    p_tags.append(next_sibling)  # Add the <p> tag to the list
-                    next_sibling = (
-                        next_sibling.find_next_sibling()
-                    )  # Move to the next sibling until None and get out of the while
-
-                # Loop through the collected <p> tags and extract the text
-                for p_tag in p_tags:
-                    # Append the title and subtitle (same as the title) to the respective lists
-                    tag_title.append([title_text])
-                    tag_subtitle.append([title_text])
-                    # Append the text of the <p> tag to the text_list
-                    text_list.append(p_tag.text)
-
-        # If there are multiple <ack> tags
-        elif len(soup.find_all("ack")) > 1:
-            # Loop through all <ack> tags in the document
-            for notes in soup.find_all("ack"):
-                # Loop through all <title> tags inside each <ack> tag
-                for title in notes.find_all("title"):
+            if len(soup.find("back").find("ack").find_all("title")) > 0:
+                # Loop through all <title> tags inside the first <ack> tag
+                for title in soup.find("back").find("ack").find_all("title"):
                     title_text = title.text  # Extract the title text
 
                     # Initialize an empty list to hold the <p> tags
@@ -1531,6 +1414,45 @@ def convert_xml_to_json(path):
                         tag_subtitle.append([title_text])
                         # Append the text of the <p> tag to the text_list
                         text_list.append(p_tag.text)
+            else:
+                # Append the title and subtitle (same as the title) to the respective lists
+                tag_title.append(["Acknowledgments"])
+                tag_subtitle.append(["Acknowledgments"])
+                # Append the text of the <p> tag to the text_list
+                text_list.append(soup.find("back").find("ack").text)
+
+        # If there are multiple <ack> tags
+        elif len(soup.find_all("ack")) > 1:
+            # Loop through all <ack> tags in the document
+            for notes in soup.find_all("ack"):
+                # Loop through all <title> tags inside each <ack> tag
+                if len(notes.find_all("title")) > 0:
+                    for title in notes.find_all("title"):
+                        title_text = title.text  # Extract the title text
+
+                        # Initialize an empty list to hold the <p> tags
+                        p_tags = []
+                        # Find the <p> tags that follow the title
+                        next_sibling = title.find_next_sibling("p")
+
+                        # Loop through all <p> tags that follow the title tag
+                        while next_sibling and next_sibling.name == "p":
+                            p_tags.append(next_sibling)  # Add the <p> tag to the list
+                            next_sibling = next_sibling.find_next_sibling()  # Move to the next sibling until None and get out of the while
+
+                        # Loop through the collected <p> tags and extract the text
+                        for p_tag in p_tags:
+                            # Append the title and subtitle (same as the title) to the respective lists
+                            tag_title.append([title_text])
+                            tag_subtitle.append([title_text])
+                            # Append the text of the <p> tag to the text_list
+                            text_list.append(p_tag.text)
+                else:
+                    # Append the title and subtitle (same as the title) to the respective lists
+                    tag_title.append(["Acknowledgments"])
+                    tag_subtitle.append(["Acknowledgments"])
+                    # Append the text of the <p> tag to the text_list
+                    text_list.append(notes.text)
         else:
             pass  # If no <ack> tag is found, do nothing
 
@@ -1644,8 +1566,8 @@ def convert_xml_to_json(path):
         # If there are no <title> tags but the <app-group> tag exists and is not 'None'
         elif re.sub("<[^>]+>", "", str(soup.find("app-group"))) != "None":
             # Append 'Unknown' as both the title and subtitle to the lists
-            tag_title.append(["Unknown"])
-            tag_subtitle.append(["Unknown"])
+            tag_title.append(["document part"])
+            tag_subtitle.append(["document part"])
             # Append the content inside the <app-group> tag (without XML tags) to text_list
             text_list.append(re.sub("<[^>]+>", "", str(soup.find("app-group"))))
         else:
@@ -2025,7 +1947,7 @@ def convert_xml_to_json(path):
         offset += len(text_list_ref[i]) + 1
 
     for i in range(len(corrected_section)):
-        corrected_section[i][0][0] = (
+        corrected_section[i][0][0] = fix_mojibake_string(
             corrected_section[i][0][0]
             .replace("\n", "")
             .replace("\\n", "")
@@ -2033,16 +1955,12 @@ def convert_xml_to_json(path):
         )
     for i in range(len(corrected_subsection)):
         for y in range(len(corrected_subsection[i])):
-            corrected_subsection[i][y] = (
+            corrected_subsection[i][y] = fix_mojibake_string(
                 corrected_subsection[i][y]
                 .replace("\n", "")
                 .replace("\\n", "")
                 .replace("\\xa0", " ")
             )
-
-    ######### FROM AC MAIN LIBRARY #########
-
-    mapping_dict = read_mapping_file()
 
     # Main body IAO allocation
     iao_list = []
@@ -2051,39 +1969,7 @@ def convert_xml_to_json(path):
         if corrected_section[y][0][0] == "document title":
             section_type = [{"iao_name": "document title", "iao_id": "IAO:0000305"}]
         else:
-            tokenized_section_heading = nltk.wordpunct_tokenize(
-                corrected_section[y][0][0]
-            )
-            text = nltk.Text(tokenized_section_heading)
-            words = [w.lower() for w in text]
-            h2_tmp = " ".join(word for word in words)
-
-            # TODO: check for best match, not the first
-            if h2_tmp != "":
-                if any(x in h2_tmp for x in [" and ", "&", "/"]):
-                    mapping_result = []
-                    h2_parts = re.split(r" and |\s?/\s?|\s?&\s?", h2_tmp)
-                    for h2_part in h2_parts:
-                        h2_part = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_part)
-                        pass
-                        for IAO_term, heading_list in mapping_dict.items():
-                            for i in range(len(heading_list)):
-                                if fuzz.ratio(h2_part, heading_list[i]) > 80:
-                                    mapping_result.append(
-                                        __add_IAO(heading_list[i], IAO_term)
-                                    )
-
-                else:
-                    mapping_result = []
-                    for IAO_term, heading_list in mapping_dict.items():
-                        h2_tmp = re.sub(r"^\d*\s?[\(\.]]?\s?", "", h2_tmp)
-                        for i in range(len(heading_list)):
-                            if fuzz.ratio(h2_tmp, heading_list[i]) > 80:
-                                mapping_result.append(
-                                    __add_IAO(heading_list[i], IAO_term)
-                                )
-            else:
-                mapping_result = []
+            mapping_result = get_iao_term_mapping(corrected_section[y][0][0])
 
             # if condition to add the default value 'document part' for passages without IAO
             if mapping_result == []:
@@ -2104,14 +1990,12 @@ def convert_xml_to_json(path):
     for y in range(len(tag_title_ref)):
         section_type = [
             {
-                "iao_name": "References",  # Name of the IAO term
+                "iao_name": "references section",  # Name of the IAO term
                 "iao_id": "IAO:0000320",  # ID associated with the IAO term, or empty if not found
             }
         ]
 
         iao_list_ref.append(list({v["iao_id"]: v for v in section_type}.values()))
-
-    ######### END AC MAIN LIBRARY #########
 
     # Initialize lists to store embedded data
     embeded_list = []  # Final list containing all embedded documents
@@ -2141,8 +2025,8 @@ def convert_xml_to_json(path):
         # Add IAO data (if available) to the dictionary
         if len(iao_list[i]) > 0:
             for y in range(len(iao_list[i])):
-                embeded_dict[f"iao_name_{y}"] = iao_list[i][y].get("iao_name")
-                embeded_dict[f"iao_id_{y}"] = iao_list[i][y].get("iao_id")
+                embeded_dict[f"iao_name_{y + 1}"] = iao_list[i][y].get("iao_name")
+                embeded_dict[f"iao_id_{y + 1}"] = iao_list[i][y].get("iao_id")
 
         # Append the completed dictionary to the embedded section list
         embeded_section_list.append(embeded_dict)
@@ -2150,16 +2034,16 @@ def convert_xml_to_json(path):
     # Process reference sections (tag_title_ref) to create embedded reference dictionaries
     for i in range(len(tag_title_ref)):
         embeded_dict = {
-            "section_title_1": tag_title_ref[i][
-                0
-            ]  # First section title i.e. 'Reference'
+            "section_title_1": fix_mojibake_string(
+                tag_title_ref[i][0]
+            )  # First section title i.e. 'Reference'
         }
 
         # Add IAO data (if available) for references
         if len(iao_list_ref[i]) > 0:
             for y in range(len(iao_list_ref[i])):
-                embeded_dict[f"iao_name_{y}"] = iao_list_ref[i][y].get("iao_name")
-                embeded_dict[f"iao_id_{y}"] = iao_list_ref[i][y].get("iao_id")
+                embeded_dict[f"iao_name_{y + 1}"] = iao_list_ref[i][y].get("iao_name")
+                embeded_dict[f"iao_id_{y + 1}"] = iao_list_ref[i][y].get("iao_id")
 
         # Add metadata from references if available
         if source_list[i] != "":
@@ -2185,7 +2069,7 @@ def convert_xml_to_json(path):
             embeded_dict = {
                 "offset": offset_list[i],  # Offset for the text
                 "infons": embeded_section_list[i],  # Section metadata
-                "text": corrected_text[i],  # Main text
+                "text": fix_mojibake_string(corrected_text[i]),  # Main text
                 "sentences": [],  # Placeholder for sentences
                 "annotations": [],  # Placeholder for annotations
                 "relations": [],  # Placeholder for relations
@@ -2202,10 +2086,12 @@ def convert_xml_to_json(path):
             embeded_dict = {
                 "offset": offset_list_ref[i],  # Offset for reference text
                 "infons": embeded_section_ref_list[i],  # Reference metadata
-                "text": replace_spaces_and_newlines(text_list_ref[i])
-                .replace(" ,", ",")
-                .replace(" .", ".")
-                .replace("..", "."),  # Reference text
+                "text": fix_mojibake_string(
+                    replace_spaces_and_newlines(text_list_ref[i])
+                    .replace(" ,", ",")
+                    .replace(" .", ".")
+                    .replace("..", ".")
+                ),  # Reference text
                 "sentences": [],  # Placeholder for sentences
                 "annotations": [],  # Placeholder for annotations
                 "relations": [],  # Placeholder for relations
@@ -2260,11 +2146,12 @@ if __name__ == "__main__":
     ### A directory containing the path to the XML files to be processed, is a list of str
     try:
         dir_path = sys.argv[1]
+        dir_path = "/home/adlain/Desktop/Codiet_GOLD_generation/TEST"
         # dir_output = sys.argv[2]
         #### ANTOINE wants to take the output here are well and also transform the below as a function
         #### Request an error if no input parameters
     except IndexError:
-        dir_path = "./xml_hackathon"
+        dir_path = "/home/adlain/Desktop/Codiet_GOLD_generation/TEST"
 
     ### General comment, except for the actual text present in the body and extracted, as XML markup language is based on tag contained in < and > they conevrt < and > in the main text with string i.e. it is safe to remove anything contained between < and > if the text has not been replaced
     ### re.sub('<[^>]+>', '', str(soup.find('A_TAG'))) != 'None' - will not produce an error in case of empty paragraph - during postprocessing empty paragraph are removed
@@ -2288,7 +2175,7 @@ if __name__ == "__main__":
             ######### OUTPUT #########
 
             with open(
-                f"./xml_hackathon/{path.split('/')[-1].split('.')[0]}.json",
+                f"/home/adlain/Desktop/Codiet_GOLD_generation/TEST/{path.split('/')[-1].split('.')[0]}.json",
                 "w",
                 encoding="utf-8",
             ) as fp:
@@ -2298,7 +2185,7 @@ if __name__ == "__main__":
         # If the code above, runs into an error then we handle the error by skipping the current document to be processed and increment the variable 'fail_processing' +1 if the document is not recognised as an HTML
         except Exception:
             # Open the XML file located at the specified path for reading
-            with open(f"{path}") as xml_file:
+            with open(path) as xml_file:
                 # Read the entire contents of the file into the variable 'text'
                 text = xml_file.read()
 
