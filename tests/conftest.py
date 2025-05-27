@@ -87,6 +87,12 @@ def pytest_addoption(parser):
         default=False,
         help="Skip tests that are unable to run in CI on macOS",
     )
+    parser.addoption(
+        "--skip-ci-windows",
+        action="store_true",
+        default=False,
+        help="Skip tests that are unable to run in CI on Windows",
+    )
 
 
 def pytest_configure(config):
@@ -98,12 +104,19 @@ def pytest_configure(config):
 
 def pytest_collection_modifyitems(config, items):
     """Fixture to modify test collection based on command line options."""
-    if not config.getoption("--skip-ci-macos"):
-        # `--skip-ci-macos` not given in cli: this is not a CI run
+    if not config.getoption("--skip-ci-macos") and not config.getoption(
+        "--skip-ci-windows"
+    ):
+        # `--skip-ci-macos` or `--skip-ci-windows` not given in cli: this is not a CI run
         return
     skip_ci_macos = pytest.mark.skipif(
         sys.platform == "darwin", reason="Uses too much memory in CI on MacOS"
     )
+    skip_ci_windows = pytest.mark.skipif(
+        sys.platform == "win32", reason="Requires Microsoft Word on Windows"
+    )
     for item in items:
         if "skip_ci_macos" in item.keywords:
             item.add_marker(skip_ci_macos)
+        elif "skip_ci_windows" in item.keywords:
+            item.add_marker(skip_ci_windows)
