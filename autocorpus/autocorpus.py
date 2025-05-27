@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Any
 
 from bs4 import BeautifulSoup
-from marker.converters.pdf import PdfConverter
 
 from . import logger
 from .abbreviation import get_abbreviations
@@ -14,8 +13,6 @@ from .bioc_formatter import get_formatted_bioc_collection
 from .section import get_section
 from .table import get_table_json
 from .utils import handle_not_tables
-
-pdf_converter: PdfConverter | None = None
 
 
 class Autocorpus:
@@ -319,7 +316,7 @@ class Autocorpus:
             raise RuntimeError("A valid config file must be loaded.")
         # handle main_text
         if self.file_path:
-            soup = self.__soupify_infile(self.file_path)
+            soup = self.__soupify_infile(Path(self.file_path))
             self.__process_html_tables(self.file_path, soup, self.config)
             self.main_text = self.__extract_text(soup, self.config)
             try:
@@ -388,7 +385,7 @@ class Autocorpus:
             main_text (Path): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
         """
-        self.file_path = main_text
+        self.file_path = str(main_text)
         self.linked_tables = linked_tables
         self.config = config
         self.main_text = {}
