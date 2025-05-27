@@ -121,5 +121,5 @@ def pytest_collection_modifyitems(config, items):
     for item in items:
         if "skip_ci_macos" in item.keywords:
             item.add_marker(skip_ci_macos)
-        elif "skip_ci_windows" in item.keywords:
+        if "skip_ci_windows" in item.keywords:
             item.add_marker(skip_ci_windows)
