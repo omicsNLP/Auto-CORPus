@@ -98,7 +98,9 @@ def pytest_addoption(parser):
 def pytest_configure(config):
     """Fixture to add custom markers to pytest."""
     config.addinivalue_line(
-        "markers", "skip_ci_macos: mark test as unable to run in CI on MacOS"
+        "markers",
+        "skip_ci_macos: mark test as unable to run in CI on MacOS",
+        "skip_ci_windows: mark test as unable to run in CI on Windows",
     )
 
 
