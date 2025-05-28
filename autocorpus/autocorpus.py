@@ -163,28 +163,41 @@ def extract_text(soup: BeautifulSoup, config: dict[str, Any]) -> dict[str, Any]:
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
-    def __process_html_article(self, file: Path):
-        soup = soupify_infile(file)
-        self.__process_html_tables(file, soup, self.config)
+    def __process_html_article(self, file_path: Path):
+        soup = self._extract_soup_and_tables(file_path)
         self.main_text = extract_text(soup, self.config)
         try:
-            self.abbreviations = get_abbreviations(self.main_text, soup, str(file))
+            self.abbreviations = get_abbreviations(self.main_text, soup, file_path)
         except Exception as e:
             logger.error(e)
 
-    def __process_html_tables(self, file_path, soup, config):
-        """Extract data from tables in the HTML file.
+    def _extract_soup_and_tables(self, file_path: Path) -> BeautifulSoup:
+        """Extract the soup from the html file and assign tables to self.tables.
 
         Args:
-            file_path (str): path to the main text file
-            soup (bs4.BeautifulSoup): soup object
-            config (dict): dict of the maintext
-        """
-        if "tables" not in config:
-            return
+            file_path: The html file path to be processed.
 
+        Returns:
+            The BeautifulSoup object of the html file.
+        """
+        soup = soupify_infile(file_path)
+        if "tables" in self.config:
+            tables, empty_tables = get_table_json(soup, self.config, file_path)
+            self._update_table_ids(tables, empty_tables)
+        return soup
+
+    def _update_table_ids(
+        self, tables: dict[str, Any], empty_tables: list[dict[str, Any]]
+    ):
+        """Update the table IDs in the new tables to avoid conflicts with existing ones.
+
+        Args:
+            tables: New tables dictionary to be updated in line with self.tables.
+            empty_tables: New empty tables list to add to self.empty_tables.
+        """
         if not self.tables:
-            self.tables, self.empty_tables = get_table_json(soup, config, file_path)
+            self.tables: dict[str, Any] = tables
+            self.empty_tables = empty_tables
             return
 
         seen_ids = set()
@@ -194,8 +207,7 @@ class Autocorpus:
             else:
                 seen_ids.add(tab["id"])
 
-        tmp_tables, tmp_empty = get_table_json(soup, config, file_path)
-        for tabl in tmp_tables["documents"]:
+        for tabl in tables["documents"]:
             if "." in tabl["id"]:
                 tabl_id = tabl["id"].split(".")[0]
                 tabl_pos = ".".join(tabl["id"].split(".")[1:])
@@ -209,8 +221,9 @@ class Autocorpus:
                 else:
                     tabl["id"] = tabl_id
             seen_ids.add(tabl_id)
-        self.tables["documents"].extend(tmp_tables["documents"])
-        self.empty_tables.extend(tmp_empty)
+
+        self.tables["documents"].extend(tables["documents"])
+        self.empty_tables.extend(empty_tables)
 
     def __merge_table_data(self):
         if not self.empty_tables:
@@ -347,21 +360,16 @@ class Autocorpus:
         """
         if not self.config:
             raise RuntimeError("A valid config file must be loaded.")
-        # handle main_text
-        if self.file_path:
-            soup = soupify_infile(Path(self.file_path))
-            self.__process_html_tables(self.file_path, soup, self.config)
-            self.main_text = extract_text(soup, self.config)
-            try:
-                self.abbreviations = get_abbreviations(
-                    self.main_text, soup, self.file_path
-                )
-            except Exception as e:
-                logger.error(e)
+
+        soup = self._extract_soup_and_tables(self.file_path)
+        self.main_text = extract_text(soup, self.config)
+        try:
+            self.abbreviations = get_abbreviations(self.main_text, soup, self.file_path)
+        except Exception as e:
+            logger.error(e)
         if self.linked_tables:
             for table_file in self.linked_tables:
-                soup = soupify_infile(table_file)
-                self.__process_html_tables(table_file, soup, self.config)
+                soup = self._extract_soup_and_tables(table_file)
         self.__merge_table_data()
         if "documents" in self.tables and not self.tables["documents"] == []:
             self.has_tables = True
@@ -408,7 +416,7 @@ class Autocorpus:
     def __init__(
         self,
         config: dict[str, Any],
-        main_text: str = "",
+        main_text: Path,
         linked_tables=None,
     ):
         """Utilises the input config file to create valid BioC versions of input HTML journal articles.
@@ -418,7 +426,7 @@ class Autocorpus:
             main_text (Path): path to the main text of the article (HTML files only)
             linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
         """
-        self.file_path = str(main_text)
+        self.file_path = main_text
         self.linked_tables = linked_tables
         self.config = config
         self.main_text = {}

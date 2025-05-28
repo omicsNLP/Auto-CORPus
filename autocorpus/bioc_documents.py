@@ -8,7 +8,7 @@ from .bioc_passage import BioCPassage
 
 def get_formatted_bioc_document(
     main_text: dict[str, Any],
-    file_path: str,
+    file_path: Path,
 ) -> dict[str, Any]:  # TODO: Change return type to ac_bioc.BioCDocument
     """Constructs the BioC document template using the provided data store.
 
@@ -38,8 +38,8 @@ def get_formatted_bioc_document(
             seen_headings.append(passage["section_heading"])
 
     return {
-        "id": Path(file_path).name.split(".")[0],
-        "inputfile": file_path,
+        "id": file_path.name.split(".")[0],
+        "inputfile": str(file_path),
         "infons": {},
         "passages": passages,
         "annotations": [],

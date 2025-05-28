@@ -1,6 +1,7 @@
 """Top-level BioC collection builder script."""
 
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 from autocorpus.bioc_documents import get_formatted_bioc_document
@@ -8,7 +9,7 @@ from autocorpus.bioc_documents import get_formatted_bioc_document
 
 def get_formatted_bioc_collection(
     main_text: dict[str, Any],
-    file_path: str,
+    file_path: Path,
 ) -> dict[str, Any]:  # TODO: Change return type to ac_bioc.BioCCollection
     """Constructs a BioC collection from input document-level data.
 

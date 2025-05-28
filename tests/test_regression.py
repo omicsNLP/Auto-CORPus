@@ -36,10 +36,7 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
     ) as f:
         expected_tables = json.load(f)
 
-    auto_corpus = Autocorpus(
-        config=config,
-        main_text=str(pmc_example_path),
-    )
+    auto_corpus = Autocorpus(config=config, main_text=pmc_example_path)
 
     auto_corpus.process_file()
 
@@ -87,6 +84,7 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
 
     ac = Autocorpus(
         config=config,
+        main_text=pdf_path,
     )
 
     ac.process_files(files=[pdf_path])
