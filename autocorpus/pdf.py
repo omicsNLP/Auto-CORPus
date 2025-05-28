@@ -12,8 +12,8 @@ from pandas import DataFrame
 from autocorpus.bioc_supplementary import BioCTableConverter, BioCTextConverter
 
 from . import logger
-from .ac_bioc import BioCJSON
-from .ac_bioc.bioctable.json import BioCTableJSON
+from .ac_bioc import BioCCollection
+from .ac_bioc.bioctable.json import BioCTableCollection
 
 _pdf_converter: PdfConverter | None = None
 
@@ -35,7 +35,7 @@ def _get_pdf_converter() -> PdfConverter | None:
 
 def extract_pdf_content(
     file_path: Path,
-) -> bool:
+) -> tuple[BioCCollection, BioCTableCollection]:
     """Extracts content from a PDF file.
 
     Args:
@@ -43,13 +43,17 @@ def extract_pdf_content(
 
     Returns:
         bool: success status of the extraction process.
+
+    Raises:
+        RuntimeError: If the PDF converter is not initialized.
     """
     bioc_text, bioc_tables = None, None
 
     pdf_converter = _get_pdf_converter()
     if not pdf_converter:
-        logger.error("PDF converter not initialized.")
-        return False
+        message = "PDF converter not initialized."
+        logger.error(message)
+        raise RuntimeError(message)
 
     # extract text from PDF
     rendered = pdf_converter(str(file_path))
@@ -60,14 +64,7 @@ def extract_pdf_content(
     bioc_text = BioCTextConverter.build_bioc(text, str(file_path), "pdf")
     bioc_tables = BioCTableConverter.build_bioc(tables, str(file_path))
 
-    out_filename = str(file_path).replace(".pdf", ".pdf_bioc.json")
-    with open(out_filename, "w", encoding="utf-8") as f:
-        BioCJSON.dump(bioc_text, f, indent=4)
-
-    out_table_filename = str(file_path).replace(".pdf", ".pdf_tables.json")
-    with open(out_table_filename, "w", encoding="utf-8") as f:
-        BioCTableJSON.dump(bioc_tables, f, indent=4)
-    return True
+    return bioc_text, bioc_tables
 
 
 def _split_text_and_tables(text: str) -> tuple[list[str], list[list[str]]]:

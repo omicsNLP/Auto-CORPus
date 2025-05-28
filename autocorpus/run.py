@@ -16,11 +16,9 @@ def run_autocorpus(config, structure, key, output_format):
     """
     ac = Autocorpus(
         config=config,
-        main_text=Path(structure[key]["main_text"]),
-        linked_tables=sorted(structure[key]["linked_tables"]),
+        file_path=Path(structure[key]["main_text"]),
+        linked_tables=sorted(Path(lt) for lt in structure[key]["linked_tables"]),
     )
-
-    ac.process_file()
 
     out_dir = Path(structure[key]["out_dir"])
     if structure[key]["main_text"]:
@@ -45,6 +43,15 @@ def run_autocorpus(config, structure, key, output_format):
             encoding="utf-8",
         ) as outfp:
             outfp.write(ac.abbreviations_to_bioc_json())
+
+        ## TODO: Uncomment when SI conversion is supported
+        # out_filename = str(file_path).replace(".pdf", ".pdf_bioc.json")
+        # with open(out_filename, "w", encoding="utf-8") as f:
+        #     BioCJSON.dump(bioc_text, f, indent=4)
+
+        # out_table_filename = str(file_path).replace(".pdf", ".pdf_tables.json")
+        # with open(out_table_filename, "w", encoding="utf-8") as f:
+        #     BioCTableJSON.dump(bioc_tables, f, indent=4)
 
     # AC does not support the conversion of tables or abbreviations to XML
     if ac.has_tables:

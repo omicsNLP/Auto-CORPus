@@ -1,6 +1,7 @@
 """Auto-CORPus primary functions are defined in this module."""
 
 import json
+from collections.abc import Iterable
 from pathlib import Path
 from typing import Any, cast
 
@@ -163,14 +164,6 @@ def extract_text(soup: BeautifulSoup, config: dict[str, Any]) -> dict[str, Any]:
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
 
-    def __process_html_article(self, file_path: Path):
-        soup = self._extract_soup_and_tables(file_path)
-        self.main_text = extract_text(soup, self.config)
-        try:
-            self.abbreviations = get_abbreviations(self.main_text, soup, file_path)
-        except Exception as e:
-            logger.error(e)
-
     def _extract_soup_and_tables(self, file_path: Path) -> BeautifulSoup:
         """Extract the soup from the html file and assign tables to self.tables.
 
@@ -225,7 +218,7 @@ class Autocorpus:
         self.tables["documents"].extend(tables["documents"])
         self.empty_tables.extend(empty_tables)
 
-    def __merge_table_data(self):
+    def _merge_table_data(self):
         if not self.empty_tables:
             return
 
@@ -319,29 +312,16 @@ class Autocorpus:
                             }
                         )
 
-    def __process_supplementary_file(self, file: Path):
-        match file.suffix:
-            case ".html" | ".htm":
-                self.__process_html_article(file)
-            case ".xml":
-                pass
-            case ".pdf":
-                try:
-                    from .pdf import extract_pdf_content
+    def _extract_html_article(self, file_path: Path):
+        soup = self._extract_soup_and_tables(file_path)
+        self.main_text = extract_text(soup, self.config)
+        try:
+            self.abbreviations = get_abbreviations(self.main_text, soup, file_path)
+        except Exception as e:
+            logger.error(e)
 
-                    extract_pdf_content(file)
-                except ModuleNotFoundError:
-                    logger.error(
-                        "Could not load necessary PDF packages. "
-                        "If you installed Auto-CORPUS via pip, you can obtain these with:\n"
-                        "    pip install autocorpus[pdf]"
-                    )
-                    raise
-            case _:
-                pass
-
-    def process_file(self):
-        """Processes the files specified in the configuration.
+    def process_html_article(self):
+        """Processes the main text file and tables specified in the configuration.
 
         This method performs the following steps:
         1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
@@ -353,7 +333,8 @@ class Autocorpus:
         3. Processes linked tables, if any:
             - Parses the HTML content of each linked table file.
         4. Merges table data.
-        5. Checks if there are any documents in the tables and sets the `has_tables` attribute accordingly.
+        5. Checks if there are any documents in the tables and sets the `has_tables`
+            attribute accordingly.
 
         Raises:
             RuntimeError: If no valid configuration is loaded.
@@ -361,72 +342,59 @@ class Autocorpus:
         if not self.config:
             raise RuntimeError("A valid config file must be loaded.")
 
-        soup = self._extract_soup_and_tables(self.file_path)
-        self.main_text = extract_text(soup, self.config)
-        try:
-            self.abbreviations = get_abbreviations(self.main_text, soup, self.file_path)
-        except Exception as e:
-            logger.error(e)
-        if self.linked_tables:
-            for table_file in self.linked_tables:
-                soup = self._extract_soup_and_tables(table_file)
-        self.__merge_table_data()
-        if "documents" in self.tables and not self.tables["documents"] == []:
-            self.has_tables = True
+        self._extract_html_article(self.file_path)
+        for table_file in self.linked_tables:
+            self._extract_soup_and_tables(table_file)
+        self._merge_table_data()
+        self.has_tables = bool(self.tables.get("documents"))
 
-    def process_files(
-        self,
-        files: list[Path | str] = [],
-        dir_path: Path | str = "",
-        linked_tables: list[Path | str] = [],
-    ):
-        """Processes main text files provided and nested supplementary files.
+    def _process_file(self):
+        """Process the input file based on its type.
+
+        This method checks the file extension and processes the file accordingly.
 
         Raises:
-            RuntimeError: If no valid configuration is provided.
+            NotImplementedError: _description_
         """
-        # Either a list of specific files or a directory path must be provided.
-        if not (files or dir_path):
-            logger.error("No files or directory provided.")
-            raise FileNotFoundError("No files or directory provided.")
-        #
-        if dir_path:
-            # Path is the preferred type, users can also provide a string though
-            if isinstance(dir_path, str):
-                dir_path = Path(dir_path)
-            for file in dir_path.iterdir():
-                if file.is_file() and file.suffix in [".html", ".htm"]:
-                    self.__process_html_article(file)
-                elif file.is_dir():
-                    # recursively process all files in the subdirectory
-                    for sub_file in file.rglob("*"):
-                        self.__process_supplementary_file(sub_file)
+        match self.file_path.suffix:
+            case ".html" | ".htm":
+                self.process_html_article()
+            case ".xml":
+                raise NotImplementedError("XML processing is not implemented yet.")
+            case ".pdf":
+                try:
+                    from .pdf import extract_pdf_content
 
-        # process any specific files provided
-        for specific_file in files:
-            # Path is the preferred type, users can also provide a string though
-            if isinstance(specific_file, str):
-                specific_file = Path(specific_file)
-            if specific_file.is_file() and specific_file.suffix in [".html", ".htm"]:
-                self.__process_html_article(specific_file)
-            else:
-                # process any specific files provided
-                self.__process_supplementary_file(specific_file)
+                    text, tables = extract_pdf_content(self.file_path)
+
+                    self.main_text = text.to_dict()
+                    self.tables = tables.to_dict()
+
+                except ModuleNotFoundError:
+                    logger.error(
+                        "Could not load necessary PDF packages. If you installed "
+                        "Auto-CORPUS via pip, you can obtain these with:\n"
+                        "    pip install autocorpus[pdf]"
+                    )
+                    raise
+            case _:
+                pass
 
     def __init__(
         self,
         config: dict[str, Any],
-        main_text: Path,
-        linked_tables=None,
+        file_path: Path,
+        linked_tables: list[Path] = [],
     ):
-        """Utilises the input config file to create valid BioC versions of input HTML journal articles.
+        """Create valid BioC versions of input HTML journal articles based off config.
 
         Args:
-            config (dict): configuration file for the input HTML journal articles
-            main_text (Path): path to the main text of the article (HTML files only)
-            linked_tables (list): list of linked table file paths to be included in this run (HTML files only)
+            config: Configuration dictionary for the input journal articles
+            file_path: Path to the article file to be processed
+            linked_tables: list of linked table file paths to be included in this run
+                (HTML files only)
         """
-        self.file_path = main_text
+        self.file_path = file_path
         self.linked_tables = linked_tables
         self.config = config
         self.main_text = {}
@@ -435,11 +403,13 @@ class Autocorpus:
         self.abbreviations = {}
         self.has_tables = False
 
+        self._process_file()
+
     def to_bioc(self) -> dict[str, Any]:
         """Get the currently loaded bioc as a dict.
 
         Returns:
-            (dict): bioc as a dict
+            bioc as a dict
         """
         return get_formatted_bioc_collection(self.main_text, self.file_path)
 
@@ -447,10 +417,10 @@ class Autocorpus:
         """Get the currently loaded main text as BioC JSON.
 
         Args:
-            indent (int): level of indentation
+            indent: level of indentation
 
         Returns:
-            (str): main text as BioC JSON
+            main text as BioC JSON
         """
         return json.dumps(
             get_formatted_bioc_collection(self.main_text, self.file_path),
@@ -462,7 +432,7 @@ class Autocorpus:
         """Get the currently loaded main text as BioC XML.
 
         Returns:
-            (str): main text as BioC XML
+            main text as BioC XML
         """
         collection = BioCJSON.loads(
             json.dumps(
@@ -477,10 +447,10 @@ class Autocorpus:
         """Get the currently loaded tables as Tables-JSON.
 
         Args:
-            indent (int): level of indentation
+            indent: level of indentation
 
         Returns:
-            (str): tables as Tables-JSON
+            tables as Tables-JSON
         """
         return json.dumps(self.tables, ensure_ascii=False, indent=indent)
 
@@ -488,10 +458,10 @@ class Autocorpus:
         """Get the currently loaded abbreviations as BioC JSON.
 
         Args:
-            indent (int): level of indentation
+            indent: level of indentation
 
         Returns:
-            (str): abbreviations as BioC JSON
+            abbreviations as BioC JSON
         """
         return json.dumps(self.abbreviations, ensure_ascii=False, indent=indent)
 
@@ -499,10 +469,10 @@ class Autocorpus:
         """Get the currently loaded AC object as a dict.
 
         Args:
-            indent (int): Level of indentation.
+            indent: Level of indentation.
 
         Returns:
-            (str): AC object as a JSON string
+            AC object as a JSON string
         """
         return json.dumps(self.to_dict(), ensure_ascii=False, indent=indent)
 
@@ -510,10 +480,50 @@ class Autocorpus:
         """Get the currently loaded AC object as a dict.
 
         Returns:
-            (dict): AC object as a dict
+            AC object as a dict
         """
         return {
             "main_text": self.main_text,
             "abbreviations": self.abbreviations,
             "tables": self.tables,
         }
+
+
+def process_directory(config: dict[str, Any], dir_path: Path) -> Iterable[Autocorpus]:
+    """Process all files in a directory and its subdirectories.
+
+    Args:
+        config: Configuration dictionary for the input HTML journal articles
+        dir_path: Path to the directory containing files to be processed.
+
+    Returns:
+        A generator yielding Autocorpus objects for each processed file.
+    """
+    for file_path in dir_path.iterdir():
+        if file_path.is_file():
+            yield Autocorpus(config, file_path)
+
+        elif file_path.is_dir():
+            # recursively process all files in the subdirectory
+            for sub_file_path in file_path.rglob("*"):
+                yield Autocorpus(config, sub_file_path)
+
+
+def process_files(config: dict[str, Any], files: list[Path]) -> Iterable[Autocorpus]:
+    """Process all files in a list.
+
+    Args:
+        config: Configuration dictionary for the input HTML journal articles
+        files: list of Paths to the files to be processed.
+
+    Returns:
+        A generator yielding Autocorpus objects for each processed file.
+
+    Raises:
+        RuntimeError: If the list of files is invalid.
+    """
+    if not all(file.is_file() for file in files):
+        raise RuntimeError("All files must be valid file paths.")
+
+    for file_path in files:
+        yield Autocorpus(config, file_path)
