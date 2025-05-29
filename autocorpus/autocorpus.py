@@ -158,156 +158,139 @@ def extract_text(soup: BeautifulSoup, config: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
+def extend_tables_documents(
+    documents: list[dict[str, Any]], new_documents: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Extends the list of tables documents with new documents, ensuring unique IDs.
+
+    Args:
+        documents: The original list of documents to be extended.
+        new_documents: New list of documents to add.
+
+    Returns:
+        A list of documents with unique IDs, combining the original and new documents.
+    """
+    seen_ids = set()
+    for doc in documents:
+        seen_ids.add(doc["id"].partition(".")[0])
+
+    for doc in new_documents:
+        tabl_id, _, tabl_pos = doc["id"].partition(".")
+        if tabl_id in seen_ids:
+            tabl_id = str(len(seen_ids) + 1)
+            if tabl_pos:
+                doc["id"] = f"{tabl_id}.{tabl_pos}"
+            else:
+                doc["id"] = tabl_id
+        seen_ids.add(tabl_id)
+
+    documents.extend(new_documents)
+
+    return documents
+
+
+def merge_tables_with_empty_tables(
+    documents: list[dict[str, Any]], empty_tables: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Extends the list of tables documents with empty tables, ensuring titles are set.
+
+    Args:
+        documents: The original list of documents to be extended.
+        empty_tables: A list of empty tables to merge with the documents.
+
+    Returns:
+        A list of documents with titles and captions from empty tables merged in.
+    """
+    seen_ids = {}
+    for i, table in enumerate(documents):
+        if "id" in table:
+            seen_ids[str(i)] = f"Table {table['id']}."
+
+    for table in empty_tables:
+        for seenID in seen_ids.keys():
+            if not table["title"].startswith(seen_ids[seenID]):
+                continue
+
+            if "title" in table and not table["title"] == "":
+                set_new = False
+                for passage in documents[int(seenID)]["passages"]:
+                    if (
+                        passage["infons"]["section_type"][0]["section_name"]
+                        == "table_title"
+                    ):
+                        passage["text"] = table["title"]
+                        set_new = True
+                if not set_new:
+                    documents[int(seenID)]["passages"].append(
+                        {
+                            "offset": 0,
+                            "infons": {
+                                "section_type": [
+                                    {
+                                        "section_name": "table_title",
+                                        "iao_name": "document title",
+                                        "iao_id": "IAO:0000305",
+                                    }
+                                ]
+                            },
+                            "text": table["title"],
+                        }
+                    )
+            if "caption" in table and not table["caption"] == "":
+                set_new = False
+                for passage in documents[int(seenID)]["passages"]:
+                    if (
+                        passage["infons"]["section_type"][0]["section_name"]
+                        == "table_caption"
+                    ):
+                        passage["text"] = table["caption"]
+                        set_new = True
+                if not set_new:
+                    documents[int(seenID)]["passages"].append(
+                        {
+                            "offset": 0,
+                            "infons": {
+                                "section_type": [
+                                    {
+                                        "section_name": "table_caption",
+                                        "iao_name": "caption",
+                                        "iao_id": "IAO:0000304",
+                                    }
+                                ]
+                            },
+                            "text": table["caption"],
+                        }
+                    )
+            if "footer" in table and not table["footer"] == "":
+                set_new = False
+                for passage in documents[int(seenID)]["passages"]:
+                    if (
+                        passage["infons"]["section_type"][0]["section_name"]
+                        == "table_footer"
+                    ):
+                        passage["text"] = table["footer"]
+                        set_new = True
+                if not set_new:
+                    documents[int(seenID)]["passages"].append(
+                        {
+                            "offset": 0,
+                            "infons": {
+                                "section_type": [
+                                    {
+                                        "section_name": "table_footer",
+                                        "iao_name": "caption",
+                                        "iao_id": "IAO:0000304",
+                                    }
+                                ]
+                            },
+                            "text": table["footer"],
+                        }
+                    )
+    return documents
+
+
 class Autocorpus:
     """Parent class for all Auto-CORPus functionality."""
-
-    def _extract_soup_and_tables(self, file_path: Path) -> BeautifulSoup:
-        """Extract the soup from the html file and assign tables to self.tables.
-
-        Args:
-            file_path: The html file path to be processed.
-
-        Returns:
-            The BeautifulSoup object of the html file.
-        """
-        soup = load_html_file(file_path)
-        if "tables" in self.config:
-            tables, empty_tables = get_table_json(soup, self.config, file_path)
-            self._update_table_ids(tables, empty_tables)
-        return soup
-
-    def _update_table_ids(
-        self, tables: dict[str, Any], empty_tables: list[dict[str, Any]]
-    ):
-        """Update the table IDs in the new tables to avoid conflicts with existing ones.
-
-        Args:
-            tables: New tables dictionary to be updated in line with self.tables.
-            empty_tables: New empty tables list to add to self.empty_tables.
-        """
-        if not self.tables:
-            self.tables: dict[str, Any] = tables
-            self.empty_tables = empty_tables
-            return
-
-        seen_ids = set()
-        for tab in self.tables["documents"]:
-            seen_ids.add(tab["id"].partition(".")[0])
-
-        for tabl in tables["documents"]:
-            tabl_id, _, tabl_pos = tabl["id"].partition(".")
-            if tabl_id in seen_ids:
-                tabl_id = str(len(seen_ids) + 1)
-                if tabl_pos:
-                    tabl["id"] = f"{tabl_id}.{tabl_pos}"
-                else:
-                    tabl["id"] = tabl_id
-            seen_ids.add(tabl_id)
-
-        self.tables["documents"].extend(tables["documents"])
-        self.empty_tables.extend(empty_tables)
-
-    def _merge_table_data(self):
-        if not self.empty_tables:
-            return
-
-        documents = self.tables.get("documents", None)
-        if not documents:
-            return
-
-        seen_ids = {}
-        for i, table in enumerate(documents):
-            if "id" in table:
-                seen_ids[str(i)] = f"Table {table['id']}."
-
-        for table in self.empty_tables:
-            for seenID in seen_ids.keys():
-                if not table["title"].startswith(seen_ids[seenID]):
-                    continue
-
-                if "title" in table and not table["title"] == "":
-                    set_new = False
-                    for passage in documents[int(seenID)]["passages"]:
-                        if (
-                            passage["infons"]["section_type"][0]["section_name"]
-                            == "table_title"
-                        ):
-                            passage["text"] = table["title"]
-                            set_new = True
-                    if not set_new:
-                        documents[int(seenID)]["passages"].append(
-                            {
-                                "offset": 0,
-                                "infons": {
-                                    "section_type": [
-                                        {
-                                            "section_name": "table_title",
-                                            "iao_name": "document title",
-                                            "iao_id": "IAO:0000305",
-                                        }
-                                    ]
-                                },
-                                "text": table["title"],
-                            }
-                        )
-                if "caption" in table and not table["caption"] == "":
-                    set_new = False
-                    for passage in documents[int(seenID)]["passages"]:
-                        if (
-                            passage["infons"]["section_type"][0]["section_name"]
-                            == "table_caption"
-                        ):
-                            passage["text"] = table["caption"]
-                            set_new = True
-                    if not set_new:
-                        documents[int(seenID)]["passages"].append(
-                            {
-                                "offset": 0,
-                                "infons": {
-                                    "section_type": [
-                                        {
-                                            "section_name": "table_caption",
-                                            "iao_name": "caption",
-                                            "iao_id": "IAO:0000304",
-                                        }
-                                    ]
-                                },
-                                "text": table["caption"],
-                            }
-                        )
-                if "footer" in table and not table["footer"] == "":
-                    set_new = False
-                    for passage in documents[int(seenID)]["passages"]:
-                        if (
-                            passage["infons"]["section_type"][0]["section_name"]
-                            == "table_footer"
-                        ):
-                            passage["text"] = table["footer"]
-                            set_new = True
-                    if not set_new:
-                        documents[int(seenID)]["passages"].append(
-                            {
-                                "offset": 0,
-                                "infons": {
-                                    "section_type": [
-                                        {
-                                            "section_name": "table_footer",
-                                            "iao_name": "caption",
-                                            "iao_id": "IAO:0000304",
-                                        }
-                                    ]
-                                },
-                                "text": table["footer"],
-                            }
-                        )
-
-    def _extract_html_article(self, file_path: Path):
-        soup = self._extract_soup_and_tables(file_path)
-        self.main_text = extract_text(soup, self.config)
-        try:
-            self.abbreviations = get_abbreviations(self.main_text, soup, file_path)
-        except Exception as e:
-            logger.error(e)
 
     def process_html_article(self):
         """Processes the main text file and tables specified in the configuration.
@@ -328,10 +311,31 @@ class Autocorpus:
         Raises:
             RuntimeError: If no valid configuration is loaded.
         """
-        self._extract_html_article(self.file_path)
+        soup = load_html_file(self.file_path)
+        self.main_text = extract_text(soup, self.config)
+        try:
+            self.abbreviations = get_abbreviations(self.main_text, soup, self.file_path)
+        except Exception as e:
+            logger.error(e)
+
+        if "tables" not in self.config:
+            return
+
+        self.tables, self.empty_tables = get_table_json(
+            soup, self.config, self.file_path
+        )
+
+        new_documents = []
         for table_file in self.linked_tables:
-            self._extract_soup_and_tables(table_file)
-        self._merge_table_data()
+            soup = load_html_file(self.file_path)
+            tables, empty_tables = get_table_json(soup, self.config, self.file_path)
+            new_documents.extend(tables.get("documents", []))
+            self.empty_tables.extend(empty_tables)
+        self.tables["documents"] = extend_tables_documents(
+            self.tables.get("documents", []), new_documents
+        )
+        if self.empty_tables:
+            merge_tables_with_empty_tables(self.tables["documents"], self.empty_tables)
         self.has_tables = bool(self.tables.get("documents"))
 
     def _process_file(self):
