@@ -133,11 +133,11 @@ def handle_defined_by(config: dict[str, Any], soup: BeautifulSoup) -> list[Tag]:
     """Retrieve matching nodes for the 'defined-by' config rules.
 
     Args:
-        config (dict): config file section used to parse
-        soup (bs4.BeautifulSoup): soup section to parse
+        config: config file section used to parse
+        soup: soup section to parse
 
     Returns:
-        (list): list of objects, each object being a matching node. Object of the form:
+        A list of objects, each object being a matching node. Object of the form:
                 {
                         node: bs4Object,
                         data:{

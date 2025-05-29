@@ -16,11 +16,18 @@ class ReferencesParagraph(Paragraph):
     volume: str = ""
 
     def as_dict(self) -> dict[str, Any]:
-        """Return the dictionary representation of the ReferencesParagraph."""
+        """Return the dictionary representation of the ReferencesParagraph.
+
+        For consistency between old and new PMC specification, we only include the three
+        fields `title`, `journal`, and `volume` if they are not empty.
+
+        Returns:
+            A dictionary representation of the ReferencesParagraph.
+        """
         return {
             k: v
             for k, v in super().as_dict().items()
-            if v or k not in ("title", "journal", "volume")
+            if v or (k not in ("title", "journal", "volume"))
         }
 
 

@@ -18,7 +18,7 @@ from .table import get_table_json
 from .utils import handle_not_tables
 
 
-def soupify_infile(fpath: Path) -> BeautifulSoup:
+def load_html_file(fpath: Path) -> BeautifulSoup:
     """Convert the input file into a BeautifulSoup object.
 
     Args:
@@ -34,20 +34,19 @@ def soupify_infile(fpath: Path) -> BeautifulSoup:
         return soup
 
 
-def get_keywords(soup: BeautifulSoup, config: dict[str, Any]) -> Paragraph | None:
+def get_keywords(
+    soup: BeautifulSoup, keywords_config: dict[str, Any]
+) -> Paragraph | None:
     """Extract keywords from the soup object based on the provided configuration.
 
     Args:
         soup: BeautifulSoup object of the HTML file.
-        config: AC config rules.
+        keywords_config: AC config rules for keywords.
 
     Returns:
         dict: Extracted keywords as a dictionary.
     """
-    if "keywords" not in config:
-        return None
-
-    responses = handle_not_tables(config["keywords"], soup)
+    responses = handle_not_tables(keywords_config, soup)
     if not responses:
         return None
 
@@ -61,20 +60,17 @@ def get_keywords(soup: BeautifulSoup, config: dict[str, Any]) -> Paragraph | Non
     )
 
 
-def get_title(soup: BeautifulSoup, config: dict[str, Any]) -> str:
+def get_title(soup: BeautifulSoup, title_config: dict[str, Any]) -> str:
     """Extract the title from the soup object based on the provided configuration.
 
     Args:
         soup: BeautifulSoup object of the HTML file.
-        config: AC config rules.
+        title_config: AC config rules for the title.
 
     Returns:
         Extracted title as a string.
     """
-    if "title" not in config:
-        return ""
-
-    titles = handle_not_tables(config["title"], soup)
+    titles = handle_not_tables(title_config, soup)
     if not titles:
         return ""
 
@@ -84,22 +80,19 @@ def get_title(soup: BeautifulSoup, config: dict[str, Any]) -> str:
 
 
 def get_sections(
-    soup: BeautifulSoup, config: dict[str, Any]
+    soup: BeautifulSoup, sections_config: dict[str, Any]
 ) -> list[dict[str, Tag | list[str]]]:
     """Extract sections from the soup object based on the provided configuration.
 
     Args:
         soup: Beautiful Soup object of the HTML file.
-        config: AC config rules.
+        sections_config: AC config rules for sections.
 
     Returns:
         A list of matches for the provided config rules. Either as a Tag or a list of
             strings.
     """
-    if "sections" not in config:
-        return []
-
-    return handle_not_tables(config["sections"], soup)
+    return handle_not_tables(sections_config, soup)
 
 
 def set_unknown_section_headings(unique_text: list[Paragraph]) -> list[Paragraph]:
@@ -125,7 +118,10 @@ def set_unknown_section_headings(unique_text: list[Paragraph]) -> list[Paragraph
 
 
 def extract_text(soup: BeautifulSoup, config: dict[str, Any]) -> dict[str, Any]:
-    """Convert BeautifulSoup object into a Python dict with cleaned main text body.
+    """Extract the main text of the article from the soup object.
+
+    This converts a BeautifulSoup object of a html article into a Python dict that
+    aligns with the BioC format defined in the provided config.
 
     Args:
         soup: BeautifulSoup object of html
@@ -138,11 +134,11 @@ def extract_text(soup: BeautifulSoup, config: dict[str, Any]) -> dict[str, Any]:
 
     # Extract tags of text body and hard-code as:
     # p (main text) and span (keywords and refs)
-    result["title"] = get_title(soup, config)
+    result["title"] = get_title(soup, config["title"]) if "title" in config else ""
     maintext = []
-    if keywords := get_keywords(soup, config):
+    if "keywords" in config and (keywords := get_keywords(soup, config["keywords"])):
         maintext.append(keywords)
-    sections = get_sections(soup, config)
+    sections = get_sections(soup, config["sections"]) if "sections" in config else []
     for sec in sections:
         maintext.extend(get_section(config, sec))
 
@@ -174,7 +170,7 @@ class Autocorpus:
         Returns:
             The BeautifulSoup object of the html file.
         """
-        soup = soupify_infile(file_path)
+        soup = load_html_file(file_path)
         if "tables" in self.config:
             tables, empty_tables = get_table_json(soup, self.config, file_path)
             self._update_table_ids(tables, empty_tables)
@@ -196,18 +192,10 @@ class Autocorpus:
 
         seen_ids = set()
         for tab in self.tables["documents"]:
-            if "." in tab["id"]:
-                seen_ids.add(tab["id"].split(".")[0])
-            else:
-                seen_ids.add(tab["id"])
+            seen_ids.add(tab["id"].partition(".")[0])
 
         for tabl in tables["documents"]:
-            if "." in tabl["id"]:
-                tabl_id = tabl["id"].split(".")[0]
-                tabl_pos = ".".join(tabl["id"].split(".")[1:])
-            else:
-                tabl_id = tabl["id"]
-                tabl_pos = None
+            tabl_id, _, tabl_pos = tabl["id"].partition(".")
             if tabl_id in seen_ids:
                 tabl_id = str(len(seen_ids) + 1)
                 if tabl_pos:
@@ -340,9 +328,6 @@ class Autocorpus:
         Raises:
             RuntimeError: If no valid configuration is loaded.
         """
-        if not self.config:
-            raise RuntimeError("A valid config file must be loaded.")
-
         self._extract_html_article(self.file_path)
         for table_file in self.linked_tables:
             self._extract_soup_and_tables(table_file)
@@ -404,6 +389,9 @@ class Autocorpus:
             linked_tables: list of linked table file paths to be included in this run
                 (HTML files only)
         """
+        if config == {}:
+            raise RuntimeError("A valid config file must be loaded.")
+
         self.file_path = file_path
         self.linked_tables = linked_tables
         self.config = config
