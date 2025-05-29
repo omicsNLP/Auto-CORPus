@@ -12,9 +12,10 @@ from .abbreviation import get_abbreviations
 from .ac_bioc import BioCJSON, BioCXML
 from .bioc_formatter import get_formatted_bioc_collection
 from .data_structures import Paragraph
+from .file_type import FileType, check_file_type
 from .section import get_section
 from .table import get_table_json
-from .utils import FileType, check_file_type, handle_not_tables
+from .utils import handle_not_tables
 
 
 def soupify_infile(fpath: Path) -> BeautifulSoup:
