@@ -7,6 +7,7 @@ from typing import Any
 import pytest
 
 from autocorpus.config import DefaultConfig
+from autocorpus.file_processing import process_file
 
 
 @pytest.mark.parametrize(
@@ -21,8 +22,6 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
 
     Uses each PMC config on the AutoCORPus Paper.
     """
-    from autocorpus.autocorpus import process_file
-
     pmc_example_path = data_path / input_file
     with open(
         str(pmc_example_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
@@ -67,8 +66,6 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
 )
 def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
     """Test the conversion of a PDF file to a BioC format."""
-    from autocorpus.autocorpus import process_file
-
     pdf_path = data_path / input_file
     expected_output = pdf_path.parent / "Expected Output" / pdf_path.name
     with open(

@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from .autocorpus import process_file
+from .file_processing import process_file
 
 
 def run_autocorpus(config, structure, key, output_format):
