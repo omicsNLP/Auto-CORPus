@@ -43,6 +43,7 @@ plugins:
 
 nav:
   - Auto-CORPus documentation: index.md
+  - io.md
   - How to create/edit a config file: config_tutorial.md
   - Use of data elements: data_elements.md
   - Package workflows: package_workflows.md
