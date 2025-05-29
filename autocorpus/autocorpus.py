@@ -2,6 +2,7 @@
 
 import json
 from collections.abc import Iterable
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, cast
 
@@ -289,80 +290,23 @@ def merge_tables_with_empty_tables(
     return documents
 
 
+@dataclass
 class Autocorpus:
-    """Parent class for all Auto-CORPus functionality."""
+    """Dataclass for a collection of BioC formatted text, tables and abbreviations."""
 
-    def process_html_article(self):
-        """Processes the main text file and tables specified in the configuration.
+    file_path: Path
+    main_text: dict[str, Any]
+    abbreviations: dict[str, Any]
+    tables: dict[str, Any] = field(default_factory=dict)
 
-        This method performs the following steps:
-        1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
-        2. Handles the main text file:
-            - Parses the HTML content of the file.
-            - Extracts the main text from the parsed HTML.
-            - Attempts to extract abbreviations from the main text and HTML content.
-              If an error occurs during this process, it prints the error.
-        3. Processes linked tables, if any:
-            - Parses the HTML content of each linked table file.
-        4. Merges table data.
-        5. Checks if there are any documents in the tables and sets the `has_tables`
-            attribute accordingly.
+    @property
+    def has_tables(self) -> bool:
+        """Check if the Autocorpus has any tables.
 
-        Raises:
-            RuntimeError: If no valid configuration is loaded.
+        Returns:
+            True if there are tables, False otherwise.
         """
-        soup = load_html_file(self.file_path)
-        self.main_text = extract_text(soup, self.config)
-        try:
-            self.abbreviations = get_abbreviations(self.main_text, soup, self.file_path)
-        except Exception as e:
-            logger.error(e)
-
-        if "tables" not in self.config:
-            return
-
-        self.tables, self.empty_tables = get_table_json(
-            soup, self.config, self.file_path
-        )
-
-        new_documents = []
-        for table_file in self.linked_tables:
-            soup = load_html_file(self.file_path)
-            tables, empty_tables = get_table_json(soup, self.config, self.file_path)
-            new_documents.extend(tables.get("documents", []))
-            self.empty_tables.extend(empty_tables)
-        self.tables["documents"] = extend_tables_documents(
-            self.tables.get("documents", []), new_documents
-        )
-        if self.empty_tables:
-            merge_tables_with_empty_tables(self.tables["documents"], self.empty_tables)
-        self.has_tables = bool(self.tables.get("documents"))
-
-    def __init__(
-        self,
-        config: dict[str, Any],
-        file_path: Path,
-        linked_tables: list[Path] = [],
-    ):
-        """Create valid BioC versions of input HTML journal articles based off config.
-
-        Args:
-            config: Configuration dictionary for the input journal articles
-            file_path: Path to the article file to be processed
-            linked_tables: list of linked table file paths to be included in this run
-                (HTML files only)
-        """
-        if config == {}:
-            raise RuntimeError("A valid config file must be loaded.")
-
-        self.file_path = file_path
-        self.linked_tables = linked_tables
-        self.config = config
-        self.main_text = {}
-        self.empty_tables = []
-        self.tables = {}
-        self.abbreviations = {}
-        self.has_tables = False
+        return bool(self.tables.get("documents"))
 
     def to_bioc(self) -> dict[str, Any]:
         """Get the currently loaded bioc as a dict.
@@ -448,20 +392,85 @@ class Autocorpus:
         }
 
 
-def process_file(config: dict[str, Any], file_path: Path) -> Autocorpus:
+def process_html_article(
+    config: dict[str, Any], file_path: Path, linked_tables: list[Path] = []
+) -> Autocorpus:
+    """Create valid BioC versions of input HTML journal articles based off config.
+
+    Processes the main text file and tables specified in the configuration.
+
+    This method performs the following steps:
+    1. Checks if a valid configuration is loaded. If not, raises a RuntimeError.
+    2. Handles the main text file:
+        - Parses the HTML content of the file.
+        - Extracts the main text from the parsed HTML.
+        - Attempts to extract abbreviations from the main text and HTML content.
+          If an error occurs during this process, it prints the error.
+    3. Processes linked tables, if any:
+        - Parses the HTML content of each linked table file.
+    4. Merges table data.
+    5. Checks if there are any documents in the tables and sets the `has_tables`
+        attribute accordingly.
+
+    Args:
+        config: Configuration dictionary for the input journal articles
+        file_path: Path to the article file to be processed
+        linked_tables: list of linked table file paths to be included in this run
+            (HTML files only)
+
+    Raises:
+        RuntimeError: If no valid configuration is loaded.
+    """
+    if config == {}:
+        raise RuntimeError("A valid config file must be loaded.")
+
+    soup = load_html_file(file_path)
+    main_text = extract_text(soup, config)
+    try:
+        abbreviations = get_abbreviations(main_text, soup, file_path)
+    except Exception as e:
+        logger.error(e)
+
+    if "tables" not in config:
+        return Autocorpus(file_path, main_text, abbreviations)
+
+    tables, empty_tables = get_table_json(soup, config, file_path)
+
+    new_documents = []
+    for table_file in linked_tables:
+        soup = load_html_file(file_path)
+        tables, empty_tables = get_table_json(soup, config, file_path)
+        new_documents.extend(tables.get("documents", []))
+        empty_tables.extend(empty_tables)
+    tables["documents"] = extend_tables_documents(
+        tables.get("documents", []), new_documents
+    )
+    if empty_tables:
+        merge_tables_with_empty_tables(tables["documents"], empty_tables)
+
+    return Autocorpus(file_path, main_text, abbreviations, tables)
+
+
+def process_file(
+    config: dict[str, Any], file_path: Path, linked_tables: list[Path] = []
+) -> Autocorpus:
     """Process the input file based on its type.
 
     This method checks the file type and processes the file accordingly.
+
+    Args:
+        config: Configuration dictionary for the input journal articles
+        file_path: Path to the article file to be processed
+        linked_tables: list of linked table file paths to be included in this run
+            (HTML files only)
 
     Raises:
         NotImplementedError: For files types with no implemented processing.
         ModuleNotFoundError: For PDF processing if required packages are not found.
     """
-    ac = Autocorpus(config, file_path)
-
     match check_file_type(file_path):
         case FileType.HTML:
-            ac.process_html_article()
+            return process_html_article(config, file_path, linked_tables)
         case FileType.XML:
             raise NotImplementedError(
                 f"Could not process file {file_path}: "
@@ -473,11 +482,13 @@ def process_file(config: dict[str, Any], file_path: Path) -> Autocorpus:
                 from .ac_bioc.json import BioCJSONEncoder
                 from .pdf import extract_pdf_content
 
-                text, tables = extract_pdf_content(file_path)
+                text, tbls = extract_pdf_content(file_path)
 
-                # TODO: Use text.to_dict() after bugfix in ac_bioc
-                ac.main_text = BioCJSONEncoder().default(text)
-                ac.tables = BioCTableJSONEncoder().default(tables)
+                # TODO: Use text.to_dict() after bugfix in ac_bioc (Issue #272)
+                main_text = BioCJSONEncoder().default(text)
+                tables = BioCTableJSONEncoder().default(tbls)
+
+                return Autocorpus(file_path, main_text, dict(), tables)
 
             except ModuleNotFoundError:
                 logger.error(
@@ -488,8 +499,6 @@ def process_file(config: dict[str, Any], file_path: Path) -> Autocorpus:
                 raise
         case FileType.OTHER:
             raise NotImplementedError(f"Could not identify file type for {file_path}")
-
-    return ac
 
 
 def process_directory(config: dict[str, Any], dir_path: Path) -> Iterable[Autocorpus]:
@@ -504,12 +513,12 @@ def process_directory(config: dict[str, Any], dir_path: Path) -> Iterable[Autoco
     """
     for file_path in dir_path.iterdir():
         if file_path.is_file():
-            yield Autocorpus(config, file_path)
+            yield process_file(config, file_path)
 
         elif file_path.is_dir():
             # recursively process all files in the subdirectory
             for sub_file_path in file_path.rglob("*"):
-                yield Autocorpus(config, sub_file_path)
+                yield process_file(config, sub_file_path)
 
 
 def process_files(config: dict[str, Any], files: list[Path]) -> Iterable[Autocorpus]:
@@ -529,4 +538,4 @@ def process_files(config: dict[str, Any], files: list[Path]) -> Iterable[Autocor
         raise RuntimeError("All files must be valid file paths.")
 
     for file_path in files:
-        yield Autocorpus(config, file_path)
+        yield process_file(config, file_path)

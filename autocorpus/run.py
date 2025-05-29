@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from .autocorpus import Autocorpus
+from .autocorpus import process_file
 
 
 def run_autocorpus(config, structure, key, output_format):
@@ -14,12 +14,11 @@ def run_autocorpus(config, structure, key, output_format):
         key: The key in the structure dict for the current file.
         output_format: The output format to use (JSON or XML).
     """
-    ac = Autocorpus(
+    ac = process_file(
         config=config,
         file_path=Path(structure[key]["main_text"]),
         linked_tables=sorted(Path(lt) for lt in structure[key]["linked_tables"]),
     )
-    ac.process_html_article()
 
     out_dir = Path(structure[key]["out_dir"])
     if structure[key]["main_text"]:
