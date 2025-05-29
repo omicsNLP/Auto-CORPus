@@ -42,7 +42,8 @@ def extract_pdf_content(
         file_path (Path): Path to the PDF file.
 
     Returns:
-        bool: success status of the extraction process.
+        A tuple of BioCTextConverter and BioCTableConverter objects containing
+        the extracted text and tables.
 
     Raises:
         RuntimeError: If the PDF converter is not initialized.
