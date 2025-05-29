@@ -30,11 +30,15 @@ auto-corpus = "autocorpus.__main__:main"
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
 regex = "^2024.9.11"
-bioc = "^2.1"
 beautifulsoup4 = "^4.12.3"
 nltk = "^3.9.1"
 fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
 lxml = "^5.3.0"
+pandas = "^2.2.3"
+marker-pdf = { version = "^1.6.2", optional = true }
+
+[tool.poetry.extras]
+pdf = ["marker-pdf"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
@@ -46,9 +50,10 @@ jsonschema = "^4.23.0"
 mypy = "^1.15.0"
 types-beautifulsoup4 = "^4.12.0.20250204"
 types-regex = "^2024.11.6.20250318"
-lxml-stubs = "^0.5.1"
 types-tqdm = "^4.67.0.20250319"
 types-jsonschema = "^4.23.0.20241208"
+lxml-stubs = "^0.5.1"
+pandas-stubs = "^2.2.3.250308"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.6.0"
@@ -75,11 +80,11 @@ module = "tests.*"
 disallow_untyped_defs = false
 
 [[tool.mypy.overrides]]
-module = ["nltk.*", "fuzzywuzzy.*", "bioc.*"]
+module = ["nltk.*", "fuzzywuzzy.*", "bioc.*", "marker.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
-addopts = "-v -p no:warnings --cov=autocorpus --cov-report=html --doctest-modules --ignore=docs/ --ignore=site/"
+addopts = "-v -p no:warnings --cov=autocorpus --cov-branch --cov-report=xml --cov-report=html --doctest-modules --ignore=docs/ --ignore=site/"
 
 [tool.ruff]
 target-version = "py310"

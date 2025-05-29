@@ -1,0 +1,2229 @@
+{
+    "source": "Auto-CORPus (supplementary)",
+    "date": "20250520",
+    "key": "autocorpus_supplementary.key",
+    "version": "1.0",
+    "infons": {},
+    "documents": [
+        {
+            "id": "1",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "0.1.1",
+                            "cell_text": "4. Are you the corresponding author?"
+                        },
+                        {
+                            "cell_id": "0.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "0.1.3",
+                            "cell_text": "Yes<br>\u2714 No"
+                        },
+                        {
+                            "cell_id": "0.1.4",
+                            "cell_text": "Corresponding Author's Name<br>Yongwei Zhang and Yun Li"
+                        },
+                        {
+                            "cell_id": "0.1.5",
+                            "cell_text": ""
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "0.2.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "0.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "0.2.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "0.2.4",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "0.2.5",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "0.3.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "0.3.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "0.3.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "0.3.4",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "0.3.5",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "2",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "1.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "1.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "1.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "1.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "1.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "1.2.3",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "3",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "2.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "2.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "2.1.3",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "2.1.4",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "2.1.5",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "4",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "3.1.1",
+                            "cell_text": "1. Given Name (First Name)"
+                        },
+                        {
+                            "cell_id": "3.1.2",
+                            "cell_text": "2. Surname (Last Name)"
+                        },
+                        {
+                            "cell_id": "3.1.3",
+                            "cell_text": "3. Date"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "3.2.1",
+                                        "cell_text": "wei"
+                                    },
+                                    {
+                                        "cell_id": "3.2.2",
+                                        "cell_text": "Liu"
+                                    },
+                                    {
+                                        "cell_id": "3.2.3",
+                                        "cell_text": "15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "3.3.1",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "3.3.2",
+                                        "cell_text": "Yes<br>\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "3.3.3",
+                                        "cell_text": "Corresponding Author's Name"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "3.4.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "3.4.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "3.4.3",
+                                        "cell_text": "Yongwei Zhang and Yun Li"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "3.5.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "3.5.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "3.5.3",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "3.6.1",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report<br>6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "3.6.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "3.6.3",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "3.7.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "3.7.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "3.7.3",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "5",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "4.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "4.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "4.1.3",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "4.1.4",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "4.1.5",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "6",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "5.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "5.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "5.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "7",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "6.1.1",
+                            "cell_text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work?"
+                        },
+                        {
+                            "cell_id": "6.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "6.1.3",
+                            "cell_text": "\u2714 No"
+                        },
+                        {
+                            "cell_id": "6.1.4",
+                            "cell_text": ""
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "6.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "6.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "6.2.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "6.2.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "8",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "7.1.1",
+                            "cell_text": "1. Given Name (First Name)<br>Cuilan"
+                        },
+                        {
+                            "cell_id": "7.1.2",
+                            "cell_text": "Identifying Information"
+                        },
+                        {
+                            "cell_id": "7.1.3",
+                            "cell_text": "2. Surname (Last Name)<br>Hou"
+                        },
+                        {
+                            "cell_id": "7.1.4",
+                            "cell_text": "3. Date<br>15-August-2020"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "7.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "7.2.2",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "7.2.3",
+                                        "cell_text": "Yes<br>\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "7.2.4",
+                                        "cell_text": "Corresponding Author's Name<br>Yongwei Zhang and Yun Li"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "7.3.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "7.3.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "7.3.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "7.3.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "7.4.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "7.4.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "7.4.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "7.4.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "7.5.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "7.5.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "7.5.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "7.5.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "9",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "8.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "8.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "8.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "10",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "9.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "9.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "9.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "11",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "10.1.1",
+                            "cell_text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work?"
+                        },
+                        {
+                            "cell_id": "10.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "10.1.3",
+                            "cell_text": "\u2714 No"
+                        },
+                        {
+                            "cell_id": "10.1.4",
+                            "cell_text": ""
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "10.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "10.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "10.2.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "10.2.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "12",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "11.1.1",
+                            "cell_text": "Section 1.<br>1. Given Name (First Name)<br>Han"
+                        },
+                        {
+                            "cell_id": "11.1.2",
+                            "cell_text": "Identifying Information"
+                        },
+                        {
+                            "cell_id": "11.1.3",
+                            "cell_text": "2. Surname (Last Name)<br>Zhang"
+                        },
+                        {
+                            "cell_id": "11.1.4",
+                            "cell_text": "3. Date<br>15-August-2020"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "11.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "11.2.2",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "11.2.3",
+                                        "cell_text": "Yes<br>\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "11.2.4",
+                                        "cell_text": "Corresponding Author's Name<br>Yongwei Zhang and Yun Li"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "11.3.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "11.3.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "11.3.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "11.3.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "11.4.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "11.4.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "11.4.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "11.4.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "13",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "12.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "12.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "12.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "12.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "12.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "12.2.3",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "14",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "13.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "13.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "13.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "15",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "14.1.1",
+                            "cell_text": "Section 1.<br>1. Given Name (First Name)<br>Xunwei"
+                        },
+                        {
+                            "cell_id": "14.1.2",
+                            "cell_text": "Identifying Information"
+                        },
+                        {
+                            "cell_id": "14.1.3",
+                            "cell_text": "2. Surname (Last Name)<br>Jiang"
+                        },
+                        {
+                            "cell_id": "14.1.4",
+                            "cell_text": "3. Date<br>15-August-2020"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "14.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "14.2.2",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "14.2.3",
+                                        "cell_text": "Yes<br>\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "14.2.4",
+                                        "cell_text": "Corresponding Author's Name<br>Yongwei Zhang and Yun Li"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "14.3.1",
+                                        "cell_text": "5. Manuscript Title<br>TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "14.3.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "14.3.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "14.3.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "14.4.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "14.4.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "14.4.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "14.4.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "16",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "15.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "15.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "15.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "15.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "15.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "15.2.3",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "17",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "16.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "16.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "16.1.3",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "16.1.4",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "16.1.5",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "18",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "17.1.1",
+                            "cell_text": "Section 1.<br>1. Given Name (First Name)<br>Xiaomin"
+                        },
+                        {
+                            "cell_id": "17.1.2",
+                            "cell_text": "Identifying Information"
+                        },
+                        {
+                            "cell_id": "17.1.3",
+                            "cell_text": "2. Surname (Last Name)<br>Sun"
+                        },
+                        {
+                            "cell_id": "17.1.4",
+                            "cell_text": "3. Date<br>15-August-2020"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "17.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "17.2.2",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "17.2.3",
+                                        "cell_text": "Yes<br>\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "17.2.4",
+                                        "cell_text": "Corresponding Author's Name<br>Yongwei Zhang and Yun Li"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "17.3.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "17.3.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "17.3.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "17.3.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "17.4.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "17.4.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "17.4.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "17.4.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "19",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "18.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "18.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "18.1.3",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "18.1.4",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "18.1.5",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "20",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "19.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "19.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "19.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "21",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "20.1.1",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "20.1.2",
+                            "cell_text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work?"
+                        },
+                        {
+                            "cell_id": "20.1.3",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "20.1.4",
+                            "cell_text": "\u2714 No"
+                        },
+                        {
+                            "cell_id": "20.1.5",
+                            "cell_text": ""
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "22",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "21.1.1",
+                            "cell_text": "1. Given Name (First Name)<br>Lijian"
+                        },
+                        {
+                            "cell_id": "21.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "21.1.3",
+                            "cell_text": "2. Surname (Last Name)<br>Xie"
+                        },
+                        {
+                            "cell_id": "21.1.4",
+                            "cell_text": "3. Date<br>15-August-2020"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "21.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "21.2.2",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "21.2.3",
+                                        "cell_text": "Yes<br>\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "21.2.4",
+                                        "cell_text": "Corresponding Author's Name<br>Yongwei Zhang and Yun Li"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "21.3.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "21.3.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "21.3.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "21.3.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "21.4.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "21.4.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "21.4.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "21.4.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "21.5.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "21.5.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "21.5.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "21.5.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "23",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "22.1.1",
+                            "cell_text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work?"
+                        },
+                        {
+                            "cell_id": "22.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "22.1.3",
+                            "cell_text": "\u2714 No"
+                        },
+                        {
+                            "cell_id": "22.1.4",
+                            "cell_text": ""
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "22.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "22.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "22.2.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "22.2.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "24",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "23.1.1",
+                            "cell_text": "1. Given Name (First Name)<br>Tingting"
+                        },
+                        {
+                            "cell_id": "23.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "23.1.3",
+                            "cell_text": "2. Surname (Last Name)<br>Xiao"
+                        },
+                        {
+                            "cell_id": "23.1.4",
+                            "cell_text": "3. Date<br>15-August-2020"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "23.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "23.2.2",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "23.2.3",
+                                        "cell_text": "Yes<br>\u2714 No"
+                                    },
+                                    {
+                                        "cell_id": "23.2.4",
+                                        "cell_text": "Corresponding Author's Name<br>Yongwei Zhang and Yun Li"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "23.3.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "23.3.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "23.3.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "23.3.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "23.4.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "23.4.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "23.4.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "23.4.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "23.5.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "23.5.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "23.5.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "23.5.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "25",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "24.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "24.1.2",
+                            "cell_text": "Identifying Information"
+                        },
+                        {
+                            "cell_id": "24.1.3",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "24.1.4",
+                            "cell_text": ""
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "24.2.1",
+                                        "cell_text": "1. Given Name (First Name)<br>Yongwei"
+                                    },
+                                    {
+                                        "cell_id": "24.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "24.2.3",
+                                        "cell_text": "2. Surname (Last Name)<br>Zhang"
+                                    },
+                                    {
+                                        "cell_id": "24.2.4",
+                                        "cell_text": "3. Date<br>15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24.3.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "24.3.2",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "24.3.3",
+                                        "cell_text": "\u2714 Yes<br>No"
+                                    },
+                                    {
+                                        "cell_id": "24.3.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24.4.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "24.4.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "24.4.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "24.4.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24.5.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "24.5.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "24.5.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "24.5.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24.6.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "24.6.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "24.6.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "24.6.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "24.7.1",
+                                        "cell_text": "Section 2."
+                                    },
+                                    {
+                                        "cell_id": "24.7.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "24.7.3",
+                                        "cell_text": "The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "24.7.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "26",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "25.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "25.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "25.1.3",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "25.1.4",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "25.1.5",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "27",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "26.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "26.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "26.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "28",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "27.1.1",
+                            "cell_text": "Section 1."
+                        },
+                        {
+                            "cell_id": "27.1.2",
+                            "cell_text": "Identifying Information"
+                        },
+                        {
+                            "cell_id": "27.1.3",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "27.1.4",
+                            "cell_text": ""
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "27.2.1",
+                                        "cell_text": "1. Given Name (First Name)<br>Yun"
+                                    },
+                                    {
+                                        "cell_id": "27.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "27.2.3",
+                                        "cell_text": "2. Surname (Last Name)<br>Li"
+                                    },
+                                    {
+                                        "cell_id": "27.2.4",
+                                        "cell_text": "3. Date<br>15-August-2020"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "27.3.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "27.3.2",
+                                        "cell_text": "4. Are you the corresponding author?"
+                                    },
+                                    {
+                                        "cell_id": "27.3.3",
+                                        "cell_text": "\u2714 Yes<br>No"
+                                    },
+                                    {
+                                        "cell_id": "27.3.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "27.4.1",
+                                        "cell_text": "5. Manuscript Title"
+                                    },
+                                    {
+                                        "cell_id": "27.4.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "27.4.3",
+                                        "cell_text": "A Novel ENG mutation in a hereditary hemorrhagic telangiectasia family:a case report"
+                                    },
+                                    {
+                                        "cell_id": "27.4.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "27.5.1",
+                                        "cell_text": "TP-20-156"
+                                    },
+                                    {
+                                        "cell_id": "27.5.2",
+                                        "cell_text": "6. Manuscript Identifying Number (if you know it)"
+                                    },
+                                    {
+                                        "cell_id": "27.5.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "27.5.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "27.6.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "27.6.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "27.6.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "27.6.4",
+                                        "cell_text": ""
+                                    }
+                                ],
+                                [
+                                    {
+                                        "cell_id": "27.7.1",
+                                        "cell_text": "Section 2."
+                                    },
+                                    {
+                                        "cell_id": "27.7.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "27.7.3",
+                                        "cell_text": "The Work Under Consideration for Publication"
+                                    },
+                                    {
+                                        "cell_id": "27.7.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "29",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "28.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "28.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "28.1.3",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "28.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "28.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "28.2.3",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "30",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "29.1.1",
+                            "cell_text": "Are there any relevant conflicts of interest?"
+                        },
+                        {
+                            "cell_id": "29.1.2",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "29.1.3",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "29.1.4",
+                            "cell_text": ""
+                        },
+                        {
+                            "cell_id": "29.1.5",
+                            "cell_text": "\u2714 No"
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": []
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        },
+        {
+            "id": "31",
+            "inputfile": "/home/msztr1/Projects/Auto-CORPus/tests/data/Supplementary/PDF/tp-10-08-2123-coif.pdf",
+            "infons": {},
+            "passages": [
+                {
+                    "offset": 0,
+                    "infons": {
+                        "section_title_1": "table_content",
+                        "iao_name_1": "table",
+                        "iao_id_1": "IAO:0000306"
+                    },
+                    "text": "",
+                    "column_headings": [
+                        {
+                            "cell_id": "30.1.1",
+                            "cell_text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work?"
+                        },
+                        {
+                            "cell_id": "30.1.2",
+                            "cell_text": "Yes"
+                        },
+                        {
+                            "cell_id": "30.1.3",
+                            "cell_text": "\u2714 No"
+                        },
+                        {
+                            "cell_id": "30.1.4",
+                            "cell_text": ""
+                        }
+                    ],
+                    "data_section": [
+                        {
+                            "table_section_title_1": "table_data",
+                            "data_rows": [
+                                [
+                                    {
+                                        "cell_id": "30.2.1",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "30.2.2",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "30.2.3",
+                                        "cell_text": ""
+                                    },
+                                    {
+                                        "cell_id": "30.2.4",
+                                        "cell_text": ""
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "annotations": [],
+                    "relations": []
+                }
+            ],
+            "annotations": [],
+            "relations": []
+        }
+    ]
+}

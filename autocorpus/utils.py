@@ -3,9 +3,10 @@
 import re
 import unicodedata
 from pathlib import Path
+from typing import Any
 
 import bs4
-from bs4 import NavigableString
+from bs4 import BeautifulSoup, NavigableString, Tag
 from lxml import etree
 from lxml.html.soupparser import fromstring
 
@@ -172,7 +173,7 @@ def parse_configs(definition):
     return bs_attrs
 
 
-def handle_defined_by(config, soup):
+def handle_defined_by(config: dict[str, Any], soup: BeautifulSoup) -> list[Tag]:
     """Retrieve matching nodes for the 'defined-by' config rules.
 
     Args:
@@ -188,9 +189,11 @@ def handle_defined_by(config, soup):
                                 }
                 }
         node is a bs4 object of a single result derived from bs4.find_all()
-        data is an object where the results from the config "data" sections is housed. The key is the name of the data
-        section and the values are all matches found within any of the main matches which match the current data section
-        definition. The values is the response you get from get_text() on any found nodes, not the nodes themselves.
+        data is an object where the results from the config "data" sections is housed.
+        The key is the name of the data section and the values are all matches found
+        within any of the main matches which match the current data section definition.
+        The values is the response you get from get_text() on any found nodes, not the
+        nodes themselves.
     """
     if "defined-by" not in config:
         quit(f"{config} does not contain the required 'defined-by' key.")
@@ -198,7 +201,7 @@ def handle_defined_by(config, soup):
     seen_text = []
     for definition in config["defined-by"]:
         bs_attrs = parse_configs(definition)
-        new_matches = []
+        new_matches = []  # type: ignore[var-annotated]
         if bs_attrs["name"] or bs_attrs["attrs"]:
             new_matches = soup.find_all(
                 bs_attrs["name"] if bs_attrs["name"] else None,
@@ -243,21 +246,25 @@ def handle_defined_by(config, soup):
     return matches
 
 
-def handle_not_tables(config, soup):
+def handle_not_tables(
+    config: dict[str, Any],
+    soup: BeautifulSoup,
+) -> list[dict[str, Tag | list[str]]]:
     """Executes a search on non-table bs4 soup objects based on provided config rules.
 
     Args:
-        config (dict): Parsed config rules to be used
-        soup (bs4.BeautifulSoup): BeautifulSoup object containing the input text to search
+        config: Parsed config rules to be used
+        soup: BeautifulSoup object containing the input text to search
 
     Returns:
-        (list): Matches for the provided config rules
+        A list of matches for the provided config rules. Either as a Tag or a list of
+            strings.
     """
     responses = []
     matches = handle_defined_by(config, soup)
     if "data" in config:
         for match in matches:
-            response_addition = {"node": match}
+            response_addition: dict[str, Tag | list[str]] = {"node": match}
             for ele in config["data"]:
                 seen_text = set()
                 for definition in config["data"][ele]:
@@ -268,11 +275,12 @@ def handle_not_tables(config, soup):
                     )
                     if new_matches:
                         response_addition[ele] = []
-                    for newMatch in new_matches:
-                        if newMatch.get_text() in seen_text:
+                    for new_match in new_matches:
+                        text = new_match.get_text()
+                        if text in seen_text:
                             continue
-                        else:
-                            response_addition[ele].append(newMatch.get_text())
+                        seen_text.add(text)
+                        response_addition[ele].append(text)
             responses.append(response_addition)
     else:
         for match in matches:

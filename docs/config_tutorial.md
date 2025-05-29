@@ -2,7 +2,7 @@
 
 For instructions on how to submit your own configs or make changes to existing config files please see [submit/update](#submitting-and-editing-config-files)
 
-*The [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/configs/config_pmc.json) file is used as the example in this tutorial.*
+*The [config_pmc.json](https://github.com/omicsNLP/Auto-CORPus/blob/main/autocorpus/configs/config_pmc.json) file is used as the example in this tutorial.*
 
 There are no required sections within the config file, if you do not define a section then Auto-CORPus will not try to process it.
 Auto-CORPus will also not try to process any sections defined within the configs which are not within our template config file,
