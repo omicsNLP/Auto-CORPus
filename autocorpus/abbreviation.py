@@ -39,9 +39,9 @@ def _is_abbreviation(s: str) -> bool:
     """Check whether input string is an abbreviation.
 
     To be classified as an abbreviation, a string must be composed exclusively of
-    Unicode letters or digits, optionally separated by dots. This sequence must repeat
-    between two and ten times. We exclude strings that are *exclusively* composed of
-    digits or lowercase letters.
+    Unicode letters or digits, optionally separated by dots or hyphens. This sequence
+    must repeat between two and ten times. We exclude strings that are *exclusively*
+    composed of digits or lowercase letters.
 
     Adapted from Schwartz & Hearst.
     """
@@ -54,8 +54,8 @@ def _is_abbreviation(s: str) -> bool:
         return False
 
     # Should be a repeating sequence of unicode chars or digits, optionally separated
-    # by dots. The sequence must repeat between 2 and 10 times.
-    return bool(re2.match(r"([\p{L}\p{N}]\.?){2,10}$", s))
+    # by dots or hyphens. The sequence must repeat between 2 and 10 times.
+    return bool(re2.match(r"([\p{L}\p{N}][\.\-]?){2,10}$", s))
 
 
 def _get_definition(candidate: str, preceding: str) -> str:

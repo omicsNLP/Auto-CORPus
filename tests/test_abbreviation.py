@@ -10,6 +10,8 @@ _ABBREVIATIONS = (
     "ABC",
     "H.P.",  # can be separated by dots
     "A.BC",  # we don't enforce that there is a dot after every letter
+    "CRIS-CODE",  # hyphens are also allowed
+    "C.R.I.S-C.O.D.E",  # ...as is a mix
     "HOUSE",  # allowed: all caps
     "House",  # allowed: at least one letter is capital (odd though)
     "ÄBÇ",  # we support unicode chars
@@ -29,7 +31,6 @@ _NON_ABBREVIATIONS = (
     "abc",  # disallowed: all lowercase
     "house",
     "äbç",  # disallowed: all lowercase (unicode)
-    "CRIS-CODE",  # hyphens not allowed
 )
 
 
