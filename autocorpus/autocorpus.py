@@ -295,6 +295,10 @@ class Autocorpus:
                 from .word_extractor import extract_word_content
 
                 extract_word_content(file)
+            case ".xls" | ".csv" | ".xlsx":
+                from .spreadsheet_extractor import extract_spreadsheet_content
+
+                extract_spreadsheet_content(file)
             case _:
                 pass
 
