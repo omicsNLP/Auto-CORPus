@@ -363,6 +363,7 @@ class Autocorpus:
                 raise NotImplementedError("XML processing is not implemented yet.")
             case ".pdf":
                 try:
+                    from .ac_bioc.bioctable.json import BioCTableJSONEncoder
                     from .ac_bioc.json import BioCJSONEncoder
                     from .pdf import extract_pdf_content
 
@@ -370,7 +371,7 @@ class Autocorpus:
 
                     # TODO: Use text.to_dict() after bugfix in ac_bioc
                     self.main_text = BioCJSONEncoder().default(text)
-                    self.tables = BioCJSONEncoder().default(tables)
+                    self.tables = BioCTableJSONEncoder().default(tables)
 
                 except ModuleNotFoundError:
                     logger.error(
