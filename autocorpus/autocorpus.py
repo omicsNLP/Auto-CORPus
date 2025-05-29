@@ -14,7 +14,7 @@ from .bioc_formatter import get_formatted_bioc_collection
 from .data_structures import Paragraph
 from .section import get_section
 from .table import get_table_json
-from .utils import handle_not_tables
+from .utils import FileType, check_file_type, handle_not_tables
 
 
 def soupify_infile(fpath: Path) -> BeautifulSoup:
@@ -351,17 +351,21 @@ class Autocorpus:
     def _process_file(self):
         """Process the input file based on its type.
 
-        This method checks the file extension and processes the file accordingly.
+        This method checks the file type and processes the file accordingly.
 
         Raises:
-            NotImplementedError: _description_
+            NotImplementedError: For files types with no implemented processing.
+            ModuleNotFoundError: For PDF processing if required packages are not found.
         """
-        match self.file_path.suffix:
-            case ".html" | ".htm":
+        match check_file_type(self.file_path):
+            case FileType.HTML:
                 self.process_html_article()
-            case ".xml":
-                raise NotImplementedError("XML processing is not implemented yet.")
-            case ".pdf":
+            case FileType.XML:
+                raise NotImplementedError(
+                    f"Could not process file {self.file_path}: "
+                    "XML processing is not implemented yet."
+                )
+            case FileType.PDF:
                 try:
                     from .ac_bioc.bioctable.json import BioCTableJSONEncoder
                     from .ac_bioc.json import BioCJSONEncoder
@@ -380,8 +384,10 @@ class Autocorpus:
                         "    pip install autocorpus[pdf]"
                     )
                     raise
-            case _:
-                pass
+            case FileType.OTHER:
+                raise NotImplementedError(
+                    f"Could not identify file type for {self.file_path}"
+                )
 
     def __init__(
         self,
