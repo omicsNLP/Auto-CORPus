@@ -338,47 +338,6 @@ class Autocorpus:
             merge_tables_with_empty_tables(self.tables["documents"], self.empty_tables)
         self.has_tables = bool(self.tables.get("documents"))
 
-    def _process_file(self):
-        """Process the input file based on its type.
-
-        This method checks the file type and processes the file accordingly.
-
-        Raises:
-            NotImplementedError: For files types with no implemented processing.
-            ModuleNotFoundError: For PDF processing if required packages are not found.
-        """
-        match check_file_type(self.file_path):
-            case FileType.HTML:
-                self.process_html_article()
-            case FileType.XML:
-                raise NotImplementedError(
-                    f"Could not process file {self.file_path}: "
-                    "XML processing is not implemented yet."
-                )
-            case FileType.PDF:
-                try:
-                    from .ac_bioc.bioctable.json import BioCTableJSONEncoder
-                    from .ac_bioc.json import BioCJSONEncoder
-                    from .pdf import extract_pdf_content
-
-                    text, tables = extract_pdf_content(self.file_path)
-
-                    # TODO: Use text.to_dict() after bugfix in ac_bioc
-                    self.main_text = BioCJSONEncoder().default(text)
-                    self.tables = BioCTableJSONEncoder().default(tables)
-
-                except ModuleNotFoundError:
-                    logger.error(
-                        "Could not load necessary PDF packages. If you installed "
-                        "Auto-CORPUS via pip, you can obtain these with:\n"
-                        "    pip install autocorpus[pdf]"
-                    )
-                    raise
-            case FileType.OTHER:
-                raise NotImplementedError(
-                    f"Could not identify file type for {self.file_path}"
-                )
-
     def __init__(
         self,
         config: dict[str, Any],
@@ -404,8 +363,6 @@ class Autocorpus:
         self.tables = {}
         self.abbreviations = {}
         self.has_tables = False
-
-        self._process_file()
 
     def to_bioc(self) -> dict[str, Any]:
         """Get the currently loaded bioc as a dict.
@@ -489,6 +446,50 @@ class Autocorpus:
             "abbreviations": self.abbreviations,
             "tables": self.tables,
         }
+
+
+def process_file(config: dict[str, Any], file_path: Path) -> Autocorpus:
+    """Process the input file based on its type.
+
+    This method checks the file type and processes the file accordingly.
+
+    Raises:
+        NotImplementedError: For files types with no implemented processing.
+        ModuleNotFoundError: For PDF processing if required packages are not found.
+    """
+    ac = Autocorpus(config, file_path)
+
+    match check_file_type(file_path):
+        case FileType.HTML:
+            ac.process_html_article()
+        case FileType.XML:
+            raise NotImplementedError(
+                f"Could not process file {file_path}: "
+                "XML processing is not implemented yet."
+            )
+        case FileType.PDF:
+            try:
+                from .ac_bioc.bioctable.json import BioCTableJSONEncoder
+                from .ac_bioc.json import BioCJSONEncoder
+                from .pdf import extract_pdf_content
+
+                text, tables = extract_pdf_content(file_path)
+
+                # TODO: Use text.to_dict() after bugfix in ac_bioc
+                ac.main_text = BioCJSONEncoder().default(text)
+                ac.tables = BioCTableJSONEncoder().default(tables)
+
+            except ModuleNotFoundError:
+                logger.error(
+                    "Could not load necessary PDF packages. If you installed "
+                    "Auto-CORPUS via pip, you can obtain these with:\n"
+                    "    pip install autocorpus[pdf]"
+                )
+                raise
+        case FileType.OTHER:
+            raise NotImplementedError(f"Could not identify file type for {file_path}")
+
+    return ac
 
 
 def process_directory(config: dict[str, Any], dir_path: Path) -> Iterable[Autocorpus]:

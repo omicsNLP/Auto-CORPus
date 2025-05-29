@@ -19,6 +19,7 @@ def run_autocorpus(config, structure, key, output_format):
         file_path=Path(structure[key]["main_text"]),
         linked_tables=sorted(Path(lt) for lt in structure[key]["linked_tables"]),
     )
+    ac.process_html_article()
 
     out_dir = Path(structure[key]["out_dir"])
     if structure[key]["main_text"]:

@@ -21,7 +21,7 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
 
     Uses each PMC config on the AutoCORPus Paper.
     """
-    from autocorpus.autocorpus import Autocorpus
+    from autocorpus.autocorpus import process_file
 
     pmc_example_path = data_path / input_file
     with open(
@@ -39,7 +39,7 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
     ) as f:
         expected_tables = json.load(f)
 
-    auto_corpus = Autocorpus(config=config, file_path=pmc_example_path)
+    auto_corpus = process_file(config=config, file_path=pmc_example_path)
 
     abbreviations = auto_corpus.abbreviations
     bioc = auto_corpus.to_bioc()
@@ -67,7 +67,7 @@ def test_autocorpus(data_path: Path, input_file: str, config: dict[str, Any]) ->
 )
 def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
     """Test the conversion of a PDF file to a BioC format."""
-    from autocorpus.autocorpus import Autocorpus
+    from autocorpus.autocorpus import process_file
 
     pdf_path = data_path / input_file
     expected_output = pdf_path.parent / "Expected Output" / pdf_path.name
@@ -83,10 +83,7 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
     ) as f:
         expected_tables = json.load(f)
 
-    auto_corpus = Autocorpus(
-        config=config,
-        file_path=pdf_path,
-    )
+    auto_corpus = process_file(config=config, file_path=pdf_path)
 
     new_bioc = auto_corpus.main_text
     new_tables = auto_corpus.tables
