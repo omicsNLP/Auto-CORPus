@@ -34,7 +34,7 @@ def soupify_infile(fpath: Path) -> BeautifulSoup:
         return soup
 
 
-def get_keywords(soup: BeautifulSoup, config: dict[str, Any]) -> None | Paragraph:
+def get_keywords(soup: BeautifulSoup, config: dict[str, Any]) -> Paragraph | None:
     """Extract keywords from the soup object based on the provided configuration.
 
     Args:

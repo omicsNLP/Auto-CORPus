@@ -7,13 +7,13 @@ from typing import Any
 
 
 def read_config(config_path: str) -> dict[str, Any]:
-    """Reads a configuration file and returns its content.
+    """Reads a configuration file and returns its contents.
 
     Args:
         config_path: The path to the configuration file.
 
     Returns:
-        dict: The content of the configuration file.
+        dict: The contents of the configuration file.
 
     Raises:
         FileNotFoundError: If the configuration file does not exist.
