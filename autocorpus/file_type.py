@@ -9,7 +9,16 @@ from . import logger
 
 
 class FileType(Enum):
-    """Enumeration for different file types."""
+    """Enum for different file types.
+
+    Access the attributes like so FileType.HTML, FileType.XML, etc.
+
+    Attributes:
+        HTML: Represents an HTML file.
+        XML: Represents an XML file.
+        PDF: Represents a PDF file.
+        OTHER: Represents any other file type that is not recognized.
+    """
 
     HTML = auto()
     XML = auto()
@@ -20,18 +29,15 @@ class FileType(Enum):
 def check_file_type(file_path: Path) -> FileType:
     """Determines the type of a file based on its content and extension.
 
-    This function checks whether the given file is an HTML or XML file by
+    This function checks the given file type by checking the file extension and then
     attempting to parse it using appropriate parsers. If the file cannot
-    be parsed as either HTML or XML, it is classified as "other".
+    be parsed or the fileextension is not recognised, it is classified as "OTHER".
 
     Args:
         file_path: The path to the file to be checked.
 
     Returns:
-        A string indicating the file type:
-             - "html" if the file is determined to be an HTML file.
-             - "xml" if the file is determined to be an XML file.
-             - "other" if the file type cannot be determined as HTML or XML.
+        A FileType Enum value indicating the type of the file.
     """
     file_extension = file_path.suffix.lower()
     match file_extension:
