@@ -9,6 +9,8 @@ import pytest
 
 from autocorpus.configs.default_config import DefaultConfig
 
+from .conftest import DATA_PATH
+
 _KNOWN_FAILURES = [
     "PMC10790237.html",
     "PMC5480070.html",
@@ -24,7 +26,6 @@ for reasons unknown.
 
 def _get_html_test_data_paths(subfolder: str):
     """Return paths to HTML test data files with appropriate DefaultConfig."""
-    DATA_PATH = Path(__file__).parent / "data"
     HTML_DATA_PATH = DATA_PATH / subfolder / "html"
     if not HTML_DATA_PATH.exists():
         return
