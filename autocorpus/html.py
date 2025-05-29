@@ -336,8 +336,8 @@ def process_html_article(
 
     new_documents = []
     for table_file in linked_tables:
-        soup = load_html_file(file_path)
-        tables, empty_tables = get_table_json(soup, config, file_path)
+        soup = load_html_file(table_file)
+        tables, empty_tables = get_table_json(soup, config, table_file)
         new_documents.extend(tables.get("documents", []))
         empty_tables.extend(empty_tables)
     tables["documents"] = _extend_tables_documents(
