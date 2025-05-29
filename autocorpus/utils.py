@@ -2,6 +2,7 @@
 
 import re
 import unicodedata
+from enum import Enum, auto
 from pathlib import Path
 from typing import Any
 
@@ -10,8 +11,19 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 from lxml import etree
 from lxml.html.soupparser import fromstring
 
+from . import logger
 
-def check_file_type(file_path: Path) -> str:
+
+class FileType(Enum):
+    """Enumeration for different file types."""
+
+    HTML = auto()
+    XML = auto()
+    PDF = auto()
+    OTHER = auto()
+
+
+def check_file_type(file_path: Path) -> FileType:
     """Determines the type of a file based on its content and extension.
 
     This function checks whether the given file is an HTML or XML file by
@@ -19,40 +31,30 @@ def check_file_type(file_path: Path) -> str:
     be parsed as either HTML or XML, it is classified as "other".
 
     Args:
-        file_path (Path): The path to the file to be checked.
+        file_path: The path to the file to be checked.
 
     Returns:
-        str: A string indicating the file type:
+        A string indicating the file type:
              - "html" if the file is determined to be an HTML file.
              - "xml" if the file is determined to be an XML file.
              - "other" if the file type cannot be determined as HTML or XML.
     """
-    is_html, is_xml = False, False
     file_extension = file_path.suffix.lower()
-    if file_extension in [".html", ".htm"]:
-        try:
-            etree.parse(file_path, etree.HTMLParser())
-            is_html = True
-        except etree.ParseError:
-            etree.parse(file_path, etree.XMLParser())
-            is_xml = True
-        except Exception as ex:
-            print(f"Error parsing file {file_path}: {ex}")
-    elif file_extension == ".xml":
-        try:
-            etree.parse(file_path, etree.XMLParser())
-            is_xml = True
-        except etree.ParseError:
-            etree.parse(file_path, etree.HTMLParser())
-            is_html = True
-        except Exception as ex:
-            print(f"Error parsing file {file_path}: {ex}")
-    if is_html:
-        return "html"
-    elif is_xml:
-        return "xml"
-    else:
-        return "other"
+    match file_extension:
+        case ".html" | ".htm" | ".xml":
+            try:
+                etree.parse(file_path, etree.HTMLParser())
+                return FileType.HTML
+            except etree.ParseError:
+                etree.parse(file_path, etree.XMLParser())
+                return FileType.XML
+            except Exception as ex:
+                logger.error(f"Error parsing file {file_path}: {ex}")
+                return FileType.OTHER
+        case ".pdf":
+            return FileType.PDF
+        case _:
+            return FileType.OTHER
 
 
 def get_files(base_dir, pattern=r"(.*).html"):
