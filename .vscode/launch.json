@@ -10,8 +10,8 @@
       "request": "launch",
       "module": "autocorpus",
       "args": [
-        "-c",
-        "${workspaceFolder}/autocorpus/configs/config_pmc.json",
+        "-b",
+        "PMC",
         "-t",
         "output",
         "-f",
@@ -24,8 +24,8 @@
       "request": "launch",
       "module": "autocorpus",
       "args": [
-        "-c",
-        "${workspaceFolder}/autocorpus/configs/config_pmc_pre_oct_2024.json",
+        "-b",
+        "LEGACY_PMC",
         "-t",
         "output",
         "-f",
