@@ -274,7 +274,7 @@ class Autocorpus:
                         )
 
     def __process_supplementary_file(self, file: Path):
-        match file.suffix:
+        match file.suffix.lower():
             case ".html" | ".htm":
                 self.__process_html_article(file)
             case ".xml":
@@ -291,6 +291,10 @@ class Autocorpus:
                         "    pip install autocorpus[pdf]"
                     )
                     raise
+            case ".doc" | ".docx":
+                from .word_extractor import extract_word_content
+
+                extract_word_content(file)
             case _:
                 pass
 
