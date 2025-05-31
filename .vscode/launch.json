@@ -15,7 +15,7 @@
         "-t",
         "output",
         "-f",
-        "${workspaceFolder}/tests/data/PMC/Current/PMC8885717.html"
+        "${workspaceFolder}/tests/data/public/html/PMC/PMC8885717.html"
       ]
     },
     {
@@ -29,7 +29,7 @@
         "-t",
         "output",
         "-f",
-        "${workspaceFolder}/tests/data/PMC/Pre-Oct-2024/PMC8885717.html"
+        "${workspaceFolder}/tests/data/public/html/LEGACY_PMC/PMC8885717.html"
       ]
     }
   ]

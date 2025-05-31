@@ -20,6 +20,10 @@ jobs:
         python-version: ['3.10', '3.11', '3.12', '3.13']
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Use a custom PAT so the runners can access the private submodule
+          token: ${{ secrets.PAT }}
+          submodules: true
       - uses: ./.github/actions/setup
         with:
           python-version: ${{ matrix.python-version }}
