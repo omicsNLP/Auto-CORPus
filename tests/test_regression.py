@@ -76,7 +76,7 @@ def _run_html_regression_test(
     except FileNotFoundError:
         expected_tables = {}
 
-    auto_corpus = process_file(config=config, file_path=pmc_example_path)
+    auto_corpus = process_file(config=config, file_path=file_path)
     abbreviations = auto_corpus.abbreviations
     bioc = auto_corpus.to_bioc()
     tables = auto_corpus.tables
