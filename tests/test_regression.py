@@ -54,12 +54,9 @@ def test_regression_html_private(
     _run_html_regression_test(data_path, input_file, config)
 
 
-
 def _run_html_regression_test(
     data_path: Path, input_file: str, config: dict[str, Any]
 ) -> None:
-    from autocorpus.autocorpus import Autocorpus
-
     file_path = data_path / input_file
     with open(
         str(file_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
@@ -78,7 +75,6 @@ def _run_html_regression_test(
             expected_tables = json.load(f)
     except FileNotFoundError:
         expected_tables = {}
-
 
     auto_corpus = process_file(config=config, file_path=pmc_example_path)
     abbreviations = auto_corpus.abbreviations
