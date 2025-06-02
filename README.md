@@ -38,16 +38,16 @@ pip install autocorpus[pdf]
 
 ## Usage
 
-Run the below command for a single file example
+You can run Auto-CORPus on a single file like so:
 
 ```sh
-auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+auto-corpus -b PMC -t "output" -f "path/to/html/file" -o JSON
 ```
 
-Run the main app for a directory of files example
+Auto-CORPus can also process whole directories:
 
 ```sh
-auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+auto-corpus -b PMC -t "output" -f "path/to/directory/of/html/files" -o JSON
 ```
 
 ### Available arguments
