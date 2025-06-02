@@ -8,8 +8,8 @@ from typing import Any
 
 import pytest
 
-from autocorpus.autocorpus import Autocorpus
-from autocorpus.configs.default_config import DefaultConfig
+from autocorpus.config import DefaultConfig
+from autocorpus.file_processing import process_file
 
 from .conftest import DATA_PATH
 
@@ -58,8 +58,6 @@ def test_regression_html_private(
 def _run_html_regression_test(
     data_path: Path, input_file: str, config: dict[str, Any]
 ) -> None:
-    from autocorpus.autocorpus import Autocorpus
-
     file_path = data_path / input_file
     with open(
         str(file_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
@@ -79,13 +77,7 @@ def _run_html_regression_test(
     except FileNotFoundError:
         expected_tables = {}
 
-    auto_corpus = Autocorpus(
-        config=config,
-        main_text=file_path,
-    )
-
-    auto_corpus.process_file()
-
+    auto_corpus = process_file(config=config, file_path=file_path)
     abbreviations = auto_corpus.abbreviations
     bioc = auto_corpus.to_bioc()
     tables = auto_corpus.tables
@@ -113,23 +105,10 @@ def _run_html_regression_test(
         ("Supplementary/PDF/tp-10-08-2123-coif.pdf", DefaultConfig.PMC.load_config()),
     ],
 )
-def test_pdf_to_bioc(
-    data_path: Path, input_file: str, config: dict[str, Any], tmp_path: Path
-) -> None:
-    """Test the conversion of a PDF file to a BioC format using a temp directory."""
-    # Original paths
-    original_pdf_path = data_path / input_file
-    expected_output_path = (
-        original_pdf_path.parent / "Expected Output" / original_pdf_path.name
-    )
-
-    # Temp setup
-    temp_input_dir = tmp_path / "input"
-    temp_input_dir.mkdir()
-    temp_pdf_path = temp_input_dir / original_pdf_path.name
-    shutil.copy(original_pdf_path, temp_pdf_path)
-
-    # Load expected outputs
+def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
+    """Test the conversion of a PDF file to a BioC format."""
+    pdf_path = data_path / input_file
+    expected_output = pdf_path.parent / "Expected Output" / pdf_path.name
     with open(
         str(expected_output_path).replace(".pdf", ".pdf_bioc.json"),
         encoding="utf-8",
@@ -142,22 +121,11 @@ def test_pdf_to_bioc(
     ) as f:
         expected_tables = json.load(f)
 
-    # Process in temp dir
-    ac = Autocorpus(config=config)
-    ac.process_files(files=[temp_pdf_path])
 
-    # Load results
-    with open(
-        str(temp_pdf_path).replace(".pdf", ".pdf_bioc.json"),
-        encoding="utf-8",
-    ) as f:
-        new_bioc = json.load(f)
+    auto_corpus = process_file(config=config, file_path=pdf_path)
 
-    with open(
-        str(temp_pdf_path).replace(".pdf", ".pdf_tables.json"),
-        encoding="utf-8",
-    ) as f:
-        new_tables = json.load(f)
+    new_bioc = auto_corpus.main_text
+    new_tables = auto_corpus.tables
 
     _make_reproducible(new_bioc, expected_bioc, new_tables, expected_tables)
 
@@ -235,6 +203,6 @@ def _make_reproducible(*data: dict[str, Any]) -> None:
     """Make output files reproducible by stripping dates and file paths."""
     for d in data:
         d.pop("date", None)
-        if docs := d.get("documents", None):
+        if docs := d.get("documents", []):
             for doc in docs:
                 doc.pop("inputfile", None)

@@ -101,7 +101,8 @@ def __table_to_2d(t: BeautifulSoup) -> list[list[str]]:
 def __check_superrow(cells: list[str]) -> bool:
     """Check if the current row is a superrow.
 
-    Superrows contain cells that are split and contain more values than other cells on the same row.
+    Superrows contain cells that are split and contain more values than other cells on
+    the same row.
 
     Args:
         cells: Cells in row
@@ -372,30 +373,33 @@ def __format_table_bioc(table_json, table_identifier, file_path):
 
 
 def get_table_json(
-    soup: BeautifulSoup, config: dict[str, Any], file_name: str
+    soup: BeautifulSoup, config: dict[str, Any], file_path: Path
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    """Extracts and processes tables from an HTML document using BeautifulSoup and a configuration dictionary.
+    """Extracts and processes tables from an HTML document.
+
+    This is done using BeautifulSoup and a configuration dictionary.
 
     The function performs the following steps:
     1. Extracts tables from the HTML document based on the provided configuration.
     2. Removes empty tables and tables with specific classes (e.g., "table-group").
     3. Identifies and processes table headers, superrows, and subheaders.
-    4. Converts tables into a 2D format and processes cell data types (e.g., numeric, text, mixed).
+    4. Converts tables into a 2D format and processes cell data types (e.g., numeric,
+        text, mixed).
     5. Converts the processed table data into a JSON-compatible format.
     6. Merges headers and formats the final table data for output.
 
     Args:
         soup: A BeautifulSoup object representing the parsed HTML document.
         config: A dictionary containing configuration options for table processing.
-        file_name: The file name or path of the HTML document being processed.
+        file_path: The file name or path of the HTML document being processed.
 
     Returns:
-        A dictionary containing the processed table data in JSON format and a list of dictionaries representing empty tables.
+        A dictionary containing the processed table data in JSON format and a list of
+            dictionaries representing empty tables.
     """
     soup_tables: list[dict[str, Any]] = handle_tables(config["tables"], soup)
 
-    file_path: str = file_name
-    file_name = Path(file_name).name
+    file_name = file_path.name
     table_identifier: str | None = None
     if re.search(r"_table_\d+\.html", file_name):
         table_identifier = file_name.split("/")[-1].split("_")[-1].split(".")[0]
@@ -412,16 +416,6 @@ def get_table_json(
             pop_list.append(i)
             empty_tables.append(table)
     soup_tables = [table for i, table in enumerate(soup_tables) if i not in pop_list]
-    empty_tables = []
-    for etable in empty_tables:
-        # has a table element, not empty
-        if not etable["node"].find("table"):
-            et_dict = {
-                "title": " ".join(etable["title"]),
-                "caption": " ".join(etable["caption"]),
-                "footer": " ".join(etable["footer"]),
-            }
-            empty_tables.append(et_dict)
 
     # One table
     tables = []
@@ -566,5 +560,5 @@ def get_table_json(
         tables += cur_table
 
     table_json = {"tables": tables}
-    table_json = __format_table_bioc(table_json, table_identifier, file_path)
+    table_json = __format_table_bioc(table_json, table_identifier, str(file_path))
     return table_json, empty_tables

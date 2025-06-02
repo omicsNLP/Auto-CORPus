@@ -1,11 +1,40 @@
 """Use regular expression for searching/replacing reference strings."""
 
 import re
+from dataclasses import dataclass
 from typing import Any
 
+from .data_structures import Paragraph
 
-def get_references(reference: dict[str, Any], section_heading: str) -> dict[str, Any]:
-    """Retrieve a structured reference dictionary from a BeautifulSoup object and section heading.
+
+@dataclass
+class ReferencesParagraph(Paragraph):
+    """A paragraph for the references section of the article."""
+
+    title: str = ""
+    journal: str = ""
+    volume: str = ""
+
+    def as_dict(self) -> dict[str, Any]:
+        """Return the dictionary representation of the ReferencesParagraph.
+
+        For consistency between old and new PMC specification, we only include the three
+        fields `title`, `journal`, and `volume` if they are not empty.
+
+        Returns:
+            A dictionary representation of the ReferencesParagraph.
+        """
+        return {
+            k: v
+            for k, v in super().as_dict().items()
+            if v or (k not in ("title", "journal", "volume"))
+        }
+
+
+def get_references(
+    reference: dict[str, Any], section_heading: str
+) -> ReferencesParagraph:
+    """Retrieve a structured reference dictionary from a BS4 object and section heading.
 
     Args:
         reference: dictionary containing the references node
@@ -15,13 +44,15 @@ def get_references(reference: dict[str, Any], section_heading: str) -> dict[str,
     """
     text = reference["node"].get_text().replace("Go to:", "").replace("\n", "")
     text = re.sub(r"\s{2,}", " ", text)
-    ref_section = {
-        "section_heading": section_heading,
-        "subsection_heading": "",
-        "body": text,
-        "section_type": [{"iao_name": "references section", "iao_id": "IAO:0000320"}],
-    }
+    ref_section = ReferencesParagraph(
+        section_heading,
+        "",
+        text,
+        [{"iao_name": "references section", "iao_id": "IAO:0000320"}],
+    )
 
-    ref_section |= {k: ". ".join(v) for k, v in reference.items() if k != "node"}
+    for k, v in reference.items():
+        if k != "node":
+            setattr(ref_section, k, ". ".join(v))
 
     return ref_section
