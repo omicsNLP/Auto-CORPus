@@ -9,10 +9,10 @@ def test_check_file_type_html(tmp_path: Path, data_path: Path) -> None:
     """Test that HTML files are correctly identified."""
     from autocorpus.file_type import FileType, check_file_type
 
-    html_file = data_path / "PMC" / "Current" / "PMC8885717.html"
+    html_file = data_path / "public" / "html" / "PMC" / "PMC8885717.html"
     assert check_file_type(html_file) == FileType.HTML
 
-    json_file = data_path / "PMC" / "Current" / "PMC8885717_bioc.json"
+    json_file = data_path / "public" / "html" / "PMC" / "PMC8885717_bioc.json"
     assert check_file_type(json_file) == FileType.OTHER
 
     pdf_file = data_path / "Supplementary" / "PDF" / "tp-10-08-2123-coif.pdf"
