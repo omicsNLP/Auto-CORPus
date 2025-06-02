@@ -202,7 +202,7 @@ def _merge_tables_with_empty_tables(
             seen_ids[str(i)] = f"Table {table['id']}."
 
     for table in empty_tables:
-        for seenID in seen_ids.keys():
+        for seenID in seen_ids:
             if not table["title"].startswith(seen_ids[seenID]):
                 continue
 
