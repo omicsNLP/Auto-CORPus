@@ -196,6 +196,29 @@ def _merge_tables_with_empty_tables(
     Returns:
         A list of documents with titles and captions from empty tables merged in.
     """
+
+    def _set_table_passage(passages, section_name, iao_name, iao_id, text):
+        set_new = False
+        for passage in passages:
+            if passage["infons"]["section_type"][0]["section_name"] == section_name:
+                passage["text"] = text
+                set_new = True
+        if set_new:
+            return passages
+        return {
+            "offset": 0,
+            "infons": {
+                "section_type": [
+                    {
+                        "section_name": section_name,
+                        "iao_name": iao_name,
+                        "iao_id": iao_id,
+                    }
+                ]
+            },
+            "text": text,
+        }
+
     seen_ids: dict[int, str] = {}
     for i, table in enumerate(documents):
         if "id" in table:
@@ -207,80 +230,29 @@ def _merge_tables_with_empty_tables(
                 continue
 
             if title := table.get("title"):
-                set_new = False
-                for passage in documents[seen_id]["passages"]:
-                    if (
-                        passage["infons"]["section_type"][0]["section_name"]
-                        == "table_title"
-                    ):
-                        passage["text"] = title
-                        set_new = True
-                if not set_new:
-                    documents[seen_id]["passages"].append(
-                        {
-                            "offset": 0,
-                            "infons": {
-                                "section_type": [
-                                    {
-                                        "section_name": "table_title",
-                                        "iao_name": "document title",
-                                        "iao_id": "IAO:0000305",
-                                    }
-                                ]
-                            },
-                            "text": title,
-                        }
-                    )
+                documents[seen_id]["passages"] = _set_table_passage(
+                    documents[seen_id]["passages"],
+                    "table_title",
+                    "document title",
+                    "IAO:0000305",
+                    title,
+                )
             if caption := table.get("caption"):
-                set_new = False
-                for passage in documents[seen_id]["passages"]:
-                    if (
-                        passage["infons"]["section_type"][0]["section_name"]
-                        == "table_caption"
-                    ):
-                        passage["text"] = caption
-                        set_new = True
-                if not set_new:
-                    documents[seen_id]["passages"].append(
-                        {
-                            "offset": 0,
-                            "infons": {
-                                "section_type": [
-                                    {
-                                        "section_name": "table_caption",
-                                        "iao_name": "caption",
-                                        "iao_id": "IAO:0000304",
-                                    }
-                                ]
-                            },
-                            "text": caption,
-                        }
-                    )
+                documents[seen_id]["passages"] = _set_table_passage(
+                    documents[seen_id],
+                    "table_caption",
+                    "caption",
+                    "IAO:0000304",
+                    caption,
+                )
             if footer := table.get("footer"):
-                set_new = False
-                for passage in documents[seen_id]["passages"]:
-                    if (
-                        passage["infons"]["section_type"][0]["section_name"]
-                        == "table_footer"
-                    ):
-                        passage["text"] = footer
-                        set_new = True
-                if not set_new:
-                    documents[seen_id]["passages"].append(
-                        {
-                            "offset": 0,
-                            "infons": {
-                                "section_type": [
-                                    {
-                                        "section_name": "table_footer",
-                                        "iao_name": "caption",
-                                        "iao_id": "IAO:0000304",
-                                    }
-                                ]
-                            },
-                            "text": footer,
-                        }
-                    )
+                documents[seen_id]["passages"] = _set_table_passage(
+                    documents[seen_id],
+                    "table_footer",
+                    "caption",
+                    "IAO:0000304",
+                    footer,
+                )
     return documents
 
 
