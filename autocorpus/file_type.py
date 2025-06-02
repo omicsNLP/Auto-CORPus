@@ -50,10 +50,13 @@ def check_file_type(file_path: Path) -> FileType:
     match file_extension:
         case ".html" | ".htm" | ".xml":
             try:
-                assert etree.parse(file_path, etree.XMLParser()).docinfo.xml_version
+                if not etree.parse(file_path, etree.XMLParser()).docinfo.xml_version:
+                    raise etree.ParseError("Not a valid XML file")
                 return FileType.XML
-            except (etree.ParseError, AssertionError):
-                etree.parse(file_path, etree.HTMLParser())
+            except etree.ParseError:
+                docinfo = etree.parse(file_path, etree.HTMLParser()).docinfo
+                if not isinstance(docinfo, etree.DocInfo) and not docinfo.doctype:
+                    raise etree.ParseError("Not a valid HTML file")
                 return FileType.HTML
             except Exception as ex:
                 logger.error(f"Error parsing file {file_path}: {ex}")
