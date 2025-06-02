@@ -7,7 +7,8 @@ from typing import Any
 
 import pytest
 
-from autocorpus.configs.default_config import DefaultConfig
+from autocorpus.config import DefaultConfig
+from autocorpus.file_processing import process_file
 
 from .conftest import DATA_PATH
 
@@ -56,8 +57,6 @@ def test_regression_html_private(
 def _run_html_regression_test(
     data_path: Path, input_file: str, config: dict[str, Any]
 ) -> None:
-    from autocorpus.autocorpus import Autocorpus
-
     file_path = data_path / input_file
     with open(
         str(file_path).replace(".html", "_abbreviations.json"), encoding="utf-8"
@@ -77,13 +76,7 @@ def _run_html_regression_test(
     except FileNotFoundError:
         expected_tables = {}
 
-    auto_corpus = Autocorpus(
-        config=config,
-        main_text=file_path,
-    )
-
-    auto_corpus.process_file()
-
+    auto_corpus = process_file(config=config, file_path=file_path)
     abbreviations = auto_corpus.abbreviations
     bioc = auto_corpus.to_bioc()
     tables = auto_corpus.tables
@@ -113,8 +106,6 @@ def _run_html_regression_test(
 )
 def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
     """Test the conversion of a PDF file to a BioC format."""
-    from autocorpus.autocorpus import Autocorpus
-
     pdf_path = data_path / input_file
     expected_output = pdf_path.parent / "Expected Output" / pdf_path.name
     with open(
@@ -129,23 +120,10 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
     ) as f:
         expected_tables = json.load(f)
 
-    ac = Autocorpus(
-        config=config,
-    )
+    auto_corpus = process_file(config=config, file_path=pdf_path)
 
-    ac.process_files(files=[pdf_path])
-
-    with open(
-        str(pdf_path).replace(".pdf", ".pdf_bioc.json"),
-        encoding="utf-8",
-    ) as f:
-        new_bioc = json.load(f)
-
-    with open(
-        str(pdf_path).replace(".pdf", ".pdf_tables.json"),
-        encoding="utf-8",
-    ) as f:
-        new_tables = json.load(f)
+    new_bioc = auto_corpus.main_text
+    new_tables = auto_corpus.tables
 
     _make_reproducible(new_bioc, expected_bioc, new_tables, expected_tables)
 
@@ -157,6 +135,6 @@ def _make_reproducible(*data: dict[str, Any]) -> None:
     """Make output files reproducible by stripping dates and file paths."""
     for d in data:
         d.pop("date", None)
-        if docs := d.get("documents", None):
+        if docs := d.get("documents", []):
             for doc in docs:
                 doc.pop("inputfile", None)
