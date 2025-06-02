@@ -196,27 +196,27 @@ def _merge_tables_with_empty_tables(
     Returns:
         A list of documents with titles and captions from empty tables merged in.
     """
-    seen_ids = {}
+    seen_ids: dict[int, str] = {}
     for i, table in enumerate(documents):
         if "id" in table:
-            seen_ids[str(i)] = f"Table {table['id']}."
+            seen_ids[i] = f"Table {table['id']}."
 
     for table in empty_tables:
-        for seenID in seen_ids:
-            if not table["title"].startswith(seen_ids[seenID]):
+        for seen_id in seen_ids:
+            if not table["title"].startswith(seen_ids[seen_id]):
                 continue
 
-            if "title" in table and not table["title"] == "":
+            if title := table.get("title"):
                 set_new = False
-                for passage in documents[int(seenID)]["passages"]:
+                for passage in documents[seen_id]["passages"]:
                     if (
                         passage["infons"]["section_type"][0]["section_name"]
                         == "table_title"
                     ):
-                        passage["text"] = table["title"]
+                        passage["text"] = title
                         set_new = True
                 if not set_new:
-                    documents[int(seenID)]["passages"].append(
+                    documents[seen_id]["passages"].append(
                         {
                             "offset": 0,
                             "infons": {
@@ -228,20 +228,20 @@ def _merge_tables_with_empty_tables(
                                     }
                                 ]
                             },
-                            "text": table["title"],
+                            "text": title,
                         }
                     )
-            if "caption" in table and not table["caption"] == "":
+            if caption := table.get("caption"):
                 set_new = False
-                for passage in documents[int(seenID)]["passages"]:
+                for passage in documents[seen_id]["passages"]:
                     if (
                         passage["infons"]["section_type"][0]["section_name"]
                         == "table_caption"
                     ):
-                        passage["text"] = table["caption"]
+                        passage["text"] = caption
                         set_new = True
                 if not set_new:
-                    documents[int(seenID)]["passages"].append(
+                    documents[seen_id]["passages"].append(
                         {
                             "offset": 0,
                             "infons": {
@@ -253,20 +253,20 @@ def _merge_tables_with_empty_tables(
                                     }
                                 ]
                             },
-                            "text": table["caption"],
+                            "text": caption,
                         }
                     )
-            if "footer" in table and not table["footer"] == "":
+            if footer := table.get("footer"):
                 set_new = False
-                for passage in documents[int(seenID)]["passages"]:
+                for passage in documents[seen_id]["passages"]:
                     if (
                         passage["infons"]["section_type"][0]["section_name"]
                         == "table_footer"
                     ):
-                        passage["text"] = table["footer"]
+                        passage["text"] = footer
                         set_new = True
                 if not set_new:
-                    documents[int(seenID)]["passages"].append(
+                    documents[seen_id]["passages"].append(
                         {
                             "offset": 0,
                             "infons": {
@@ -278,7 +278,7 @@ def _merge_tables_with_empty_tables(
                                     }
                                 ]
                             },
-                            "text": table["footer"],
+                            "text": footer,
                         }
                     )
     return documents
