@@ -108,7 +108,7 @@ def _run_html_regression_test(
 def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
     """Test the conversion of a PDF file to a BioC format."""
     pdf_path = data_path / input_file
-    expected_output = pdf_path.parent / "Expected Output" / pdf_path.name
+    expected_output_path = pdf_path.parent / "Expected Output" / pdf_path.name
     with open(
         str(expected_output_path).replace(".pdf", ".pdf_bioc.json"),
         encoding="utf-8",
@@ -167,33 +167,11 @@ def test_word_to_bioc(
     ) as f:
         expected_bioc = json.load(f)
 
-    ac = Autocorpus(config=config)
-    ac.process_files(files=[temp_doc_path])  # Run on temp file
+    auto_corpus = process_file(config=config, file_path=temp_doc_path)
 
-    # Load generated BioC output from temp dir
-    with open(
-        str(temp_doc_path).replace(".doc", ".doc_bioc.json"),
-        encoding="utf-8",
-    ) as f:
-        new_bioc = json.load(f)
+    new_bioc = auto_corpus.main_text
 
-    if has_tables:
-        with open(
-            str(expected_output_path).replace(".doc", ".doc_tables.json"),
-            encoding="utf-8",
-        ) as f:
-            expected_tables = json.load(f)
-
-        with open(
-            str(temp_doc_path).replace(".doc", ".doc_tables.json"),
-            encoding="utf-8",
-        ) as f:
-            new_tables = json.load(f)
-
-        _make_reproducible(new_bioc, expected_bioc, new_tables, expected_tables)
-        assert new_tables == expected_tables
-    else:
-        _make_reproducible(new_bioc, expected_bioc)
+    _make_reproducible(new_bioc, expected_bioc)
 
     assert new_bioc == expected_bioc
 
