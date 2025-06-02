@@ -58,7 +58,7 @@ def process_file(
                     "    pip install autocorpus[pdf]"
                 )
                 raise
-        case FileType.OTHER:
+        case FileType.UNKNOWN:
             raise NotImplementedError(f"Could not identify file type for {file_path}")
 
 

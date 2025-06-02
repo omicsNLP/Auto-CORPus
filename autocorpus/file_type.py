@@ -17,13 +17,13 @@ class FileType(Enum):
         HTML: Represents an HTML file.
         XML: Represents an XML file.
         PDF: Represents a PDF file.
-        OTHER: Represents any other file type that is not recognized.
+        UNKNOWN: Represents any other file type that is not recognized.
     """
 
     HTML = auto()
     XML = auto()
     PDF = auto()
-    OTHER = auto()
+    UNKNOWN = auto()
 
 
 def check_file_type(file_path: Path) -> FileType:
@@ -38,7 +38,14 @@ def check_file_type(file_path: Path) -> FileType:
 
     Returns:
         A FileType Enum value indicating the type of the file.
+
+    Raises:
+        FileNotFoundError: If the provided path does not point to a file.
     """
+    if not file_path.is_file():
+        message = f"File {file_path} is not a file."
+        logger.error(message)
+        raise FileNotFoundError(message)
     file_extension = file_path.suffix.lower()
     match file_extension:
         case ".html" | ".htm" | ".xml":
@@ -50,8 +57,8 @@ def check_file_type(file_path: Path) -> FileType:
                 return FileType.HTML
             except Exception as ex:
                 logger.error(f"Error parsing file {file_path}: {ex}")
-                return FileType.OTHER
+                return FileType.UNKNOWN
         case ".pdf":
             return FileType.PDF
         case _:
-            return FileType.OTHER
+            return FileType.UNKNOWN
