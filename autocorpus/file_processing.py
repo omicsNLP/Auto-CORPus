@@ -5,6 +5,8 @@ from pathlib import Path
 from typing import Any
 
 from . import logger
+from .ac_bioc.bioctable.json import BioCTableJSONEncoder
+from .ac_bioc.json import BioCJSONEncoder
 from .autocorpus import Autocorpus
 from .file_type import FileType, check_file_type
 from .html import process_html_article
@@ -34,13 +36,11 @@ def process_file(
             )
         case FileType.XML:
             raise NotImplementedError(
-                f"Could not process file {file_path}: "
-                "XML processing is not implemented yet."
+                f"Could not process file {file_path}. Process XML files by running:\n\t"
+                f"python -m autocorpus.parse_xml {file_path}"
             )
         case FileType.PDF:
             try:
-                from .ac_bioc.bioctable.json import BioCTableJSONEncoder
-                from .ac_bioc.json import BioCJSONEncoder
                 from .pdf import extract_pdf_content
 
                 text, tbls = extract_pdf_content(file_path)
