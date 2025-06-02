@@ -309,13 +309,15 @@ def process_html_article(
     new_documents = []
     for table_file in linked_tables:
         soup = load_html_file(table_file)
-        tables, empty_tables = get_table_json(soup, config, table_file)
-        new_documents.extend(tables.get("documents", []))
-        empty_tables.extend(empty_tables)
+        new_tables, new_empty_tables = get_table_json(soup, config, table_file)
+        new_documents.extend(new_tables.get("documents", []))
+        empty_tables.extend(new_empty_tables)
     tables["documents"] = _extend_tables_documents(
         tables.get("documents", []), new_documents
     )
     if empty_tables:
-        _merge_tables_with_empty_tables(tables["documents"], empty_tables)
+        tables["documents"] = _merge_tables_with_empty_tables(
+            tables["documents"], empty_tables
+        )
 
     return main_text, abbreviations, tables

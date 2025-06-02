@@ -135,6 +135,6 @@ def _make_reproducible(*data: dict[str, Any]) -> None:
     """Make output files reproducible by stripping dates and file paths."""
     for d in data:
         d.pop("date", None)
-        if docs := d.get("documents", None):
+        if docs := d.get("documents", []):
             for doc in docs:
                 doc.pop("inputfile", None)
