@@ -43,11 +43,14 @@ def process_file(
             try:
                 from .pdf import extract_pdf_content
 
-                text, tbls = extract_pdf_content(file_path)
+                text, tables = extract_pdf_content(file_path)
 
                 # TODO: Use text.to_dict() after bugfix in ac_bioc (Issue #272)
-                main_text = BioCJSONEncoder().default(text)
-                tables = BioCTableJSONEncoder().default(tbls)
+                if text:
+                    main_text = BioCJSONEncoder().default(text)
+
+                if tables:
+                    tables = BioCTableJSONEncoder().default(tables)
 
                 return Autocorpus(file_path, main_text, dict(), tables)
 
@@ -58,6 +61,23 @@ def process_file(
                     "    pip install autocorpus[pdf]"
                 )
                 raise
+        case FileType.WORD:
+            try:
+                from .word import extract_word_content
+
+                text, tbls = extract_word_content(file_path)
+
+                # TODO: Use text.to_dict() after bugfix in ac_bioc (Issue #272)
+                main_text = BioCJSONEncoder().default(text)
+                tables = BioCTableJSONEncoder().default(tbls)
+
+                return Autocorpus(file_path, main_text, dict(), tables)
+            except ModuleNotFoundError:
+                logger.error(
+                    "Could not load necessary Word packages. Microsoft Word is required to process Word documents on Windows & MAC OS, or alternatively LibreOffice can be used on Linux.\n"
+                )
+                raise
+
         case FileType.UNKNOWN:
             raise NotImplementedError(f"Could not identify file type for {file_path}")
 

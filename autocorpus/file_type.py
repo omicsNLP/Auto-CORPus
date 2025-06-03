@@ -17,12 +17,14 @@ class FileType(Enum):
         HTML: Represents an HTML file.
         XML: Represents an XML file.
         PDF: Represents a PDF file.
+        WORD: Represents a Word document (DOCX or DOC).
         UNKNOWN: Represents any other file type that is not recognized.
     """
 
     HTML = auto()
     XML = auto()
     PDF = auto()
+    WORD = auto()
     UNKNOWN = auto()
 
 
@@ -63,5 +65,7 @@ def check_file_type(file_path: Path) -> FileType:
                 return FileType.UNKNOWN
         case ".pdf":
             return FileType.PDF
+        case ".docx" | ".doc":
+            return FileType.WORD
         case _:
             return FileType.UNKNOWN

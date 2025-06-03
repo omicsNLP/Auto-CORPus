@@ -7,13 +7,17 @@ convert the document to a dictionary representation.
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from typing import Any
 
+from dataclasses_json import dataclass_json
+
+from .annotation import BioCAnnotation
 from .passage import BioCPassage
 from .relation import BioCRelation
 
 
+@dataclass_json
 @dataclass
 class BioCDocument:
     """Represents a BioC document containing passages, annotations, and relations."""
@@ -23,18 +27,11 @@ class BioCDocument:
     infons: dict[str, str] = field(default_factory=dict)
     passages: list[BioCPassage] = field(default_factory=list)
     relations: list[BioCRelation] = field(default_factory=list)
+    annotations: list[BioCAnnotation] = field(
+        default_factory=list
+    )  # TODO: discuss why this is here in legacy outputs, should it be removed?
 
-    def to_dict(self):
-        """Convert the BioCDocument instance to a dictionary representation.
-
-        Returns:
-            dict: A dictionary containing the document's ID, infons, and passages.
-        """
-        return {
-            "id": self.id,
-            "infons": self.infons,
-            "passages": [p.to_dict() for p in self.passages],
-        }
+    to_dict = asdict
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> BioCDocument:
@@ -46,21 +43,14 @@ class BioCDocument:
         Returns:
             BioCDocument: An instance of BioCDocument created from the dictionary.
         """
-        passages = [BioCPassage.from_dict(p) for p in data.get("passages", [])]
+        passages = [BioCPassage().from_ac_dict(p) for p in data.get("passages", [])]
         return cls(
             id=data["id"],
             infons=data.get("infons", {}),
             passages=passages,
             relations=data.get("relations", []),
+            annotations=data.get("annotations", []),
         )
-
-    def to_json(self) -> dict[str, Any]:
-        """Convert the BioCDocument instance to a JSON-compatible dictionary.
-
-        Returns:
-            dict[str, Any]: A dictionary representation of the document.
-        """
-        return self.to_dict()
 
     def to_xml(self) -> ET.Element:
         """Convert the BioCDocument instance to an XML element.

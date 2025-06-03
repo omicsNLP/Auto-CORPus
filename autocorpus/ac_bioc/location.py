@@ -6,31 +6,23 @@ It provides methods for converting between dictionary, XML, and object represent
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
+from dataclasses import asdict, dataclass, field
 
 
+@dataclass
 class BioCLocation:
     """Represents a location in BioC format."""
 
-    def __init__(self, offset: int, length: int):
-        """Initialize a BioCLocation instance.
+    offset: int = field(
+        default_factory=int,
+        metadata={"description": "The offset of the location in the text."},
+    )
+    length: int = field(
+        default_factory=int,
+        metadata={"description": "The length of the location in the text."},
+    )
 
-        Args:
-            offset (int): The starting offset of the location.
-            length (int): The length of the location.
-        """
-        self.offset = offset
-        self.length = length
-
-    def to_dict(self) -> dict[str, int]:
-        """Convert the BioCLocation instance to a dictionary.
-
-        Returns:
-            dict[str, int]: A dictionary representation of the BioCLocation instance.
-        """
-        return {
-            "offset": self.offset,
-            "length": self.length,
-        }
+    to_dict = asdict
 
     @classmethod
     def from_dict(cls, data: dict[str, int]) -> BioCLocation:

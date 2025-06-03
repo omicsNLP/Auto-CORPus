@@ -79,7 +79,7 @@ def _run_html_regression_test(
 
     auto_corpus = process_file(config=config, file_path=file_path)
     abbreviations = auto_corpus.abbreviations
-    bioc = auto_corpus.to_bioc()
+    bioc = auto_corpus.to_bioc().to_dict()
     tables = auto_corpus.tables
 
     _make_reproducible(

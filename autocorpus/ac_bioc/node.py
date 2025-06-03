@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
+
+from dataclasses_json import dataclass_json
 
 
+@dataclass_json
 @dataclass
 class BioCNode:
     """Represents a node in a BioC graph with a reference ID and a role."""
@@ -13,12 +16,7 @@ class BioCNode:
     refid: str = field(default_factory=str)
     role: str = field(default_factory=str)
 
-    def to_dict(self) -> dict[str, str]:
-        """Convert the BioCNode instance to a dictionary representation."""
-        return {
-            "refid": self.refid,
-            "role": self.role,
-        }
+    to_dict = asdict
 
     @classmethod
     def from_dict(cls, data: dict[str, str]) -> BioCNode:

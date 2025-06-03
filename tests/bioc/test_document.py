@@ -3,6 +3,7 @@
 Including serialization to/from dictionaries, JSON, and XML.
 """
 
+import json
 import xml.etree.ElementTree as ET
 
 import pytest
@@ -46,7 +47,10 @@ def test_to_dict(sample_document):
 
 def test_to_json_matches_to_dict(sample_document):
     """Test that the to_json method produces the same output as to_dict."""
-    assert sample_document.to_json() == sample_document.to_dict()
+    document = sample_document
+    json_as_dict = json.loads(document.to_json())
+    dict_repr = document.to_dict()
+    assert json_as_dict == dict_repr
 
 
 def test_from_dict():

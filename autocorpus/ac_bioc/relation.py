@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from typing import Any
 
 from .node import BioCNode
@@ -17,17 +17,7 @@ class BioCRelation:
     infons: dict[str, str] = field(default_factory=dict)
     nodes: list[BioCNode] = field(default_factory=list)
 
-    def to_dict(self) -> dict[str, Any]:
-        """Convert the BioCRelation instance to a dictionary.
-
-        Returns:
-            dict[str, Any]: A dictionary representation of the BioCRelation instance.
-        """
-        return {
-            "id": self.id,
-            "infons": self.infons,
-            "nodes": [n.to_dict() for n in self.nodes],
-        }
+    to_dict = asdict
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> BioCRelation:

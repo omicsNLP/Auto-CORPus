@@ -9,81 +9,19 @@ It includes:
 import json
 from typing import Any
 
-from .annotation import BioCAnnotation
 from .collection import BioCCollection
-from .document import BioCDocument
-from .location import BioCLocation
-from .node import BioCNode
-from .passage import BioCPassage
-from .relation import BioCRelation
-from .sentence import BioCSentence
 
 
 class BioCJSONEncoder(json.JSONEncoder):
     """Custom JSON encoder for BioC-related objects."""
 
     def default(self, o: Any) -> Any:
-        """Override the default method to handle BioC-related objects."""
-        match o:
-            case BioCLocation():
-                return {
-                    "offset": o.offset,
-                    "length": o.length,
-                }
-
-            case BioCNode():
-                return {
-                    "refid": o.refid,
-                    "role": o.role,
-                }
-            case BioCSentence():
-                return {
-                    "offset": o.offset,
-                    "infons": o.infons,
-                    "text": o.text,
-                    "annotations": [self.default(a) for a in o.annotations],
-                    "relations": [self.default(r) for r in o.relations],
-                }
-            case BioCPassage():
-                return {
-                    "offset": o.offset,
-                    "infons": o.infons,
-                    "text": o.text,
-                    "annotations": [self.default(a) for a in o.annotations],
-                    "relations": [self.default(r) for r in o.relations],
-                }
-            case BioCDocument():
-                return {
-                    "id": o.id,
-                    "infons": o.infons,
-                    "inputfile": o.inputfile,
-                    "passages": [self.default(p) for p in o.passages],
-                    "relations": [self.default(r) for r in o.relations],
-                }
-            case BioCAnnotation():
-                return {
-                    "id": o.id,
-                    "infons": o.infons,
-                    "text": o.text,
-                    "locations": [self.default(loc) for loc in o.locations],
-                }
-            case BioCRelation():
-                return {
-                    "id": o.id,
-                    "infons": o.infons,
-                    "nodes": [self.default(n) for n in o.nodes],
-                }
-            case BioCCollection():
-                return {
-                    "source": o.source,
-                    "date": o.date,
-                    "key": o.key,
-                    "infons": o.infons,
-                    "documents": [self.default(d) for d in o.documents],
-                }
-            case _:
-                # Let the base class default method raise the TypeError
-                return super().default(o)
+        """Return a serializable object for JSON encoding, using to_dict if available."""
+        if hasattr(o, "to_dict") and callable(o.to_dict):
+            return o.to_dict()
+        if o is None:
+            return None
+        return super().default(o)
 
 
 class BioCJSON:
