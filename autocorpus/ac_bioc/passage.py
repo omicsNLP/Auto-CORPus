@@ -10,13 +10,20 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from typing import Any
 
+from dataclasses_json import DataClassJsonMixin, dataclass_json
+
 from .annotation import BioCAnnotation
 from .relation import BioCRelation
 from .sentence import BioCSentence
 
+_DEFAULT_KEYS = set(
+    ("section_heading", "subsection_heading", "body", "section_type", "offset")
+)
 
+
+@dataclass_json
 @dataclass
-class BioCPassage:
+class BioCPassage(DataClassJsonMixin):
     """Represents a passage in a BioC document."""
 
     text: str = field(default_factory=str)
@@ -26,40 +33,41 @@ class BioCPassage:
     annotations: list[BioCAnnotation] = field(default_factory=list)
     relations: list[BioCRelation] = field(default_factory=list)
 
-    def to_dict(self):
-        """Convert the BioCPassage instance to a dictionary representation."""
-        return {
-            "text": self.text,
-            "offset": self.offset,
-            "infons": self.infons,
-            "sentences": [s.to_dict() for s in self.sentences],
-        }
-
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> BioCPassage:
-        """Create a BioCPassage instance from a dictionary.
+    def from_ac_dict(cls, passage: dict[str, Any]) -> BioCPassage:
+        """Create a BioCPassage from a passage dict and an offset.
 
         Args:
-            data (dict[str, Any]): A dictionary containing passage data.
+            passage: dict containing info about passage
 
         Returns:
-            BioCPassage: An instance of BioCPassage populated with the provided data.
+            BioCPassage object
         """
-        sentences = [BioCSentence.from_dict(s) for s in data.get("sentences", [])]
-        return cls(
-            text=data.get("text", ""),
-            offset=data.get("offset", 0),
-            infons=data.get("infons", {}),
-            sentences=sentences,
-        )
+        infons = {k: v for k, v in passage.items() if k not in _DEFAULT_KEYS}
+        # TODO: Doesn't account for subsubsection headings which might exist
+        if heading := passage.get("section_heading", None):
+            infons["section_title_1"] = heading
+        if subheading := passage.get("subsection_heading", None):
+            infons["section_title_2"] = subheading
+        for i, section_type in enumerate(passage["section_type"]):
+            infons[f"iao_name_{i + 1}"] = section_type["iao_name"]
+            infons[f"iao_id_{i + 1}"] = section_type["iao_id"]
 
-    def to_json(self) -> dict[str, Any]:
-        """Convert the BioCPassage instance to a JSON-compatible dictionary.
+        return cls(offset=passage.get("offset", 0), infons=infons, text=passage["body"])
+
+    @classmethod
+    def from_title(cls, title: str, offset: int) -> BioCPassage:
+        """Create a BioCPassage from a title and offset.
+
+        Args:
+            title: Passage title
+            offset: Passage offset
 
         Returns:
-            dict[str, Any]: A dictionary representation of the BioCPassage instance.
+            BioCPassage object
         """
-        return self.to_dict()
+        infons = {"iao_name_1": "document title", "iao_id_1": "IAO:0000305"}
+        return cls(offset=offset, infons=infons, text=title)
 
     def to_xml(self) -> ET.Element:
         """Convert the BioCPassage instance to an XML element.

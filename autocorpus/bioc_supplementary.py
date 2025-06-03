@@ -1,8 +1,10 @@
 """This module provides functionality for converting text extracted from various file types into a BioC format."""
 
 import datetime
-from typing import TypeVar
+from dataclasses import dataclass
+from typing import TypeVar, cast
 
+import regex
 from pandas import DataFrame
 
 from .ac_bioc import (
@@ -16,6 +18,78 @@ from .ac_bioc.bioctable import (
     BioCTableDocument,
     BioCTablePassage,
 )
+
+
+@dataclass
+class WordText:
+    """Represents a text element extracted from a Word document."""
+
+    text: str
+    is_header: bool
+
+
+def _split_text_and_tables(text: str) -> tuple[list[str], list[list[str]]]:
+    """Splits PDF text into main text lines and raw table lines."""
+    lines = [x for x in text.splitlines() if x]
+    tables = []
+    table_lines = []
+    main_text_lines = []
+    inside_table = False
+
+    for line in lines:
+        if "|" in line:
+            inside_table = True
+            table_lines.append(line)
+        elif inside_table:
+            inside_table = False
+            tables.append(table_lines)
+            main_text_lines.append(line)
+            table_lines = []
+            continue
+        else:
+            main_text_lines.append(line)
+
+    return main_text_lines, tables
+
+
+def _parse_tables(raw_tables: list[list[str]]) -> list[DataFrame]:
+    """Converts raw table text lines into DataFrames."""
+    parsed_tables = []
+    for table in raw_tables:
+        # Remove lines that are just dashes
+        table = [line for line in table if not regex.match(r"^\s*[\p{Pd}]+\s*$", line)]
+
+        rows = []
+        for line in table:
+            if regex.search(r"\|", line):
+                cells = [
+                    cell.strip()
+                    for cell in line.split("|")
+                    if not all(x in "|-" for x in cell)
+                ]
+                if cells:
+                    rows.append(cells)
+
+        if not rows:
+            continue
+
+        num_columns = max(len(row) for row in rows)
+        for row in rows:
+            while len(row) < num_columns:
+                row.append("")
+
+        df = DataFrame(rows[1:], columns=rows[0])
+        parsed_tables.append(df)
+
+    return parsed_tables
+
+
+def extract_table_from_pdf_text(text: str) -> tuple[str, list[DataFrame]]:
+    """Extracts tables from PDF text and returns the remaining text and parsed tables."""
+    main_text_lines, raw_tables = _split_text_and_tables(text)
+    tables_output = _parse_tables(raw_tables)
+    text_output = "\n\n".join(main_text_lines)
+    return text_output, tables_output
 
 
 def string_replace_unicode(text: str) -> str:
@@ -136,13 +210,15 @@ class BioCTextConverter:
     """Converts text content into a BioC format for supplementary material processing."""
 
     @staticmethod
-    def build_bioc(text: str, input_file: str, file_type: str) -> BioCCollection:
+    def build_bioc(
+        text: str | list[WordText], input_file: str, file_type: str
+    ) -> BioCCollection:
         """Builds a BioCCollection object from the provided text, input file, and file type.
 
         Args:
-            text (str): The text content to be converted.
-            input_file (str): The path to the input file.
-            file_type (str): The type of the input file ('word' or 'pdf').
+            text: The text content to be converted.
+            input_file: The path to the input file.
+            file_type: The type of the input file ('word' or 'pdf').
 
         Returns:
             BioCCollection: The constructed BioCCollection object.
@@ -153,31 +229,28 @@ class BioCTextConverter:
         bioc.key = "autocorpus_supplementary.key"
         temp_doc = BioCDocument(id="1")
         if file_type == "word":
+            text = cast(list[WordText], text)
             temp_doc.passages = BioCTextConverter.__identify_word_passages(text)
         elif file_type == "pdf":
+            text = cast(str, text)
             temp_doc.passages = BioCTextConverter.__identify_passages(text)
-        temp_doc.passages = BioCTextConverter.__identify_passages(text)
+        else:
+            text = cast(str, text)
+            temp_doc.passages = BioCTextConverter.__identify_passages(text)
         temp_doc.inputfile = input_file
         bioc.documents.append(temp_doc)
         return bioc
 
     @staticmethod
-    def __identify_passages(text):
+    def __identify_passages(text: str | list[str]) -> list[BioCPassage]:
         offset = 0
         passages = []
-        if text is None:
-            return passages
         if isinstance(text, str):
-            text = text.split("\n\n")
+            split_text = text.split("\n\n")
         else:
-            text = [x.split("\n") for x in text]
-            temp = []
-            for i in text:
-                for t in i:
-                    temp.append(t)
-            text = temp
-        text = [x for x in text if x]
-        for line in text:
+            split_text = [t for x in text for t in x.split("\n")]
+        split_text = [x for x in split_text if x]
+        for line in split_text:
             iao_name = "supplementary material section"
             iao_id = "IAO:0000326"
             passage = BioCPassage()
@@ -189,21 +262,21 @@ class BioCTextConverter:
         return passages
 
     @staticmethod
-    def __identify_word_passages(text):
+    def __identify_word_passages(text: list[WordText]) -> list[BioCPassage]:
         offset = 0
         passages = []
-        line, is_header = text
-        line = line.replace("\n", "")
-        if line.isupper() or is_header:
-            iao_name = "document title"
-            iao_id = "IAO:0000305"
-        else:
-            iao_name = "supplementary material section"
-            iao_id = "IAO:0000326"
-        passage = BioCPassage()
-        passage.offset = offset
-        passage.infons = {"iao_name_1": iao_name, "iao_id_1": iao_id}
-        passage.text = line
-        passages.append(passage)
-        offset += len(line)
+        for t in text:
+            paragraph = t.text.replace("\n", "")
+            if paragraph.isupper() or t.is_header:
+                iao_name = "document title"
+                iao_id = "IAO:0000305"
+            else:
+                iao_name = "supplementary material section"
+                iao_id = "IAO:0000326"
+            passage = BioCPassage()
+            passage.offset = offset
+            passage.infons = {"iao_name_1": iao_name, "iao_id_1": iao_id}
+            passage.text = paragraph
+            passages.append(passage)
+            offset += len(paragraph)
         return passages

@@ -8,18 +8,18 @@ Modules used:
 
 import re
 from collections.abc import Iterable
-from dataclasses import asdict, dataclass
 from functools import lru_cache
 from importlib import resources
 from itertools import chain
-from typing import Any
+from typing import Any, cast
 
 import nltk
 from bs4 import BeautifulSoup, Tag
 from fuzzywuzzy import fuzz
 
 from . import logger
-from .reference import get_references
+from .data_structures import Paragraph, SectionChild
+from .reference import ReferencesParagraph, get_references
 from .utils import handle_not_tables
 
 
@@ -131,24 +131,12 @@ def get_iao_term_to_id_mapping(iao_term: str) -> dict[str, str]:
     return {"iao_name": iao_term, "iao_id": mapping_result_id_version}
 
 
-@dataclass
-class Paragraph:
-    """A paragraph for a section of the article."""
-
-    section_heading: str
-    subsection_heading: str
-    body: str
-    section_type: list[dict[str, str]]
-
-    as_dict = asdict
-
-
 def _get_abbreviations(
     abbreviations_config: dict[str, Any], soup_section: BeautifulSoup
 ) -> str:
     try:
         abbreviations_tables = handle_not_tables(abbreviations_config, soup_section)
-        node = abbreviations_tables[0]["node"]
+        node = cast(Tag, abbreviations_tables[0]["node"])
         abbreviations = {}
         for tr in node.find_all("tr"):
             short_form, long_form = (td.get_text() for td in tr.find_all("td"))
@@ -161,7 +149,7 @@ def _get_abbreviations(
 
 def _get_references(
     config: dict[str, Any], section_heading: str, soup_section: BeautifulSoup
-) -> Iterable[dict[str, Any]]:
+) -> Iterable[ReferencesParagraph]:
     """Constructs the article references using the provided configuration file.
 
     Args:
@@ -172,14 +160,6 @@ def _get_references(
     all_references = handle_not_tables(config["references"], soup_section)
     for ref in all_references:
         yield get_references(ref, section_heading)
-
-
-@dataclass(frozen=True)
-class SectionChild:
-    """A child node in the section."""
-
-    subheading: str
-    body: str
 
 
 def _navigate_children(
@@ -225,13 +205,16 @@ def _get_section(
 ) -> Iterable[SectionChild]:
     subsections = handle_not_tables(config["sub-sections"], soup_section)
     paragraphs = [
-        para["node"] for para in handle_not_tables(config["paragraphs"], soup_section)
+        cast(Tag, para["node"])
+        for para in handle_not_tables(config["paragraphs"], soup_section)
     ]
     tables = [
-        table["node"] for table in handle_not_tables(config["tables"], soup_section)
+        cast(Tag, table["node"])
+        for table in handle_not_tables(config["tables"], soup_section)
     ]
     figures = [
-        figure["node"] for figure in handle_not_tables(config["figures"], soup_section)
+        cast(Tag, figure["node"])
+        for figure in handle_not_tables(config["figures"], soup_section)
     ]
     unwanted_paragraphs = list(
         chain.from_iterable(
@@ -245,7 +228,7 @@ def _get_section(
 
 def get_section(
     config: dict[str, dict[str, Any]], section_dict: dict[str, Any]
-) -> Iterable[dict[str, Any]]:
+) -> Iterable[Paragraph]:
     """Identifies a section using the provided configuration.
 
     Args:
@@ -262,7 +245,7 @@ def get_section(
                 abbreviations_config, section_dict["node"]
             )
             for body in abbreviations:
-                yield Paragraph(section_heading, "", body, section_type).as_dict()
+                yield Paragraph(section_heading, "", body, section_type)
             return
 
     if {
@@ -278,4 +261,4 @@ def get_section(
             child.subheading,
             child.body,
             section_type,
-        ).as_dict()
+        )

@@ -68,7 +68,6 @@ class BioCTableJSONEncoder(BioCJSONEncoder):
                     "source": o.source,
                     "date": o.date,
                     "key": o.key,
-                    "version": o.version,
                     "infons": o.infons,
                     "documents": [self.default(d) for d in o.documents],
                 }

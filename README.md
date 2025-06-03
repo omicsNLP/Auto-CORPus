@@ -38,16 +38,16 @@ pip install autocorpus[pdf]
 
 ## Usage
 
-Run the below command for a single file example
+You can run Auto-CORPus on a single file like so:
 
 ```sh
-auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/html/file" -o JSON
+auto-corpus -b PMC -t "output" -f "path/to/html/file" -o JSON
 ```
 
-Run the main app for a directory of files example
+Auto-CORPus can also process whole directories:
 
 ```sh
-auto-corpus -c "autocorpus/configs/config_pmc.json" -t "output" -f "path/to/directory/of/html/files" -o JSON
+auto-corpus -b PMC -t "output" -f "path/to/directory/of/html/files" -o JSON
 ```
 
 ### Available arguments
@@ -127,6 +127,14 @@ To get started:
 
 1. [Download and install Poetry](https://python-poetry.org/docs/#installation) following the instructions for your OS.
 1. Clone this repository and make it your working directory
+1. (Optionally) download private test data for additional regression tests. This uses data which
+   cannot be redistributed publicly (only available to members of the
+   [omicsNLP](https://github.com/omicsNLP) organisation).
+
+   ```sh
+   git submodule update --init
+   ```
+
 1. Set up the virtual environment:
 
    ```sh

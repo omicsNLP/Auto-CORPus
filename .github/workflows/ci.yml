@@ -20,11 +20,21 @@ jobs:
         python-version: ['3.10', '3.11', '3.12', '3.13']
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Use a custom PAT so the runners can access the private submodule
+          token: ${{ secrets.PAT }}
+          submodules: true
+      - name: Install LibreOffice
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libreoffice
       - uses: ./.github/actions/setup
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install pywin32 on Windows
+        if: runner.os == 'Windows'
+        run: poetry add pywin32
       - name: Run tests
-        run: poetry run pytest --skip-ci-macos
+        run: poetry run pytest --skip-ci-macos --skip-ci-windows
       - name: Upload coverage reports to Codecov
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.13' && github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.user.login != 'pre-commit-ci[bot]' }}
         uses: codecov/codecov-action@v5

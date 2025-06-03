@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from typing import Any
 
 from .location import BioCLocation
@@ -20,19 +20,7 @@ class BioCAnnotation:
     infons: dict[str, str] = field(default_factory=dict)
     locations: list[BioCLocation] = field(default_factory=list)
 
-    def to_dict(self):
-        """Convert the annotation to a dictionary representation.
-
-        Returns:
-            dict: A dictionary containing the annotation's id, text, offset, length, and infons.
-        """
-        return {
-            "id": self.id,
-            "text": self.text,
-            "offset": self.offset,
-            "length": self.length,
-            "infons": self.infons,
-        }
+    to_dict = asdict
 
     def to_json(self) -> dict[str, Any]:
         """Convert the annotation to a JSON-serializable dictionary.
