@@ -5,6 +5,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from autocorpus.ac_bioc.collection import BioCCollection
+
 from .ac_bioc import BioCJSON, BioCXML
 from .bioc_formatter import get_formatted_bioc_collection
 
@@ -27,11 +29,11 @@ class Autocorpus:
         """
         return bool(self.tables.get("documents"))
 
-    def to_bioc(self) -> dict[str, Any]:
+    def to_bioc(self) -> BioCCollection:
         """Get the currently loaded bioc as a dict.
 
         Returns:
-            bioc as a dict
+            bioc as a BioCCollection object
         """
         return get_formatted_bioc_collection(self.main_text, self.file_path)
 

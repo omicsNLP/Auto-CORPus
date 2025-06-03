@@ -5,8 +5,6 @@ from pathlib import Path
 from typing import Any
 
 from . import logger
-from .ac_bioc.bioctable.json import BioCTableJSONEncoder
-from .ac_bioc.json import BioCJSONEncoder
 from .autocorpus import Autocorpus
 from .file_type import FileType, check_file_type
 from .html import process_html_article
@@ -29,6 +27,8 @@ def process_file(
         NotImplementedError: For files types with no implemented processing.
         ModuleNotFoundError: For PDF processing if required packages are not found.
     """
+    main_text: dict[str, Any] = {}
+    tables_dict: dict[str, Any] = {}
     match check_file_type(file_path):
         case FileType.HTML:
             return Autocorpus(
@@ -43,13 +43,15 @@ def process_file(
             try:
                 from .pdf import extract_pdf_content
 
-                text, tbls = extract_pdf_content(file_path)
+                text, tables = extract_pdf_content(file_path)
 
-                # TODO: Use text.to_dict() after bugfix in ac_bioc (Issue #272)
-                main_text = BioCJSONEncoder().default(text)
-                tables = BioCTableJSONEncoder().default(tbls)
+                if text:
+                    main_text = text.to_dict()
 
-                return Autocorpus(file_path, main_text, dict(), tables)
+                if tables:
+                    tables_dict = tables.to_dict()
+
+                return Autocorpus(file_path, main_text, dict(), tables_dict)
 
             except ModuleNotFoundError:
                 logger.error(
@@ -58,6 +60,25 @@ def process_file(
                     "    pip install autocorpus[pdf]"
                 )
                 raise
+        case FileType.WORD:
+            try:
+                from .word import extract_word_content
+
+                text, tbls = extract_word_content(file_path)
+
+                if text:
+                    main_text = text.to_dict()
+
+                if tbls:
+                    tables_dict = tbls.to_dict()
+
+                return Autocorpus(file_path, main_text, dict(), tables_dict)
+            except ModuleNotFoundError:
+                logger.error(
+                    "Could not load necessary Word packages. Microsoft Word is required to process Word documents on Windows & MAC OS, or alternatively LibreOffice can be used on Linux.\n"
+                )
+                raise
+
         case FileType.UNKNOWN:
             raise NotImplementedError(f"Could not identify file type for {file_path}")
 

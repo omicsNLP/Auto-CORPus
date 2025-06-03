@@ -1,8 +1,7 @@
 {
     "source": "Auto-CORPus (supplementary)",
-    "date": "20250516",
+    "date": "20250521",
     "key": "autocorpus_supplementary.key",
-    "version": "1.0",
     "infons": {},
     "documents": [
         {
@@ -18,7 +17,8 @@
                     },
                     "text": "![](_page_0_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 27,
@@ -28,7 +28,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47,
@@ -38,7 +39,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 48,
@@ -48,7 +50,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 519,
@@ -58,7 +61,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 555,
@@ -68,7 +72,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 612,
@@ -78,7 +83,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 1425,
@@ -88,7 +94,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 1494,
@@ -98,7 +105,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 2099,
@@ -108,7 +116,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 2620,
@@ -118,7 +127,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 3245,
@@ -128,7 +138,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 3279,
@@ -138,7 +149,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 3388,
@@ -148,7 +160,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 3432,
@@ -158,7 +171,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 3634,
@@ -168,7 +182,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 3654,
@@ -178,7 +193,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 3743,
@@ -188,7 +204,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 3830,
@@ -198,7 +215,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 4027,
@@ -208,7 +226,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 4190,
@@ -218,7 +237,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 4449,
@@ -228,7 +248,8 @@
                     },
                     "text": "![](_page_1_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 4476,
@@ -238,7 +259,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 4782,
@@ -248,7 +270,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 4856,
@@ -258,7 +281,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 5233,
@@ -268,7 +292,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 5295,
@@ -278,7 +303,8 @@
                     },
                     "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 5394,
@@ -288,7 +314,8 @@
                     },
                     "text": "![](_page_2_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 5421,
@@ -298,7 +325,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 5470,
@@ -308,7 +336,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 5655,
@@ -318,7 +347,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 5741,
@@ -328,7 +358,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 5836,
@@ -338,7 +369,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6065,
@@ -348,7 +380,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6103,
@@ -358,7 +391,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6232,
@@ -368,7 +402,8 @@
                     },
                     "text": "Dr. Zong has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6265,
@@ -378,7 +413,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6296,
@@ -388,7 +424,8 @@
                     },
                     "text": "![](_page_3_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6323,
@@ -398,7 +435,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6343,
@@ -408,7 +446,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6344,
@@ -418,7 +457,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6815,
@@ -428,7 +468,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6851,
@@ -438,7 +479,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 6908,
@@ -448,7 +490,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 7721,
@@ -458,7 +501,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 7790,
@@ -468,7 +512,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 8395,
@@ -478,7 +523,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 8916,
@@ -488,7 +534,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 9541,
@@ -498,7 +545,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 9575,
@@ -508,7 +556,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 9684,
@@ -518,7 +567,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 9728,
@@ -528,7 +578,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 9930,
@@ -538,7 +589,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 9950,
@@ -548,7 +600,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 10039,
@@ -558,7 +611,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 10126,
@@ -568,7 +622,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 10323,
@@ -578,7 +633,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 10486,
@@ -588,7 +644,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 10745,
@@ -598,7 +655,8 @@
                     },
                     "text": "![](_page_4_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 10772,
@@ -608,7 +666,8 @@
                     },
                     "text": "## **The Work Under Consideration for Publication Section 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 10834,
@@ -618,7 +677,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 11140,
@@ -628,7 +688,8 @@
                     },
                     "text": "## **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 11215,
@@ -638,7 +699,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 11592,
@@ -648,7 +710,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 11654,
@@ -658,7 +721,8 @@
                     },
                     "text": "![](_page_5_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 11681,
@@ -668,7 +732,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 11730,
@@ -678,7 +743,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 11915,
@@ -688,7 +754,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12001,
@@ -698,7 +765,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12096,
@@ -708,7 +776,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12325,
@@ -718,7 +787,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12363,
@@ -728,7 +798,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12492,
@@ -738,7 +809,8 @@
                     },
                     "text": "Dr. Liu has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12524,
@@ -748,7 +820,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12555,
@@ -758,7 +831,8 @@
                     },
                     "text": "![](_page_6_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12582,
@@ -768,7 +842,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12602,
@@ -778,7 +853,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 12603,
@@ -788,7 +864,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 13074,
@@ -798,7 +875,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 13110,
@@ -808,7 +886,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 13167,
@@ -818,7 +897,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 13980,
@@ -828,7 +908,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 14049,
@@ -838,7 +919,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 14654,
@@ -848,7 +930,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 15175,
@@ -858,7 +941,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 15800,
@@ -868,7 +952,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 15834,
@@ -878,7 +963,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 15943,
@@ -888,7 +974,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 15987,
@@ -898,7 +985,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 16189,
@@ -908,7 +996,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 16209,
@@ -918,7 +1007,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 16298,
@@ -928,7 +1018,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 16385,
@@ -938,7 +1029,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 16582,
@@ -948,7 +1040,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 16745,
@@ -958,7 +1051,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 17004,
@@ -968,7 +1062,8 @@
                     },
                     "text": "![](_page_7_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 17031,
@@ -978,7 +1073,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 17337,
@@ -988,7 +1084,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 17411,
@@ -998,7 +1095,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 17788,
@@ -1008,7 +1106,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 17850,
@@ -1018,7 +1117,8 @@
                     },
                     "text": "![](_page_8_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 17877,
@@ -1028,7 +1128,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 17926,
@@ -1038,7 +1139,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18111,
@@ -1048,7 +1150,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18197,
@@ -1058,7 +1161,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18292,
@@ -1068,7 +1172,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18521,
@@ -1078,7 +1183,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18559,
@@ -1088,7 +1194,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18688,
@@ -1098,7 +1205,8 @@
                     },
                     "text": "Dr. Hou has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18720,
@@ -1108,7 +1216,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18751,
@@ -1118,7 +1227,8 @@
                     },
                     "text": "![](_page_9_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18778,
@@ -1128,7 +1238,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18798,
@@ -1138,7 +1249,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 18799,
@@ -1148,7 +1260,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 19270,
@@ -1158,7 +1271,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 19306,
@@ -1168,7 +1282,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 19363,
@@ -1178,7 +1293,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 20176,
@@ -1188,7 +1304,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 20245,
@@ -1198,7 +1315,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 20850,
@@ -1208,7 +1326,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 21371,
@@ -1218,7 +1337,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 21996,
@@ -1228,7 +1348,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22030,
@@ -1238,7 +1359,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22139,
@@ -1248,7 +1370,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22183,
@@ -1258,7 +1381,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22385,
@@ -1268,7 +1392,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22405,
@@ -1278,7 +1403,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22494,
@@ -1288,7 +1414,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22581,
@@ -1298,7 +1425,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22778,
@@ -1308,7 +1436,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 22941,
@@ -1318,7 +1447,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 23200,
@@ -1328,7 +1458,8 @@
                     },
                     "text": "![](_page_10_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 23228,
@@ -1338,7 +1469,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 23534,
@@ -1348,7 +1480,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 23608,
@@ -1358,7 +1491,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 23985,
@@ -1368,7 +1502,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24047,
@@ -1378,7 +1513,8 @@
                     },
                     "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24146,
@@ -1388,7 +1524,8 @@
                     },
                     "text": "![](_page_11_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24174,
@@ -1398,7 +1535,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24223,
@@ -1408,7 +1546,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24408,
@@ -1418,7 +1557,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24494,
@@ -1428,7 +1568,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24589,
@@ -1438,7 +1579,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24818,
@@ -1448,7 +1590,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24856,
@@ -1458,7 +1601,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 24985,
@@ -1468,7 +1612,8 @@
                     },
                     "text": "Dr. Zhang has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 25019,
@@ -1478,7 +1623,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 25050,
@@ -1488,7 +1634,8 @@
                     },
                     "text": "![](_page_12_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 25078,
@@ -1498,7 +1645,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 25098,
@@ -1508,7 +1656,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 25099,
@@ -1518,7 +1667,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 25570,
@@ -1528,7 +1678,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 25606,
@@ -1538,7 +1689,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 25663,
@@ -1548,7 +1700,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 26476,
@@ -1558,7 +1711,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 26545,
@@ -1568,7 +1722,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 27150,
@@ -1578,7 +1733,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 27671,
@@ -1588,7 +1744,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 28296,
@@ -1598,7 +1755,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 28330,
@@ -1608,7 +1766,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 28439,
@@ -1618,7 +1777,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 28483,
@@ -1628,7 +1788,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 28685,
@@ -1638,7 +1799,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 28705,
@@ -1648,7 +1810,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 28794,
@@ -1658,7 +1821,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 28881,
@@ -1668,7 +1832,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 29078,
@@ -1678,7 +1843,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 29241,
@@ -1688,7 +1854,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 29500,
@@ -1698,7 +1865,8 @@
                     },
                     "text": "![](_page_13_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 29528,
@@ -1708,7 +1876,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 29834,
@@ -1718,7 +1887,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 29908,
@@ -1728,7 +1898,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 30285,
@@ -1738,7 +1909,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 30347,
@@ -1748,7 +1920,8 @@
                     },
                     "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 30446,
@@ -1758,7 +1931,8 @@
                     },
                     "text": "![](_page_14_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 30474,
@@ -1768,7 +1942,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 30523,
@@ -1778,7 +1953,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 30708,
@@ -1788,7 +1964,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 30794,
@@ -1798,7 +1975,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 30889,
@@ -1808,7 +1986,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31118,
@@ -1818,7 +1997,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31156,
@@ -1828,7 +2008,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31285,
@@ -1838,7 +2019,8 @@
                     },
                     "text": "Dr. Jiang has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31319,
@@ -1848,7 +2030,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31350,
@@ -1858,7 +2041,8 @@
                     },
                     "text": "![](_page_15_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31378,
@@ -1868,7 +2052,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31398,
@@ -1878,7 +2063,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31399,
@@ -1888,7 +2074,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31870,
@@ -1898,7 +2085,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31906,
@@ -1908,7 +2096,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 31963,
@@ -1918,7 +2107,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 32776,
@@ -1928,7 +2118,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 32845,
@@ -1938,7 +2129,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 33450,
@@ -1948,7 +2140,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 33971,
@@ -1958,7 +2151,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 34596,
@@ -1968,7 +2162,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 34630,
@@ -1978,7 +2173,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 34739,
@@ -1988,7 +2184,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 34783,
@@ -1998,7 +2195,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 34985,
@@ -2008,7 +2206,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 35005,
@@ -2018,7 +2217,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 35094,
@@ -2028,7 +2228,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 35181,
@@ -2038,7 +2239,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 35378,
@@ -2048,7 +2250,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 35541,
@@ -2058,7 +2261,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 35800,
@@ -2068,7 +2272,8 @@
                     },
                     "text": "![](_page_16_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 35828,
@@ -2078,7 +2283,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 36134,
@@ -2088,7 +2294,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 36208,
@@ -2098,7 +2305,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 36585,
@@ -2108,7 +2316,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 36647,
@@ -2118,7 +2327,8 @@
                     },
                     "text": "![](_page_17_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 36675,
@@ -2128,7 +2338,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 36724,
@@ -2138,7 +2349,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 36909,
@@ -2148,7 +2360,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 36995,
@@ -2158,7 +2371,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37090,
@@ -2168,7 +2382,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37319,
@@ -2178,7 +2393,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37357,
@@ -2188,7 +2404,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37486,
@@ -2198,7 +2415,8 @@
                     },
                     "text": "Dr. Sun has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37518,
@@ -2208,7 +2426,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37549,
@@ -2218,7 +2437,8 @@
                     },
                     "text": "![](_page_18_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37577,
@@ -2228,7 +2448,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37597,
@@ -2238,7 +2459,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 37598,
@@ -2248,7 +2470,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 38069,
@@ -2258,7 +2481,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 38105,
@@ -2268,7 +2492,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 38162,
@@ -2278,7 +2503,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 38975,
@@ -2288,7 +2514,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 39044,
@@ -2298,7 +2525,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 39649,
@@ -2308,7 +2536,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 40170,
@@ -2318,7 +2547,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 40795,
@@ -2328,7 +2558,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 40829,
@@ -2338,7 +2569,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 40938,
@@ -2348,7 +2580,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 40982,
@@ -2358,7 +2591,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 41184,
@@ -2368,7 +2602,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 41204,
@@ -2378,7 +2613,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 41293,
@@ -2388,7 +2624,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 41380,
@@ -2398,7 +2635,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 41577,
@@ -2408,7 +2646,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 41740,
@@ -2418,7 +2657,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 41999,
@@ -2428,7 +2668,8 @@
                     },
                     "text": "![](_page_19_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 42027,
@@ -2438,7 +2679,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation,",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 42304,
@@ -2448,7 +2690,8 @@
                     },
                     "text": "statistical analysis, etc.)? Are there any relevant conflicts of interest? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 42387,
@@ -2458,7 +2701,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 42461,
@@ -2468,7 +2712,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 42838,
@@ -2478,7 +2723,8 @@
                     },
                     "text": "Are there any relevant conflicts of interest? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 42892,
@@ -2488,7 +2734,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 42954,
@@ -2498,7 +2745,8 @@
                     },
                     "text": "![](_page_20_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 42982,
@@ -2508,7 +2756,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43031,
@@ -2518,7 +2767,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43216,
@@ -2528,7 +2778,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43302,
@@ -2538,7 +2789,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43397,
@@ -2548,7 +2800,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43626,
@@ -2558,7 +2811,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43664,
@@ -2568,7 +2822,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43793,
@@ -2578,7 +2833,8 @@
                     },
                     "text": "Dr. Xie has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43825,
@@ -2588,7 +2844,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43856,
@@ -2598,7 +2855,8 @@
                     },
                     "text": "![](_page_21_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43884,
@@ -2608,7 +2866,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43904,
@@ -2618,7 +2877,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 43905,
@@ -2628,7 +2888,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 44376,
@@ -2638,7 +2899,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 44412,
@@ -2648,7 +2910,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 44469,
@@ -2658,7 +2921,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 45282,
@@ -2668,7 +2932,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 45351,
@@ -2678,7 +2943,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 45956,
@@ -2688,7 +2954,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 46477,
@@ -2698,7 +2965,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47102,
@@ -2708,7 +2976,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47136,
@@ -2718,7 +2987,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47245,
@@ -2728,7 +2998,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47289,
@@ -2738,7 +3009,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47491,
@@ -2748,7 +3020,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47511,
@@ -2758,7 +3031,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47600,
@@ -2768,7 +3042,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47687,
@@ -2778,7 +3053,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 47884,
@@ -2788,7 +3064,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 48047,
@@ -2798,7 +3075,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 48306,
@@ -2808,7 +3086,8 @@
                     },
                     "text": "![](_page_22_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 48334,
@@ -2818,7 +3097,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation,",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 48611,
@@ -2828,7 +3108,8 @@
                     },
                     "text": "statistical analysis, etc.)? Are there any relevant conflicts of interest? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 48694,
@@ -2838,7 +3119,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 48768,
@@ -2848,7 +3130,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49145,
@@ -2858,7 +3141,8 @@
                     },
                     "text": "Are there any relevant conflicts of interest? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49199,
@@ -2868,7 +3152,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49261,
@@ -2878,7 +3163,8 @@
                     },
                     "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49360,
@@ -2888,7 +3174,8 @@
                     },
                     "text": "![](_page_23_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49388,
@@ -2898,7 +3185,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49437,
@@ -2908,7 +3196,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49622,
@@ -2918,7 +3207,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49708,
@@ -2928,7 +3218,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 49803,
@@ -2938,7 +3229,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50032,
@@ -2948,7 +3240,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50070,
@@ -2958,7 +3251,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50199,
@@ -2968,7 +3262,8 @@
                     },
                     "text": "Dr. Xiao has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50232,
@@ -2978,7 +3273,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50263,
@@ -2988,7 +3284,8 @@
                     },
                     "text": "![](_page_24_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50291,
@@ -2998,7 +3295,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50311,
@@ -3008,7 +3306,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50312,
@@ -3018,7 +3317,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50783,
@@ -3028,7 +3328,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50819,
@@ -3038,7 +3339,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 50876,
@@ -3048,7 +3350,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 51689,
@@ -3058,7 +3361,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 51758,
@@ -3068,7 +3372,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 52363,
@@ -3078,7 +3383,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 52884,
@@ -3088,7 +3394,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 53509,
@@ -3098,7 +3405,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 53543,
@@ -3108,7 +3416,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 53652,
@@ -3118,7 +3427,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 53696,
@@ -3128,7 +3438,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 53898,
@@ -3138,7 +3449,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 53918,
@@ -3148,7 +3460,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 54007,
@@ -3158,7 +3471,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 54094,
@@ -3168,7 +3482,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 54291,
@@ -3178,7 +3493,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 54454,
@@ -3188,7 +3504,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 54713,
@@ -3198,7 +3515,8 @@
                     },
                     "text": "![](_page_25_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 54741,
@@ -3208,7 +3526,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 55047,
@@ -3218,7 +3537,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 55121,
@@ -3228,7 +3548,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 55498,
@@ -3238,7 +3559,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 55560,
@@ -3248,7 +3570,8 @@
                     },
                     "text": "Do you have any patents, whether planned, pending or issued, broadly relevant to the work? Yes \u2714 No",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 55659,
@@ -3258,7 +3581,8 @@
                     },
                     "text": "![](_page_26_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 55687,
@@ -3268,7 +3592,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 55736,
@@ -3278,7 +3603,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 55921,
@@ -3288,7 +3614,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56007,
@@ -3298,7 +3625,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56102,
@@ -3308,7 +3636,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56331,
@@ -3318,7 +3647,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56369,
@@ -3328,7 +3658,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56498,
@@ -3338,7 +3669,8 @@
                     },
                     "text": "Dr. Zhang has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56532,
@@ -3348,7 +3680,8 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56563,
@@ -3358,7 +3691,8 @@
                     },
                     "text": "![](_page_27_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56591,
@@ -3368,7 +3702,8 @@
                     },
                     "text": "### **Instructions**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56611,
@@ -3378,7 +3713,8 @@
                     },
                     "text": " ",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 56612,
@@ -3388,7 +3724,8 @@
                     },
                     "text": "> **The purpose of this form is to provide readers of your manuscript with information about your other interests that could influence how they receive and understand your work. The form is designed to be completed electronically and stored electronically. It contains programming that allows appropriate data display. Each author should submit a separate form and is responsible for the accuracy and completeness of the submitted information. The form is in six parts.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 57083,
@@ -3398,7 +3735,8 @@
                     },
                     "text": "#### **Identifying information. 1.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 57119,
@@ -3408,7 +3746,8 @@
                     },
                     "text": "#### **The work under consideration for publication. 2.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 57176,
@@ -3418,7 +3757,8 @@
                     },
                     "text": "This section asks for information about the work that you have submitted for publication. The time frame for this reporting is that of the work itself, from the initial conception and planning to the present. The requested information is about resources that you received, either directly or indirectly (via your institution), to enable you to complete the work. Checking \"No\" means that you did the work without receiving any financial support from any third party -- that is, the work was supported by funds from the same institution that pays your salary and that institution did not receive third-party funds with which to pay you. If you or your institution received funds from a third party to support the work, such as a government granting agency, charitable foundation or commercial sponsor, check \"Yes\".",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 57989,
@@ -3428,7 +3768,8 @@
                     },
                     "text": "#### **Relevant financial activities outside the submitted work. 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 58058,
@@ -3438,7 +3779,8 @@
                     },
                     "text": "This section asks about your financial relationships with entities in the bio-medical arena that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work. You should disclose interactions with ANY entity that could be considered broadly relevant to the work. For example, if your article is about testing an epidermal growth factor receptor (EGFR) antagonist in lung cancer, you should report all associations with entities pursuing diagnostic or therapeutic strategies in cancer in general, not just in the area of EGFR or lung cancer.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 58663,
@@ -3448,7 +3790,8 @@
                     },
                     "text": "Report all sources of revenue paid (or promised to be paid) directly to you or your institution on your behalf over the 36 months prior to submission of the work. This should include all monies from sources with relevance to the submitted work, not just monies from the entity that sponsored the research. Please note that your interactions with the work's sponsor that are outside the submitted work should also be listed here. If there is any question, it is usually better to disclose a relationship than not to do so.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 59184,
@@ -3458,7 +3801,8 @@
                     },
                     "text": " For grants you have received for work outside the submitted work, you should disclose support ONLY from entities that could be perceived to be affected financially by the published work, such as drug companies, or foundations supported by entities that could be perceived to have a financial stake in the outcome. Public funding sources, such as government agencies, charitable foundations or academic institutions, need not be disclosed. For example, if a government agency sponsored a study in which you have been involved and drugs were provided by a pharmaceutical company, you need only list the pharmaceutical company.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 59809,
@@ -3468,7 +3812,8 @@
                     },
                     "text": "#### **Intellectual Property. 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 59843,
@@ -3478,7 +3823,8 @@
                     },
                     "text": "This section asks about patents and copyrights, whether pending, issued, licensed and/or receiving royalties.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 59952,
@@ -3488,7 +3834,8 @@
                     },
                     "text": "#### **Relationships not covered above. 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 59996,
@@ -3498,7 +3845,8 @@
                     },
                     "text": "Use this section to report other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 60198,
@@ -3508,7 +3856,8 @@
                     },
                     "text": "### **Definitions.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 60218,
@@ -3518,7 +3867,8 @@
                     },
                     "text": "**Entity:** government agency, foundation, commercial sponsor, academic institution, etc.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 60307,
@@ -3528,7 +3878,8 @@
                     },
                     "text": "**Grant:** A grant from an entity, generally [but not always] paid to your organization",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 60394,
@@ -3538,7 +3889,8 @@
                     },
                     "text": "**Personal Fees:** Monies paid to you for services rendered, generally honoraria, royalties, or fees for consulting , lectures, speakers bureaus, expert testimony, employment, or other affiliations",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 60591,
@@ -3548,7 +3900,8 @@
                     },
                     "text": "**Non-Financial Support:** Examples include drugs/equipment supplied by the entity, travel paid by the entity, writing assistance, administrative support, etc**.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 60754,
@@ -3558,7 +3911,8 @@
                     },
                     "text": "**Other:** Anything not covered under the previous three boxes **Pending:** The patent has been filed but not issued **Issued:** The patent has been issued by the agency **Licensed:** The patent has been licensed to an entity, whether earning royalties or not",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 61013,
@@ -3568,7 +3922,8 @@
                     },
                     "text": "![](_page_28_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 61041,
@@ -3578,7 +3933,8 @@
                     },
                     "text": "Did you or your institution **at any time** receive payment or services from a third party (government, commercial, private foundation, etc.) for any aspect of the submitted work (including but not limited to grants, data monitoring board, study design, manuscript preparation, statistical analysis, etc.)?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 61347,
@@ -3588,7 +3944,8 @@
                     },
                     "text": "# **Relevant financial activities outside the submitted work. Section 3.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 61421,
@@ -3598,7 +3955,8 @@
                     },
                     "text": "Place a check in the appropriate boxes in the table to indicate whether you have financial relationships (regardless of amount of compensation) with entities as described in the instructions. Use one line for each entity; add as many lines as you need by clicking the \"Add +\" box. You should report relationships that were **present during the 36 months prior to publication**.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 61798,
@@ -3608,7 +3966,8 @@
                     },
                     "text": "# **Intellectual Property -- Patents & Copyrights Section 4.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 61860,
@@ -3618,7 +3977,8 @@
                     },
                     "text": "![](_page_29_Picture_0.jpeg)",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 61888,
@@ -3628,7 +3988,8 @@
                     },
                     "text": "## **Relationships not covered above Section 5.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 61937,
@@ -3638,7 +3999,8 @@
                     },
                     "text": "Are there other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work?",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 62122,
@@ -3648,7 +4010,8 @@
                     },
                     "text": "Yes, the following relationships/conditions/circumstances are present (explain below):",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 62208,
@@ -3658,7 +4021,8 @@
                     },
                     "text": "\u2714 No other relationships/conditions/circumstances that present a potential conflict of interest",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 62303,
@@ -3668,7 +4032,8 @@
                     },
                     "text": "At the time of manuscript acceptance, journals will ask authors to confirm and, if necessary, update their disclosure statements. On occasion, journals may ask authors to disclose further information about reported relationships.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 62532,
@@ -3678,7 +4043,8 @@
                     },
                     "text": "## **Disclosure Statement Section 6.**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 62570,
@@ -3688,7 +4054,8 @@
                     },
                     "text": "Based on the above disclosures, this form will automatically generate a disclosure statement, which will appear in the box below.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 62699,
@@ -3698,7 +4065,8 @@
                     },
                     "text": "Dr. Li has nothing to disclose.",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 },
                 {
                     "offset": 62730,
@@ -3708,10 +4076,12 @@
                     },
                     "text": "### **Evaluation and Feedback**",
                     "annotations": [],
-                    "relations": []
+                    "relations": [],
+                    "sentences": []
                 }
             ],
-            "relations": []
+            "relations": [],
+            "annotations": []
         }
     ]
 }

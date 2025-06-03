@@ -2,6 +2,7 @@
 
 import json
 import os
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -78,7 +79,7 @@ def _run_html_regression_test(
 
     auto_corpus = process_file(config=config, file_path=file_path)
     abbreviations = auto_corpus.abbreviations
-    bioc = auto_corpus.to_bioc()
+    bioc = auto_corpus.to_bioc().to_dict()
     tables = auto_corpus.tables
 
     _make_reproducible(
@@ -107,15 +108,15 @@ def _run_html_regression_test(
 def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -> None:
     """Test the conversion of a PDF file to a BioC format."""
     pdf_path = data_path / input_file
-    expected_output = pdf_path.parent / "Expected Output" / pdf_path.name
+    expected_output_path = pdf_path.parent / "Expected Output" / pdf_path.name
     with open(
-        str(expected_output).replace(".pdf", ".pdf_bioc.json"),
+        str(expected_output_path).replace(".pdf", ".pdf_bioc.json"),
         encoding="utf-8",
     ) as f:
         expected_bioc = json.load(f)
 
     with open(
-        str(expected_output).replace(".pdf", ".pdf_tables.json"),
+        str(expected_output_path).replace(".pdf", ".pdf_tables.json"),
         encoding="utf-8",
     ) as f:
         expected_tables = json.load(f)
@@ -129,6 +130,50 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
 
     assert new_bioc == expected_bioc
     assert new_tables == expected_tables
+
+
+@pytest.mark.skip_ci_macos
+@pytest.mark.skip_ci_windows
+@pytest.mark.parametrize(
+    "input_file, config, has_tables",
+    [
+        ("Supplementary/Word/mmc1.doc", DefaultConfig.PMC.load_config(), False),
+    ],
+)
+def test_word_to_bioc(
+    data_path: Path,
+    input_file: str,
+    config: dict[str, Any],
+    has_tables: bool,
+    tmp_path: Path,
+) -> None:
+    """Test the conversion of a doc file to a BioC format using a temp directory."""
+    # Original file locations
+    original_doc_path = data_path / input_file
+    expected_output_path = (
+        original_doc_path.parent / "Expected Output" / original_doc_path.name
+    )
+
+    # Copy the input doc file to the temp directory
+    temp_input_dir = tmp_path / "input"
+    temp_input_dir.mkdir()
+    temp_doc_path = temp_input_dir / original_doc_path.name
+    shutil.copy(original_doc_path, temp_doc_path)
+
+    # Load expected BioC output
+    with open(
+        str(expected_output_path).replace(".doc", ".doc_bioc.json"),
+        encoding="utf-8",
+    ) as f:
+        expected_bioc = json.load(f)
+
+    auto_corpus = process_file(config=config, file_path=temp_doc_path)
+
+    new_bioc = auto_corpus.main_text
+
+    _make_reproducible(new_bioc, expected_bioc)
+
+    assert new_bioc == expected_bioc
 
 
 def _make_reproducible(*data: dict[str, Any]) -> None:
