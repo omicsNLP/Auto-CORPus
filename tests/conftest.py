@@ -15,11 +15,13 @@ from autocorpus.ac_bioc import (
     BioCRelation,
 )
 
+DATA_PATH = Path(__file__).parent / "data"
+
 
 @pytest.fixture
 def data_path() -> Path:
     """The path to the folder containing test data files."""
-    return Path(__file__).parent / "data"
+    return DATA_PATH
 
 
 @pytest.fixture
@@ -44,6 +46,11 @@ def sample_collection() -> BioCCollection:
                     BioCPassage(
                         text="Hello",
                         offset=0,
+                        infons={
+                            "section_title_1": "Abstract",
+                            "iao_name_1": "textual abstract section",
+                            "iao_id_1": "IAO:0000315",
+                        },
                         annotations=[
                             BioCAnnotation(
                                 id="a1",

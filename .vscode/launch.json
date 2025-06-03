@@ -10,12 +10,12 @@
       "request": "launch",
       "module": "autocorpus",
       "args": [
-        "-c",
-        "${workspaceFolder}/autocorpus/configs/config_pmc.json",
+        "-b",
+        "PMC",
         "-t",
         "output",
         "-f",
-        "${workspaceFolder}/tests/data/PMC/Current/PMC8885717.html"
+        "${workspaceFolder}/tests/data/public/html/PMC/PMC8885717.html"
       ]
     },
     {
@@ -24,12 +24,12 @@
       "request": "launch",
       "module": "autocorpus",
       "args": [
-        "-c",
-        "${workspaceFolder}/autocorpus/configs/config_pmc_pre_oct_2024.json",
+        "-b",
+        "LEGACY_PMC",
         "-t",
         "output",
         "-f",
-        "${workspaceFolder}/tests/data/PMC/Pre-Oct-2024/PMC8885717.html"
+        "${workspaceFolder}/tests/data/public/html/LEGACY_PMC/PMC8885717.html"
       ]
     }
   ]

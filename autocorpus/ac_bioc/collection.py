@@ -8,13 +8,15 @@ from __future__ import annotations
 
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
-from typing import Any
+
+from dataclasses_json import DataClassJsonMixin, dataclass_json
 
 from .document import BioCDocument
 
 
+@dataclass_json
 @dataclass
-class BioCCollection:
+class BioCCollection(DataClassJsonMixin):
     """A class representing a BioC collection."""
 
     source: str = field(default_factory=str)
@@ -22,47 +24,6 @@ class BioCCollection:
     key: str = field(default_factory=str)
     documents: list[BioCDocument] = field(default_factory=list)
     infons: dict[str, str] = field(default_factory=dict)
-
-    def to_dict(self):
-        """Convert the BioCCollection instance to a dictionary.
-
-        Returns:
-            dict: A dictionary representation of the BioCCollection instance.
-        """
-        return {
-            "source": self.source,
-            "date": self.date,
-            "key": self.key,
-            "infons": self.infons,
-            "documents": [d.to_dict() for d in self.documents],
-        }
-
-    def to_json(self) -> dict[str, Any]:
-        """Convert the BioCCollection instance to a JSON-compatible dictionary.
-
-        Returns:
-            dict[str, Any]: A dictionary representation of the BioCCollection instance.
-        """
-        return self.to_dict()
-
-    @classmethod
-    def from_json(cls, data: dict[str, Any]) -> BioCCollection:
-        """Create a BioCCollection instance from a JSON dictionary.
-
-        Args:
-            data (dict[str, Any]): A dictionary containing the JSON representation of a BioCCollection.
-
-        Returns:
-            BioCCollection: An instance of BioCCollection created from the JSON dictionary.
-        """
-        documents = [BioCDocument.from_dict(d) for d in data.get("documents", [])]
-        return cls(
-            source=data.get("source", ""),
-            date=data.get("date", ""),
-            key=data.get("key", ""),
-            infons=data.get("infons", {}),
-            documents=documents,
-        )
 
     def to_xml(self) -> ET.Element:
         """Convert the BioCCollection instance to an XML element.

@@ -1,11 +1,11 @@
 {
   "source": "Auto-CORPus (abbreviations)",
-  "date": "20250326",
+  "date": "20250529",
   "key": "autocorpus_abbreviations.key",
   "documents": [
     {
       "id": "PMC8885717",
-      "inputfile": "tests\\data\\PMC\\Current\\PMC8885717.html",
+      "inputfile": "tests/data/PMC/Current/PMC8885717.html",
       "passages": [
         {
           "text_short": "NLP",
@@ -15,6 +15,11 @@
         {
           "text_short": "PMC",
           "text_long_1": "PubMed Central",
+          "extraction_algorithm_1": "fulltext"
+        },
+        {
+          "text_short": "Auto-CORPus",
+          "text_long_1": "Automated pipeline for Consistent Outputs from Research Publications",
           "extraction_algorithm_1": "fulltext"
         },
         {

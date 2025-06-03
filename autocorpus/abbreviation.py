@@ -35,43 +35,27 @@ def _remove_quotes(text: str) -> str:
     return re2.sub(r'([(])[\'"\p{Pi}]|[\'"\p{Pf}]([);:])', r"\1\2", text)
 
 
-def _is_abbreviation(candidate: str) -> bool:
-    r"""Check whether input string is an abbreviation.
+def _is_abbreviation(s: str) -> bool:
+    """Check whether input string is an abbreviation.
 
-    Based on Schwartz&Hearst.
+    To be classified as an abbreviation, a string must be composed exclusively of
+    Unicode letters or digits, optionally separated by dots or hyphens. This sequence
+    must repeat between two and ten times. We exclude strings that are *exclusively*
+    composed of digits or lowercase letters.
 
-    2 <= len(str) <= 10
-    len(tokens) <= 2
-    re.search(r'\p{L}', str)
-    str[0].isalnum()
-
-    and extra:
-    if it matches (\p{L}\.?\s?){2,}
-    it is a good candidate.
-
-    Args:
-        candidate: Candidate abbreviation
-
-    Returns:
-        True if this is a good candidate
+    Adapted from Schwartz & Hearst.
     """
-    viable = True
+    # Disallow if exclusively composed of digits
+    if re2.match(r"\p{N}+$", s):
+        return False
 
-    # Broken: See https://github.com/omicsNLP/Auto-CORPus/issues/144
-    # if re2.match(r"(\p{L}\.?\s?){2,}", candidate.lstrip()):
-    #     viable = True
-    if len(candidate) < 2 or len(candidate) > 10:
-        viable = False
-    if len(candidate.split()) > 2:
-        viable = False
-    if candidate.islower():  # customize function discard all lower case candidate
-        viable = False
-    if not re2.search(r"\p{L}", candidate):  # \p{L} = All Unicode letter
-        viable = False
-    if not candidate[0].isalnum():
-        viable = False
+    # Disallow if exclusively composed of lowercase unicode chars
+    if re2.match(r"\p{Ll}+$", s):
+        return False
 
-    return viable
+    # Should be a repeating sequence of unicode chars or digits, optionally separated
+    # by dots or hyphens. The sequence must repeat between 2 and 10 times.
+    return bool(re2.match(r"([\p{L}\p{N}][\.\-]?){2,10}$", s))
 
 
 def _get_definition(candidate: str, preceding: str) -> str:
@@ -398,7 +382,7 @@ def _extract_abbreviations(
 
 
 def _biocify_abbreviations(
-    abbreviations: _AbbreviationsDict, file_path: str
+    abbreviations: _AbbreviationsDict, file_path: Path
 ) -> dict[str, Any]:
     passages = []
     for short, long in abbreviations.items():
@@ -416,8 +400,8 @@ def _biocify_abbreviations(
         "key": "autocorpus_abbreviations.key",
         "documents": [
             {
-                "id": Path(file_path).name.partition(".")[0],
-                "inputfile": file_path,
+                "id": file_path.name.partition(".")[0],
+                "inputfile": str(file_path),
                 "passages": passages,
             }
         ],
@@ -425,7 +409,7 @@ def _biocify_abbreviations(
 
 
 def get_abbreviations(
-    main_text: dict[str, Any], soup: BeautifulSoup, file_path: str
+    main_text: dict[str, Any], soup: BeautifulSoup, file_path: Path
 ) -> dict[str, Any]:
     """Extract abbreviations from the input main text.
 

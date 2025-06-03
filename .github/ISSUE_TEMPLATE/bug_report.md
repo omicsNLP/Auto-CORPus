@@ -22,7 +22,7 @@ If applicable, add screenshots to help explain your problem.
 
 ## Context
 
-Please, complete the following to better understand the system you are using to run MUSE.
+Please, complete the following to better understand the system you are using to run Auto-CORPus.
 
 - Operating system (eg. Windows 10):
 - Auto-CORPus version (eg. 1.0.0):

@@ -4,14 +4,16 @@ from __future__ import annotations
 
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
-from typing import Any
+
+from dataclasses_json import DataClassJsonMixin, dataclass_json
 
 from .annotation import BioCAnnotation
 from .relation import BioCRelation
 
 
+@dataclass_json
 @dataclass
-class BioCSentence:
+class BioCSentence(DataClassJsonMixin):
     """Represents a sentence in the BioC format."""
 
     text: str
@@ -19,45 +21,6 @@ class BioCSentence:
     infons: dict[str, str] = field(default_factory=dict)
     annotations: list[BioCAnnotation] = field(default_factory=list)
     relations: list[BioCRelation] = field(default_factory=list)
-
-    def to_dict(self):
-        """Convert the BioCSentence instance to a dictionary representation.
-
-        Returns:
-            dict: A dictionary containing the sentence's text, offset, infons, and annotations.
-        """
-        return {
-            "text": self.text,
-            "offset": self.offset,
-            "infons": self.infons,
-            "annotations": [a.to_dict() for a in self.annotations],
-        }
-
-    @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> BioCSentence:
-        """Create a BioCSentence instance from a dictionary.
-
-        Args:
-            data (dict[str, Any]): A dictionary containing sentence data.
-
-        Returns:
-            BioCSentence: An instance of BioCSentence created from the dictionary.
-        """
-        annotations = [BioCAnnotation.from_dict(a) for a in data.get("annotations", [])]
-        return cls(
-            text=data.get("text", ""),
-            offset=data.get("offset", 0),
-            infons=data.get("infons", {}),
-            annotations=annotations,
-        )
-
-    def to_json(self) -> dict[str, Any]:
-        """Convert the BioCSentence instance to a JSON-compatible dictionary.
-
-        Returns:
-            dict[str, Any]: A dictionary representation of the sentence.
-        """
-        return self.to_dict()
 
     def to_xml(self) -> ET.Element:
         """Convert the BioCSentence instance to an XML element.

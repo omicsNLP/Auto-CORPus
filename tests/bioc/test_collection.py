@@ -1,5 +1,6 @@
 """Unit tests for the BioCCollection class and its methods for serialization and deserialization."""
 
+import json
 import xml.etree.ElementTree as ET
 
 from autocorpus.ac_bioc import (
@@ -21,12 +22,14 @@ def test_to_dict(sample_collection):
 def test_to_json_matches_to_dict(sample_collection):
     """Test that the JSON representation of the collection matches its dictionary representation."""
     collection = sample_collection
-    assert collection.to_json() == collection.to_dict()
+    json_as_dict = json.loads(collection.to_json())
+    dict_repr = collection.to_dict()
+    assert json_as_dict == dict_repr
 
 
 def test_from_json(sample_collection):
     """Test creating a BioCCollection from JSON data."""
-    json_data = sample_collection.to_dict()
+    json_data = sample_collection.to_json()
 
     c = BioCCollection.from_json(json_data)
     assert c.source == "test_source"

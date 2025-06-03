@@ -14,9 +14,7 @@ from pandas import DataFrame
 
 from . import logger
 from .ac_bioc.bioctable.collection import BioCTableCollection
-from .ac_bioc.bioctable.json import BioCTableJSON
 from .ac_bioc.collection import BioCCollection
-from .ac_bioc.json import BioCJSON
 from .bioc_supplementary import (
     BioCTableConverter,
     BioCTextConverter,
@@ -197,21 +195,8 @@ def extract_word_content(file_path: Path):
         if tables:
             bioc_tables = BioCTableConverter.build_bioc(tables, str(file_path))
 
-        if bioc_text:
-            out_filename = str(file_path).replace(
-                file_path.suffix, f"{file_path.suffix}_bioc.json"
-            )
-            with open(out_filename, "w", encoding="utf-8") as f:
-                BioCJSON.dump(bioc_text, f, indent=4)
-
-        if bioc_tables:
-            out_table_filename = str(file_path).replace(
-                file_path.suffix, f"{file_path.suffix}_tables.json"
-            )
-            with open(out_table_filename, "w", encoding="utf-8") as f:
-                BioCTableJSON.dump(bioc_tables, f, indent=4)
-
         os.unlink(str(docx_path))
+        return bioc_text, bioc_tables
     except FileNotFoundError:
         logger.error(
             "LibreOffice 'soffice' command not found. Ensure it is installed and in your PATH."
