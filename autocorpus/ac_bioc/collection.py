@@ -7,16 +7,16 @@ the collection to a dictionary representation.
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 
-from dataclasses_json import dataclass_json
+from dataclasses_json import DataClassJsonMixin, dataclass_json
 
 from .document import BioCDocument
 
 
 @dataclass_json
 @dataclass
-class BioCCollection:
+class BioCCollection(DataClassJsonMixin):
     """A class representing a BioC collection."""
 
     source: str = field(default_factory=str)
@@ -24,8 +24,6 @@ class BioCCollection:
     key: str = field(default_factory=str)
     documents: list[BioCDocument] = field(default_factory=list)
     infons: dict[str, str] = field(default_factory=dict)
-
-    to_dict = asdict
 
     def to_xml(self) -> ET.Element:
         """Convert the BioCCollection instance to an XML element.

@@ -7,10 +7,10 @@ column headings and data sections.
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from typing import Any
 
-from dataclasses_json import dataclass_json
+from dataclasses_json import DataClassJsonMixin, dataclass_json
 
 from .annotation import BioCAnnotation
 from .relation import BioCRelation
@@ -23,7 +23,7 @@ _DEFAULT_KEYS = set(
 
 @dataclass_json
 @dataclass
-class BioCPassage:
+class BioCPassage(DataClassJsonMixin):
     """Represents a passage in a BioC document."""
 
     text: str = field(default_factory=str)
@@ -32,26 +32,6 @@ class BioCPassage:
     sentences: list[BioCSentence] = field(default_factory=list)
     annotations: list[BioCAnnotation] = field(default_factory=list)
     relations: list[BioCRelation] = field(default_factory=list)
-
-    to_dict = asdict
-
-    @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> BioCPassage:
-        """Create a BioCPassage instance from a dictionary.
-
-        Args:
-            data (dict[str, Any]): A dictionary containing passage data.
-
-        Returns:
-            BioCPassage: An instance of BioCPassage populated with the provided data.
-        """
-        sentences = [BioCSentence.from_dict(s) for s in data.get("sentences", [])]
-        return cls(
-            text=data.get("text", ""),
-            offset=data.get("offset", 0),
-            infons=data.get("infons", {}),
-            sentences=sentences,
-        )
 
     @classmethod
     def from_ac_dict(cls, passage: dict[str, Any]) -> BioCPassage:

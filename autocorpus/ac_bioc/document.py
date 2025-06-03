@@ -7,10 +7,9 @@ convert the document to a dictionary representation.
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import asdict, dataclass, field
-from typing import Any
+from dataclasses import dataclass, field
 
-from dataclasses_json import dataclass_json
+from dataclasses_json import DataClassJsonMixin, dataclass_json
 
 from .annotation import BioCAnnotation
 from .passage import BioCPassage
@@ -19,7 +18,7 @@ from .relation import BioCRelation
 
 @dataclass_json
 @dataclass
-class BioCDocument:
+class BioCDocument(DataClassJsonMixin):
     """Represents a BioC document containing passages, annotations, and relations."""
 
     id: str = field(default_factory=str)
@@ -30,27 +29,6 @@ class BioCDocument:
     annotations: list[BioCAnnotation] = field(
         default_factory=list
     )  # TODO: discuss why this is here in legacy outputs, should it be removed?
-
-    to_dict = asdict
-
-    @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> BioCDocument:
-        """Create a BioCDocument instance from a dictionary.
-
-        Args:
-            data (dict[str, Any]): A dictionary containing the document's data.
-
-        Returns:
-            BioCDocument: An instance of BioCDocument created from the dictionary.
-        """
-        passages = [BioCPassage().from_ac_dict(p) for p in data.get("passages", [])]
-        return cls(
-            id=data["id"],
-            infons=data.get("infons", {}),
-            passages=passages,
-            relations=data.get("relations", []),
-            annotations=data.get("annotations", []),
-        )
 
     def to_xml(self) -> ET.Element:
         """Convert the BioCDocument instance to an XML element.

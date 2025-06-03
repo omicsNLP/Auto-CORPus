@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import asdict, dataclass, field
-from typing import Any
+from dataclasses import dataclass, field
 
-from dataclasses_json import dataclass_json
+from dataclasses_json import DataClassJsonMixin, dataclass_json
 
 from .annotation import BioCAnnotation
 from .relation import BioCRelation
@@ -14,7 +13,7 @@ from .relation import BioCRelation
 
 @dataclass_json
 @dataclass
-class BioCSentence:
+class BioCSentence(DataClassJsonMixin):
     """Represents a sentence in the BioC format."""
 
     text: str
@@ -22,26 +21,6 @@ class BioCSentence:
     infons: dict[str, str] = field(default_factory=dict)
     annotations: list[BioCAnnotation] = field(default_factory=list)
     relations: list[BioCRelation] = field(default_factory=list)
-
-    to_dict = asdict
-
-    @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> BioCSentence:
-        """Create a BioCSentence instance from a dictionary.
-
-        Args:
-            data (dict[str, Any]): A dictionary containing sentence data.
-
-        Returns:
-            BioCSentence: An instance of BioCSentence created from the dictionary.
-        """
-        annotations = [BioCAnnotation.from_dict(a) for a in data.get("annotations", [])]
-        return cls(
-            text=data.get("text", ""),
-            offset=data.get("offset", 0),
-            infons=data.get("infons", {}),
-            annotations=annotations,
-        )
 
     def to_xml(self) -> ET.Element:
         """Convert the BioCSentence instance to an XML element.

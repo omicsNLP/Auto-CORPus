@@ -3,39 +3,20 @@
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
-from dataclasses import asdict, dataclass, field
-from typing import Any
+from dataclasses import dataclass, field
+
+from dataclasses_json import DataClassJsonMixin
 
 from .node import BioCNode
 
 
 @dataclass
-class BioCRelation:
+class BioCRelation(DataClassJsonMixin):
     """A class representing a BioC relation."""
 
     id: str = field(default_factory=str)
     infons: dict[str, str] = field(default_factory=dict)
     nodes: list[BioCNode] = field(default_factory=list)
-
-    to_dict = asdict
-
-    @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> BioCRelation:
-        """Create a BioCRelation instance from a dictionary.
-
-        Args:
-            data (dict[str, Any]): A dictionary containing the relation data.
-
-        Returns:
-            BioCRelation: An instance of BioCRelation created from the dictionary.
-        """
-        from .node import BioCNode  # import inside to avoid circular import issues
-
-        return cls(
-            id=data.get("id", ""),
-            infons=data.get("infons", {}),
-            nodes=[BioCNode.from_dict(n) for n in data.get("nodes", [])],
-        )
 
     def to_xml(self) -> ET.Element:
         """Convert the BioCRelation instance to an XML element.

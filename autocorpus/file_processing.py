@@ -50,9 +50,9 @@ def process_file(
                     main_text = BioCJSONEncoder().default(text)
 
                 if tables:
-                    tables = BioCTableJSONEncoder().default(tables)
+                    tables_dict = BioCTableJSONEncoder().default(tables).to_dict()
 
-                return Autocorpus(file_path, main_text, dict(), tables)
+                return Autocorpus(file_path, main_text, dict(), tables_dict)
 
             except ModuleNotFoundError:
                 logger.error(
@@ -69,9 +69,9 @@ def process_file(
 
                 # TODO: Use text.to_dict() after bugfix in ac_bioc (Issue #272)
                 main_text = BioCJSONEncoder().default(text)
-                tables = BioCTableJSONEncoder().default(tbls)
+                tables_dict = BioCTableJSONEncoder().default(tbls).to_dict()
 
-                return Autocorpus(file_path, main_text, dict(), tables)
+                return Autocorpus(file_path, main_text, dict(), tables_dict)
             except ModuleNotFoundError:
                 logger.error(
                     "Could not load necessary Word packages. Microsoft Word is required to process Word documents on Windows & MAC OS, or alternatively LibreOffice can be used on Linux.\n"
