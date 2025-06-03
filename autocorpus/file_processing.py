@@ -5,8 +5,6 @@ from pathlib import Path
 from typing import Any
 
 from . import logger
-from .ac_bioc.bioctable.json import BioCTableJSONEncoder
-from .ac_bioc.json import BioCJSONEncoder
 from .autocorpus import Autocorpus
 from .file_type import FileType, check_file_type
 from .html import process_html_article
