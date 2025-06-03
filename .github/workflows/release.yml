@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Use a custom PAT so the runners can access the private submodule
+          token: ${{ secrets.PAT }}
+          submodules: true
       - uses: ./.github/actions/setup
         with:
           python-version: '3.13'
