@@ -211,7 +211,7 @@ def convert_xml_to_json(path):
         A Dictionary in BioC format
     """
     # Open the XML file located at the specified path
-    with open(f"{path}", encoding="utf-8") as xml_file:
+    with open(path, encoding="utf-8") as xml_file:
         # Read the contents of the XML file into a string
         text = xml_file.read()
 
@@ -544,7 +544,7 @@ def convert_xml_to_json(path):
         prev_group = next_group
 
     # Store the result for the current file
-    output_p.append({"file": path, "pairs": pairs})
+    output_p.append({"file": str(path), "pairs": pairs})
 
     # Print the result
     for doc in output_p:
