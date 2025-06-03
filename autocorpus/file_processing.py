@@ -5,8 +5,6 @@ from pathlib import Path
 from typing import Any
 
 from . import logger
-from .ac_bioc.bioctable.json import BioCTableJSONEncoder
-from .ac_bioc.json import BioCJSONEncoder
 from .autocorpus import Autocorpus
 from .file_type import FileType, check_file_type
 from .html import process_html_article
@@ -29,6 +27,8 @@ def process_file(
         NotImplementedError: For files types with no implemented processing.
         ModuleNotFoundError: For PDF processing if required packages are not found.
     """
+    main_text: dict[str, Any] = {}
+    tables_dict: dict[str, Any] = {}
     match check_file_type(file_path):
         case FileType.HTML:
             return Autocorpus(
@@ -45,11 +45,9 @@ def process_file(
 
                 text, tables = extract_pdf_content(file_path)
 
-                main_text: dict[str, Any] = {}
                 if text:
                     main_text = text.to_dict()
 
-                tables_dict: dict[str, Any] = {}
                 if tables:
                     tables_dict = tables.to_dict()
 
@@ -68,12 +66,9 @@ def process_file(
 
                 text, tbls = extract_word_content(file_path)
 
-                # TODO: Use text.to_dict() after bugfix in ac_bioc (Issue #272)
-                main_text: dict[str, Any] = {}
                 if text:
                     main_text = text.to_dict()
 
-                tables_dict: dict[str, Any] = {}
                 if tbls:
                     tables_dict = tbls.to_dict()
 
