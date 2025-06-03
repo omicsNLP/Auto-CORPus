@@ -45,12 +45,13 @@ def process_file(
 
                 text, tables = extract_pdf_content(file_path)
 
-                # TODO: Use text.to_dict() after bugfix in ac_bioc (Issue #272)
+                main_text: dict[str, Any] = {}
                 if text:
-                    main_text = BioCJSONEncoder().default(text)
+                    main_text = text.to_dict()
 
+                tables_dict: dict[str, Any] = {}
                 if tables:
-                    tables_dict = BioCTableJSONEncoder().default(tables).to_dict()
+                    tables_dict = tables.to_dict()
 
                 return Autocorpus(file_path, main_text, dict(), tables_dict)
 
@@ -68,8 +69,13 @@ def process_file(
                 text, tbls = extract_word_content(file_path)
 
                 # TODO: Use text.to_dict() after bugfix in ac_bioc (Issue #272)
-                main_text = BioCJSONEncoder().default(text)
-                tables_dict = BioCTableJSONEncoder().default(tbls).to_dict()
+                main_text: dict[str, Any] = {}
+                if text:
+                    main_text = text.to_dict()
+
+                tables_dict: dict[str, Any] = {}
+                if tbls:
+                    tables_dict = tbls.to_dict()
 
                 return Autocorpus(file_path, main_text, dict(), tables_dict)
             except ModuleNotFoundError:
