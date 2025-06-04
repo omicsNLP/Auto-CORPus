@@ -176,40 +176,45 @@ def test_word_to_bioc(
     assert new_bioc == expected_bioc
 
 
-def test_spreadsheet_to_bioc(data_path: Path, tmp_path: Path) -> None:
-    """Test the conversion of a spreadsheet file to a BioC format."""
+@pytest.mark.parametrize(
+    "input_file, config",
+    [
+        ("Supplementary/Excel/Data_Sheet_1.xlsx", DefaultConfig.PMC.load_config()),
+    ],
+)
+def test_spreadsheet_to_bioc(
+    data_path: Path,
+    input_file: str,
+    config: dict[str, Any],
+    tmp_path: Path,
+) -> None:
+    """Test the conversion of a xlsx file to a BioC format using a temp directory."""
     # Original file locations
-    original_xlsx_path = data_path / "Spreadsheet/Example.xlsx"
+    original_xlsx_path = data_path / input_file
     expected_output_path = (
         original_xlsx_path.parent / "Expected Output" / original_xlsx_path.name
     )
 
-    # Copy the input xlsx file to the temp directory
+    # Copy the input doc file to the temp directory
     temp_input_dir = tmp_path / "input"
     temp_input_dir.mkdir()
-    temp_xlsx_path = temp_input_dir / original_xlsx_path.name
-    shutil.copy(original_xlsx_path, temp_xlsx_path)
+    temp_doc_path = temp_input_dir / original_xlsx_path.name
+    shutil.copy(original_xlsx_path, temp_doc_path)
 
     # Load expected BioC output
     with open(
-        str(expected_output_path).replace(".xlsx", ".xlsx_bioc.json"),
+        str(expected_output_path).replace(".xlsx", ".xlsx_tables.json"),
         encoding="utf-8",
     ) as f:
-        expected_bioc = json.load(f)
+        expected_tables = json.load(f)
 
-    ac = Autocorpus(config=DefaultConfig.PMC.load_config())
-    ac.process_files(files=[temp_xlsx_path])  # Run on temp file
+    auto_corpus = process_file(config=config, file_path=temp_doc_path)
 
-    # Load generated BioC output from temp dir
-    with open(
-        str(temp_xlsx_path).replace(".xlsx", ".xlsx_bioc.json"),
-        encoding="utf-8",
-    ) as f:
-        new_bioc = json.load(f)
+    new_tables = auto_corpus.tables
 
-    _make_reproducible(new_bioc, expected_bioc)
+    _make_reproducible(new_tables, expected_tables)
 
-    assert new_bioc == expected_bioc
+    assert new_tables == expected_tables
 
 
 def _make_reproducible(*data: dict[str, Any]) -> None:

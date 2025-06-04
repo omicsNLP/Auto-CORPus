@@ -5,9 +5,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from autocorpus.ac_bioc.collection import BioCCollection
-
 from .ac_bioc import BioCJSON, BioCXML
+from .ac_bioc.collection import BioCCollection
 from .bioc_formatter import get_formatted_bioc_collection
 
 

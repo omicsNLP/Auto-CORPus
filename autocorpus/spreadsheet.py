@@ -1,9 +1,13 @@
+"""Module for extracting and converting spreadsheet content into BioC tables."""
+
 from pathlib import Path
 
 import pandas as pd
 from pandas import DataFrame
 
 from . import logger
+from .ac_bioc.bioctable.collection import BioCTableCollection
+from .bioc_supplementary import BioCTableConverter
 
 
 def convert_datetime_to_string(df: DataFrame) -> DataFrame:
@@ -17,10 +21,11 @@ def convert_datetime_to_string(df: DataFrame) -> DataFrame:
     """
     for col in df.select_dtypes(include=["datetime64[ns]", "datetime64"]):
         df[col] = df[col].astype(str)
+        df[col] = df[col].fillna("")
     return df
 
 
-def extract_spreadsheet_content(filename: Path) -> list[DataFrame]:
+def extract_spreadsheet_content(filename: Path) -> BioCTableCollection | None:
     """Process an Excel file and extract each sheet as a separate table.
 
     Args:
@@ -32,7 +37,8 @@ def extract_spreadsheet_content(filename: Path) -> list[DataFrame]:
     Raises:
         Exception: If there is an error while processing the Excel file.
     """
-    tables = []
+    tables: list[DataFrame] = []
+    tables_bioc: BioCTableCollection | None = None
     try:
         # read the Excel file into a Pandas dataframe
         xls = pd.ExcelFile(filename)
@@ -42,10 +48,19 @@ def extract_spreadsheet_content(filename: Path) -> list[DataFrame]:
             # read the sheet into a Pandas dataframe
             df = pd.read_excel(filename, sheet_name=sheet_name)
             df = convert_datetime_to_string(df)
+
+            # Replace NaNs with empty string, then convert everything to string
+            df = df.where(pd.notnull(df), "").astype(str)
+            # convert all columns to string type for consistency and compatibility
+            df = df.astype(str)
             # add the dataframe to the list of tables
             tables.append(df)
-    except Exception as ex:
-        logger.error(msg=f"The following error was raised processing {filename}: {ex}")
+    except ImportError as ie:
+        logger.error(
+            msg=f"Failed to process the file {filename.name} due to the following missing Pandas dependency: {ie}"
+        )
 
-    # return the list of tables
-    return tables
+    if tables:
+        tables_bioc = BioCTableConverter.build_bioc(tables, str(filename))
+
+    return tables_bioc
