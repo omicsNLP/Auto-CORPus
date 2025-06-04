@@ -25,6 +25,7 @@ class FileType(Enum):
     XML = auto()
     PDF = auto()
     WORD = auto()
+    EXCEL = auto()
     UNKNOWN = auto()
 
 
@@ -67,5 +68,7 @@ def check_file_type(file_path: Path) -> FileType:
             return FileType.PDF
         case ".docx" | ".doc":
             return FileType.WORD
+        case ".xlsx" | ".xls":
+            return FileType.EXCEL
         case _:
             return FileType.UNKNOWN
