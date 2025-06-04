@@ -1,0 +1,1039 @@
+<?xml version="1.0" encoding="UTF-8"?><OAI-PMH
+	xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"><responseDate>2025-05-22T14:33:42Z</responseDate><request verb="GetRecord" identifier="oai:pubmedcentral.nih.gov:8885717" metadataPrefix="pmc">https:/www.ncbi.nlm.nih.gov/pmc/oai/oai.cgi</request><GetRecord><record><header><identifier>oai:pubmedcentral.nih.gov:8885717</identifier><datestamp>2022-03-02</datestamp><setSpec>fdh</setSpec><setSpec>pmc-open</setSpec></header><metadata><article xmlns="https://jats.nlm.nih.gov/ns/archiving/1.3/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ali="http://www.niso.org/schemas/ali/1.0/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" xsi:schemaLocation="https://jats.nlm.nih.gov/ns/archiving/1.3/ https://jats.nlm.nih.gov/archiving/1.3/xsd/JATS-archivearticle1-3.xsd" dtd-version="1.3" xml:lang="en" article-type="research-article">
+  <processing-meta base-tagset="archiving" mathml-version="3.0" table-model="xhtml" tagset-family="jats">
+    <restricted-by>pmc</restricted-by>
+  </processing-meta>
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Front Digit Health</journal-id>
+      <journal-id journal-id-type="iso-abbrev">Front Digit Health</journal-id>
+      <journal-id journal-id-type="publisher-id">Front. Digit. Health</journal-id>
+      <journal-title-group>
+        <journal-title>Frontiers in Digital Health</journal-title>
+      </journal-title-group>
+      <issn pub-type="epub">2673-253X</issn>
+      <publisher>
+        <publisher-name>Frontiers Media S.A.</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="accession">PMC8885717</article-id>
+      <article-id pub-id-type="pmcid">PMC8885717</article-id>
+      <article-id pub-id-type="pmc-uid">8885717</article-id>
+      <article-id pub-id-type="pmid">35243479</article-id>
+      <article-id pub-id-type="doi">10.3389/fdgth.2022.788124</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Digital Health</subject>
+          <subj-group>
+            <subject>Original Research</subject>
+          </subj-group>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Auto-CORPus: A Natural Language Processing Tool for Standardizing and Reusing Biomedical Literature</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <name>
+            <surname>Beck</surname>
+            <given-names>Tim</given-names>
+          </name>
+          <xref rid="aff1" ref-type="aff">
+<sup>1</sup>
+</xref>
+          <xref rid="aff2" ref-type="aff">
+<sup>2</sup>
+</xref>
+          <xref rid="c001" ref-type="corresp">
+<sup>*</sup>
+</xref>
+          <uri xlink:href="http://loop.frontiersin.org/people/1540344/overview"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Shorter</surname>
+            <given-names>Tom</given-names>
+          </name>
+          <xref rid="aff1" ref-type="aff">
+<sup>1</sup>
+</xref>
+          <xref rid="fn002" ref-type="author-notes">
+<sup>â </sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Hu</surname>
+            <given-names>Yan</given-names>
+          </name>
+          <xref rid="aff3" ref-type="aff">
+<sup>3</sup>
+</xref>
+          <xref rid="aff4" ref-type="aff">
+<sup>4</sup>
+</xref>
+          <xref rid="fn002" ref-type="author-notes">
+<sup>â </sup>
+</xref>
+          <uri xlink:href="http://loop.frontiersin.org/people/1545274/overview"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Li</surname>
+            <given-names>Zhuoyu</given-names>
+          </name>
+          <xref rid="aff3" ref-type="aff">
+<sup>3</sup>
+</xref>
+          <xref rid="fn002" ref-type="author-notes">
+<sup>â </sup>
+</xref>
+          <uri xlink:href="http://loop.frontiersin.org/people/1545103/overview"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Sun</surname>
+            <given-names>Shujian</given-names>
+          </name>
+          <xref rid="aff3" ref-type="aff">
+<sup>3</sup>
+</xref>
+          <xref rid="fn002" ref-type="author-notes">
+<sup>â </sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Popovici</surname>
+            <given-names>Casiana M.</given-names>
+          </name>
+          <xref rid="aff3" ref-type="aff">
+<sup>3</sup>
+</xref>
+          <xref rid="aff4" ref-type="aff">
+<sup>4</sup>
+</xref>
+          <xref rid="fn002" ref-type="author-notes">
+<sup>â </sup>
+</xref>
+          <uri xlink:href="http://loop.frontiersin.org/people/1503666/overview"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>McQuibban</surname>
+            <given-names>Nicholas A. R.</given-names>
+          </name>
+          <xref rid="aff3" ref-type="aff">
+<sup>3</sup>
+</xref>
+          <xref rid="aff5" ref-type="aff">
+<sup>5</sup>
+</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Makraduli</surname>
+            <given-names>Filip</given-names>
+          </name>
+          <xref rid="aff3" ref-type="aff">
+<sup>3</sup>
+</xref>
+          <uri xlink:href="http://loop.frontiersin.org/people/1658399/overview"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Yeung</surname>
+            <given-names>Cheng S.</given-names>
+          </name>
+          <xref rid="aff3" ref-type="aff">
+<sup>3</sup>
+</xref>
+          <uri xlink:href="http://loop.frontiersin.org/people/1659208/overview"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Rowlands</surname>
+            <given-names>Thomas</given-names>
+          </name>
+          <xref rid="aff1" ref-type="aff">
+<sup>1</sup>
+</xref>
+          <uri xlink:href="http://loop.frontiersin.org/people/1552457/overview"/>
+        </contrib>
+        <contrib contrib-type="author" corresp="yes">
+          <name>
+            <surname>Posma</surname>
+            <given-names>Joram M.</given-names>
+          </name>
+          <xref rid="aff2" ref-type="aff">
+<sup>2</sup>
+</xref>
+          <xref rid="aff3" ref-type="aff">
+<sup>3</sup>
+</xref>
+          <xref rid="c002" ref-type="corresp">
+<sup>*</sup>
+</xref>
+          <uri xlink:href="http://loop.frontiersin.org/people/1501467/overview"/>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1"><sup>1</sup><institution>Department of Genetics and Genome Biology, University of Leicester</institution>, <addr-line>Leicester</addr-line>, <country>United Kingdom</country></aff>
+      <aff id="aff2"><sup>2</sup><institution>Health Data Research UK (HDR UK)</institution>, <addr-line>London</addr-line>, <country>United Kingdom</country></aff>
+      <aff id="aff3"><sup>3</sup><institution>Section of Bioinformatics, Division of Systems Medicine, Department of Metabolism, Digestion and Reproduction, Imperial College London</institution>, <addr-line>London</addr-line>, <country>United Kingdom</country></aff>
+      <aff id="aff4"><sup>4</sup><institution>Department of Surgery and Cancer, Imperial College London</institution>, <addr-line>London</addr-line>, <country>United Kingdom</country></aff>
+      <aff id="aff5"><sup>5</sup><institution>Centre for Integrative Systems Biology and Bioinformatics (CISBIO), Department of Life Sciences, Imperial College London</institution>, <addr-line>London</addr-line>, <country>United Kingdom</country></aff>
+      <author-notes>
+        <fn fn-type="edited-by">
+          <p>Edited by: Patrick Ruch, Geneva School of Business Administration, Switzerland</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Reviewed by: Denis Newman-Griffis, University of Pittsburgh, United States; Ceyda Kasavi, Marmara University, Turkey</p>
+        </fn>
+        <corresp id="c001">*Correspondence: Tim Beck <email>tb143@leicester.ac.uk</email></corresp>
+        <corresp id="c002">Joram M. Posma <email>jmp111@ic.ac.uk</email></corresp>
+        <fn fn-type="other" id="fn001">
+          <p>This article was submitted to Health Informatics, a section of the journal Frontiers in Digital Health</p>
+        </fn>
+        <fn fn-type="equal" id="fn002">
+          <p>â These authors have contributed equally to this work</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="epub">
+        <day>15</day>
+        <month>2</month>
+        <year>2022</year>
+      </pub-date>
+      <pub-date pub-type="collection">
+        <year>2022</year>
+      </pub-date>
+      <volume>4</volume>
+      <elocation-id>788124</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>01</day>
+          <month>10</month>
+          <year>2021</year>
+        </date>
+        <date date-type="accepted">
+          <day>21</day>
+          <month>1</month>
+          <year>2022</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Copyright Â© 2022 Beck, Shorter, Hu, Li, Sun, Popovici, McQuibban, Makraduli, Yeung, Rowlands and Posma.</copyright-statement>
+        <copyright-year>2022</copyright-year>
+        <copyright-holder>Beck, Shorter, Hu, Li, Sun, Popovici, McQuibban, Makraduli, Yeung, Rowlands and Posma</copyright-holder>
+        <license>
+          <ali:license_ref specific-use="textmining" content-type="ccbylicense">https://creativecommons.org/licenses/by/4.0/</ali:license_ref>
+          <license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License (CC BY). The use, distribution or reproduction in other forums is permitted, provided the original author(s) and the copyright owner(s) are credited and that the original publication in this journal is cited, in accordance with accepted academic practice. No use, distribution or reproduction is permitted which does not comply with these terms.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <p>To analyse large corpora using machine learning and other Natural Language Processing (NLP) algorithms, the corpora need to be standardized. The BioC format is a community-driven simple data structure for sharing text and annotations, however there is limited access to biomedical literature in BioC format and a lack of bioinformatics tools to convert online publication HTML formats to BioC. We present Auto-CORPus (Automated pipeline for Consistent Outputs from Research Publications), a novel NLP tool for the standardization and conversion of publication HTML and table image files to three convenient machine-interpretable outputs to support biomedical text analytics. Firstly, Auto-CORPus can be configured to convert HTML from various publication sources to BioC. To standardize the description of heterogenous publication sections, the Information Artifact Ontology is used to annotate each section within the BioC output. Secondly, Auto-CORPus transforms publication tables to a JSON format to store, exchange and annotate table data between text analytics systems. The BioC specification does not include a data structure for representing publication table data, so we present a JSON format for sharing table content and metadata. Inline tables within full-text HTML files and linked tables within separate HTML files are processed and converted to machine-interpretable table JSON format. Finally, Auto-CORPus extracts abbreviations declared within publication text and provides an abbreviations JSON output that relates an abbreviation with the full definition. This abbreviation collection supports text mining tasks such as named entity recognition by including abbreviations unique to individual publications that are not contained within standard bio-ontologies and dictionaries. The Auto-CORPus package is freely available with detailed instructions from GitHub at: <ext-link xlink:href="https://github.com/omicsNLP/Auto-CORPus" ext-link-type="uri">https://github.com/omicsNLP/Auto-CORPus</ext-link>.</p>
+      </abstract>
+      <kwd-group>
+        <kwd>natural language processing</kwd>
+        <kwd>text mining</kwd>
+        <kwd>biomedical literature</kwd>
+        <kwd>semantics</kwd>
+        <kwd>health data</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source id="cn001">
+            <institution-wrap>
+              <institution>Medical Research Council</institution>
+              <institution-id institution-id-type="doi">10.13039/501100000265</institution-id>
+            </institution-wrap>
+          </funding-source>
+          <award-id award-type="contract" rid="cn001">MR/S003703/1</award-id>
+          <award-id award-type="contract" rid="cn001">MR/S004033/1</award-id>
+        </award-group>
+      </funding-group>
+      <counts>
+        <fig-count count="6"/>
+        <table-count count="4"/>
+        <equation-count count="0"/>
+        <ref-count count="17"/>
+        <page-count count="15"/>
+        <word-count count="9661"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro" id="s1">
+      <title>Introduction</title>
+      <p>Natural language processing (NLP) is a branch of artificial intelligence that uses computers to process, understand, and use human language. NLP is applied in many different fields including language modeling, speech recognition, text mining, and translation systems. In the biomedical realm NLP has been applied to extract, for example, medication data from electronic health records and patient clinical history from free-text (unstructured) clinical notes, to significantly speed up processes that would otherwise be extracted manually by experts (<xref rid="B1" ref-type="bibr">1</xref>, <xref rid="B2" ref-type="bibr">2</xref>). Biomedical research publications, although semi-structured, pose similar challenges with regards to extracting and integrating relevant information (<xref rid="B3" ref-type="bibr">3</xref>). The full-text of biomedical literature is predominately made available online in the accessible and reusable HTML format, however, some publications are only available as PDF documents which are more difficult to reuse. Efforts to resolve the problem of publication text accessibility across science in general includes work by the Semantic Scholar search engine to convert PDF documents to HTML formats (<xref rid="B4" ref-type="bibr">4</xref>). Whichever process is used to obtain a suitable HTML file, before the text can be processed using NLP, heterogeneously structured HTML requires standardization and optimization. BioC is a simple JSON (and XML) format for sharing and reusing text data that has been developed by the text mining community to improve system interoperability (<xref rid="B5" ref-type="bibr">5</xref>). The BioC data model consists of collections of documents divided into data elements such as publication sections and associated entity and relation annotations. PubMed Central (PMC) makes full-text articles from its Open Access and Author Manuscript collections available in BioC format (<xref rid="B6" ref-type="bibr">6</xref>). To our knowledge there are no services available to convert PMC publications that are not part of these collections to BioC. Additionally, there is a gap in available software to convert publishers' publication HTML to BioC, creating a bottleneck in many biomedical literature text mining workflows caused by having to process documents in heterogenous formats. To bridge this gap, we have developed an Automated pipeline for Consistent Outputs from Research Publications (Auto-CORPus) that can be configured to process any HTML publication structure and transform the corresponding publications to BioC format.</p>
+      <p>During information extraction, the publication section context of an entity will assist with entity prioritization. For example, an entity identified in the Results Section may be regarded as a higher priority novel finding than one identified in the Introduction Section. However, the naming and the sequential order of sections within research articles differ between publications. A Methods section, for example, may be found at different locations relative to other sections and identified using a range of synonyms such as <italic>experimental section, experimental procedures</italic>, and <italic>methodology</italic>. The Information Artifact Ontology (IAO) was created to serve as a domain-neutral resource for the representation of types of information content entities such as documents, databases, and digital images (<xref rid="B7" ref-type="bibr">7</xref>). Auto-CORPus applies IAO annotations to BioC file outputs to standardize the description of sections across all processed publications.</p>
+      <p>Vast amounts of biomedical data are contained in publication tables which can be large and multi-dimensional where information beyond a standard two-dimensional matrix is conveyed to a human reader. For example, a table may have subsections or entirely new column headers to merge multiple tables into a single structure. Milosevic and colleagues developed a methodology to analyse complex tables that are represented in XML format and perform a semantic analysis to classify the data types used within a table (<xref rid="B8" ref-type="bibr">8</xref>). The outputs from the table analysis are stored in esoteric XML or database models. The communal BioC format on the other hand has limited support for tables, for example the PMC BioC JSON output includes table data in PMC XML format, introducing file parsing complexity. In addition to variations in how tables are structured, there is variability amongst table filetypes. Whereas, publication full-text is contained within a single HTML file, tables may be contained within that full-text file (inline tables), or individual tables may be contained in separate HTML files (linked tables). We have defined a dedicated table JSON format for representing table data from both formats of table. The contents of individual cells are unambiguously identified and thus can be used in entity and relation annotations. In developing the Auto-CORPus table JSON format, we adopted a similar goal to the BioC community, namely, a simple format to maximize interoperability and reuse of table documents and annotations. The table JSON reuses the BioC data model for entity and relation annotations, ensuring that table and full-text annotations can share the same BioC syntax. Auto-CORPus transforms both inline and linked HTML tables to the machine interpretable table JSON format.</p>
+      <p>Abbreviations and acronyms are widely used in publication text to reduce space and avoid prolix. Abbreviations and their definitions are useful in text mining to identify lexical variations of words describing identical entities. However, the frequent use of novel abbreviations in texts presents a challenge for the curators of biomedical lexical ontologies to ensure they are continually updated. Several algorithms have been developed to extract abbreviations and their definitions from biomedical text (<xref rid="B9" ref-type="bibr">9</xref>â<xref rid="B11" ref-type="bibr">11</xref>). Abbreviations within publications can be defined when they are declared within the full-text, and in some publications, are included in a dedicated <italic>abbreviations</italic> section. Auto-CORPus adapts an abbreviation detecting methodology (<xref rid="B12" ref-type="bibr">12</xref>) and couples it with IAO section detection to comprehensively extract abbreviations declared in the full-text and in the <italic>abbreviations</italic> section. For each publication, Auto-CORPus generates an abbreviations dictionary JSON file.</p>
+      <p>The aim of this article is to describe the open Auto-CORPus python package and the text mining use cases that make it a simple user-friendly application to create machine interpretable biomedical literature files, from a single publication to a large corpus. The authors share the common interest of progressing text mining capabilities across the biomedical literature domain and contribute omics and health data use cases related to their expertise in Genome-Wide Association Study (GWAS) and Metabolome-Wide Association Study (MWAS) data integration and analytics (see Author Contributions Section). The following sections describe the technical details about the algorithms developed and the benchmarking undertaken to assess the quality of the three Auto-CORPus outputs generated for each publication: BioC full-text, Auto-CORPus tables, and Auto-CORPus abbreviations JSON files.</p>
+    </sec>
+    <sec sec-type="materials and methods" id="s2">
+      <title>Materials and Methods</title>
+      <sec>
+        <title>Data for Algorithm Development</title>
+        <p>We used a set of 3,279 full-text HTML and 1,041 linked table files to develop and test the algorithms described in this section. Files for 1,200 Open Access (OA) GWAS publications whose data exists in the GWAS Central database (<xref rid="B13" ref-type="bibr">13</xref>) were downloaded from PMC in March 2020. A further 1,241 OA PMC publications of MWAS and metabolomics studies on cancer, gastrointestinal diseases, metabolic syndrome, sepsis and neurodegenerative, psychiatric, and brain illnesses were also downloaded to ensure the methods are not biased toward one domain, more information is available in the <xref rid="SM1" ref-type="supplementary-material">Supplementary Material</xref>. This formed a collection of 2,441 publications that will be referred to as the âOA dataset.â We also downloaded publisher-specific full-text files, and linked table data were available, for publications whose data exists in the GWAS Central database. This collection of 838 full-text and 1,041 table HTML files will be referred to as the âpublisher dataset.â <xref rid="T1" ref-type="table">Table 1</xref> lists the publishers and journals included in the publisher dataset and the number of publications that overlap with the OA dataset. This also includes publications from non-biomedical fields to evaluate the application in other domains.</p>
+        <table-wrap position="float" id="T1">
+          <label>Table 1</label>
+          <caption>
+            <p>Publishers and journals included in the publisher dataset.</p>
+          </caption>
+          <table frame="hsides" rules="groups">
+            <thead>
+              <tr>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Publisher</bold>
+</th>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Journal</bold>
+</th>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Number of full-text files</bold>
+</th>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Overlap with OA dataset</bold>
+</th>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Table type</bold>
+</th>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Number of table files</bold>
+</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">American Heart Association</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Circulation Cardiovascular Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">52</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">39</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">American Physical Society</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Physical Review Letters<xref rid="TN1" ref-type="table-fn"><sup>a</sup></xref></td>
+                <td valign="top" align="left" rowspan="1" colspan="1">6</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">American Psychological Association</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Psychological Bulletin<xref rid="TN1" ref-type="table-fn"><sup>a</sup></xref></td>
+                <td valign="top" align="left" rowspan="1" colspan="1">3</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">American Society of Hematology</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Blood</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">31</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">25</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">American Thoracic Society</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">American Journal of Respiratory and Critical Care Medicine</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">20</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">18</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">BioMed Central</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">BMC Medical Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">43</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">43</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked HTML</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">160</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Cell Press</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">American Journal of Human Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">5</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">5</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Elsevier</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Biological Psychiatry</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">5</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">5</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">Gastroenterology</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">5</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">2</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Frontiers</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Frontiers in Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">20</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">20</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked images</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">n/a</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">Frontiers in Physics<xref rid="TN1" ref-type="table-fn"><sup>a</sup></xref></td>
+                <td valign="top" align="left" rowspan="1" colspan="1">3</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">Frontiers in Psychology<xref rid="TN1" ref-type="table-fn"><sup>a</sup></xref></td>
+                <td valign="top" align="left" rowspan="1" colspan="1">4</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Massachusetts Medical Society</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">The New England Journal of Medicine</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">20</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">12</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked images</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">n/a</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Mosby</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">The Journal of Allergy and Clinical Immunology</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">5</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">3</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Nature Portfolio</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">European Journal of Human Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">50</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">50</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked HTML</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">123</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">Journal of Human Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">37</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">3</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked HTML</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">90</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">Molecular Psychiatry</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">103</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">78</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked HTML</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">262</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">Nature Physics<xref rid="TN1" ref-type="table-fn"><sup>a</sup></xref></td>
+                <td valign="top" align="left" rowspan="1" colspan="1">3</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">Scientific Reports</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">80</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">80</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked HTML</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">190</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">The Pharmacogenomics Journal</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">37</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">16</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked HTML</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">116</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">Translational Psychiatry</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">41</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">41</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked HTML</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">87</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Oxford University Press</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Human Molecular Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">254</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">186</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">PLOS</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">PLOS One</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">20</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">20</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked images</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">n/a</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">SAGE Publications</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Psychological Science<xref rid="TN1" ref-type="table-fn"><sup>a</sup></xref></td>
+                <td valign="top" align="left" rowspan="1" colspan="1">3</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">-</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Springer</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Human Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">5</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">2</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Linked HTML</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">13</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Wiley-Blackwell</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">American Journal of Medical Genetics</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">5</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">0</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Inline</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">â</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Total</td>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">860</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">648</td>
+                <td rowspan="1" colspan="1"/>
+                <td valign="top" align="left" rowspan="1" colspan="1">1,041</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <p><italic>The full-text files were downloaded in HTML format and the linked table files were downloaded when available in HTML formats. The full-text files that overlap with the OA dataset were used to assess the consistency of outputs generated from different sources</italic>.</p>
+            <fn id="TN1">
+              <label>a</label>
+              <p><italic>These publications are not part of the publisher dataset for evaluating tables, but are used for evaluating the accuracy of IAO header mapping</italic>.</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </sec>
+      <sec>
+        <title>Algorithms for Processing Publication Full-Text HTML</title>
+        <p>An Auto-CORPus configuration file is set by the user to define the heading and paragraph HTML elements used in the publication files to be processed. Regular expressions can be used within the configuration file allowing a group of publications with a similar but not an identical structure to be defined by a single configuration file, for example when processing publications from journals by the same publisher. The heading elements are used to delineate the content of the publication sections and the BioC data structure is populated with publication text. All HTML tags including text formatting (e.g., emphasized words, superscript, and subscript) are removed from the publication text. Each section is automatically annotated using IAO (see Section Algorithms for Classifying Publication Sections With IAO Terms) and the BioC data structure is output in JSON format. The BioC specification requires âkey filesâ to accompany BioC data files to specify how the data files should be interpreted (<xref rid="B5" ref-type="bibr">5</xref>). We provide key files to define the data elements in the Auto-CORPus JSON output files for full-text, tables, and abbreviations (<ext-link xlink:href="https://github.com/omicsNLP/Auto-CORPus/tree/main/keyFiles" ext-link-type="uri">https://github.com/omicsNLP/Auto-CORPus/tree/main/keyFiles</ext-link>). <xref rid="F1" ref-type="fig">Figure 1</xref> gives an example of the BioC JSON output and the abbreviations and tables outputs are described below.</p>
+        <fig position="float" id="F1">
+          <label>Figure 1</label>
+          <caption>
+            <p>An extract of the Auto-CORPus BioC JSON created from the PMC3606015 full-text HTML file. Each section is annotated with IAO terms. The âautocorpus_fulltext.keyâ file describes the contents of the full-text JSON file (<ext-link xlink:href="https://github.com/omicsNLP/Auto-CORPus/blob/main/keyFiles/autocorpus_fulltext.key" ext-link-type="uri">https://github.com/omicsNLP/Auto-CORPus/blob/main/keyFiles/autocorpus_fulltext.key</ext-link>).</p>
+          </caption>
+          <graphic xlink:href="fdgth-04-788124-g0001" position="float"/>
+        </fig>
+        <p>Abbreviations in the full-text are found using an adaptation of a previously published methodology and implementation (<xref rid="B12" ref-type="bibr">12</xref>). The method finds all brackets within a publication and if there are two or more non-digit characters within brackets it considers if the string in the brackets could be an abbreviation. It searches for the characters present in the brackets in the text on either side of the brackets one by one. The first character of one of these words must contain the first character within the bracket, and the other characters within that bracket must be contained by other words that follow the first word whose first character is the same as the first character in that bracket. An example of the Auto-CORPus abbreviations JSON is given in <xref rid="F2" ref-type="fig">Figure 2</xref> which shows that the output from this algorithm is stored along with the abbreviations defined in the publication abbreviations section (if present).</p>
+        <fig position="float" id="F2">
+          <label>Figure 2</label>
+          <caption>
+            <p>An extract from the Auto-CORPus abbreviations JSON created from the PMC4068805 full-text HTML file. For each abbreviation the corresponding long form definition is given along with the algorithm(s) used to detect the abbreviation. Most of the abbreviations shown were independently identified in both the full-text and in the abbreviations section of the publication. A variation in the definition of âRPâ was detected: in the abbreviations section this was defined as âreverse phase,â however in the full-text this was defined as âreversed phase.â The âautocorpus_abbreviations.keyâ file describes the contents of the abbreviations JSON file (<ext-link xlink:href="https://github.com/omicsNLP/Auto-CORPus/blob/main/keyFiles/autocorpus_abbreviations.key" ext-link-type="uri">https://github.com/omicsNLP/Auto-CORPus/blob/main/keyFiles/autocorpus_abbreviations.key</ext-link>).</p>
+          </caption>
+          <graphic xlink:href="fdgth-04-788124-g0002" position="float"/>
+        </fig>
+      </sec>
+      <sec>
+        <title>Algorithms for Classifying Publication Sections With IAO Terms</title>
+        <p>A total of 21,849 section headers were extracted from the OA dataset and directed path graphs (DPGs) were created for each publication (<xref rid="F3" ref-type="fig">Figure 3</xref>). DPGs are a linear chain without any cycles. For example, at this point in this article the main headers are <italic>abstract</italic> (one paragraph) followed by <italic>introduction</italic> (five paragraphs) and <italic>materials and methods</italic> (four paragraphs, three sub-headers)âthis would make up a DPG with three nodes (<italic>abstract, introduction, materials and methods</italic>) and two directed edges. For our <italic>Introduction Section</italic>, while the individual five paragraphs within a section would all be mapped to the main header (<italic>introduction</italic>), only one node would appear in the DPG (relating to the header itself) without any self-edges. The individual DPGs were then combined into a directed graph (digraph, <xref rid="SM1" ref-type="supplementary-material">Supplementary Figure 2</xref>) and the extracted section headers were mapped to IAO (v2020-06-10) <italic>document part</italic> terms using the Lexical OWL Ontology Matcher (LOOM) method (<xref rid="B14" ref-type="bibr">14</xref>). Fuzzy matching using the fuzzywuzzy python package (v0.17.0) was then used to map headers to the preferred section header terms and synonyms, with a similarity threshold of 0.8 (e.g., the typographical error âexperemintal sectionâ in PMC4286171 is correctly mapped to <italic>methods section</italic>). This threshold was evaluated by two independent researchers who confirmed all matches for the OA dataset were accurate. Digraphs consist of nodes (entities, headers) and edges (links between nodes) and the weight of the nodes and edges is proportional to the number of publications in which these are found. Here the digraph consists of 372 unique nodes and 806 directed edges (<xref rid="SM1" ref-type="supplementary-material">Supplementary Figure 1</xref>).</p>
+        <fig position="float" id="F3">
+          <label>Figure 3</label>
+          <caption>
+            <p>Flow diagram demonstrating the process of classifying publication sections with IAO terms. The unfiltered digraph is visualized in <xref rid="SM1" ref-type="supplementary-material">Supplementary Figure 1</xref>, and the process of combining DPGs and mapping unmapped nodes using anchor points in <xref rid="SM1" ref-type="supplementary-material">Supplementary Figure 2</xref>. DPG, directed path graph; G(V,E), graph(vertex, edge); IAO, information artifact ontology.</p>
+          </caption>
+          <graphic xlink:href="fdgth-04-788124-g0003" position="float"/>
+        </fig>
+        <p>However, after direct IAO mapping and fuzzy matching, unmapped headers still existed. To map these headings, we developed a new method using both the digraph and the individual DPGs. The headers are not repeated within a document/DPG, they are sequential/a chain and have a set order that can be exploited. Unmapped headers are assigned a section based on the digraph and the headers in the publication (DPG) that could be mapped (anchor headers), an example is given in <xref rid="SM1" ref-type="supplementary-material">Supplementary Figure 2</xref> where a header cannot be mapped to IAO terms. Any unmapped header that is mapped to an existing IAO term in this manner does not result in a self-edge in the network as subsequent repeated headers are collapsed into a single node. Auto-CORPus uses the LOOM, fuzzy matching and digraph prediction algorithms to annotate publication sections with IAO terms in the BioC full-text file. Paragraphs can be mapped to multiple IAO terms in case of publications without main-text headers (based on digraph prediction) or with ambiguous headers (based on fuzzy matching and/or digraph prediction).</p>
+        <sec>
+          <title>New IAO Terms and Synonyms</title>
+          <p>We used the IAO classification algorithms to identify potential new IAO terms and synonyms. Three hundred and forty-eight headings from the OA dataset were mapped to IAO terms during the fuzzy matching or mapped based on the digraph using the publication structure and anchor headers. These headings were considered for inclusion in IAO as term synonyms. We manually evaluated each heading and <xref rid="T2" ref-type="table">Table 2</xref> lists the 94 synonyms we identified for existing IAO terms.</p>
+          <table-wrap position="float" id="T2">
+            <label>Table 2</label>
+            <caption>
+              <p>New synonyms identified for existing IAO terms from the fuzzy and digraph mappings of 2,441 publications.</p>
+            </caption>
+            <table frame="hsides" rules="groups">
+              <thead>
+                <tr>
+                  <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Category (IAO identifier)</bold>
+</th>
+                  <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Existing synonyms<xref rid="TN2" ref-type="table-fn"><sup><bold>a</bold></sup></xref></bold>
+</th>
+                  <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>New synonyms identified<xref rid="TN3" ref-type="table-fn"><sup><bold>b</bold></sup></xref></bold>
+</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">abbreviations (IAO:0000606)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">abbreviations, abbreviations list, abbreviations used, list of abbreviations, list of abbreviations used</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1"><italic>abbreviation and acronyms, abbreviation list, abbreviations and acronyms</italic>, abbreviations used in this paper, <italic>definitions for abbreviations</italic>, glossary, key abbreviations, <italic>non-standard abbreviations, nonstandard abbreviations, nonstandard abbreviations and acronyms</italic></td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">abstract (IAO:0000315)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">abstract</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">
+<italic>precis</italic>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">acknowledgments (IAO:0000324)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">acknowledgments, acknowledgments</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1"><italic>acknowledgment, acknowledgment</italic>, acknowledgments and disclaimer</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">author contributions (IAO:0000323)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">author contributions, contributions by the authors</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1"><italic>authors' contribution, authors' contributions, authors' roles, contributorship</italic>, main authors by consortium and author contributions</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">author information (IAO:0000607)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">author information, authors' information</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">
+<italic>biographies, contributor information</italic>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">availability (IAO:0000611)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">availability, availability and requirements</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1"><italic>availability of data</italic>, availability of data and materials, <italic>data archiving, data availability, data availability statement, data sharing statement</italic></td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">conclusion (IAO:0000615)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">concluding remarks, conclusion, conclusions, findings, summary</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">conclusion and perspectives, summary and conclusion</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">conflict of interest (IAO:0000616)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">competing interests, conflict of interest, conflict of interest statement, declaration of competing interests, disclosure of potential conflicts of interest</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">
+<italic>authors' disclosures of potential conflicts of interest, competing financial interests, conflict of interests, conflicts of interest, declaration of competing interest, declaration of interest, declaration of interests, disclosure of conflict of interest, duality of interest, statement of interest</italic>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">consent (IAO:0000618)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">consent</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Informed consent</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">discussion (IAO:0000319)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">discussion, discussion section</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">
+<italic>discussions</italic>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">ethical approval (IAO:0000620)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">ethical approval</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">ethics approval and consent to participate, <italic>ethical requirements, ethics, ethics statement</italic></td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">footnote (IAO:0000325)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">endnote, footnote</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">
+<italic>footnotes</italic>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">funding source declaration (IAO:0000623)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">funding, funding information, funding sources, funding statement, funding/support, source of funding, sources of funding</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">
+<italic>financial support, grants, role of the funding source, study funding</italic>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">future directions (IAO:0000625)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">future challenges, future considerations, future developments, future directions, future outlook, future perspectives, future plans, future prospects, future research, future research directions, future studies, future work</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">
+<italic>outlook</italic>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">introduction (IAO:0000316)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">background, introduction</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">introductory paragraph</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">materials (IAO:0000633)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">materials</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">data, data description</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">methods (IAO:0000317)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">experimental, experimental procedures, experimental section, materials and methods, methods</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">analytical methods, concise methods, <italic>experimental methods, method</italic>, method validation, <italic>methodology</italic>, methods and design, methods and procedures, methods and tools, methods/design, online methods, star methods, study design, study design and methods</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">references (IAO:0000320)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">bibliography, literature cited, references</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1"><italic>literature cited, reference, references, reference list</italic>, selected references, web site references</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">statistical analysis (IAO:0000644)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">statistical analysis</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">statistical methods, statistical methods and analysis, statistics</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">study limitations (IAO:0000631)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">limitations, study limitations</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">strengths and limitations, study strengths and limitations</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">supplementary material (IAO:0000326)</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">additional information, appendix, supplemental information, supplementary material, supporting information</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1"><italic>additional file, additional files</italic>, additional information and declarations, additional points, <italic>electronic supplementary material, electronic supplementary materials</italic>, online content, <italic>supplemental data, supplemental material, supplementary data</italic>, supplementary figures and tables, <italic>supplementary files, supplementary information, supplementary materials</italic>, supplementary materials figures, supplementary materials figures and tables, supplementary materials table, supplementary materials tables</td>
+                </tr>
+              </tbody>
+            </table>
+            <table-wrap-foot>
+              <fn id="TN2">
+                <label>a</label>
+                <p><italic>IAO v2020-06-10</italic>.</p>
+              </fn>
+              <fn id="TN3">
+                <label>b</label>
+                <p><italic>Elements in italics have previously been submitted by us for inclusion into IAO and added in the v2020-12-09 IAO release</italic>.</p>
+              </fn>
+            </table-wrap-foot>
+          </table-wrap>
+          <p>Diagraph nodes that were not mapped to IAO terms but formed heavily weighted âego-networks,â indicating the same heading was found in many publications, were manually evaluated for inclusion in IAO as new terms. For example, based on the digraph, we assigned <italic>data</italic> and <italic>data description</italic> to be synonyms of the <italic>materials section</italic>. The same process was applied to ego-networks from other nodes linked to existing IAO terms to add additional synonyms to simplify the digraph. <xref rid="F4" ref-type="fig">Figure 4</xref> shows the ego-network for <italic>abstract</italic>, and four main categories and one potential new synonym (<italic>precis</italic>, in red) were identified. From the further analysis of all ego-networks, four new potential terms were identified: <italic>disclosure, graphical abstract, highlights</italic>, and <italic>participants</italic>âthe latter is related to, but deemed distinct from, the existing <italic>patients section</italic> (IAO:0000635). <xref rid="T3" ref-type="table">Table 3</xref> details the proposed definition and synonyms for these terms. The terms and synonyms described here will be submitted to the IAO, with our initial submission of one term and 59 synonyms accepted and included in IAO previously (v2020-12-09) (<ext-link xlink:href="https://github.com/information-artifact-ontology/IAO/issues/234" ext-link-type="uri">https://github.com/information-artifact-ontology/IAO/issues/234</ext-link>). <xref rid="F5" ref-type="fig">Figure 5</xref> shows the resulting digraph with only existing and newly proposed section terms. A major unmapped node is <italic>associated data</italic>, which is a header specific for PMC articles that appears at the beginning of each article before the abstract. In addition, IAO has separate definitions for <italic>materials</italic> (IAO:0000633), <italic>methods</italic> (IAO:0000317), and <italic>statistical methods</italic> (IAO:0000644) sections, hence they are separate nodes in the graph. The <italic>introduction</italic> is often followed by these headers to reflect the <italic>methods section</italic> (and synonyms), however there is also a major directed edge from <italic>introduction</italic> directly to <italic>results</italic> to account for <italic>materials and methods</italic> placed after the <italic>discussion</italic> and/or <italic>conclusion</italic> sections in some publications.</p>
+          <fig position="float" id="F4">
+            <label>Figure 4</label>
+            <caption>
+              <p>Unmapped nodes in the digraph (<xref rid="F3" ref-type="fig">Figure 3</xref>) connected to âabstractâ as ego node, excluding corpus specific nodes, grouped into different categories. Unlabeled nodes are titles of paragraphs in the main text.</p>
+            </caption>
+            <graphic xlink:href="fdgth-04-788124-g0004" position="float"/>
+          </fig>
+          <table-wrap position="float" id="T3">
+            <label>Table 3</label>
+            <caption>
+              <p><bold>(A)</bold> Proposed new IAO terms to define publication sections that were derived from analyzing the sections of 2,441 publications. <bold>(B)</bold> Proposed new IAO terms to define parts of a table section. Elements in italics have previously been submitted by us for inclusion into IAO and added in the v2020-12-09 IAO release.</p>
+            </caption>
+            <table frame="hsides" rules="groups">
+              <thead>
+                <tr>
+                  <th rowspan="1" colspan="1"/>
+                  <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Proposed definition</bold>
+</th>
+                  <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Proposed synonyms</bold>
+</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td valign="top" align="left" colspan="3" rowspan="1">
+<bold>(A) Proposed category</bold>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Disclosure</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">âA part of a document used to disclose any associations by authors that might be perceived as to potentially interfere with or prevent them from reporting research with complete objectivity.â</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Author disclosure statement, declarations, disclosure, disclosure statement, disclosures</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">
+<italic>Graphical abstract</italic>
+</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">â<italic>An abstract that is a pictorial summary of the main findings described in a document</italic>.â</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Central illustration, <italic>graphical abstract</italic>, TOC image, <italic>visual abstract</italic></td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Highlights</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">âA short collection of key messages that describe the core findings and essence of the article in concise form. It is distinct and separate from the abstract and only conveys the results and concept of a study. It is devoid of jargon, acronyms and abbreviations and targeted at a broader, non-technical audience.â</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Author summary, editors' summary, highlights, key points, overview, research in context, significance, TOC</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Participants</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">âA section describing the recruitment of subjects into a research study. This section is distinct from the âpatients' section and mostly focusses on healthy volunteers.â</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Participants, sample</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" colspan="3" rowspan="1">
+<bold>(B) Proposed category</bold>
+</td>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Table title</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">âA textual entity that names a table.â</td>
+                  <td rowspan="1" colspan="1"/>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Table caption</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">âA textual entity that describes a table.â</td>
+                  <td rowspan="1" colspan="1"/>
+                </tr>
+                <tr>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Table footer</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">âA part of a table that provides additional information about a specific other part of the table. Footers are spatially segregated from the rest of the table and are usually indicated by a superscripted number or letter, or a special typographic character such as â .â</td>
+                  <td valign="top" align="left" rowspan="1" colspan="1">Table key, table note, table notes</td>
+                </tr>
+              </tbody>
+            </table>
+          </table-wrap>
+          <fig position="float" id="F5">
+            <label>Figure 5</label>
+            <caption>
+              <p>Final digraph model used in Auto-CORPus to classify paragraphs after fuzzy matching to IAO terms (v2020-06-10). This model includes new (proposed) section terms and each section contains new synonyms identified in this analysis. âAssociated Dataâ is included as this is a PMC-specific header found before abstracts and can be used to indicate the start of most articles, all IAO terms are indicated in orange.</p>
+            </caption>
+            <graphic xlink:href="fdgth-04-788124-g0005" position="float"/>
+          </fig>
+        </sec>
+      </sec>
+      <sec>
+        <title>Algorithms for Processing Tables</title>
+        <sec>
+          <title>Auto-CORPus Table JSON Design</title>
+          <p>The BioC format does not specify how table content should be structured, leaving this open to the interpretation of implementers. For example, the PMC BioC JSON output describes table content using PMC XML (see the âpmc.keyâ file at <ext-link xlink:href="https://ftp.ncbi.nlm.nih.gov/pub/wilbur/BioC-PMC/pmc.key" ext-link-type="uri">https://ftp.ncbi.nlm.nih.gov/pub/wilbur/BioC-PMC/pmc.key</ext-link>). Including markup language within JSON objects presents data parsing challenges and interoperability barriers with non-PMC table data representations. We developed a simple table JSON format that is agnostic to the publication table source, can store multi-dimensional table content from complex table structures, and applies BioC design principles (<xref rid="B5" ref-type="bibr">5</xref>) to enable the annotation of entities and relations between entities. The table JSON stores table metadata of title, caption and footer. The table content is stored as âcolumn headersâ and âdata rows.â The format supports the use of IAO to define the table metadata and content sections, however additional IAO terms are required to define table metadata document parts. <xref rid="T3" ref-type="table">Table 3</xref> includes the proposed definition and synonyms for these terms. To compensate for currently absent IAO terms, we have defined three section type labels: <italic>table title, table caption</italic> and <italic>table footer</italic>. To support the text mining of tables, each column header and data row cell has an identifier that can be used to identify entities in annotations. Tables can be arranged into subsections, thus the table JSON represents this and includes subsection headings. <xref rid="F6" ref-type="fig">Figure 6</xref> gives an example of table metadata and content stored in the Auto-CORPus table JSON format. In addition to the Auto-CORPus key files, we make a table JSON schema available for the validation of table JSON files and to facilitate the use of the format in text analytics software and pipelines.</p>
+          <fig position="float" id="F6">
+            <label>Figure 6</label>
+            <caption>
+              <p>Extracts of the Auto-CORPus table JSON file generated to store metadata and content for an example table. <bold>(A)</bold> The parts of a table stored in table JSON. The section titles are underlined. The table shown is the PMC version (PMC4245044) of Table 1 from (<xref rid="B15" ref-type="bibr">15</xref>). <bold>(B)</bold> The title and caption table metadata stored in table JSON. <bold>(C)</bold> Each column heading in the table content is split between two rows, so the strings from both cells are concatenated with a pipe symbol in the table JSON. Headers that span multiple columns of sub-headers are replicated in each header cell as here with the pipe symbol. <bold>(D)</bold> The table content for the first row from the first section is shown in table JSON. Superscript characters are identified using HTML markup. <bold>(E)</bold> The footer table metadata stored in table JSON. The âautocorpus_tables.keyâ file describes the contents of the tables JSON file (<ext-link xlink:href="https://github.com/omicsNLP/Auto-CORPus/blob/main/keyFiles/autocorpus_tables.key" ext-link-type="uri">https://github.com/omicsNLP/Auto-CORPus/blob/main/keyFiles/autocorpus_tables.key</ext-link>).</p>
+            </caption>
+            <graphic xlink:href="fdgth-04-788124-g0006" position="float"/>
+          </fig>
+        </sec>
+        <sec>
+          <title>Processing Table HTML</title>
+          <p>Tables can used within HTML documents for formatting web page layouts and are distinct from the <italic>data tables</italic> processed by Auto-CORPus. The configuration file set by the user identifies the HTML elements used to define data table containers, which include title, caption, footer, and table content. The files processed can either be a full-text HTML file for inline tables and/or separate HTML files for individual linked tables. The Auto-CORPus algorithm for processing tables is based on the functional and structural table analysis method described by Milosevic et al. (<xref rid="B8" ref-type="bibr">8</xref>). The cells that contain navigational information such as column headers and section headings are identified. If a column has header strings contained in cells spanning multiple rows, the strings are concatenated with a pipe character separator to form a single column header string. The âsuper rowâ is a single text string that spans a complete row (multiple columns) within the table body. The âindex columnâ is a single text string in the first column (sometimes known as a stub) within the table body when either only the first column does not have a header, or the cell spans more than one row. The presence of a super row or index column indicates a table section division where the previous section (if present) ends, and a new section starts. The super row or index column text string provides the section name. A nested array data structure of table content is built to relate column headers to data rows, working from top to bottom and left to right, with section headings occurring in between and grouping data rows. The algorithm extracts the table metadata of title, footer and caption. Table content and metadata are output in the table JSON format. The contents of table cells can be either string or number data types (we consider âtrueâ and âfalseâ booleans as strings) and are represented in the output file using the respective JSON data type. Cells that contain only scientific notation are converted to exponential notation and stored as a JSON number data type. All HTML text formatting is removed, however this distorts the meaning of positive exponents in text strings, for example <italic>n</italic> = <italic>10</italic><sup>3</sup> is represented as <italic>n</italic> = <italic>103</italic>. To preserve the meaning of exponents within text strings, superscript characters are identified using superscript HTML element markup, for example <italic>n = 10 &lt;sup&gt;3&lt;/sup&gt;</italic>.</p>
+          <p>Some publication tables contain content that could be represented in two or more separate tables. These multi-dimensional tables use the same gridlines, but new column headers are declared after initial column headers and data rows have appeared in the table. New column headers are identified by looking down columns and classifying each cell as one of three types: numerical, textual, and a mix of numbers and text. The type for a column is determined by the dominant cell type of all rows in a column excluding super rows. After the type of all columns are determined, the algorithm loops through all rows except super rows, and if more than half of cells in the row do not match with the columns' types, the row is identified as a new header row, and the rows that follow the new headers are then regarded as a sub-table. Auto-CORPus represents sub-tables as distinct tables in the table JSON, with identical metadata to the initial table. Tables are identified by the table number used in the publication, so since sub-tables will share their table number with the initial table, a new identifier is created for sub-tables with the initial table number, an underscore, then a sub-table number such as â1_1.â</p>
+        </sec>
+      </sec>
+      <sec>
+        <title>Comparative Analysis of Outputs</title>
+        <p>The correspondence between PMC BioC and Auto-CORPus BioC outputs were compared to evaluate whether all information present in the PMC BioC output also appears in the Auto-CORPus BioC output. This was done by analyzing the number of characters in the PMC BioC JSON that appear in the same order in the Auto-CORPus BioC JSON using the longest common subsequence method. With this method, overlapping sequences of characters that vary in length are extracted from the PMC BioC string to find a matching sequence in the Auto-CORPus string. With this method it can occur that a subsequence from the PMC BioC matches to multiple parts of the Auto-CORPus BioC string (e.g., repeated words). This is mitigated by evaluating matches of overlapping/adjacent subsequences which should all be close to each other as they appear in the PMC BioC text.</p>
+        <p>This longest common subsequence method was applied to each individual paragraph of the PMC BioC input and compared with the Auto-CORPus BioC paragraphs. This method was chosen over other string metric algorithms, such as the Levenshtein distance or cosine-similarity, due to it being non-symmetric/unidirectional (the Auto-CORPus BioC output strings contain more information (e.g., figure/table links, references) than the PMC BioC output) and ability to directly extract different characters.</p>
+      </sec>
+    </sec>
+    <sec sec-type="results" id="s3">
+      <title>Results</title>
+      <sec>
+        <title>Data for the Evaluation of Algorithms</title>
+        <p>We attempted to download PMC BioC JSON format for all 1,200 GWAS PMC publications in our OA dataset, but only 766 were available as BioC from the NCBI server. We refer to this as the âPMC BioC dataset.â For the 766 PMC articles where we could obtain a NCBI BioC file, we processed the equivalent PMC HTML files using Auto-CORPus. We used only the BioC output files and refer to this as the âAuto-CORPus BioC dataset.â To compare the Auto-CORPus BioC and table outputs for PMC and publisher-specific versions, we accessed 163 Nature Communication and 5 Nature Genetics articles that overlap with the OA dataset and were not present in the publisher dataset, so they were unseen data. These journals have linked tables, so full-text and all linked table HTML files were accessed (367 linked table files). Auto-CORPus configuration files were setup for the journals to process the publisher-specific files and the BioC and table JSON output files were collated into what we refer to as the âlinked table dataset.â The equivalent PMC HTML files from the OA dataset were also processed by Auto-CORPus and the BioC and table JSON files form the âinline table dataset.â</p>
+      </sec>
+      <sec>
+        <title>Performance of Auto-CORPus Full-Text Processing</title>
+        <p>The proportion of characters from 3,195 full-text paragraphs in the PMC BioC dataset that also appear in the Auto-CORPus BioC dataset in the same order in the paragraph string were evaluated using the longest common subsequence method. The median and interquartile range of the (left-skewed) similarity are 100% and 100â100%, respectively. Differences between the Auto-CORPus and PMC outputs are shown in <xref rid="T4" ref-type="table">Table 4</xref> and relate to how display items, abbreviations and links are stored, and different character encodings. A structural difference between the two outputs is in how section titles are associated to passage text. In PMC BioC the section titles (and subtitles) are distinct from the passages they describe as both are treated as equivalent text. The section title occurs once in the file and the passage(s) it refers to follows it. In Auto-CORPus BioC the (first level) section titles (and subtitles) are linked directly with the passage text they refer to, and are included for each paragraph. Auto-CORPus uses IAO to classify text sections so, for example, the introduction title and text are grouped into a section annotated as introduction, rather than splitting these into two subsections (introduction title and introduction text as separate entities in the PMC BioC output) which would not fit with the IAO structure.</p>
+        <table-wrap position="float" id="T4">
+          <label>Table 4</label>
+          <caption>
+            <p>Differences between the Auto-CORPus BioC and PMC BioC JSON outputs.</p>
+          </caption>
+          <table frame="hsides" rules="groups">
+            <thead>
+              <tr>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Difference</bold>
+</th>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>Auto-CORPus</bold>
+</th>
+                <th valign="top" align="left" rowspan="1" colspan="1">
+<bold>PMC</bold>
+</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Section titles</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Section titles, subtitles, subsubtitles (and so on) are linked to the passage text they apply to</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Section titles, subtitles, subsubtitles (and so on) precede the passage text they apply to</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Section types</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Section types are annotated using IAO terms</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Section types are described using custom labels</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Offset counts</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Offset increased by 1 for every character (including whitespace) in a passage</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Offset increased by the number of bytes in the text of a passage plus one space</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Table and figure sections</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Structured table data are stored in table JSON. Figure captions are included in the BioC JSON in the sequential order in which they occur within paragraphs.</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Table data and figure captions occur at the end of the JSON document. Table content is given as XML.</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Abbreviations section</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Abbreviations section stored in abbreviations JSON. Abbreviation and definition components are related. Incomplete/one-sided definitions are not stored.</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Abbreviations and definitions from the abbreviations section are stored separately as text with no relations between the two components. Incomplete/one-sided definitions are stored.</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Link anchor text</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Link anchor text retained (HTML element tags removed).</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Link anchor text removed.</td>
+              </tr>
+              <tr>
+                <td valign="top" align="left" rowspan="1" colspan="1">Character encoding</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">UTF-8 used for outputs</td>
+                <td valign="top" align="left" rowspan="1" colspan="1">Available in Unicode and ASCII</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+        <p>The Auto-CORPus BioC output includes the figure captions where they appear in the text and a separate table JSON file to store the table data, whereas the PMC BioC adds these data at the end of the JSON document and provides table content as a block of XML. Abbreviation sections are not included in the Auto-CORPus BioC output since Auto-CORPus provides a dedicated abbreviations JSON output. In the PMC BioC format the abbreviations and definitions are not related, whereas in the Auto-CORPus abbreviations JSON output the two elements are related. If an abbreviation does not contain a definition in the abbreviations section (perhaps due to an editorial error), PMC BioC will include the undefined thus meaningless abbreviation string, whereas Auto-CORPus will ignore it. Link anchor text to figures, tables, references and URLs are retained in the Auto-CORPus output but removed in the PMC BioC output. The most common differences between the two BioC versions is the encodings/strings used to reflect different whitespace characters and other special characters, with the remaining content being identical.</p>
+        <p>The proportion of characters from 9,468 full-text paragraphs in the publisher dataset that also appear in the Auto-CORPus PMC BioC dataset in the same order in the paragraph string were evaluated. The median and interquartile range of the (left-skewed) similarity is also 100 and 100â100%, respectively, and differences between the PMC and publisher-versions are the same as those previously observed and reported in <xref rid="T4" ref-type="table">Table 4</xref>.</p>
+        <p>Last, we evaluated the section title mapping to IAO terms for publication from non-biomedical domains (physics, psychology). We observed that not all publications from these domains have standardized headers that can be mapped directly or with fuzzy matching and require the digraph to map headers. Most headers are mapped correctly either to one or multiple (potential) IAO terms (<xref rid="SM1" ref-type="supplementary-material">Supplementary Table 1</xref>). Only one publication contained a mismatch where two sections were mapped to introduction and methods sections, respectively, where each of these contained sub-headers that relate to introduction, methods and results. In two physics publications we encountered the case where the âproportional toâ sign (â) could not be mapped by the encoder.</p>
+        <sec>
+          <title>Performance of Auto-CORPus Table Processing</title>
+          <p>We assessed the accuracy of the table JSON output generated from non-PMC linked tables compared with table JSON output generated from the equivalent PMC HTML with inline tables. The comparative analysis method described above was used for comparing BioC output from the linked table and inline table datasets, except here it was applied to both strings (bidirectional, taking the maximum value of both outcomes). This is equivalent to the Levenshtein similarity applied to transform the larger string into the smaller string, with the exception that the different characters for both comparisons are retained for identifying the differences. The correspondence between table JSON files in the linked table and inline table datasets was calculated as the number of characters correctly represented in the publishers table JSON output relative to the PMC versions [also using the (symmetric) longest common subsequence method]. Both the text and table similarity are represented as the median (inter-quartile range) to account for non-normal distributions of the data. Any differences identified during these analyses were at the paragraph or table row level, enabling manual investigation of these sections in a side-by-side comparison of the files.</p>
+          <p>The proportion of characters from 367 tables in the linked table dataset that also appear in the inline table dataset in the same order in the cell or text string were evaluated. The median and interquartile range of the (left-skewed) similarity is 100 and 99.79â100.00%, respectively. We found that there were structural differences between some of the output files where additional data rows were present in the JSON files generated from the publisher's files. This occurred because cell value strings in tables from the publisher's files were split across two rows, however in the PMC version the string was formatted (wrapped) to be contained within a single row. The use of different table structures to contain the same data resulted in accurate but differing table JSON outputs. Most of the differences between table content and metadata values pertain to the character encoding used in the different table versions. For example, we have found different uses of hyphen/em dash/en dash/minus symbols between different versions, and Greek letters were represented differently in the different table versions. Other differences are related to how numbers are represented in scientific notation. If a cell contains a number only, then it is represented as a JSON number data type in the output. However, if the cell contains non-numeric characters, then there is no standardization of the cell text and the notation used (e.g., the Ã symbol or E notation) will be reproduced in the JSON output. When there is variation in notation between sources, the JSON outputs will differ. Other editorial differences include whether thousands are represented with or without commas and how whitespace characters are used. Despite these variations there was no information loss between processed inline and linked tables.</p>
+        </sec>
+      </sec>
+      <sec>
+        <title>Application: NER on GWAS Publications</title>
+        <p>Our intention is that Auto-CORPus supports information extraction from the biomedical literature. To demonstrate the use of Auto-CORPus outputs within a real-world application and aligned to the authors' expertise to support the evaluation of the results, we applied named-entity recognition (NER) to the Auto-CORPus BioC full-text output to extract GWAS metadata. Study metadata are included in curated GWAS databases, such as GWAS Central, and the ability to extract these entities automatically could provide a valuable curation aid. Full details of the method and the rationale behind the application is provided in the <xref rid="SM1" ref-type="supplementary-material">Supplementary Methods</xref>. In summary, we filtered out sentences in the methods sections from the BioC full-text output that contain information on the genotyping platforms, assays, total number of genetic variants, quality control and imputation that were used. We trained five separate algorithms for NER (one for each metadata type) using 700 GWAS publications and evaluated these on 500 GWAS publications of the test set. The F1-scores for the five tasks are between 0.82 and 1.00 (<xref rid="SM1" ref-type="supplementary-material">Supplementary Table 2</xref>) with examples given in <xref rid="SM1" ref-type="supplementary-material">Supplementary Figure 4</xref>.</p>
+      </sec>
+    </sec>
+    <sec sec-type="discussion" id="s4">
+      <title>Discussion</title>
+      <sec>
+        <title>Strengths and Limitations</title>
+        <p>We have shown that Auto-CORPus brings together and bolsters several disjointed standards (BioC and IAO) and algorithmic components (for processing tables and abbreviations) of scientific literature analytics into a convenient and reliable tool for standardizing full-text and tables. The BioC format is a useful but not ubiquitous standard for representing text and annotations. Auto-CORPus enables the transformation of the widely available HTML format into BioC JSON following the setup of a configuration file associated with the structure of the HTML documents. The use of the configuration file drives the flexibility of the package, but also restricts use to users who are confident exploring HTML document structures. We make available the configuration files used in the evaluations described in this paper. To process additional sources, an upfront time investment is required from the user to explore the HTML structure and set the configuration file. We will be increasing the number of configuration files available for larger publishers, and we help non-technical users by providing documentation to explain how to setup configuration files. We welcome configuration files submitted by users and the documentation describes the process for users to submit files. Configuration files contain a section for tracking contributions made to the file, so the names of authors and editors can be logged. Once a configuration file has been submitted and tested, the file will be included within the Auto-CORPus package and the user credited (should they wish) with authorship of the file.</p>
+        <p>The inclusion of IAO terms within the Auto-CORPus BioC output standardizes the description of publication sections across all processed sources. The digraph that is used to assign unmapped paragraph headers to standard IAO terms was constructed using both GWAS and MWAS literature to avoid training it to be used for a single domain only. We have tested the algorithms on PMC articles from three different physics and three psychology journals to confirm the BioC JSON output and IAO term recognition extend beyond only biomedical literature. Virtually all header terms from these articles were mapped to relevant IAO terms even when not all headers could be mapped, however some sections were mapped to multiple IAO terms based on paths in the digraph. Since ontologies are stable but not static, any resource or service that relies on one ontology structure could become outdated or redundant as the ontology is updated. We will rerun the fuzzy matching of headers to IAO terms and regenerate the digraph as new terms are introduced to the <italic>document part</italic> branch of IAO. We have experience of this when our first group of term suggestions based on the digraph were included into the IAO.</p>
+        <p>The BioC output of abbreviations contains the abbreviation, definition and the algorithm(s) by which each pair was identified. One limitation of the current full-text abbreviation algorithm is that it searches for abbreviations in brackets and therefore will not find abbreviations for which the definition is in brackets, or abbreviations that are defined without use of brackets. The current structure of the abbreviation JSON allows additional methods to be included alongside the two methods currently used. Adding further algorithms to find different types of abbreviation in the full-text is considered as part of future work.</p>
+        <p>Auto-CORPus implements a method for extracting table structures and data that was developed to extract table information from XML formatted tables (<xref rid="B8" ref-type="bibr">8</xref>). The use of the configuration file for identifying table containers enables the table processing to be focused on relevant data tables and exclude other tables associated with web page formatting. Auto-CORPus is distinct from other work in this field that uses machine learning methods to classify the types of information within tables (<xref rid="B16" ref-type="bibr">16</xref>). Auto-CORPus table processing is agnostic to the extracted variables, with the only distinction made between numbers and strings for the pragmatic reason of correctly formatting the JSON data type. The table JSON files could be used in downstream analysis (and annotation) of cell information types, but the intention of Auto-CORPus is to provide the capability to generate a faithful standardized output from any HTML source file. We have shown high accuracy (&gt;99%) for the tables we have processed with a configuration file and the machine learning method was shown to recover data from ~86% of tables (<xref rid="B16" ref-type="bibr">16</xref>). Accurate extraction is possible across more data sources with the Auto-CORPus rule-based approach, but a greater investment in setup time is required.</p>
+        <p>Auto-CORPus focuses on HTML versions of articles as these are readily and widely available within the biomedical domain. Currently the processing of PDF documents is not supported, but the work by the Semantic Scholar group to convert PDF documents to HTML is encouraging as they observed that 87% of PDF documents processed showed little to no readability issues (<xref rid="B4" ref-type="bibr">4</xref>). The ability to leverage reliable document transformation will have implications for processing supplementary information files and broader scientific literature sources which are sometimes only available in PDF format, and therefore will require conversion to the accessible and reusable HTML format.</p>
+      </sec>
+      <sec>
+        <title>Future Research and Conclusions</title>
+        <p>We found that the tables for some publications are made available as images (see <xref rid="T1" ref-type="table">Table 1</xref>), so could not be processed by Auto-CORPus. To overcome this gap in publication table standardization, we are refining a plugin for Auto-CORPus that provides an algorithm for processing images of tables. The algorithm leverages Google's Tesseract optical character recognition engine to extract text from preprocessed table images. An overview of the table image processing pipeline is available in <xref rid="SM1" ref-type="supplementary-material">Supplementary Figure 3</xref>. During our preliminary evaluation of the plugin, it achieved an accuracy of ~88% when processing a collection of 200 JPG and PNG table images taken from 23 different journals. Although encouraging, there are caveats in that the image formats must be of high resolution, the algorithm performs better on tables with gridlines than tables without gridlines, special characters are rarely interpreted correctly, and cell text formatting is lost. We are fine tuning the Tesseract model by training new datasets on biomedical data. An alpha release of the table image processing plugin is available with the Auto-CORPus package.</p>
+        <p>The authors are involved in omics health data NLP projects that use Auto-CORPus within text mining pipelines to standardize and optimize biomedical literature ahead of entity and relation annotations and have given examples in the <xref rid="SM1" ref-type="supplementary-material">Supplementary Material</xref> of how the Auto-CORPus output was used to train these algorithms. The BioC format supports the stand-off annotation of linguistic features such as tokens, part-of-speech tags and noun phrases, as well as the annotation of relations between these elements (<xref rid="B5" ref-type="bibr">5</xref>). We are developing machine learning methods to automatically extract genome-wide association study (GWAS) data from peer-reviewed literature. High quality annotated datasets are required to develop and train NLP algorithms and validate the outputs. We are developing a GWAS corpus that can be used for this purpose using a semi-automated annotation method. The GWAS Central database is a comprehensive collection of summary-level GWAS findings imported from published research papers or submitted by study authors (<xref rid="B13" ref-type="bibr">13</xref>). For GWAS Central studies, we used Auto-CORPus to standardize the full-text publication text and tables. In an automatic annotation step, for each publication, all GWAS Central association data was retrieved. Association data consists of three related entities: a phenotype/disease description, genetic marker, and an association <italic>P</italic>-value. A named entity recognition algorithm identifies the database entities in the Auto-CORPus BioC and table JSON files. The database entities and relations are mapped back onto the text, by expressing the annotations in BioC format and appending these to the relevant BioC element in the JSON files. The automatic annotations are then manually evaluated using the TeamTat text annotation tool which provides a user-friendly interface for annotating entities and relations (<xref rid="B17" ref-type="bibr">17</xref>). We use TeamTat to manually inspect the automatic annotations and modify or remove incorrect annotations, in addition to including new annotations that were not automatically generated. TeamTat accepts BioC input files and outputs in BioC format, thus the Auto-CORPus files that have been automatically annotated are suitable for importing into TeamTat. Work to create the GWAS corpus is ongoing, but the convenient semi-automatic process for creating high-quality annotations from biomedical literature HTML files described here could be adapted for creating other gold-standard corpora.</p>
+        <p>In related work, we are developing a corpus for MWAS for metabolite named-entity recognition to enable the development of new NLP tools to speed up literature review. As part of this, the active development focuses on extending Auto-CORPus to analyse preprint literature and <xref rid="SM1" ref-type="supplementary-material">Supplementary Materials</xref>, improving the abbreviation detection, and development of more configuration files. Our preliminary work on preprint literature has shown we can map paragraphs in Rxiv versions to paragraphs in the peer-reviewed manuscript with the high accuracy (average similarity of paragraphs &gt;95%). Another planned extension is to classify paragraphs based on the text in the case where headers are mapped to multiple IAO terms. The flexibility of the Auto-CORPus configuration file enables researchers to use Auto-CORPus to process publications and data from a broad variety of sources to create reusable corpora for many use cases in biomedical literature and other scientific fields.</p>
+      </sec>
+    </sec>
+    <sec sec-type="data-availability" id="s5">
+      <title>Data Availability Statement</title>
+      <p>Publicly available datasets were analyzed in this study. The Auto-CORPus package is freely available from GitHub (<ext-link xlink:href="https://github.com/omicsNLP/Auto-CORPus" ext-link-type="uri">https://github.com/omicsNLP/Auto-CORPus</ext-link>) and can be deployed on local machines as well as using high-performance computing to process publications in batch. A step-by-step guide to detail how to use Auto-CORPus is supplied with the package. Data from both Open Access (<italic>via</italic> PubMed Central) and publisher repositories are used, the latter were downloaded within university library licenses and cannot be shared.</p>
+    </sec>
+    <sec id="s6">
+      <title>Author Contributions</title>
+      <p>TB and JP designed and supervised the research and wrote the manuscript. TB contributed the GWAS use case and JP contributed the MWAS/metabolomics use cases. TS developed the BioC outputs and led the coding integration aspects. YH developed the section header standardization algorithm and implemented the abbreviation recognition algorithm. ZL developed the table image recognition and processing algorithm. SS developed the table extraction algorithm and main configuration file. CP developed configuration files for preprint texts. NM developed the NER algorithms for GWAS entity recognition. NM, FM, CY, ZL, and CP tested the package and performed comparative analysis of outputs. TR refined standardization of full-texts and contributed algorithms for character set conversions. All authors read, edited, and approved the manuscript.</p>
+    </sec>
+    <sec sec-type="funding-information" id="s7">
+      <title>Funding</title>
+      <p>This work has been supported by Health Data Research (HDR) UK and the Medical Research Council <italic>via</italic> an UKRI Innovation Fellowship to TB (MR/S003703/1) and a Rutherford Fund Fellowship to JP (MR/S004033/1).</p>
+    </sec>
+    <sec sec-type="COI-statement" id="conf1">
+      <title>Conflict of Interest</title>
+      <p>The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.</p>
+    </sec>
+    <sec sec-type="disclaimer" id="s8">
+      <title>Publisher's Note</title>
+      <p>All claims expressed in this article are solely those of the authors and do not necessarily represent those of their affiliated organizations, or those of the publisher, the editors and the reviewers. Any product that may be evaluated in this article, or claim that may be made by its manufacturer, is not guaranteed or endorsed by the publisher.</p>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <p>We thank Mohamed Ibrahim (University of Leicester) for identifying different configurations of tables for different HTML formats.</p>
+    </ack>
+    <sec sec-type="supplementary-material" id="s9">
+      <title>Supplementary Material</title>
+      <p>The Supplementary Material for this article can be found online at: <ext-link xlink:href="https://www.frontiersin.org/articles/10.3389/fdgth.2022.788124/full#supplementary-material" ext-link-type="uri">https://www.frontiersin.org/articles/10.3389/fdgth.2022.788124/full#supplementary-material</ext-link></p>
+      <supplementary-material id="SM1" position="float" content-type="local-data">
+        <media xlink:href="Data_Sheet_1.PDF">
+          <caption>
+            <p>Click here for additional data file.</p>
+          </caption>
+        </media>
+      </supplementary-material>
+    </sec>
+    <ref-list>
+      <title>References</title>
+      <ref id="B1">
+        <label>1.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Sheikhalishahi</surname><given-names>S</given-names></name><name><surname>Miotto</surname><given-names>R</given-names></name><name><surname>Dudley</surname><given-names>JT</given-names></name><name><surname>Lavelli</surname><given-names>A</given-names></name><name><surname>Rinaldi</surname><given-names>F</given-names></name><name><surname>Osmani</surname><given-names>V</given-names></name></person-group>. <article-title>Natural language processing of clinical notes on chronic diseases: systematic review</article-title>. <source>JMIR Med Inform.</source> (<year>2019</year>) <volume>7</volume>:<fpage>e12239</fpage>. <pub-id pub-id-type="doi">10.2196/12239</pub-id><?supplied-pmid 31066697?><pub-id pub-id-type="pmid">31066697</pub-id></mixed-citation>
+      </ref>
+      <ref id="B2">
+        <label>2.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Jackson</surname><given-names>RG</given-names></name><name><surname>Patel</surname><given-names>R</given-names></name><name><surname>Jayatilleke</surname><given-names>N</given-names></name><name><surname>Kolliakou</surname><given-names>A</given-names></name><name><surname>Ball</surname><given-names>M</given-names></name><name><surname>Gorrell</surname><given-names>G</given-names></name><etal/></person-group>. <article-title>Natural language processing to extract symptoms of severe mental illness from clinical text: the Clinical Record Interactive Search Comprehensive Data Extraction (CRIS-CODE) project</article-title>. <source>BMJ Open</source>. (<year>2017</year>) <volume>7</volume>:<fpage>e012012</fpage>. <pub-id pub-id-type="doi">10.1136/bmjopen-2016-012012</pub-id><?supplied-pmid 28096249?><pub-id pub-id-type="pmid">28096249</pub-id></mixed-citation>
+      </ref>
+      <ref id="B3">
+        <label>3.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Erhardt</surname><given-names>RA</given-names></name><name><surname>Schneider</surname><given-names>R</given-names></name><name><surname>Blaschke</surname><given-names>C</given-names></name></person-group>. <article-title>Status of text-mining techniques applied to biomedical text</article-title>. <source>Drug Discov Today.</source> (<year>2006</year>) <volume>11</volume>:<fpage>315</fpage>â<lpage>25</lpage>. <pub-id pub-id-type="doi">10.1016/j.drudis.2006.02.011</pub-id><?supplied-pmid 16580973?><pub-id pub-id-type="pmid">16580973</pub-id></mixed-citation>
+      </ref>
+      <ref id="B4">
+        <label>4.</label>
+        <mixed-citation publication-type="webpage"><person-group person-group-type="author"><name><surname>Wang</surname><given-names>LL</given-names></name><name><surname>Cachola</surname><given-names>I</given-names></name><name><surname>Bragg</surname><given-names>J</given-names></name><name><surname>Yu-Yen Cheng</surname><given-names>E</given-names></name><name><surname>Haupt</surname><given-names>C</given-names></name><name><surname>Latzke</surname><given-names>M</given-names></name><etal/></person-group>. <article-title>Improving the accessibility of scientific documents: current state, user needs, and a system solution to enhance scientific PDF accessibility for blind and low vision users</article-title>. <source>arXiv e-prints: arXiv:2105.00076</source> (<year>2021</year>). Available online at: <ext-link xlink:href="https://arxiv.org/pdf/2105.00076.pdf" ext-link-type="uri">https://arxiv.org/pdf/2105.00076.pdf</ext-link></mixed-citation>
+      </ref>
+      <ref id="B5">
+        <label>5.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Comeau</surname><given-names>DC</given-names></name><name><surname>Islamaj Dogan</surname><given-names>R</given-names></name><name><surname>Ciccarese</surname><given-names>P</given-names></name><name><surname>Cohen</surname><given-names>KB</given-names></name><name><surname>Krallinger</surname><given-names>M</given-names></name><name><surname>Leitner</surname><given-names>F</given-names></name><etal/></person-group>. <article-title>BioC: a minimalist approach to interoperability for biomedical text processing</article-title>. <source>Database.</source> (<year>2013</year>) <volume>2013</volume>:<fpage>bat064</fpage>. <pub-id pub-id-type="doi">10.1093/database/bat064</pub-id><?supplied-pmid 24048470?><pub-id pub-id-type="pmid">24048470</pub-id></mixed-citation>
+      </ref>
+      <ref id="B6">
+        <label>6.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Comeau</surname><given-names>DC</given-names></name><name><surname>Wei</surname><given-names>CH</given-names></name><name><surname>Islamaj Dogan</surname><given-names>R</given-names></name><name><surname>Lu</surname><given-names>Z</given-names></name></person-group>. <article-title>PMC text mining subset in BioC: about three million full-text articles and growing</article-title>. <source>Bioinformatics.</source> (<year>2019</year>) <volume>35</volume>:<fpage>3533</fpage>â<lpage>5</lpage>. <pub-id pub-id-type="doi">10.1093/bioinformatics/btz070</pub-id><?supplied-pmid 30715220?><pub-id pub-id-type="pmid">30715220</pub-id></mixed-citation>
+      </ref>
+      <ref id="B7">
+        <label>7.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Ceusters</surname><given-names>W</given-names></name></person-group>. <article-title>An information artifact ontology perspective on data collections and associated representational artifacts</article-title>. <source>Stud Health Technol Inform.</source> (<year>2012</year>) <volume>180</volume>:<fpage>68</fpage>â<lpage>72</lpage>. <pub-id pub-id-type="doi">10.3233/978-1-61499-101-4-68</pub-id><?supplied-pmid 22874154?><pub-id pub-id-type="pmid">22874154</pub-id></mixed-citation>
+      </ref>
+      <ref id="B8">
+        <label>8.</label>
+        <mixed-citation publication-type="book"><person-group person-group-type="author"><name><surname>Milosevic</surname><given-names>N</given-names></name><name><surname>Gregson</surname><given-names>C</given-names></name><name><surname>Hernandez</surname><given-names>R</given-names></name><name><surname>Nenadic</surname><given-names>G</given-names></name></person-group>. <article-title>Disentangling the structure of tables in scientific literature</article-title>. In: <person-group person-group-type="editor"><name><surname>MÃ©tais</surname><given-names>E</given-names></name><name><surname>Meziane</surname><given-names>F</given-names></name><name><surname>Saraee</surname><given-names>M</given-names></name><name><surname>Sugumaran</surname><given-names>V</given-names></name><name><surname>Vadera</surname><given-names>S</given-names></name></person-group>, editors. <source>Natural Language Processing and Information Systems</source>. <publisher-loc>Cham</publisher-loc>: <publisher-name>Springer International Publishing</publisher-name> (<year>2016</year>). p. <fpage>162</fpage>â<lpage>74</lpage>. <pub-id pub-id-type="doi">10.1007/978-3-319-41754-7_14</pub-id></mixed-citation>
+      </ref>
+      <ref id="B9">
+        <label>9.</label>
+        <mixed-citation publication-type="book"><person-group person-group-type="author"><name><surname>Craven</surname><given-names>M</given-names></name><name><surname>Kumlien</surname><given-names>J</given-names></name></person-group>. <article-title>Constructing biological knowledge bases by extracting information from text sources</article-title>. In: <source>International Conference on Intelligent Systems for Molecular Biology.</source>
+<publisher-loc>Heidelberg</publisher-loc> (<year>1999</year>) p. <fpage>77</fpage>â<lpage>86</lpage>. <?supplied-pmid 10786289?></mixed-citation>
+      </ref>
+      <ref id="B10">
+        <label>10.</label>
+        <mixed-citation publication-type="book"><person-group person-group-type="author"><name><surname>Blaschke</surname><given-names>C</given-names></name><name><surname>Andrade</surname><given-names>MA</given-names></name><name><surname>Ouzounis</surname><given-names>C</given-names></name><name><surname>Valencia</surname><given-names>A</given-names></name></person-group>. <article-title>Automatic extraction of biological information from scientific text: protein-protein interactions</article-title>. In: <source>International Conference on Intelligent Systems for Molecular Biology</source>. <publisher-loc>Heidelberg</publisher-loc> (<year>1999</year>) p. <fpage>60</fpage>â<lpage>7</lpage>. <?supplied-pmid 10786287?></mixed-citation>
+      </ref>
+      <ref id="B11">
+        <label>11.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Andrade</surname><given-names>MA</given-names></name><name><surname>Valencia</surname><given-names>A</given-names></name></person-group>. <article-title>Automatic annotation for biological sequences by extraction of keywords from MEDLINE abstracts. Development of a prototype system</article-title>. <source>Proc Int Conf Intell Syst Mol Biol.</source> (<year>1997</year>) <volume>5</volume>:<fpage>25</fpage>â<lpage>32</lpage>. <?supplied-pmid 9322011?><pub-id pub-id-type="pmid">9322011</pub-id></mixed-citation>
+      </ref>
+      <ref id="B12">
+        <label>12.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Schwartz</surname><given-names>AS</given-names></name><name><surname>Hearst</surname><given-names>MA</given-names></name></person-group>. <article-title>A simple algorithm for identifying abbreviation definitions in biomedical text</article-title>. <source>Pac Symp Biocomput.</source> (<year>2003</year>) <volume>8</volume>:<fpage>451</fpage>â<lpage>62</lpage>. Available online at: <ext-link xlink:href="https://psb.stanford.edu/psb-online/proceedings/psb03/schwartz.pdf" ext-link-type="uri">https://psb.stanford.edu/psb-online/proceedings/psb03/schwartz.pdf</ext-link><?supplied-pmid 12603049?><pub-id pub-id-type="pmid">12603049</pub-id></mixed-citation>
+      </ref>
+      <ref id="B13">
+        <label>13.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Beck</surname><given-names>T</given-names></name><name><surname>Shorter</surname><given-names>T</given-names></name><name><surname>Brookes</surname><given-names>AJ</given-names></name></person-group>. <article-title>GWAS Central: a comprehensive resource for the discovery and comparison of genotype and phenotype data from genome-wide association studies</article-title>. <source>Nucleic Acids Res</source>. (<year>2020</year>) <volume>48</volume>:<fpage>D933</fpage>â<lpage>40</lpage>. <pub-id pub-id-type="doi">10.1093/nar/gkz895</pub-id><?supplied-pmid 31612961?><pub-id pub-id-type="pmid">31612961</pub-id></mixed-citation>
+      </ref>
+      <ref id="B14">
+        <label>14.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Ghazvinian</surname><given-names>A</given-names></name><name><surname>Noy</surname><given-names>NF</given-names></name><name><surname>Musen</surname><given-names>MA</given-names></name></person-group>. <article-title>Creating mappings for ontologies in biomedicine: simple methods work</article-title>. <source>AMIA Annu Symp Proc.</source> (<year>2009</year>) <volume>2009</volume>:<fpage>198</fpage>â<lpage>202</lpage>. <?supplied-pmid 20351849?><pub-id pub-id-type="pmid">20351849</pub-id></mixed-citation>
+      </ref>
+      <ref id="B15">
+        <label>15.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Keller</surname><given-names>MF</given-names></name><name><surname>Reiner</surname><given-names>AP</given-names></name><name><surname>Okada</surname><given-names>Y</given-names></name><name><surname>van Rooij</surname><given-names>FJ</given-names></name><name><surname>Johnson</surname><given-names>AD</given-names></name><name><surname>Chen</surname><given-names>MH</given-names></name><etal/></person-group>. <article-title>Trans-ethnic meta-analysis of white blood cell phenotypes</article-title>. <source>Hum Mol Genet.</source> (<year>2014</year>) <volume>23</volume>:<fpage>6944</fpage>â<lpage>60</lpage>. <pub-id pub-id-type="doi">10.1093/hmg/ddu401</pub-id><?supplied-pmid 25096241?><pub-id pub-id-type="pmid">25096241</pub-id></mixed-citation>
+      </ref>
+      <ref id="B16">
+        <label>16.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Milosevic</surname><given-names>N</given-names></name><name><surname>Gregson</surname><given-names>C</given-names></name><name><surname>Hernandez</surname><given-names>R</given-names></name><name><surname>Nenadic</surname><given-names>G</given-names></name></person-group>. <article-title>A framework for information extraction from tables in biomedical literature</article-title>. <source>Int J Docum Anal Recogn.</source> (<year>2019</year>) <volume>22</volume>:<fpage>55</fpage>â<lpage>78</lpage>. <pub-id pub-id-type="doi">10.1007/s10032-019-00317-0</pub-id><?supplied-pmid 23869631?><pub-id pub-id-type="pmid">23869631</pub-id></mixed-citation>
+      </ref>
+      <ref id="B17">
+        <label>17.</label>
+        <mixed-citation publication-type="journal"><person-group person-group-type="author"><name><surname>Islamaj</surname><given-names>R</given-names></name><name><surname>Kwon</surname><given-names>D</given-names></name><name><surname>Kim</surname><given-names>S</given-names></name><name><surname>Lu</surname><given-names>Z</given-names></name></person-group>. <article-title>TeamTat: a collaborative text annotation tool</article-title>. <source>Nucleic Acids Res</source>. (<year>2020</year>) <volume>48</volume>:<fpage>W5</fpage>â<lpage>11</lpage>. <pub-id pub-id-type="doi">10.1093/nar/gkaa333</pub-id><?supplied-pmid 32383756?><pub-id pub-id-type="pmid">32383756</pub-id></mixed-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
+
+</metadata></record></GetRecord></OAI-PMH>

@@ -8,6 +8,7 @@ from . import logger
 from .autocorpus import Autocorpus
 from .file_type import FileType, check_file_type
 from .html import process_html_article
+from .parse_xml import convert_xml_to_json
 
 
 def process_file(
@@ -35,10 +36,9 @@ def process_file(
                 file_path, *process_html_article(config, file_path, linked_tables)
             )
         case FileType.XML:
-            raise NotImplementedError(
-                f"Could not process file {file_path}. Process XML files by running:\n\t"
-                f"python -m autocorpus.parse_xml {file_path}"
-            )
+            main_text = convert_xml_to_json(file_path)
+
+            return Autocorpus(file_path, main_text, dict(), dict())
         case FileType.PDF:
             try:
                 from .pdf import extract_pdf_content

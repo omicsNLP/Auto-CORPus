@@ -77,7 +77,7 @@ disallow_any_generics = true
 warn_unreachable = true
 warn_unused_ignores = true
 # disallow_untyped_defs = true
-exclude = [".venv/", "docs/", "autocorpus/parse_xml.py", "site/"]
+exclude = [".venv/", "docs/", "site/"]
 
 [[tool.mypy.overrides]]
 module = "tests.*"
