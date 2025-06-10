@@ -78,6 +78,15 @@ def process_file(
                     "Could not load necessary Word packages. Microsoft Word is required to process Word documents on Windows & MAC OS, or alternatively LibreOffice can be used on Linux.\n"
                 )
                 raise
+        case FileType.EXCEL:
+            from .spreadsheet import extract_spreadsheet_content
+
+            tbls = extract_spreadsheet_content(file_path)
+
+            if tbls:
+                tables_dict = tbls.to_dict()
+
+            return Autocorpus(file_path, dict(), dict(), tables_dict)
 
         case FileType.UNKNOWN:
             raise NotImplementedError(f"Could not identify file type for {file_path}")
