@@ -252,3 +252,4 @@ version changes	version number section
 visual abstract	graphical abstract section
 web resources	references section
 web site references	references section
+document title document title

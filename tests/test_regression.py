@@ -98,6 +98,26 @@ def _run_html_regression_test(
         assert not expected_tables
 
 
+@pytest.mark.parametrize("input_file", [("PMC/xml/PMC8885717.xml")])
+def test_xml(data_path: Path, input_file: str) -> None:
+    """A regression test for the xml autoCORPus function."""
+    from autocorpus.parse_xml import convert_xml_to_json
+
+    pmc_example_path = data_path / input_file
+    with open(
+        str(pmc_example_path).replace(".xml", "_bioc.json"),
+        encoding="utf-8",
+    ) as f:
+        expected_bioc = json.load(f)
+
+    bioc = convert_xml_to_json(pmc_example_path)
+    # Only remove date because XML doesn't have an "inputfile" field.
+    bioc.pop("date")
+    expected_bioc.pop("date")
+
+    assert bioc == expected_bioc
+
+
 @pytest.mark.skip_ci_macos
 @pytest.mark.parametrize(
     "input_file, config",
