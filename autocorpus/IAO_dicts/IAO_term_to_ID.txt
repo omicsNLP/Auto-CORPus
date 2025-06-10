@@ -39,5 +39,6 @@ requirements section	IAO:0000641
 statistical analysis section	IAO:0000644
 tables section	IAO:0000645
 descriptive data section	IAO:0000701
+document title	IAO:0000305
 disclosure section	IAO:CUIless
 highlights section	IAO:CUIless
