@@ -1316,15 +1316,15 @@ six = ">=1.15,<2"
 
 [[package]]
 name = "marker-pdf"
-version = "1.7.4"
+version = "1.7.5"
 description = "Convert documents to markdown with high speed and accuracy."
 optional = true
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 markers = "extra == \"pdf\""
 files = [
-    {file = "marker_pdf-1.7.4-py3-none-any.whl", hash = "sha256:c27d4657a366140b871dd3aebb6421bd8351e5e3be46bc8ea6ad2242d4e3f935"},
-    {file = "marker_pdf-1.7.4.tar.gz", hash = "sha256:292e9e42eb8f426e713b1dc147edbfdc5608731b0f00646e34be1f03dec0d7df"},
+    {file = "marker_pdf-1.7.5-py3-none-any.whl", hash = "sha256:92dcaa5cd561730ea3ab80e315dbed0c84980947e5685187b202d4e476ddcf3e"},
+    {file = "marker_pdf-1.7.5.tar.gz", hash = "sha256:54845fe5f8080ebdf41f59d006c0ca792a4cdef814c18a0f82426a4f62a038cd"},
 ]
 
 [package.dependencies]
@@ -1336,7 +1336,7 @@ google-genai = ">=1.0.0,<2.0.0"
 markdown2 = ">=2.5.2,<3.0.0"
 markdownify = ">=0.13.1,<0.14.0"
 openai = ">=1.65.2,<2.0.0"
-pdftext = ">=0.6.2,<0.7.0"
+pdftext = ">=0.6.3,<0.7.0"
 Pillow = ">=10.1.0,<11.0.0"
 pre-commit = ">=4.2.0,<5.0.0"
 pydantic = ">=2.4.2,<3.0.0"
@@ -1345,7 +1345,7 @@ python-dotenv = ">=1.0.0,<2.0.0"
 rapidfuzz = ">=3.8.1,<4.0.0"
 regex = ">=2024.4.28,<2025.0.0"
 scikit-learn = ">=1.6.1,<2.0.0"
-surya-ocr = ">=0.14.5,<0.15.0"
+surya-ocr = ">=0.14.6,<0.15.0"
 torch = ">=2.7.0,<3.0.0"
 tqdm = ">=4.66.1,<5.0.0"
 transformers = ">=4.45.2,<5.0.0"
@@ -2283,15 +2283,15 @@ files = [
 
 [[package]]
 name = "pdftext"
-version = "0.6.2"
+version = "0.6.3"
 description = "Extract structured text from pdfs quickly"
 optional = true
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 markers = "extra == \"pdf\""
 files = [
-    {file = "pdftext-0.6.2-py3-none-any.whl", hash = "sha256:905d11e62d548e307933c25865a69c8e993947bb5b40b1535b0a2aa8f07a71d4"},
-    {file = "pdftext-0.6.2.tar.gz", hash = "sha256:ff5b92462ac03ae63a23429384ae123d45c162dcda30e7bf2c5c92a6b208c9de"},
+    {file = "pdftext-0.6.3-py3-none-any.whl", hash = "sha256:528431ed8bdce39d74372cd3d27e8544af812f1f1adc81db229cf9fb48dacacb"},
+    {file = "pdftext-0.6.3.tar.gz", hash = "sha256:ab5c5dfe0f1fb78de1db837ccadac1ea41b07ce1890fead973c9a84cdaf54dec"},
 ]
 
 [package.dependencies]
@@ -3602,15 +3602,15 @@ files = [
 
 [[package]]
 name = "surya-ocr"
-version = "0.14.5"
+version = "0.14.6"
 description = "OCR, layout, reading order, and table recognition in 90+ languages"
 optional = true
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 markers = "extra == \"pdf\""
 files = [
-    {file = "surya_ocr-0.14.5-py3-none-any.whl", hash = "sha256:3293fdcc1f1a6e83b177479d9d71d51359e3028a4b7ada47094069b08fe652be"},
-    {file = "surya_ocr-0.14.5.tar.gz", hash = "sha256:1609ec6d9ab84003e7cde93f0cba4edefb052439faffddeff0832b0f36e49b00"},
+    {file = "surya_ocr-0.14.6-py3-none-any.whl", hash = "sha256:4c89c3a4606838db1d0f6b565eb4e49db8823982212beb581bb819d5bbbb9519"},
+    {file = "surya_ocr-0.14.6.tar.gz", hash = "sha256:c85a0bd9dd00c86ab44ed265c0ed15601106dbaf2d0d0a067fa7bb533137d5f0"},
 ]
 
 [package.dependencies]
