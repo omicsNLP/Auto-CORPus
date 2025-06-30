@@ -1268,15 +1268,15 @@ wavedrom = ["wavedrom"]
 
 [[package]]
 name = "markdownify"
-version = "0.13.1"
+version = "1.1.0"
 description = "Convert HTML to markdown."
 optional = true
 python-versions = "*"
 groups = ["main"]
 markers = "extra == \"pdf\""
 files = [
-    {file = "markdownify-0.13.1-py3-none-any.whl", hash = "sha256:1d181d43d20902bcc69d7be85b5316ed174d0dda72ff56e14ae4c95a4a407d22"},
-    {file = "markdownify-0.13.1.tar.gz", hash = "sha256:ab257f9e6bd4075118828a28c9d02f8a4bfeb7421f558834aa79b2dfeb32a098"},
+    {file = "markdownify-1.1.0-py3-none-any.whl", hash = "sha256:32a5a08e9af02c8a6528942224c91b933b4bd2c7d078f9012943776fc313eeef"},
+    {file = "markdownify-1.1.0.tar.gz", hash = "sha256:449c0bbbf1401c5112379619524f33b63490a8fa479456d41de9dc9e37560ebd"},
 ]
 
 [package.dependencies]
@@ -1285,15 +1285,15 @@ six = ">=1.15,<2"
 
 [[package]]
 name = "marker-pdf"
-version = "1.7.5"
+version = "1.8.0"
 description = "Convert documents to markdown with high speed and accuracy."
 optional = true
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 markers = "extra == \"pdf\""
 files = [
-    {file = "marker_pdf-1.7.5-py3-none-any.whl", hash = "sha256:92dcaa5cd561730ea3ab80e315dbed0c84980947e5685187b202d4e476ddcf3e"},
-    {file = "marker_pdf-1.7.5.tar.gz", hash = "sha256:54845fe5f8080ebdf41f59d006c0ca792a4cdef814c18a0f82426a4f62a038cd"},
+    {file = "marker_pdf-1.8.0-py3-none-any.whl", hash = "sha256:5c693b762736e82681f472a3faa738cbb66adcb2de6edd519df05d0b5e1b16fd"},
+    {file = "marker_pdf-1.8.0.tar.gz", hash = "sha256:9e34fb448ff0e7f1504623e4901283e91e1b3f9c603124128df41a10a8d177af"},
 ]
 
 [package.dependencies]
@@ -1303,7 +1303,7 @@ filetype = ">=1.2.0,<2.0.0"
 ftfy = ">=6.1.1,<7.0.0"
 google-genai = ">=1.0.0,<2.0.0"
 markdown2 = ">=2.5.2,<3.0.0"
-markdownify = ">=0.13.1,<0.14.0"
+markdownify = ">=1.1.0,<2.0.0"
 openai = ">=1.65.2,<2.0.0"
 pdftext = ">=0.6.3,<0.7.0"
 Pillow = ">=10.1.0,<11.0.0"
