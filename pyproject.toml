@@ -33,7 +33,7 @@ regex = "^2024.9.11"
 beautifulsoup4 = "^4.12.3"
 nltk = "^3.9.1"
 fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
-lxml = "^5.3.0"
+lxml = ">=5.3,<7.0"
 pandas = "^2.2.3"
 python-docx = "^1.1.2"
 marker-pdf = { version = "^1.6.2", optional = true }
