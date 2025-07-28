@@ -3964,14 +3964,14 @@ files = [
 
 [[package]]
 name = "types-pywin32"
-version = "310.0.0.20250516"
+version = "311.0.0.20250728"
 description = "Typing stubs for pywin32"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "types_pywin32-310.0.0.20250516-py3-none-any.whl", hash = "sha256:f9ef83a1ec3e5aae2b0e24c5f55ab41272b5dfeaabb9a0451d33684c9545e41a"},
-    {file = "types_pywin32-310.0.0.20250516.tar.gz", hash = "sha256:91e5bfc033f65c9efb443722eff8101e31d690dd9a540fa77525590d3da9cc9d"},
+    {file = "types_pywin32-311.0.0.20250728-py3-none-any.whl", hash = "sha256:a7a241447aecaf4623ca230c7bd664463bed1d6db0dde8329d615f076fb80761"},
+    {file = "types_pywin32-311.0.0.20250728.tar.gz", hash = "sha256:babee600f62c742306e4a9d4621f1cbfe44d57f904148b5cd363cced8b268d3f"},
 ]
 
 [[package]]
@@ -4255,4 +4255,4 @@ pdf = ["marker-pdf"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4"
-content-hash = "c80e1dc4b7aacd473e5e3ac3ddbba72415a255e9ab255b671fc227784ba9a9cd"
+content-hash = "b54f8d0e65fe1a224aa50404a3798647d2976b51631e1aef443cac564ec68277"
