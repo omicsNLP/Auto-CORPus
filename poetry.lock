@@ -3976,14 +3976,14 @@ files = [
 
 [[package]]
 name = "types-regex"
-version = "2024.11.6.20250403"
+version = "2025.7.34.20250809"
 description = "Typing stubs for regex"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "types_regex-2024.11.6.20250403-py3-none-any.whl", hash = "sha256:e22c0f67d73f4b4af6086a340f387b6f7d03bed8a0bb306224b75c51a29b0001"},
-    {file = "types_regex-2024.11.6.20250403.tar.gz", hash = "sha256:3fdf2a70bbf830de4b3a28e9649a52d43dabb57cdb18fbfe2252eefb53666665"},
+    {file = "types_regex-2025.7.34.20250809-py3-none-any.whl", hash = "sha256:a9015eed9f51e0de3ce8fc14d84593378b157142f66421c58f043c6ef30ba68b"},
+    {file = "types_regex-2025.7.34.20250809.tar.gz", hash = "sha256:fe446ef8f973f05b7f4779e0d4dc00d0725bfc3c60d6c1013586a6e10970bab6"},
 ]
 
 [[package]]
@@ -4255,4 +4255,4 @@ pdf = ["marker-pdf"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4"
-content-hash = "b54f8d0e65fe1a224aa50404a3798647d2976b51631e1aef443cac564ec68277"
+content-hash = "cf53391dc169371bdae6f20103bf026457abaa5dd506818c8d8c7094500282a1"
