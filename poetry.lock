@@ -3983,14 +3983,14 @@ files = [
 
 [[package]]
 name = "types-regex"
-version = "2025.7.34.20250809"
+version = "2025.8.29.20250831"
 description = "Typing stubs for regex"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "types_regex-2025.7.34.20250809-py3-none-any.whl", hash = "sha256:a9015eed9f51e0de3ce8fc14d84593378b157142f66421c58f043c6ef30ba68b"},
-    {file = "types_regex-2025.7.34.20250809.tar.gz", hash = "sha256:fe446ef8f973f05b7f4779e0d4dc00d0725bfc3c60d6c1013586a6e10970bab6"},
+    {file = "types_regex-2025.8.29.20250831-py3-none-any.whl", hash = "sha256:8fd7c4324558cb562c69a3099515e392a5308c75b3feec203d2d4665e14a23b1"},
+    {file = "types_regex-2025.8.29.20250831.tar.gz", hash = "sha256:ff5641059617f91f8b2f039d60b52b8c55febc577439a35ecd50960648b54894"},
 ]
 
 [[package]]
