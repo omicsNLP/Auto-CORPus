@@ -1272,15 +1272,15 @@ wavedrom = ["wavedrom"]
 
 [[package]]
 name = "markdownify"
-version = "0.13.1"
+version = "1.2.0"
 description = "Convert HTML to markdown."
 optional = true
 python-versions = "*"
 groups = ["main"]
 markers = "extra == \"pdf\""
 files = [
-    {file = "markdownify-0.13.1-py3-none-any.whl", hash = "sha256:1d181d43d20902bcc69d7be85b5316ed174d0dda72ff56e14ae4c95a4a407d22"},
-    {file = "markdownify-0.13.1.tar.gz", hash = "sha256:ab257f9e6bd4075118828a28c9d02f8a4bfeb7421f558834aa79b2dfeb32a098"},
+    {file = "markdownify-1.2.0-py3-none-any.whl", hash = "sha256:48e150a1c4993d4d50f282f725c0111bd9eb25645d41fa2f543708fd44161351"},
+    {file = "markdownify-1.2.0.tar.gz", hash = "sha256:f6c367c54eb24ee953921804dfe6d6575c5e5b42c643955e7242034435de634c"},
 ]
 
 [package.dependencies]
@@ -1289,15 +1289,15 @@ six = ">=1.15,<2"
 
 [[package]]
 name = "marker-pdf"
-version = "1.7.5"
+version = "1.9.2"
 description = "Convert documents to markdown with high speed and accuracy."
 optional = true
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 markers = "extra == \"pdf\""
 files = [
-    {file = "marker_pdf-1.7.5-py3-none-any.whl", hash = "sha256:92dcaa5cd561730ea3ab80e315dbed0c84980947e5685187b202d4e476ddcf3e"},
-    {file = "marker_pdf-1.7.5.tar.gz", hash = "sha256:54845fe5f8080ebdf41f59d006c0ca792a4cdef814c18a0f82426a4f62a038cd"},
+    {file = "marker_pdf-1.9.2-py3-none-any.whl", hash = "sha256:6f9319c5d9a71d4a2323aec34c4b6d53550c54a6e7a33f1bafba7526e26f5242"},
+    {file = "marker_pdf-1.9.2.tar.gz", hash = "sha256:90b12fe97d7ffac8c549aee3e406b1d4bf8e9b2a46803c97d2d850bfaedd5083"},
 ]
 
 [package.dependencies]
@@ -1307,7 +1307,7 @@ filetype = ">=1.2.0,<2.0.0"
 ftfy = ">=6.1.1,<7.0.0"
 google-genai = ">=1.0.0,<2.0.0"
 markdown2 = ">=2.5.2,<3.0.0"
-markdownify = ">=0.13.1,<0.14.0"
+markdownify = ">=1.1.0,<2.0.0"
 openai = ">=1.65.2,<2.0.0"
 pdftext = ">=0.6.3,<0.7.0"
 Pillow = ">=10.1.0,<11.0.0"
@@ -1318,7 +1318,7 @@ python-dotenv = ">=1.0.0,<2.0.0"
 rapidfuzz = ">=3.8.1,<4.0.0"
 regex = ">=2024.4.28,<2025.0.0"
 scikit-learn = ">=1.6.1,<2.0.0"
-surya-ocr = ">=0.14.6,<0.15.0"
+surya-ocr = ">=0.16.0,<0.17.0"
 torch = ">=2.7.0,<3.0.0"
 tqdm = ">=4.66.1,<5.0.0"
 transformers = ">=4.45.2,<5.0.0"
@@ -3598,22 +3598,22 @@ files = [
 
 [[package]]
 name = "surya-ocr"
-version = "0.14.6"
+version = "0.16.5"
 description = "OCR, layout, reading order, and table recognition in 90+ languages"
 optional = true
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 markers = "extra == \"pdf\""
 files = [
-    {file = "surya_ocr-0.14.6-py3-none-any.whl", hash = "sha256:4c89c3a4606838db1d0f6b565eb4e49db8823982212beb581bb819d5bbbb9519"},
-    {file = "surya_ocr-0.14.6.tar.gz", hash = "sha256:c85a0bd9dd00c86ab44ed265c0ed15601106dbaf2d0d0a067fa7bb533137d5f0"},
+    {file = "surya_ocr-0.16.5-py3-none-any.whl", hash = "sha256:2f083725fb6faa50f807bc88f482175e3ced61191eb81ce57fc7975916046762"},
+    {file = "surya_ocr-0.16.5.tar.gz", hash = "sha256:75cc5a4a3b225ca9df8b7e5756eed018f812c8f00397da7cdae45f8ba47598f5"},
 ]
 
 [package.dependencies]
 click = ">=8.1.8,<9.0.0"
 einops = ">=0.8.1,<0.9.0"
 filetype = ">=1.2.0,<2.0.0"
-opencv-python-headless = ">=4.11.0.86,<5.0.0.0"
+opencv-python-headless = "4.11.0.86"
 pillow = ">=10.2.0,<11.0.0"
 platformdirs = ">=4.3.6,<5.0.0"
 pre-commit = ">=4.2.0,<5.0.0"
@@ -3622,7 +3622,7 @@ pydantic-settings = ">=2.1.0,<3.0.0"
 pypdfium2 = "4.30.0"
 python-dotenv = ">=1.0.0,<2.0.0"
 torch = ">=2.7.0,<3.0.0"
-transformers = ">=4.51.2,<5.0.0"
+transformers = ">=4.51.2,<4.54.0"
 
 [[package]]
 name = "sympy"
