@@ -45,7 +45,7 @@ pdf = ["marker-pdf"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
-pytest-cov = ">=5,<7"
+pytest-cov = ">=5,<8"
 pytest-mock = "^3.14.0"
 ruff = ">=0.7.1,<0.14.0"
 pre-commit = "^4.2.0"
