@@ -6,7 +6,7 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/omicsNLP/Auto-CORPus/main.svg)](https://results.pre-commit.ci/latest/github/omicsNLP/Auto-CORPus/main)
 [![PyPI version](https://badge.fury.io/py/autocorpus.svg)](https://badge.fury.io/py/autocorpus)
 [![codecov](https://codecov.io/gh/omicsNLP/Auto-CORPus/graph/badge.svg?token=ZTKK4URM4A)](https://codecov.io/gh/omicsNLP/Auto-CORPus)
-[![CoDiet](https://img.shields.io/badge/%F0%9F%8D%8E_CoDiet:_used_by-5AA764)](https://www.codiet.eu)
+[![CoDiet](https://img.shields.io/badge/used_by:_%F0%9F%8D%8E_CoDiet-5AA764)](https://www.codiet.eu)
 
 *Requires Python 3.10+* <!-- markdownlint-disable-line MD036 -->
 
