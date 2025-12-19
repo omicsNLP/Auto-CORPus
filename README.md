@@ -57,7 +57,8 @@ auto-corpus -b PMC -t "output" -f "path/to/directory/of/html/files" -o JSON
 |------|------------------|-----------------------------------------------------------|
 | `-f` | Input File Path  | File or directory to run Auto-CORPus on                   |
 | `-t` | Output File Path | Directory path where Auto-CORPus should save output files |
-| `-c` | Config           | Which config file to use                                  |
+| `-b` | Default Config           | Which default (provided) config file to use. Options include "LEGACY_PMC" (PMC pre-2024), "PMC" (current), "PLOS_GENETICS" or "NATURE_GENETICS".                                  |
+| `-c` | Config           | Which config file to use (particularly user-made config files).                                  |
 | `-o` | Output Format    | Either `JSON` or `XML` (defaults to `JSON`)               |
 
 ## Config files
