@@ -136,6 +136,7 @@ def pytest_collection_modifyitems(config, items):
 
 
 def set_random_seeds(seed: int = 0) -> None:
+    """Fix random number generator seeds used by stochastic algorithms."""
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -143,5 +144,5 @@ def set_random_seeds(seed: int = 0) -> None:
 
 @pytest.fixture(scope="session", autouse=True)
 def deterministic_session():
+    """Session-scoped fixture to set random seeds for test reproducibility."""
     set_random_seeds(1234)
-   
