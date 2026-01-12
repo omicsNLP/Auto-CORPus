@@ -141,6 +141,9 @@ def test_pdf_to_bioc(data_path: Path, input_file: str, config: dict[str, Any]) -
     ) as f:
         expected_tables = json.load(f)
 
+    import torch
+    torch.manual_seed(0)
+    
     auto_corpus = process_file(config=config, file_path=pdf_path)
 
     new_bioc = auto_corpus.main_text
