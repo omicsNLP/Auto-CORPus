@@ -1,9 +1,12 @@
 """Fixtures for tests."""
 
+import random
 import sys
 from pathlib import Path
 
+import numpy as np
 import pytest
+import torch
 
 from autocorpus.ac_bioc import (
     BioCAnnotation,
@@ -130,3 +133,15 @@ def pytest_collection_modifyitems(config, items):
             item.add_marker(skip_ci_macos)
         if "skip_ci_windows" in item.keywords:
             item.add_marker(skip_ci_windows)
+
+
+def set_random_seeds(seed: int = 0) -> None:
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+@pytest.fixture(scope="session", autouse=True)
+def deterministic_session():
+    set_random_seeds(1234)
+   
