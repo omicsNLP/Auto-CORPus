@@ -141,7 +141,7 @@ def set_random_seeds(seed: int = 0) -> None:
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
+
 @pytest.fixture(scope="session", autouse=True)
 def deterministic_session():
     set_random_seeds(1234)
-   
