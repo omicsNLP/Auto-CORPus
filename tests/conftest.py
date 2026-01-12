@@ -142,6 +142,7 @@ def set_random_seeds(seed: int = 0) -> None:
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
+
 @pytest.fixture(scope="session", autouse=True)
 def deterministic_session():
     """Session-scoped fixture to set random seeds for test reproducibility."""
