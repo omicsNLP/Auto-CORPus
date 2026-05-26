@@ -18,7 +18,7 @@ def _get_html_test_data_paths(subfolder: str):
     """Return paths to HTML test data files with appropriate DefaultConfig."""
     HTML_DATA_PATH = DATA_PATH / subfolder / "html"
     if not HTML_DATA_PATH.exists():
-        return
+        return []
 
     for dir_name in os.listdir(HTML_DATA_PATH):
         dir_path = HTML_DATA_PATH / dir_name
