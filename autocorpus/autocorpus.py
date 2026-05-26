@@ -45,10 +45,8 @@ class Autocorpus:
         Returns:
             main text as BioC JSON
         """
-        return json.dumps(
-            get_formatted_bioc_collection(self.main_text, self.file_path),
-            indent=2,
-            ensure_ascii=False,
+        return get_formatted_bioc_collection(self.main_text, self.file_path).to_json(
+            indent=2, ensure_ascii=False
         )
 
     def main_text_to_bioc_xml(self) -> str:
